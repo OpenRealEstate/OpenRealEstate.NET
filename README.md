@@ -1,4 +1,5 @@
 OpenRealEstate.NET
 ==================
 
-An RealEstate client API for .NET
+This library is an easy to use .NET Client api to help parse OpenRealEstate data.
+

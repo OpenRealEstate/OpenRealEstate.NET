@@ -1,0 +1,88 @@
+﻿{
+  "Pricing": {
+    "SalePrice": 500100.99,
+    "SalePriceText": "Contact Agent",
+    "SoldPrice": null,
+    "SoldPriceText": null,
+    "SoldOn": null
+  },
+  "AgencyId": "Sample.Agency.1",
+  "CreatedOn": "2014-04-14T10:34:32.1911559Z",
+  "Address": {
+    "StreetNumber": "1",
+    "Street": "Upper Heidelberg Road",
+    "Suburb": "Ivanhoe",
+    "State": "VIC",
+    "CountryIsoCode": "AU",
+    "Postcode": "3079",
+    "Latitude": -11.22,
+    "Longitude": 33.44,
+    "IsStreetDisplayed": true
+  },
+  "Agents": [
+    {
+      "Name": "John Smith",
+      "Order": 1,
+      "Communications": [
+        {
+          "Details": "boy@life.com",
+          "CommunicationType": "Email"
+        }
+      ]
+    },
+    {
+      "Name": "Jane Doe",
+      "Order": 2,
+      "Communications": [
+        {
+          "Details": "girl@life.com",
+          "CommunicationType": "Email"
+        },
+        {
+          "Details": "(99) 1234 5678",
+          "CommunicationType": "Mobile"
+        }
+      ]
+    }
+  ],
+  "Features": {
+    "Bedrooms": 1,
+    "Bathrooms": 2,
+    "CarSpaces": 3
+  },
+  "Images": [
+    {
+      Order: "1",
+      "Url": "http://imgur.com/image/1.png"
+    },
+    {
+      Order: "2",
+      "Url": "http://imgur.com/image/2.png"
+    },
+    {
+      Order: "3",
+      "Url": "http://imgur.com/image/3.png"
+    },
+    {
+      Order: "4",
+      "Url": "http://imgur.com/image/4.png"
+    },
+    {
+      Order: "5",
+      "Url": "http://imgur.com/image/5.png"
+    }
+  ],
+  "FloorPlans": [
+    {
+      "Order": "1",
+      "Url": "http: //imgur.com/floorplan/1.png"
+    },
+    {
+      "Order": "2",
+      "Url": "http: //imgur.com/floorplan/2.png"
+    }
+  ],
+  "Videos": null,
+  "Id": "Ref1111",
+  "UpdatedOn": "2014-02-25T01: 51: 03.2986387Z"
+}

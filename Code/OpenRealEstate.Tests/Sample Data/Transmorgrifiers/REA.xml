@@ -1,0 +1,2472 @@
+<propertyList date="2014-01-28-16:43:39" username="pewpew" password="pewpew">
+    <residential modTime="2013-12-06-03:17:25" status="current">
+        <agentID>5140</agentID>
+        <uniqueID>1199536</uniqueID>
+        <listingAgent id="1">
+            <name>Kelly Flanagan</name>
+            <telephone type="BH">02 6562 3600</telephone>
+            <email>receptionkf@sample.agency.1.com.au</email>
+        </listingAgent>
+        <listingAgent id="2"></listingAgent>
+        <address display="yes">
+            <streetNumber>30</streetNumber>
+            <street>Panorama Avenue</street>
+            <suburb>South West Rocks</suburb>
+            <state>NSW</state>
+            <postcode>2431</postcode>
+            <country>Australia</country>
+        </address>
+        <price display="yes">329000</price>
+        <priceView></priceView>
+        <headline><![CDATA[Last Home In The Street - It's Peaceful With Bushland Outlook.]]></headline>
+        <description><![CDATA[If you want a lovely quiet spot in South West Rocks to live than look at this beauty in Panorama Avenue - it's the last home in the street and has a lot of open space, bushland and elevated views to admire and cherish.<br /><br />And it's a good home, a well-built home! Designed by the owner and built by a well-respected local builder. It was designed for easy access for a wheelchair around the upper level (via the garage) with open-plan design, wide doorways, wide hallway, extra spacious main bathroom etc.<br /><br />Down stairs you have a laundry - featuring laundry shoot! And underneath the home there is an easy access door to a huge amazing space - it's that big underneath you could build in a studio or workshop with ease. &quot;This is a huge hidden bonus to this property - it's got room to move so to speak!&quot;<br /><br />Other features of this 3 bedroom, 2 bathroom, 1 garage home include:<br />- Small easy-to-maintain block - 474sqm.<br />- Well-presented home - move in straight away and put your feet up!<br />- Wonderful views of Smoky Cape - even from the lounge chair, quite special.<br />- Open-plan lounge/kitchen/dining leading out onto an elevated deck.<br />- Polished timber floor<span data-description=" boards in living and tiles in walkways, carpet in bedrooms.&lt;br&gt;- Very spacious kitchen: electric wall oven, electric stove/range hood, dishwasher.&lt;br&gt;- En-suite and walk-in robe to main bedroom. &lt;br&gt;- Spacious main bathroom: shower, bath, separate toilet.&lt;br&gt;- Built-in robes to 2nd and 3rd bedroom.&lt;br&gt;- Ceiling fans in every bedroom and in living areas.&lt;br&gt;- Reverse cycle air conditioning.&lt;br&gt;- Elevated timber deck with ramp to backyard.&lt;br&gt;&lt;br&gt;So if you want a good home in a very quiet location, mid-way between Bi-Lo and the beach, than hurry up and look at this gem.  You will love living here.&lt;br&gt;&lt;br&gt;Call any day, anytime to arrange you inspection.">...</span><a href="#" rel="revealDescription" class="more interesting hidden">show more</a> boards in living and tiles in walkways, carpet in bedrooms.<br>- Very spacious kitchen: electric wall oven, electric stove/range hood, dishwasher.<br>- En-suite and walk-in robe to main bedroom. <br>- Spacious main bathroom: shower, bath, separate toilet.<br>- Built-in robes to 2nd and 3rd bedroom.<br>- Ceiling fans in every bedroom and in living areas.<br>- Reverse cycle air conditioning.<br>- Elevated timber deck with ramp to backyard.<br><br>So if you want a good home in a very quiet location, mid-way between Bi-Lo and the beach, than hurry up and look at this gem.  You will love living here.<br><br>Call any day, anytime to arrange you inspection.]]></description>
+        <externalLink href="" />
+        <externalLink href="" />
+        <videoLink href="" />
+        <underOffer value="yes" />
+        <category name="House" />
+        <features>
+            <bedrooms>3</bedrooms>
+            <bathrooms>2</bathrooms>
+            <ensuite></ensuite>
+            <garages>1</garages>
+            <carports>0</carports>
+            <remoteGarage></remoteGarage>
+            <secureParking></secureParking>
+            <airConditioning></airConditioning>
+            <alarmSystem></alarmSystem>
+            <vacuumSystem></vacuumSystem>
+            <intercom></intercom>
+            <poolInGround></poolInGround>
+            <spa></spa>
+            <insideSpa></insideSpa>
+            <outsideSpa></outsideSpa>
+            <tennisCourt></tennisCourt>
+            <balcony></balcony>
+            <courtyard></courtyard>
+            <outdoorEnt></outdoorEnt>
+            <shed></shed>
+            <openFirePlace></openFirePlace>
+            <broadband></broadband>
+            <builtInRobes></builtInRobes>
+            <dishwasher></dishwasher>
+            <gym></gym>
+            <payTV></payTV>
+            <study></study>
+            <workshop></workshop>
+            <openSpaces></openSpaces>
+        </features>
+        <landDetails>
+            <area unit="squareMeter">474</area>
+            <frontage></frontage>
+            <depth side="left"></depth>
+            <depth side="right"></depth>
+            <depth side="rear"></depth>
+        </landDetails>
+        <buildingDetails>
+            <area unit="squareMeter"></area>
+        </buildingDetails>
+        <inspectionTimes>
+            <inspection>21-FEB-2014 06:15PM to 06:30PM</inspection>
+        </inspectionTimes>
+        <authority value="exclusive" />
+        <objects>
+            <img id="m" modTime="2013-11-25-13:07:45"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/a4f063e1fe5b3468f54cd2a6c8c35292810d035d"
+                 format="jpg" />
+            <img id="a" modTime="2013-11-25-13:07:45"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/93ef7d8c09647f5f4052cc3a6215752f313f3478"
+                 format="jpg" />
+            <img id="b" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/80cea5717cbb3f284b2df130ca3fbe92f899b472"
+                 format="jpg" />
+            <img id="c" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/b901056d16ed3fec4effd2b3a3add64c9c9d7d34"
+                 format="jpg" />
+            <img id="d" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/5c64ac091f19cbce581c94c2622d139cd6b5178b"
+                 format="jpg" />
+            <img id="e" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/9b916f63abadbfdb7d7bba17889de59e10689987"
+                 format="jpg" />
+            <img id="f" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/ddc52711bfd0c2df045ac9d514663a800469e5ee"
+                 format="jpg" />
+            <img id="g" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/92e1470c51bbea1b7ef4ddf8a2db6eff46ada929"
+                 format="jpg" />
+            <img id="h" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/a40f851596fbca94e309e06ea47fab5999074aba"
+                 format="jpg" />
+            <img id="i" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/0a7d617bb600fe8b9a4f707cb363d1d2e94fb7fe"
+                 format="jpg" />
+            <img id="j" />
+            <img id="k" />
+            <img id="l" />
+            <img id="n" />
+            <img id="o" />
+            <img id="p" />
+            <img id="q" />
+            <img id="r" />
+            <img id="s" />
+            <img id="t" />
+            <img id="u" />
+            <img id="v" />
+            <img id="w" />
+            <img id="x" />
+            <img id="y" />
+            <img id="z" />
+            <floorplan id="1" url="http://img.somedomain.com/floorplan1.png" />
+            <floorplan id="2" url="http://img.somedomain.com/floorplan2.png" />
+        </objects>
+    </residential>
+    <residential modTime="2013-12-06-03:19:44" status="current">
+        <agentID>5140</agentID>
+        <uniqueID>1200048</uniqueID>
+        <listingAgent id="1">
+            <name>Kelly Flanagan</name>
+            <telephone type="BH">02 6562 3600</telephone>
+            <email>receptionkf@sample.agency.1.com.au</email>
+        </listingAgent>
+        <listingAgent id="2"></listingAgent>
+        <address display="yes">
+            <streetNumber>2</streetNumber>
+            <street>South Street</street>
+            <suburb>South Kempsey</suburb>
+            <state>NSW</state>
+            <postcode>2440</postcode>
+            <country>Australia</country>
+        </address>
+        <price display="yes">197000</price>
+        <priceView></priceView>
+        <headline><![CDATA[Oh So Private, Yet Close To Town - 2.4Ha. (6 Ac).]]></headline>
+        <description><![CDATA[Tucked away in its own little world on the fringe of town! A great place to spread out and not be bothered by anyone! Indeed, your friends will have trouble finding you here!<br /><br />Actually, if you're a truckie or a family with lots of big toys then this is your dream-come-true alright. This is the perfect truckies paradise - great solid driveway and parking everywhere. It's out of the way, so no-one will bother you about 'starting up' in the early morning. There's no reversing necessary either - just drive in, and drive straight out!<br /><br />Yep, this 2.4Ha. (6 Ac) property is going to be the best dollar-for-dollar buy on small acres. And, if you love trains - you'll love this!<br /><br />It's only a 400m walk to Primary and High schools - over the train line and onto Crescent Head Road.<br /><br />Indeed it's so close to Crescent Head beaches its' ridiculous at this price - only 20km (15minutes) to the beach. And, yet only 5km to the centre of Kempsey. Awesome.<br /><br />ACCOMMODATION: bright and fresh 3 bedroom Hardiplank home, open-plan kitchen/dining/lounge, bathroom with shower + separate toilet, internal laundry.<br /> <br />FEATURES: new 1.5Kw back-to-grid solar<span data-description=" system, new solar hot water system, new powder coated security fly screens all-round, flu for fire place still in place,  northerly aspect.&lt;br&gt;&lt;br&gt;STUDIO: And, there's a great 'newly' built studio just off the back of the house too (it's the perfect teenager's retreat or yoga sancturary).&lt;br&gt;&lt;br&gt;SHEDS and THINGS: new 6m x 6m double car Colorbond shed, 2 x carports, bird aviary, cattery, puppy cage and 2 new poly water tanks totalling 24,000L.&lt;br&gt;&lt;br&gt;SERVICES: town water, power, waste collection, mail.&lt;br&gt;&lt;br&gt;Indeed everything is extremely tidy, extremely solid and perfectly presented.&lt;br&gt;At this price, you just have to see it!  Call me any day, anytime to arrange your inspection.">...</span><a href="#" rel="revealDescription" class="more interesting hidden">show more</a> system, new solar hot water system, new powder coated security fly screens all-round, flu for fire place still in place,  northerly aspect.<br><br>STUDIO: And, there's a great 'newly' built studio just off the back of the house too (it's the perfect teenager's retreat or yoga sancturary).<br><br>SHEDS and THINGS: new 6m x 6m double car Colorbond shed, 2 x carports, bird aviary, cattery, puppy cage and 2 new poly water tanks totalling 24,000L.<br><br>SERVICES: town water, power, waste collection, mail.<br><br>Indeed everything is extremely tidy, extremely solid and perfectly presented.<br>At this price, you just have to see it!  Call me any day, anytime to arrange your inspection.]]></description>
+        <externalLink href="" />
+        <externalLink href="" />
+        <videoLink href="" />
+        <underOffer value="no" />
+        <category name="AcreageSemi-rural" />
+        <features>
+            <bedrooms>3</bedrooms>
+            <bathrooms>1</bathrooms>
+            <ensuite></ensuite>
+            <garages>3</garages>
+            <carports>0</carports>
+            <remoteGarage></remoteGarage>
+            <secureParking></secureParking>
+            <airConditioning></airConditioning>
+            <alarmSystem></alarmSystem>
+            <vacuumSystem></vacuumSystem>
+            <intercom></intercom>
+            <poolInGround></poolInGround>
+            <spa></spa>
+            <insideSpa></insideSpa>
+            <outsideSpa></outsideSpa>
+            <tennisCourt></tennisCourt>
+            <balcony></balcony>
+            <courtyard></courtyard>
+            <outdoorEnt></outdoorEnt>
+            <shed></shed>
+            <openFirePlace></openFirePlace>
+            <broadband></broadband>
+            <builtInRobes></builtInRobes>
+            <dishwasher></dishwasher>
+            <gym></gym>
+            <payTV></payTV>
+            <study></study>
+            <workshop></workshop>
+            <openSpaces></openSpaces>
+        </features>
+        <landDetails>
+            <area unit="squareMeter">2</area>
+            <frontage></frontage>
+            <depth side="left"></depth>
+            <depth side="right"></depth>
+            <depth side="rear"></depth>
+        </landDetails>
+        <buildingDetails>
+            <area unit="squareMeter"></area>
+        </buildingDetails>
+        <inspectionTimes></inspectionTimes>
+        <authority value="exclusive" />
+        <objects>
+            <img id="m" modTime="2013-11-25-11:07:56"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/df1a1c82258dcefec41d13cad6aa4703a010a4f1"
+                 format="jpg" />
+            <img id="a" modTime="2013-11-25-11:07:56"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/e1df94ad26ef46252e835dbcb129a701bbd57835"
+                 format="jpg" />
+            <img id="b" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/a1e726a1c49b583f26521907e79fac9e724705e7"
+                 format="jpg" />
+            <img id="c" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/b6eb588b938e09939df4b0932dee5887c75aa279"
+                 format="jpg" />
+            <img id="d" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/469935a3d21bfe0fc7d3298145c6653981726337"
+                 format="jpg" />
+            <img id="e" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/2b2a130fb9f3a9cad44f5ab83eddfba1ac92e5c2"
+                 format="jpg" />
+            <img id="f" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/700d4315a93acaecd43d593fa5b7ac5d1232f214"
+                 format="jpg" />
+            <img id="g" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/67a596e7f31e2fede401f4771a3fe79f25f6b62f"
+                 format="jpg" />
+            <img id="h" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/eea7d7e762d6d31b1e68fad81f536b9f0f619d92"
+                 format="jpg" />
+            <img id="i" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/4bc4aa1dc7a1c5bb0cc406f4fa33e128d998e5d3"
+                 format="jpg" />
+            <img id="j" />
+            <img id="k" />
+            <img id="l" />
+            <img id="n" />
+            <img id="o" />
+            <img id="p" />
+            <img id="q" />
+            <img id="r" />
+            <img id="s" />
+            <img id="t" />
+            <img id="u" />
+            <img id="v" />
+            <img id="w" />
+            <img id="x" />
+            <img id="y" />
+            <img id="z" />
+            <floorplan id="1" />
+            <floorplan id="2" />
+        </objects>
+    </residential>
+    <residential modTime="2013-12-06-03:20:35" status="current">
+        <agentID>5140</agentID>
+        <uniqueID>1200549</uniqueID>
+        <listingAgent id="1">
+            <name>Kelly Flanagan</name>
+            <telephone type="BH">02 6562 3600</telephone>
+            <email>receptionkf@sample.agency.1.com.au</email>
+        </listingAgent>
+        <listingAgent id="2"></listingAgent>
+        <address display="yes">
+            <streetNumber>297</streetNumber>
+            <street>Mungay Creek Road</street>
+            <suburb>Mungay Creek</suburb>
+            <state>NSW</state>
+            <postcode>2440</postcode>
+            <country>Australia</country>
+        </address>
+        <price display="yes">535000</price>
+        <priceView></priceView>
+        <headline><![CDATA[Big Stunning Home, Big Shed, Awesome Block and Location - 54.84Ha. (135.5Ac)]]></headline>
+        <description><![CDATA[When you want to go live in the bush, you want to get away from people, right? When you are already used to classy spacious living, you can't go backwards into a shoebox, right? And you want a block that's not just pretty but is useable and accessible, a good mix of grazing land and bushland, right?<br /><br />If you agree to any of the above you had better put this stunner on your list. This one is 'special' because it has everything that most rural buyers want!<br /><br />It's all here, it's all in excellent presentation and it's ready to move into now... You could get in here for Xmas if you go quick otherwise before school starts back!<br /><br />I won't bore you with too many words, the pictures should tell the amazing story.<br /><br />Some of the features are:<br />- Privately located block, and house site, well off the main road and well away from neighbours - you can turn up your music here alright! And no traffic noise, no nosey sticky beaks to worry about, only Kookaburras having a laugh.<br />- Super-sized 4 bedroom, 2 bathroom brick homestead with Colorbond roof and awesome concrete verandas and covered outdoor entertaining area.<br />- Tiles all throughout the home - perfect<span data-description=" easy cleaning!&lt;br&gt;- Stunning timber kitchen:  walk-in pantry room, new stove/oven, breakfast bench (and amazing views).&lt;br&gt;- Main bedroom features: walk-in robe and en-suite.&lt;br&gt;- All other bedrooms have built-in robes.&lt;br&gt;- Every bedroom and all living areas have ceiling fans.&lt;br&gt;- Gorgeous big slow combustion fire to keep the whole house warm in winter.&lt;br&gt;- Main bathroom features: bath + shower (new screen arriving soon) + separate toilet.&lt;br&gt;- Solar hot water, satellite broadband, Austar.&lt;br&gt;- 11.5m x 9m barn-style Colorbond shed (powered) with mezzanine, toilet and plumbing in slab for kitchen, shower.  ('you could convert this shed to a home in no time!').&lt;br&gt;- Full boundary fencing - 6 paddocks in total.&lt;br&gt;- Great set of solid timber stock yards with galvanised steel head crush/ramp.&lt;br&gt;- Goat-fenced dam paddock.&lt;br&gt;- 2 great dams (one with wharf), 2 seasonal creeks.&lt;br&gt;- 2 x 25,000L poly water tanks, 2 x 2,200 Gallon poly water tanks.&lt;br&gt;- Several good garden sheds, cubby house, chook pens, orchard.&lt;br&gt;- Only 1km of good gravel driveway, waste collection available, school bus.&lt;br&gt;- Village of Willawarrin, with shops and Primary School, only 4km away.  &lt;br&gt;&lt;br&gt;This place is like the dream you've always dreamed about, it's amazing, it's perfect, it's just waiting for you.&lt;br&gt;&lt;br&gt;Hurry up and call now, any day, anytime.">...</span><a href="#" rel="revealDescription" class="more interesting hidden">show more</a> easy cleaning!<br>- Stunning timber kitchen:  walk-in pantry room, new stove/oven, breakfast bench (and amazing views).<br>- Main bedroom features: walk-in robe and en-suite.<br>- All other bedrooms have built-in robes.<br>- Every bedroom and all living areas have ceiling fans.<br>- Gorgeous big slow combustion fire to keep the whole house warm in winter.<br>- Main bathroom features: bath + shower (new screen arriving soon) + separate toilet.<br>- Solar hot water, satellite broadband, Austar.<br>- 11.5m x 9m barn-style Colorbond shed (powered) with mezzanine, toilet and plumbing in slab for kitchen, shower.  ('you could convert this shed to a home in no time!').<br>- Full boundary fencing - 6 paddocks in total.<br>- Great set of solid timber stock yards with galvanised steel head crush/ramp.<br>- Goat-fenced dam paddock.<br>- 2 great dams (one with wharf), 2 seasonal creeks.<br>- 2 x 25,000L poly water tanks, 2 x 2,200 Gallon poly water tanks.<br>- Several good garden sheds, cubby house, chook pens, orchard.<br>- Only 1km of good gravel driveway, waste collection available, school bus.<br>- Village of Willawarrin, with shops and Primary School, only 4km away.  <br><br>This place is like the dream you've always dreamed about, it's amazing, it's perfect, it's just waiting for you.<br><br>Hurry up and call now, any day, anytime.]]></description>
+        <externalLink href="" />
+        <externalLink href="" />
+        <videoLink href="" />
+        <underOffer value="no" />
+        <category name="House" />
+        <features>
+            <bedrooms>4</bedrooms>
+            <bathrooms>2</bathrooms>
+            <ensuite></ensuite>
+            <garages>2</garages>
+            <carports>0</carports>
+            <remoteGarage></remoteGarage>
+            <secureParking></secureParking>
+            <airConditioning></airConditioning>
+            <alarmSystem></alarmSystem>
+            <vacuumSystem></vacuumSystem>
+            <intercom></intercom>
+            <poolInGround></poolInGround>
+            <spa></spa>
+            <insideSpa></insideSpa>
+            <outsideSpa></outsideSpa>
+            <tennisCourt></tennisCourt>
+            <balcony></balcony>
+            <courtyard></courtyard>
+            <outdoorEnt></outdoorEnt>
+            <shed></shed>
+            <openFirePlace></openFirePlace>
+            <broadband></broadband>
+            <builtInRobes></builtInRobes>
+            <dishwasher></dishwasher>
+            <gym></gym>
+            <payTV></payTV>
+            <study></study>
+            <workshop></workshop>
+            <openSpaces></openSpaces>
+        </features>
+        <landDetails>
+            <area unit="squareMeter">548400</area>
+            <frontage></frontage>
+            <depth side="left"></depth>
+            <depth side="right"></depth>
+            <depth side="rear"></depth>
+        </landDetails>
+        <buildingDetails>
+            <area unit="squareMeter"></area>
+        </buildingDetails>
+        <inspectionTimes></inspectionTimes>
+        <authority value="exclusive" />
+        <objects>
+            <img id="m" modTime="2013-11-25-10:10:46"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/1526e5b1c1e88c18dc3abecd816ad01a567c10a5"
+                 format="jpg" />
+            <img id="a" modTime="2013-11-25-10:10:47"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/a51dbe4efaf0b4a5e99e01dcac988bcab414865b"
+                 format="jpg" />
+            <img id="b" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/136a2cf2b5cddbd8c0f6bfe4e5bec4af38167eb0"
+                 format="jpg" />
+            <img id="c" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/986e16f772ac52b4f2c7775456d3f3a049ae0863"
+                 format="jpg" />
+            <img id="d" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/34610acda30f79e01156b214b451a699a41b5912"
+                 format="jpg" />
+            <img id="e" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/dfd869df6e7f2a72a9f0b15ec4772e5c1aaa6694"
+                 format="jpg" />
+            <img id="f" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/aea8ad2afb0d779250736382850426e45783a80b"
+                 format="jpg" />
+            <img id="g" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/25954d9f8c13b0411beecaacc590e2e61f223843"
+                 format="jpg" />
+            <img id="h" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/525c1034f2f16a1c64f140a6d54f10588c7fc530"
+                 format="jpg" />
+            <img id="i" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/5f6f911d1427743b22eb6cb52159eb0c33bcdd12"
+                 format="jpg" />
+            <img id="j" />
+            <img id="k" />
+            <img id="l" />
+            <img id="n" />
+            <img id="o" />
+            <img id="p" />
+            <img id="q" />
+            <img id="r" />
+            <img id="s" />
+            <img id="t" />
+            <img id="u" />
+            <img id="v" />
+            <img id="w" />
+            <img id="x" />
+            <img id="y" />
+            <img id="z" />
+            <floorplan id="1" />
+            <floorplan id="2" />
+        </objects>
+    </residential>
+    <land modTime="2013-12-06-03:21:25" status="current">
+        <agentID>5140</agentID>
+        <uniqueID>1200913</uniqueID>
+        <listingAgent id="1">
+            <name>Kelly Flanagan</name>
+            <telephone type="BH">02 6562 3600</telephone>
+            <email>receptionkf@sample.agency.1.com.au</email>
+        </listingAgent>
+        <listingAgent id="2"></listingAgent>
+        <address display="yes">
+            <lotNumber></lotNumber>
+            <streetNumber>96</streetNumber>
+            <street>Smith Street</street>
+            <suburb>Kempsey</suburb>
+            <state>NSW</state>
+            <postcode>2440</postcode>
+            <country>Australia</country>
+        </address>
+        <price display="yes">145000</price>
+        <priceView></priceView>
+        <headline><![CDATA[Commercial Block In CBD]]></headline>
+        <description><![CDATA[Here's a great opportunity to set up your business - smack bang in the middle of the business precinct in Smith Street (and directly opposite McDonalds). You can't get much better street exposure than that!<br /><br />- A little gem/directly opposite McDonalds.<br />- 622sqm of land/ideal for business use.<br />- Zoning: 3 (C) Business General<br />- 16m frontage, 40m depth (approx.).<br /><br />Please note: adjoining 3 bedroom brick home for sale (priced at $195,000) - so you can have your home and your business site for well under $400,000.]]></description>
+        <externalLink href="" />
+        <externalLink href="" />
+        <videoLink href="" />
+        <underOffer value="no" />
+        <landCategory name="Residential" />
+        <landDetails>
+            <area unit="squareMeter">589.02</area>
+            <frontage></frontage>
+            <depth side="left"></depth>
+            <depth side="right"></depth>
+            <depth side="rear"></depth>
+        </landDetails>
+        <authority value="exclusive" />
+        <inspectionTimes></inspectionTimes>
+        <objects>
+            <img id="m" modTime="2013-09-04-18:13:55"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/01735d1c07ffe5527e239866453b644112365628"
+                 format="jpg" />
+            <img id="a" modTime="2013-09-04-18:13:53"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/ce39e39ac3b07b1ab7fa37d9ad6533320034ab91"
+                 format="jpg" />
+            <img id="b" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/151a78df0610255f07096f144d6a735343a47933"
+                 format="jpg" />
+            <img id="c" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/3537f9ece71600ab19e255ff0a1ebac900c037b7"
+                 format="jpg" />
+            <img id="d" />
+            <img id="e" />
+            <img id="f" />
+            <img id="g" />
+            <img id="h" />
+            <img id="i" />
+            <img id="j" />
+            <img id="k" />
+            <img id="l" />
+            <img id="n" />
+            <img id="o" />
+            <img id="p" />
+            <img id="q" />
+            <img id="r" />
+            <img id="s" />
+            <img id="t" />
+            <img id="u" />
+            <img id="v" />
+            <img id="w" />
+            <img id="x" />
+            <img id="y" />
+            <img id="z" />
+            <floorplan id="1" />
+            <floorplan id="2" />
+        </objects>
+    </land>
+    <residential modTime="2013-12-05-14:39:05" status="current">
+        <agentID>5140</agentID>
+        <uniqueID>1216152</uniqueID>
+        <listingAgent id="1">
+            <name>Kelly Flanagan</name>
+            <telephone type="BH">02 6562 3600</telephone>
+            <email>receptionkf@sample.agency.1.com.au</email>
+        </listingAgent>
+        <listingAgent id="2"></listingAgent>
+        <address display="yes">
+            <streetNumber>21</streetNumber>
+            <street>Seam Mill Place</street>
+            <suburb>Euroka</suburb>
+            <state>NSW</state>
+            <postcode>2440</postcode>
+            <country>Australia</country>
+        </address>
+        <price display="yes">465000</price>
+        <priceView></priceView>
+        <headline><![CDATA[Fine Chic Country Living - 1.09Ha. (2.7Ac)]]></headline>
+        <description><![CDATA[Style never hurt anyone, indeed it just makes life much more pleasant!<br /><br />Having 3 bathrooms never hurt anyone either, that would certainly make one's life more pleasant.<br /><br />At every turn you notice this isn't your normal brand new brick home. This one has a floor plan, fine fittings and finishing's to compete with the best. <br /><br />If you appreciate the finer things in life and in your home then let this home be the next on your list to see!<br /> <br />Indeed you can buy this entire lifestyle of furniture and decorations as well if you like (just talk to owners separately about that)!<br /><br />Why go to France when you can stay here and dip your croissant on your own back veranda? Walking into this home sweetens the day as you experience a wee taste of a provincial French home blended well with an ensemble of contemporary chic accompaniments. <br /><br />All this only 7 minutes from town or 20 minutes to the famous beaches of Crescent Head... I think France can wait!<br /><br />This classy new home rests on a magnificent block at the end of a quiet cul-de-sac that gives you heaps of space between neighbours and magnificent views out over a lush green rural valley. <span data-description="&lt;br&gt; &lt;br&gt;Features of this oh-so-yummy home include:&lt;br&gt;- 1.09Ha. (2.7Ac) of established land with big gorgeous rural views and privacy!&lt;br&gt;- North East home site perfectly selected for comfortable living, sunlight and the soothing breezes that travel up the valley and pass through the home.&lt;br&gt;- Formal separate lounge, open-plan kitchen/dining/family area leading onto the back patio.&lt;br&gt;- Master bedroom suite at one end - with large walk-in robe and stunning en-suite.&lt;br&gt;- 2nd bedroom at the other end of the home with it's own en-suite and walk-in robe.&lt;br&gt;- 3rd bedroom (with built-in robes) away from the other bedrooms yet adjacent to the exquisite main bathroom.&lt;br&gt;- Sizzling kitchen: with large walk-in pantry, stone bench tops, breakfast bench, Smeg gas stove/electric oven, Miele dishwasher and stunning views might I add!&lt;br&gt;- Ducted reverse cycle air conditioning throughout home, insulation bats in all external walls and roof, gas hot water.&lt;br&gt;- Exquisite Paco Jaanson tapwear.&lt;br&gt;- Attached double garage, separate 6m x 6m Colorbond shed.&lt;br&gt;&lt;br&gt;Now these are just some of the features, I'll leave the rest for you to discover.&lt;br&gt;&lt;br&gt;So if you are looking for a modern home, a bit of class, privacy, serenity and stunning scenery - give us a call any day/anytime for your personal viewing.">...</span><a href="#" rel="revealDescription" class="more interesting hidden">show more</a><br> <br>Features of this oh-so-yummy home include:<br>- 1.09Ha. (2.7Ac) of established land with big gorgeous rural views and privacy!<br>- North East home site perfectly selected for comfortable living, sunlight and the soothing breezes that travel up the valley and pass through the home.<br>- Formal separate lounge, open-plan kitchen/dining/family area leading onto the back patio.<br>- Master bedroom suite at one end - with large walk-in robe and stunning en-suite.<br>- 2nd bedroom at the other end of the home with it's own en-suite and walk-in robe.<br>- 3rd bedroom (with built-in robes) away from the other bedrooms yet adjacent to the exquisite main bathroom.<br>- Sizzling kitchen: with large walk-in pantry, stone bench tops, breakfast bench, Smeg gas stove/electric oven, Miele dishwasher and stunning views might I add!<br>- Ducted reverse cycle air conditioning throughout home, insulation bats in all external walls and roof, gas hot water.<br>- Exquisite Paco Jaanson tapwear.<br>- Attached double garage, separate 6m x 6m Colorbond shed.<br><br>Now these are just some of the features, I'll leave the rest for you to discover.<br><br>So if you are looking for a modern home, a bit of class, privacy, serenity and stunning scenery - give us a call any day/anytime for your personal viewing.]]></description>
+        <externalLink href="" />
+        <externalLink href="" />
+        <videoLink href="" />
+        <underOffer value="no" />
+        <category name="AcreageSemi-rural" />
+        <features>
+            <bedrooms>3</bedrooms>
+            <bathrooms>3</bathrooms>
+            <ensuite></ensuite>
+            <garages>4</garages>
+            <carports>0</carports>
+            <remoteGarage></remoteGarage>
+            <secureParking></secureParking>
+            <airConditioning></airConditioning>
+            <alarmSystem></alarmSystem>
+            <vacuumSystem></vacuumSystem>
+            <intercom></intercom>
+            <poolInGround></poolInGround>
+            <spa></spa>
+            <insideSpa></insideSpa>
+            <outsideSpa></outsideSpa>
+            <tennisCourt></tennisCourt>
+            <balcony></balcony>
+            <courtyard></courtyard>
+            <outdoorEnt></outdoorEnt>
+            <shed></shed>
+            <openFirePlace></openFirePlace>
+            <broadband></broadband>
+            <builtInRobes></builtInRobes>
+            <dishwasher></dishwasher>
+            <gym></gym>
+            <payTV></payTV>
+            <study></study>
+            <workshop></workshop>
+            <openSpaces></openSpaces>
+        </features>
+        <landDetails>
+            <area unit="squareMeter">10950</area>
+            <frontage></frontage>
+            <depth side="left"></depth>
+            <depth side="right"></depth>
+            <depth side="rear"></depth>
+        </landDetails>
+        <buildingDetails>
+            <area unit="squareMeter"></area>
+        </buildingDetails>
+        <inspectionTimes></inspectionTimes>
+        <authority value="exclusive" />
+        <objects>
+            <img id="m" modTime="2013-11-19-12:06:49"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/8b02a5ae158cb2978584f52f8166ed67f018664b"
+                 format="jpg" />
+            <img id="a" modTime="2013-11-19-12:06:50"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/0609832a75982b21c19a13da43f339ddb8c8ba7c"
+                 format="jpg" />
+            <img id="b" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/ab2be92c860ab09c4011abb6bc8fafa539a3003d"
+                 format="jpg" />
+            <img id="c" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/3979d6b3cbe131ce64e2e1a2b18948af4b537550"
+                 format="jpg" />
+            <img id="d" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/dad7ce0a8116abb917c452834566551b0c6a7d66"
+                 format="jpg" />
+            <img id="e" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/216a0eca026da040a368f2007f3c19e206c6b08c"
+                 format="jpg" />
+            <img id="f" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/a364c5bc7e05f622cc2efea9a802f23709478fec"
+                 format="jpg" />
+            <img id="g" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/a041c5b8dc600b8d262d2c18abbaebc424feecfc"
+                 format="jpg" />
+            <img id="h" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/026695659f34d411a9007e73ec1c7c8d2e4f8a03"
+                 format="jpg" />
+            <img id="i" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/9bac7692b0b14ad29b0265cb038f570176282795"
+                 format="jpg" />
+            <img id="j" />
+            <img id="k" />
+            <img id="l" />
+            <img id="n" />
+            <img id="o" />
+            <img id="p" />
+            <img id="q" />
+            <img id="r" />
+            <img id="s" />
+            <img id="t" />
+            <img id="u" />
+            <img id="v" />
+            <img id="w" />
+            <img id="x" />
+            <img id="y" />
+            <img id="z" />
+            <floorplan id="1" />
+            <floorplan id="2" />
+        </objects>
+    </residential>
+    <residential modTime="2013-12-05-14:40:34" status="current">
+        <agentID>5140</agentID>
+        <uniqueID>1216611</uniqueID>
+        <listingAgent id="1">
+            <name>Kelly Flanagan</name>
+            <telephone type="BH">02 6562 3600</telephone>
+            <email>receptionkf@sample.agency.1.com.au</email>
+        </listingAgent>
+        <listingAgent id="2"></listingAgent>
+        <address display="yes">
+            <streetNumber>2</streetNumber>
+            <street>Darkwater Street</street>
+            <suburb>Gladstone</suburb>
+            <state>NSW</state>
+            <postcode>2440</postcode>
+            <country>Australia</country>
+        </address>
+        <price display="yes">295000</price>
+        <priceView></priceView>
+        <headline><![CDATA[4-Bedder, Sheds, No Neighbours, Near Beaches]]></headline>
+        <description><![CDATA[It doesn't get much better than this: glorious Gladstone village, 4 bedrooms + study, immaculate presentation, great shedding and access plus, you don't have any direct residential neighbours (no-one looking in at you, you aren't looking in on anyone either). Oh, and you are a casual 15minute car trip to any of our 3 famous beaches: South West Rocks, Hat Head or Crescent Head. Perfect!<br /><br />And for those of you that don't already know, Gladstone is the glistening jewel in the crown for our area if you are looking for a quiet old-fashioned village lifestyle with gorgeous cafes and hotel, primary school, gift shops, necessity shopping, monthly markets, parks and gardens and of course the stunning Macleay River to admire. It's a pretty little village on the river with historic buildings and a 'small community' culture. <br /><br />This home was part of the rectory for the adjoining church until it was sold off to private buyers years ago - it is a blessed building, commemorated with a plaque at the entrance way. So there you go!<br /><br />So yes, one neighbour is church (hardly used), one neighbour is a community hall (hardly used) and on the other side you have a little laneway<span data-description=" (hardly used, but gives you access to the shed).  &amp;quot;The current owners, moved here from a farm, and chose this home because they weren't surrounded by neighbours!&amp;quot;&lt;br&gt;&lt;br&gt;The presentation of this entire property will impress you.  The owners have this place in A1, ship-shape, walk-in-do-nothing condition.  From the front fence to the back fence it is a true credit to them, and I'm proud to be their agent (it makes my job easy).&lt;br&gt;&lt;br&gt;Features include:&lt;br&gt;- 4 bedrooms (3 with built-in robes) + study.&lt;br&gt;- 1 bathroom (separate toilet, separate vanity, separate spa/shower).&lt;br&gt;- Huge kitchen - loads of bench and cupboards, gas cooking, dishwasher.&lt;br&gt;- Formal lounge area + dining area + breakfast area.&lt;br&gt;- External laundry house (with second shower and toilet).&lt;br&gt;- 6m x 6m double car steel garage (1 remote roller door).&lt;br&gt;- Double bay high top carport/caravan port.&lt;br&gt;- Covered vegie beds, small chook pen.&lt;br&gt;- Private garden and lush lawns.&lt;br&gt;- Solid tar sealed driveway.&lt;br&gt;- 2kW feed-back-to-grid pva + heat pump hot water system.&lt;br&gt;- 3 new European style electric wall heaters (cost as little as 7c per hour).&lt;br&gt;- Reverse cycle air conditioning + gas heating outlets.&lt;br&gt;&lt;br&gt;And yes, it's in Gladstone, glorious Gladstone...&lt;br&gt;&lt;br&gt;Call any day/anytime to arrange your inspection!  It's a gem.">...</span><a href="#" rel="revealDescription" class="more interesting hidden">show more</a> (hardly used, but gives you access to the shed).  &quot;The current owners, moved here from a farm, and chose this home because they weren't surrounded by neighbours!&quot;<br><br>The presentation of this entire property will impress you.  The owners have this place in A1, ship-shape, walk-in-do-nothing condition.  From the front fence to the back fence it is a true credit to them, and I'm proud to be their agent (it makes my job easy).<br><br>Features include:<br>- 4 bedrooms (3 with built-in robes) + study.<br>- 1 bathroom (separate toilet, separate vanity, separate spa/shower).<br>- Huge kitchen - loads of bench and cupboards, gas cooking, dishwasher.<br>- Formal lounge area + dining area + breakfast area.<br>- External laundry house (with second shower and toilet).<br>- 6m x 6m double car steel garage (1 remote roller door).<br>- Double bay high top carport/caravan port.<br>- Covered vegie beds, small chook pen.<br>- Private garden and lush lawns.<br>- Solid tar sealed driveway.<br>- 2kW feed-back-to-grid pva + heat pump hot water system.<br>- 3 new European style electric wall heaters (cost as little as 7c per hour).<br>- Reverse cycle air conditioning + gas heating outlets.<br><br>And yes, it's in Gladstone, glorious Gladstone...<br><br>Call any day/anytime to arrange your inspection!  It's a gem.]]></description>
+        <externalLink href="" />
+        <externalLink href="" />
+        <videoLink href="" />
+        <underOffer value="no" />
+        <category name="House" />
+        <features>
+            <bedrooms>4</bedrooms>
+            <bathrooms>1</bathrooms>
+            <ensuite></ensuite>
+            <garages>4</garages>
+            <carports>0</carports>
+            <remoteGarage></remoteGarage>
+            <secureParking></secureParking>
+            <airConditioning></airConditioning>
+            <alarmSystem></alarmSystem>
+            <vacuumSystem></vacuumSystem>
+            <intercom></intercom>
+            <poolInGround></poolInGround>
+            <spa></spa>
+            <insideSpa></insideSpa>
+            <outsideSpa></outsideSpa>
+            <tennisCourt></tennisCourt>
+            <balcony></balcony>
+            <courtyard></courtyard>
+            <outdoorEnt></outdoorEnt>
+            <shed></shed>
+            <openFirePlace></openFirePlace>
+            <broadband></broadband>
+            <builtInRobes></builtInRobes>
+            <dishwasher></dishwasher>
+            <gym></gym>
+            <payTV></payTV>
+            <study></study>
+            <workshop></workshop>
+            <openSpaces></openSpaces>
+        </features>
+        <landDetails>
+            <area unit="squareMeter">921.4</area>
+            <frontage></frontage>
+            <depth side="left"></depth>
+            <depth side="right"></depth>
+            <depth side="rear"></depth>
+        </landDetails>
+        <buildingDetails>
+            <area unit="squareMeter"></area>
+        </buildingDetails>
+        <inspectionTimes></inspectionTimes>
+        <authority value="exclusive" />
+        <objects>
+            <img id="m" modTime="2013-11-19-10:06:09"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/0e3d068a7e6a978a7947f7f937eab9aed7ce653d"
+                 format="jpg" />
+            <img id="a" modTime="2013-11-19-10:06:10"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/018076f049b627dfc9064f3d477e5c9885bdba81"
+                 format="jpg" />
+            <img id="b" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/94b515567dace7f2a281d53d39a99e7189088057"
+                 format="jpg" />
+            <img id="c" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/85ba2c9bb0efd23458e87e96e8910fe4f33447d8"
+                 format="jpg" />
+            <img id="d" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/687776205fb89f62d0540f8b5e32cffdf465bccb"
+                 format="jpg" />
+            <img id="e" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/8640710409c5c75c7ff941c3ccc2bd73c67cf270"
+                 format="jpg" />
+            <img id="f" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/ab788ca3ad99c79f5a03db0ab63d4ec43578a3eb"
+                 format="jpg" />
+            <img id="g" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/5dda6b7d9482fc1f202dd1dc431faddc4de8367e"
+                 format="jpg" />
+            <img id="h" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/f08641b3eac4aa9262869db40c4c1e5ff5196a21"
+                 format="jpg" />
+            <img id="i" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/dc15fbec96f288ac52a959d2b5900d648ba82afb"
+                 format="jpg" />
+            <img id="j" />
+            <img id="k" />
+            <img id="l" />
+            <img id="n" />
+            <img id="o" />
+            <img id="p" />
+            <img id="q" />
+            <img id="r" />
+            <img id="s" />
+            <img id="t" />
+            <img id="u" />
+            <img id="v" />
+            <img id="w" />
+            <img id="x" />
+            <img id="y" />
+            <img id="z" />
+            <floorplan id="1" />
+            <floorplan id="2" />
+        </objects>
+    </residential>
+    <residential modTime="2013-12-06-10:54:08" status="current">
+        <agentID>5140</agentID>
+        <uniqueID>1220322</uniqueID>
+        <listingAgent id="1">
+            <name>Kelly Flanagan</name>
+            <telephone type="BH">02 6562 3600</telephone>
+            <email>receptionkf@sample.agency.1.com.au</email>
+        </listingAgent>
+        <listingAgent id="2"></listingAgent>
+        <address display="yes">
+            <streetNumber>98</streetNumber>
+            <street>Smith Street</street>
+            <suburb>Kempsey</suburb>
+            <state>NSW</state>
+            <postcode>2440</postcode>
+            <country>Australia</country>
+        </address>
+        <price display="yes">185000</price>
+        <priceView></priceView>
+        <headline><![CDATA[Business Zoning, Big Brick, Rural Views]]></headline>
+        <description><![CDATA[ONEAGENCY Kelly Flanagan is offering you this fabulous investment opportunity - it's a big brick home with a 3 (c) Business Zoning in the commercial precinct of Kempsey. <br /><br />3 bedroom/bathroom residence upstairs with huge office/work space + bathroom downstairs (perfect potential for 2 separate incomes). <br /><br />This is what you wait to pounce on - something cheap, that you can rent really well (well it is currently rented now), with a flexible zoning and use, located in the business precinct where you have the potential for future sale to large commercial developers. <br /><br />Also perfect for the 'work-from-home' family! Set up business downstairs and live comfortably upstairs in the spacious three bedroom home.<br /><br />Features include: built-in robes, open-plan living, rural views, separate toilets, lock-up garage, spacious bedrooms, balcony.<br /><br />Located perfectly less than 400m from the very centre of town, directly opposite McDonalds - it's an easy walk to all shopping and services.<br /><br />Call the team at ONEAGENCY Kelly Flanagan today on 6562 3600 to arrange your private inspection.]]></description>
+        <externalLink href="" />
+        <externalLink href="" />
+        <videoLink href="" />
+        <underOffer value="no" />
+        <category name="House" />
+        <features>
+            <bedrooms>3</bedrooms>
+            <bathrooms>2</bathrooms>
+            <ensuite></ensuite>
+            <garages>1</garages>
+            <carports>0</carports>
+            <remoteGarage></remoteGarage>
+            <secureParking></secureParking>
+            <airConditioning></airConditioning>
+            <alarmSystem></alarmSystem>
+            <vacuumSystem></vacuumSystem>
+            <intercom></intercom>
+            <poolInGround></poolInGround>
+            <spa></spa>
+            <insideSpa></insideSpa>
+            <outsideSpa></outsideSpa>
+            <tennisCourt></tennisCourt>
+            <balcony></balcony>
+            <courtyard></courtyard>
+            <outdoorEnt></outdoorEnt>
+            <shed></shed>
+            <openFirePlace></openFirePlace>
+            <broadband></broadband>
+            <builtInRobes></builtInRobes>
+            <dishwasher></dishwasher>
+            <gym></gym>
+            <payTV></payTV>
+            <study></study>
+            <workshop></workshop>
+            <openSpaces></openSpaces>
+        </features>
+        <landDetails>
+            <area unit="squareMeter">632.3</area>
+            <frontage></frontage>
+            <depth side="left"></depth>
+            <depth side="right"></depth>
+            <depth side="rear"></depth>
+        </landDetails>
+        <buildingDetails>
+            <area unit="squareMeter"></area>
+        </buildingDetails>
+        <inspectionTimes></inspectionTimes>
+        <authority value="exclusive" />
+        <objects>
+            <img id="m" modTime="2013-08-14-09:06:22"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/3022bfee291bf0cb37b9db98131ebecc6faf2aac"
+                 format="jpg" />
+            <img id="a" modTime="2013-08-14-09:06:19"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/4e819d594aeab85d1feb0e8022b14302ce6d05be"
+                 format="jpg" />
+            <img id="b" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/7970c96e5702518983f38916d1cdf4259954e6d7"
+                 format="jpg" />
+            <img id="c" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/0b2f773eef8a4c494067334880537d06c63ae2b1"
+                 format="jpg" />
+            <img id="d" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/4562a40e432e37504d0b9e098d23a8f57e7c618a"
+                 format="jpg" />
+            <img id="e" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/6607a0cc6b7f9c66c6d95f4e1b3a109f9a3e9312"
+                 format="jpg" />
+            <img id="f" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/dec1634e780357e4ad9f4aab36d1c6adaf080b1f"
+                 format="jpg" />
+            <img id="g" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/a569612c244cd4a810a4f4995c126ba251346111"
+                 format="jpg" />
+            <img id="h" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/fb45a84863e2311725c8b90e5b66e6df65dca836"
+                 format="jpg" />
+            <img id="i" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/91ba4ce7dd6d7f5bf8085b35fac55d81e54c15e5"
+                 format="jpg" />
+            <img id="j" />
+            <img id="k" />
+            <img id="l" />
+            <img id="n" />
+            <img id="o" />
+            <img id="p" />
+            <img id="q" />
+            <img id="r" />
+            <img id="s" />
+            <img id="t" />
+            <img id="u" />
+            <img id="v" />
+            <img id="w" />
+            <img id="x" />
+            <img id="y" />
+            <img id="z" />
+            <floorplan id="1" />
+            <floorplan id="2" />
+        </objects>
+    </residential>
+    <residential modTime="2013-12-05-20:07:48" status="current">
+        <agentID>5140</agentID>
+        <uniqueID>1224888</uniqueID>
+        <listingAgent id="1">
+            <name>Kelly Flanagan</name>
+            <telephone type="BH">02 6562 3600</telephone>
+            <email>receptionkf@sample.agency.1.com.au</email>
+        </listingAgent>
+        <listingAgent id="2"></listingAgent>
+        <address display="yes">
+            <streetNumber>407</streetNumber>
+            <street>Silverwood Avenue</street>
+            <suburb>Temagog</suburb>
+            <state>NSW</state>
+            <postcode>2440</postcode>
+            <country>Australia</country>
+        </address>
+        <price display="yes">290000</price>
+        <priceView></priceView>
+        <headline><![CDATA[River Front Spectacular On Shoe String Budget - 16.59Ha. (41Ac).]]></headline>
+        <description><![CDATA[Let's keep it simple, so you can read it quickly and then pick up the phone to call me (because this will be a quick mover at this price):<br /><br />- Spectacular river frontage property - massive views of the mighty Macleay Valley (even from the dining room) and easy walk or drive to the waters edge.<br />- Easy, manageable, farmable block of 16.59Ha. (41Ac) - 90% cleared, 10% light bush.<br />- Approved shed-style 1 bedroom home. Definitely a man cave at present - needs a clean, a paint and 2 new windows.<br />- Connected to mains power, phone, austar, septic system (absorption), pot belly fire, electric cooking, bathroom/laundry/toilet together, large veranda, carport attached.<br />- 2000L poly tank, 22,500L poly tank, electric pressure pump (between tanks), fire fighter's petrol pump (on river).<br />- 14m x 8m machinery shed, powered.<br />- Fenced into 4 paddocks, 3 dams, holding yards/loading ramp.<br />- Only 25 minutes west of Kempsey, 15 minutes to Willawarrin village, only 4km of good gravel road.<br /><br />&quot;This is what was intended for us - peace and plentiful fish and land to grow our crops. A simple life, where you can work and rest without leaving home.&quot;<br /><br />The<span data-description=" views of the river and the access to it, is one of the best I've seen.&lt;br&gt;&lt;br&gt;Quick, call your bank and then call me!">...</span><a href="#" rel="revealDescription" class="more interesting hidden">show more</a> views of the river and the access to it, is one of the best I've seen.<br><br>Quick, call your bank and then call me!]]></description>
+        <externalLink href="" />
+        <externalLink href="" />
+        <videoLink href="" />
+        <underOffer value="no" />
+        <category name="" />
+        <features>
+            <bedrooms>2</bedrooms>
+            <bathrooms>1</bathrooms>
+            <ensuite></ensuite>
+            <garages>6</garages>
+            <carports>0</carports>
+            <remoteGarage></remoteGarage>
+            <secureParking></secureParking>
+            <airConditioning></airConditioning>
+            <alarmSystem></alarmSystem>
+            <vacuumSystem></vacuumSystem>
+            <intercom></intercom>
+            <poolInGround></poolInGround>
+            <spa></spa>
+            <insideSpa></insideSpa>
+            <outsideSpa></outsideSpa>
+            <tennisCourt></tennisCourt>
+            <balcony></balcony>
+            <courtyard></courtyard>
+            <outdoorEnt></outdoorEnt>
+            <shed></shed>
+            <openFirePlace></openFirePlace>
+            <broadband></broadband>
+            <builtInRobes></builtInRobes>
+            <dishwasher></dishwasher>
+            <gym></gym>
+            <payTV></payTV>
+            <study></study>
+            <workshop></workshop>
+            <openSpaces></openSpaces>
+        </features>
+        <landDetails>
+            <area unit="squareMeter">170411.21</area>
+            <frontage></frontage>
+            <depth side="left"></depth>
+            <depth side="right"></depth>
+            <depth side="rear"></depth>
+        </landDetails>
+        <buildingDetails>
+            <area unit="squareMeter"></area>
+        </buildingDetails>
+        <inspectionTimes></inspectionTimes>
+        <authority value="exclusive" />
+        <objects>
+            <img id="m" modTime="2013-11-20-08:06:20"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/78eecf8c4c4f0ee9d5e54ff9f55f4c7158039ec0"
+                 format="jpg" />
+            <img id="a" modTime="2013-11-20-08:06:21"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/508f6d83e33a92f18d63917eaddc642806010768"
+                 format="jpg" />
+            <img id="b" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/b154dd4311a3c8abaef815ceb3d7cabd9fa5f4a5"
+                 format="jpg" />
+            <img id="c" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/5d84e4ac9a20f77e5ca502a0da0f83957129fe0b"
+                 format="jpg" />
+            <img id="d" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/bc251dcfe552bcc9dd1b190970905b88dfc93ae8"
+                 format="jpg" />
+            <img id="e" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/6760a26134db84ec76c20de0a67261f07b192c5f"
+                 format="jpg" />
+            <img id="f" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/8e8a6e584c8d663de42afecc8a311cb1a3d1e948"
+                 format="jpg" />
+            <img id="g" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/a4df0965ede82b86d650874ddba5925b62c461c5"
+                 format="jpg" />
+            <img id="h" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/30c4ad7ff81fa7be6905cebd7a67643dcad5ab16"
+                 format="jpg" />
+            <img id="i" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/777db9060558b2988f64527427fc20a1a5d889f3"
+                 format="jpg" />
+            <img id="j" />
+            <img id="k" />
+            <img id="l" />
+            <img id="n" />
+            <img id="o" />
+            <img id="p" />
+            <img id="q" />
+            <img id="r" />
+            <img id="s" />
+            <img id="t" />
+            <img id="u" />
+            <img id="v" />
+            <img id="w" />
+            <img id="x" />
+            <img id="y" />
+            <img id="z" />
+            <floorplan id="1" />
+            <floorplan id="2" />
+        </objects>
+    </residential>
+    <residential modTime="2013-12-06-09:49:11" status="current">
+        <agentID>5140</agentID>
+        <uniqueID>1303567</uniqueID>
+        <listingAgent id="1">
+            <name>Kelly Flanagan</name>
+            <telephone type="BH">02 6562 3600</telephone>
+            <email>receptionkf@sample.agency.1.com.au</email>
+        </listingAgent>
+        <listingAgent id="2"></listingAgent>
+        <address display="yes">
+            <streetNumber>100</streetNumber>
+            <street>Smith Street</street>
+            <suburb>Kempsey</suburb>
+            <state>NSW</state>
+            <postcode>2440</postcode>
+            <country>Australia</country>
+        </address>
+        <price display="yes">199000</price>
+        <priceView></priceView>
+        <headline><![CDATA[Small Acres, Farming Soils, Doer-Upper Timber Home - Business Precinct - 2.8Ac.]]></headline>
+        <description><![CDATA[Market Gardeners Choice! Investor Special! Want a Horse Paddock and a Home?<br /><br />Don't be put off, the house looks worse than it is... A good handyman or young tradies' dream opportunity here.<br /><br />Located opposite McDonalds and a motel/restaurant, only 100m to Woolworths and Big W or 400m to the centre of down town Kempsey - this property offers a lot of opportunity.<br /><br />I could see someone growing vegies/herbs out the back and selling them to the public from here (subject to Council DA of course).<br /><br />Or what if you are a real little worker who also wants to keep a horse - you do this place up, stick your horse in the back and you've got yourself a great little package!<br /><br />Even the investor - buying near the CBD is always a good investment, do this place up and receive rent of approximately $280/wk (for the home) and $20/wk (paddock) easily.<br /><br />- 1.14Ha. (2.8Ac) with old 2 bedroom timber home.<br />- 3 (C) Business Zoning fronting street + Rural (1E) zoning at back.<br />- Great shed.<br />- Home needs 'lots' of work but it is definitely 'do-able'.<br />- Opportunity for home/work/play.<br />- Opposite McDonalds. <br />- Rare opportunity.<br />- &quot;I think <span data-description="$30,000 could transform this place&amp;quot;&lt;br&gt;&lt;br&gt;Call any day/anytime to arrange your inspection.">...</span><a href="#" rel="revealDescription" class="more interesting hidden">show more</a>$30,000 could transform this place&quot;<br><br>Call any day/anytime to arrange your inspection.]]></description>
+        <externalLink href="" />
+        <externalLink href="" />
+        <videoLink href="" />
+        <underOffer value="no" />
+        <category name="House" />
+        <features>
+            <bedrooms>2</bedrooms>
+            <bathrooms>1</bathrooms>
+            <ensuite></ensuite>
+            <garages>0</garages>
+            <carports>0</carports>
+            <remoteGarage></remoteGarage>
+            <secureParking></secureParking>
+            <airConditioning></airConditioning>
+            <alarmSystem></alarmSystem>
+            <vacuumSystem></vacuumSystem>
+            <intercom></intercom>
+            <poolInGround></poolInGround>
+            <spa></spa>
+            <insideSpa></insideSpa>
+            <outsideSpa></outsideSpa>
+            <tennisCourt></tennisCourt>
+            <balcony></balcony>
+            <courtyard></courtyard>
+            <outdoorEnt></outdoorEnt>
+            <shed></shed>
+            <openFirePlace></openFirePlace>
+            <broadband></broadband>
+            <builtInRobes></builtInRobes>
+            <dishwasher></dishwasher>
+            <gym></gym>
+            <payTV></payTV>
+            <study></study>
+            <workshop></workshop>
+            <openSpaces></openSpaces>
+        </features>
+        <landDetails>
+            <area unit="squareMeter">11400</area>
+            <frontage></frontage>
+            <depth side="left"></depth>
+            <depth side="right"></depth>
+            <depth side="rear"></depth>
+        </landDetails>
+        <buildingDetails>
+            <area unit="squareMeter"></area>
+        </buildingDetails>
+        <inspectionTimes></inspectionTimes>
+        <authority value="exclusive" />
+        <objects>
+            <img id="m" modTime="2013-09-06-11:07:52"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/cc2d9d6e25065c21a45df4ea492119d995306df0"
+                 format="jpg" />
+            <img id="a" modTime="2013-09-06-11:07:55"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/47fc2458bbbd7aad12ad94837b38348efbfd5e22"
+                 format="jpg" />
+            <img id="b" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/70f78c64245f447480b35753db09aa7ff2b625b5"
+                 format="jpg" />
+            <img id="c" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/41855c554d6058d3b2e0cb7abfec770a20d0caa8"
+                 format="jpg" />
+            <img id="d" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/3ad2d5ea8e8a5aa49de76735d9d760c741b30364"
+                 format="jpg" />
+            <img id="e" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/0efde44768e3d001a3815611b02eaa5b460046d6"
+                 format="jpg" />
+            <img id="f" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/1c2456a1f6e13697d64acfa98e1ce68ab50ec69c"
+                 format="jpg" />
+            <img id="g" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/f2b605378cc496f419d730b5aef2218c75aed85a"
+                 format="jpg" />
+            <img id="h" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/a8dd6d41604b2f90cf6bee5100201a852c837ffc"
+                 format="jpg" />
+            <img id="i" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/e3021b91c36391c0086a9a70e5e3fc79c5b41d0f"
+                 format="jpg" />
+            <img id="j" />
+            <img id="k" />
+            <img id="l" />
+            <img id="n" />
+            <img id="o" />
+            <img id="p" />
+            <img id="q" />
+            <img id="r" />
+            <img id="s" />
+            <img id="t" />
+            <img id="u" />
+            <img id="v" />
+            <img id="w" />
+            <img id="x" />
+            <img id="y" />
+            <img id="z" />
+            <floorplan id="1" />
+            <floorplan id="2" />
+        </objects>
+    </residential>
+    <residential modTime="2013-12-06-10:28:16" status="current">
+        <agentID>5140</agentID>
+        <uniqueID>1308100</uniqueID>
+        <listingAgent id="1">
+            <name>Kelly Flanagan</name>
+            <telephone type="BH">02 6562 3600</telephone>
+            <email>receptionkf@sample.agency.1.com.au</email>
+        </listingAgent>
+        <listingAgent id="2"></listingAgent>
+        <address display="yes">
+            <subNumber>2</subNumber>
+            <streetNumber>12</streetNumber>
+            <street>Allman Place</street>
+            <suburb>Crescent Head</suburb>
+            <state>NSW</state>
+            <postcode>2440</postcode>
+            <country>Australia</country>
+        </address>
+        <price display="yes">299000</price>
+        <priceView></priceView>
+        <headline><![CDATA[Great Price For Easy Beach Living]]></headline>
+        <description><![CDATA[For under $300,000 I doubt you will find a better deal at the beach! This carefree strata unit could be your answer to a new 'home', a wonderful 'investment' or a terrific 'holiday house'.<br /><br />- At the end of a quiet street with bushland views.<br />- Low maintenance, easy care strata living. <br />- The downstairs is predominantly double brick - perfect for thermal control and structurally soundness. The upstairs catches a beautiful beach breeze.<br />- Spacious living areas with open plan design.<br />- Upstairs: 2 bedrooms - both with built-in robes and the main bathroom + huge storage space built into the roof cavity.<br />- Downstairs: 1 bedroom with walk-in robe and en-suite (with separate toilet), kitchen, dining/lounge area and more great storage.<br />- The spacious kitchen features: gas cooktop, dishwasher, double sink and breakfast bench.<br />- Large storage under staircase, ceiling fans, dishwasher, electric cooking, tiled living areas, carpet in bedrooms.<br />- Secure, landscaped and very private backyard (perfectly set up for BBQ's).<br /><br />This unit boasts a level stroll to the shops and beach and it's fresh and clean and ready to move into! Perfect!<br /><br />It<span data-description="'s the perfect happy beach house with it's bright colours and sunny NE facing positon!&lt;br&gt;&lt;br&gt;Put it on the list and come and compare.  Currently rented to good tenant at $290/wk - plenty of notice is required for inspections.">...</span><a href="#" rel="revealDescription" class="more interesting hidden">show more</a>'s the perfect happy beach house with it's bright colours and sunny NE facing positon!<br><br>Put it on the list and come and compare.  Currently rented to good tenant at $290/wk - plenty of notice is required for inspections.]]></description>
+        <externalLink href="" />
+        <externalLink href="" />
+        <videoLink href="" />
+        <underOffer value="no" />
+        <category name="Unit" />
+        <features>
+            <bedrooms>3</bedrooms>
+            <bathrooms>2</bathrooms>
+            <ensuite></ensuite>
+            <garages>1</garages>
+            <carports>0</carports>
+            <remoteGarage></remoteGarage>
+            <secureParking></secureParking>
+            <airConditioning></airConditioning>
+            <alarmSystem></alarmSystem>
+            <vacuumSystem></vacuumSystem>
+            <intercom></intercom>
+            <poolInGround></poolInGround>
+            <spa></spa>
+            <insideSpa></insideSpa>
+            <outsideSpa></outsideSpa>
+            <tennisCourt></tennisCourt>
+            <balcony></balcony>
+            <courtyard></courtyard>
+            <outdoorEnt></outdoorEnt>
+            <shed></shed>
+            <openFirePlace></openFirePlace>
+            <broadband></broadband>
+            <builtInRobes></builtInRobes>
+            <dishwasher></dishwasher>
+            <gym></gym>
+            <payTV></payTV>
+            <study></study>
+            <workshop></workshop>
+            <openSpaces></openSpaces>
+        </features>
+        <landDetails>
+            <area unit="squareMeter"></area>
+        </landDetails>
+        <buildingDetails>
+            <area unit="squareMeter"></area>
+        </buildingDetails>
+        <inspectionTimes></inspectionTimes>
+        <authority value="exclusive" />
+        <objects>
+            <img id="m" modTime="2013-11-27-15:06:54"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/1157aaded8ce5b62ebd22f2fb650f23522c21ba0"
+                 format="jpg" />
+            <img id="a" modTime="2013-11-27-15:06:53"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/c26a436718003293a7a784ed9bf634b2d5c04622"
+                 format="jpg" />
+            <img id="b" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/a24086dde3711ef63b3f418cac77cfbebff151fa"
+                 format="jpg" />
+            <img id="c" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/efcaa5e4f4061c175b64749138d95627ca66e17c"
+                 format="jpg" />
+            <img id="d" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/ba6f97ea8afc46d23380bccf101f76cf57942f33"
+                 format="jpg" />
+            <img id="e" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/cd85e6a30e7e445e4d0baebe97d5e0a57562bed7"
+                 format="jpg" />
+            <img id="f" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/a67863ba06ea5ecaca6ca0ebf79aed16a75422e5"
+                 format="jpg" />
+            <img id="g" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/dbb5929c56fe63ed0ba972c5de3d6b7f4a482e7e"
+                 format="jpg" />
+            <img id="h" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/f79285abd64fb80c4fd8fe5215ba9c0478bde70b"
+                 format="jpg" />
+            <img id="i" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/fa69a35c13db8ef40c36fdfd2cbded8dc93a5bc8"
+                 format="jpg" />
+            <img id="j" />
+            <img id="k" />
+            <img id="l" />
+            <img id="n" />
+            <img id="o" />
+            <img id="p" />
+            <img id="q" />
+            <img id="r" />
+            <img id="s" />
+            <img id="t" />
+            <img id="u" />
+            <img id="v" />
+            <img id="w" />
+            <img id="x" />
+            <img id="y" />
+            <img id="z" />
+            <floorplan id="1" />
+            <floorplan id="2" />
+        </objects>
+    </residential>
+    <residential modTime="2013-12-06-10:52:31" status="current">
+        <agentID>5140</agentID>
+        <uniqueID>1311947</uniqueID>
+        <listingAgent id="1">
+            <name>Kelly Flanagan</name>
+            <telephone type="BH">02 6562 3600</telephone>
+            <email>receptionkf@sample.agency.1.com.au</email>
+        </listingAgent>
+        <listingAgent id="2"></listingAgent>
+        <address display="yes">
+            <streetNumber>134</streetNumber>
+            <street>Spooners Avenue</street>
+            <suburb>Greenhill</suburb>
+            <state>NSW</state>
+            <postcode>2440</postcode>
+            <country>Australia</country>
+        </address>
+        <price display="yes">475000</price>
+        <priceView></priceView>
+        <headline><![CDATA[Style, Space & Practical 'Live Happy' Design - 4Ha. (10Ac.)]]></headline>
+        <description><![CDATA[As an agent, as I look and assess a home I have style, space and design high on my checklist especially for the high-end modern day buyer.<br /><br />Of course quality of workmanship and attention to detail are assumed once you get to a price over $400,000, but it is the style, the space and the design (or floor plan) that are more than often left wanting.<br /><br />The floor plan is the most important factor and it is often forgotten over other such things as flashing tap wear or light fittings but, it is the floor plan that ultimately cannot be changed quickly, cheaply or even at all.<br /><br />I'm a stickler for floor plan and practical living and when I saw this home I was happily impressed - these owners (a young family who love get-togethers) have designed a simple yet highly practical and enjoyable masterpiece of a floor plan (if you want a copy, just email me).<br /><br />And they haven't forgotten the design of the 'man cave' either - it's A1 too!<br />Basic overview:<br />- Wonderful 'fun' block of 4Ha. (10Ac): 50% cleared level, 50% opened bushland with motorbike tracks!<br />- 2 year old brick home; 4 bedroom, 2 bathroom, 2 living, 2 car + a massive big 5 bay steel shed.<br />-<span data-description=" Home site privately set back off the road and well away from neighbours - finally!&lt;br&gt;- 9' ceilings.&lt;br&gt;- En-suite and walk-in to the well-sized main bedroom (bonus feature in the en-suite is having 2 shower heads!)&lt;br&gt;- Built-in robes to the other 3 well-sized bedrooms.&lt;br&gt;- Big open airy, sunny kitchen/dining/lounge that can open into the rumpus room when needed (making extremely large open areas).&lt;br&gt;- Both rumpus and lounge open onto the huge rear covered patio - perfect!&lt;br&gt;- Sleek, stylish and spacious kitchen: &lt;br&gt;- Reverse cycle air conditioning, some tinted windows, ceiling fans in every bedroom, slow combustion fire.&lt;br&gt;- Mixture of tiled and carpeted floors - so practical!&lt;br&gt;- A stylish laundry that is perfectly placed so it doesn't make you feel thrown down the back in a hole slaving your butt off while everyone else has fun!  No, no this laundry is made for the party person and the multi-tasker!&lt;br&gt;- 325L solar hot water system.&lt;br&gt;- 17.3m x 7.5m Colorbond shed - well powered, well lit and even comes with ceiling fans.&lt;br&gt;- Town water + 24,000L rain water tank.&lt;br&gt;- Under 5 minutes to the centre of Kempsey, 25 minutes to beaches, flood-free and set away from neighbours.&lt;br&gt;&lt;br&gt;Finding a new modern home on 10 Acres is hard enough, finding one like this is like a dream come true. &lt;br&gt;&lt;br&gt;Its good, its real good.  It is 'the life'.  Come see for yourself.">...</span><a href="#" rel="revealDescription" class="more interesting hidden">show more</a> Home site privately set back off the road and well away from neighbours - finally!<br>- 9' ceilings.<br>- En-suite and walk-in to the well-sized main bedroom (bonus feature in the en-suite is having 2 shower heads!)<br>- Built-in robes to the other 3 well-sized bedrooms.<br>- Big open airy, sunny kitchen/dining/lounge that can open into the rumpus room when needed (making extremely large open areas).<br>- Both rumpus and lounge open onto the huge rear covered patio - perfect!<br>- Sleek, stylish and spacious kitchen: <br>- Reverse cycle air conditioning, some tinted windows, ceiling fans in every bedroom, slow combustion fire.<br>- Mixture of tiled and carpeted floors - so practical!<br>- A stylish laundry that is perfectly placed so it doesn't make you feel thrown down the back in a hole slaving your butt off while everyone else has fun!  No, no this laundry is made for the party person and the multi-tasker!<br>- 325L solar hot water system.<br>- 17.3m x 7.5m Colorbond shed - well powered, well lit and even comes with ceiling fans.<br>- Town water + 24,000L rain water tank.<br>- Under 5 minutes to the centre of Kempsey, 25 minutes to beaches, flood-free and set away from neighbours.<br><br>Finding a new modern home on 10 Acres is hard enough, finding one like this is like a dream come true. <br><br>Its good, its real good.  It is 'the life'.  Come see for yourself.]]></description>
+        <externalLink href="" />
+        <externalLink href="" />
+        <videoLink href="" />
+        <underOffer value="no" />
+        <category name="" />
+        <features>
+            <bedrooms>4</bedrooms>
+            <bathrooms>2</bathrooms>
+            <ensuite></ensuite>
+            <garages>3</garages>
+            <carports>3</carports>
+            <remoteGarage></remoteGarage>
+            <secureParking></secureParking>
+            <airConditioning></airConditioning>
+            <alarmSystem></alarmSystem>
+            <vacuumSystem></vacuumSystem>
+            <intercom></intercom>
+            <poolInGround></poolInGround>
+            <spa></spa>
+            <insideSpa></insideSpa>
+            <outsideSpa></outsideSpa>
+            <tennisCourt></tennisCourt>
+            <balcony></balcony>
+            <courtyard></courtyard>
+            <outdoorEnt></outdoorEnt>
+            <shed></shed>
+            <openFirePlace></openFirePlace>
+            <broadband></broadband>
+            <builtInRobes></builtInRobes>
+            <dishwasher></dishwasher>
+            <gym></gym>
+            <payTV></payTV>
+            <study></study>
+            <workshop></workshop>
+            <openSpaces></openSpaces>
+        </features>
+        <landDetails>
+            <area unit="squareMeter">4</area>
+            <frontage></frontage>
+            <depth side="left"></depth>
+            <depth side="right"></depth>
+            <depth side="rear"></depth>
+        </landDetails>
+        <buildingDetails>
+            <area unit="squareMeter">325</area>
+        </buildingDetails>
+        <inspectionTimes></inspectionTimes>
+        <authority value="exclusive" />
+        <objects>
+            <img id="m" modTime="2013-08-18-01:28:08"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/fa9088d912aa4721a36e8a32ede052d1233c48aa"
+                 format="jpg" />
+            <img id="a" modTime="2013-08-17-05:16:23"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/4a0180dad640c9679370278a6db9d5ff06c37888"
+                 format="jpg" />
+            <img id="b" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/0f4e614fc3951bfc291e84f1013c6fee8d986514"
+                 format="jpg" />
+            <img id="c" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/f94c9036e12e7f725f0958e2f07a6caa291cba5e"
+                 format="jpg" />
+            <img id="d" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/eea4e106c20e3ac755d5ff49db83cf4078072b9f"
+                 format="jpg" />
+            <img id="e" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/12654518ae91d41edcc0a50bebb7ed637ef612e0"
+                 format="jpg" />
+            <img id="f" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/686fd5cda429512c84c6d052a61bc33d52bb5ad4"
+                 format="jpg" />
+            <img id="g" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/fba1569c6f96afd5fa2c28a04e2485277b3bfd05"
+                 format="jpg" />
+            <img id="h" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/50b4bec07223e5ae807d2d6f95be44bb00ad0358"
+                 format="jpg" />
+            <img id="i" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/ff70b897cc4a6c4720993beec363ee2c1ad95f9e"
+                 format="jpg" />
+            <img id="j" />
+            <img id="k" />
+            <img id="l" />
+            <img id="n" />
+            <img id="o" />
+            <img id="p" />
+            <img id="q" />
+            <img id="r" />
+            <img id="s" />
+            <img id="t" />
+            <img id="u" />
+            <img id="v" />
+            <img id="w" />
+            <img id="x" />
+            <img id="y" />
+            <img id="z" />
+            <floorplan id="1" />
+            <floorplan id="2" />
+        </objects>
+    </residential>
+    <residential modTime="2013-12-09-10:07:20" status="current">
+        <agentID>5140</agentID>
+        <uniqueID>1320528</uniqueID>
+        <listingAgent id="1">
+            <name>Kelly Flanagan</name>
+            <telephone type="BH">02 6562 3600</telephone>
+            <email>receptionkf@sample.agency.1.com.au</email>
+        </listingAgent>
+        <listingAgent id="2"></listingAgent>
+        <address display="yes">
+            <streetNumber>154</streetNumber>
+            <street>Armidale Road</street>
+            <suburb>Yarravel</suburb>
+            <state>NSW</state>
+            <postcode>2440</postcode>
+            <country>Australia</country>
+        </address>
+        <price display="yes">265000</price>
+        <priceView></priceView>
+        <headline><![CDATA[Rural Block, Shed, 5 Minutes To Town, You Will Pinch Yourself - 12.18Ha. (30Ac)]]></headline>
+        <description><![CDATA[Now this is what everyone seems to want but can never find - a decent rural block close to town! How about this one, it's only a 5 minute drive to the Kempsey town centre!<br /><br />And this one comes with a great shed, power and Dwelling Entitlement:<br /><br />- 15m x 9m Colorbond shed - with concrete slab, power connected, brand new septic system connected, bathroom and, plumbing in place for a kitchen. 'There's even window cavities in the frame work already! It's not far off being liveable now!'<br /><br />- Around the shed there is a vast levelled area ready for a home!<br />The block itself is hidden away up a hill, well of the road - it so secretly hidden your friends will have trouble finding you.<br /><br />But when they do, there jaws will drop - here you are up on the hill in a world of your own, on top of the world, with a big panoramic view.<br /><br />It's just so hard to believe it's so close to town and schools and hospital - it's amazing.<br /><br />The property is essentially all cleared with only scattered shade trees. Well fenced into 3 paddocks with a 3 dams (1 in each paddock).<br />The land is essentially flat, to very gently undulating - it's a great paddock.<br /><span data-description="&lt;br&gt;I think, first to see will be buying it.  Hurry, these are a rare find these days!">...</span><a href="#" rel="revealDescription" class="more interesting hidden">show more</a><br>I think, first to see will be buying it.  Hurry, these are a rare find these days!]]></description>
+        <externalLink href="" />
+        <externalLink href="" />
+        <videoLink href="" />
+        <underOffer value="no" />
+        <category name="" />
+        <features>
+            <bedrooms>0</bedrooms>
+            <bathrooms>0</bathrooms>
+            <ensuite></ensuite>
+            <garages>0</garages>
+            <carports>0</carports>
+            <remoteGarage></remoteGarage>
+            <secureParking></secureParking>
+            <airConditioning></airConditioning>
+            <alarmSystem></alarmSystem>
+            <vacuumSystem></vacuumSystem>
+            <intercom></intercom>
+            <poolInGround></poolInGround>
+            <spa></spa>
+            <insideSpa></insideSpa>
+            <outsideSpa></outsideSpa>
+            <tennisCourt></tennisCourt>
+            <balcony></balcony>
+            <courtyard></courtyard>
+            <outdoorEnt></outdoorEnt>
+            <shed></shed>
+            <openFirePlace></openFirePlace>
+            <broadband></broadband>
+            <builtInRobes></builtInRobes>
+            <dishwasher></dishwasher>
+            <gym></gym>
+            <payTV></payTV>
+            <study></study>
+            <workshop></workshop>
+            <openSpaces></openSpaces>
+        </features>
+        <landDetails>
+            <area unit="squareMeter">121800</area>
+            <frontage></frontage>
+            <depth side="left"></depth>
+            <depth side="right"></depth>
+            <depth side="rear"></depth>
+        </landDetails>
+        <buildingDetails>
+            <area unit="squareMeter"></area>
+        </buildingDetails>
+        <inspectionTimes></inspectionTimes>
+        <authority value="exclusive" />
+        <objects>
+            <img id="m" modTime="2013-11-28-12:06:08"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/4242afaeb891c50d46310c039c6a657f16c0ed3e"
+                 format="jpg" />
+            <img id="a" modTime="2013-11-28-12:06:08"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/6ab1978c977a8a881642d99bb5d648ba19625d44"
+                 format="jpg" />
+            <img id="b" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/dcf35c91929a42bfd8fd922c1888a3d5a149ddc6"
+                 format="jpg" />
+            <img id="c" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/5d56dee5d3f130b6dc743897fd74cb009352f046"
+                 format="jpg" />
+            <img id="d" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/dae639162014d9448a1a431e2dc3c4902b10ca14"
+                 format="jpg" />
+            <img id="e" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/0c1e82df2442ac0e269f573f3022862834930937"
+                 format="jpg" />
+            <img id="f" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/705c46d852b464baaf61c139ed5e80297a5a3ada"
+                 format="jpg" />
+            <img id="g" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/ef1f2c2402bbc867448121ad5c8bc8bc58c4b27b"
+                 format="jpg" />
+            <img id="h" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/619ea456f21f7cd97e8e63e22fcb596e2ce88ed5"
+                 format="jpg" />
+            <img id="i" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/29b30a583247cd407a4305b5637ff7b08a99de2d"
+                 format="jpg" />
+            <img id="j" />
+            <img id="k" />
+            <img id="l" />
+            <img id="n" />
+            <img id="o" />
+            <img id="p" />
+            <img id="q" />
+            <img id="r" />
+            <img id="s" />
+            <img id="t" />
+            <img id="u" />
+            <img id="v" />
+            <img id="w" />
+            <img id="x" />
+            <img id="y" />
+            <img id="z" />
+            <floorplan id="1" />
+            <floorplan id="2" />
+        </objects>
+    </residential>
+    <residential modTime="2013-12-09-10:29:04" status="current">
+        <agentID>5140</agentID>
+        <uniqueID>1322006</uniqueID>
+        <listingAgent id="1">
+            <name>Kelly Flanagan</name>
+            <telephone type="BH">02 6562 3600</telephone>
+            <email>receptionkf@sample.agency.1.com.au</email>
+        </listingAgent>
+        <listingAgent id="2"></listingAgent>
+        <address display="yes">
+            <streetNumber>10</streetNumber>
+            <street>Crottys Lane</street>
+            <suburb>Yarravel</suburb>
+            <state>NSW</state>
+            <postcode>2440</postcode>
+            <country>Australia</country>
+        </address>
+        <price display="yes">280000</price>
+        <priceView></priceView>
+        <headline><![CDATA[Big Home & Shed On 1/2 Acre Block Just Out Of Town]]></headline>
+        <description><![CDATA[Yipppee! Finally, this is the one! A neat and tidy 4 bedroom family home with huge shedding, a big block, privacy from neighbours and stunning rural views! <br /><br />It's just so perfect! You better believe it and hurry:<br />- The perfect sized block - 1,932sqm (approx. 1/2 acre)<br />- No neighbours on 3 sides! Very private - yay!<br />- Amazing panoramic rural views to the North to soak up and cherish.<br />- Lovely neat, tidy and fresh 4 bedroom home.<br />- Features include: built-in robes, reverse cycle air conditioning, ceiling fans, 2nd toilet in laundry, new septic system, big lovely veranda, fresh clean paint.<br />- Brand new (15m x 6m) Colorbond shed with power - it's awesome!<br />- Attached double garage + single carport.<br />- Secure backyard fencing for kids/dogs.<br />- The perfect location: just on the fringe of town (6min. to Kempsey centre), 600m to Aldavilla Primary School, 800m to General Store, flood-free site facing North with tar road frontage, perfect!<br /><br />This is it, this is your chance to get-out-of-town, get your sheds, get some space, get some privacy. You'll love it. But hurry!<br /><br />Call any day, anytime.]]></description>
+        <externalLink href="" />
+        <externalLink href="" />
+        <videoLink href="" />
+        <underOffer value="no" />
+        <category name="House" />
+        <features>
+            <bedrooms>4</bedrooms>
+            <bathrooms>1</bathrooms>
+            <ensuite></ensuite>
+            <garages>5</garages>
+            <carports>1</carports>
+            <remoteGarage></remoteGarage>
+            <secureParking></secureParking>
+            <airConditioning></airConditioning>
+            <alarmSystem></alarmSystem>
+            <vacuumSystem></vacuumSystem>
+            <intercom></intercom>
+            <poolInGround></poolInGround>
+            <spa></spa>
+            <insideSpa></insideSpa>
+            <outsideSpa></outsideSpa>
+            <tennisCourt></tennisCourt>
+            <balcony></balcony>
+            <courtyard></courtyard>
+            <outdoorEnt></outdoorEnt>
+            <shed></shed>
+            <openFirePlace></openFirePlace>
+            <broadband></broadband>
+            <builtInRobes></builtInRobes>
+            <dishwasher></dishwasher>
+            <gym></gym>
+            <payTV></payTV>
+            <study></study>
+            <workshop></workshop>
+            <openSpaces></openSpaces>
+        </features>
+        <landDetails>
+            <area unit="squareMeter">1932</area>
+            <frontage></frontage>
+            <depth side="left"></depth>
+            <depth side="right"></depth>
+            <depth side="rear"></depth>
+        </landDetails>
+        <buildingDetails>
+            <area unit="squareMeter"></area>
+        </buildingDetails>
+        <inspectionTimes></inspectionTimes>
+        <authority value="exclusive" />
+        <objects>
+            <img id="m" modTime="2013-10-03-12:13:40"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/4f58a94b332e68079e522158adb8dc944fd55987"
+                 format="jpg" />
+            <img id="a" modTime="2013-10-03-12:13:41"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/2197b868eaa3237f671f41d6db9999f09f584369"
+                 format="jpg" />
+            <img id="b" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/084a2acf3d49792879e63178551984167ecff4e1"
+                 format="jpg" />
+            <img id="c" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/c52d192749b2835446d014405625822b70becf30"
+                 format="jpg" />
+            <img id="d" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/210ee4a4bdfb4f1b5aa8a0a1c5779ddc1eef52a3"
+                 format="jpg" />
+            <img id="e" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/ed2b67b77d5c37282194d7e2a1a74698e76b50ec"
+                 format="jpg" />
+            <img id="f" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/7a4422bea92ae14863154f3106b028c45472149e"
+                 format="jpg" />
+            <img id="g" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/f6a1ab384f3fd5be5e68a43787e0746284cebeb1"
+                 format="jpg" />
+            <img id="h" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/2873a2c933a498d8b1bbc7751cb5229103f5c109"
+                 format="jpg" />
+            <img id="i" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/8938338cb77bca97bbf719e0aaa039e2e848cdb1"
+                 format="jpg" />
+            <img id="j" />
+            <img id="k" />
+            <img id="l" />
+            <img id="n" />
+            <img id="o" />
+            <img id="p" />
+            <img id="q" />
+            <img id="r" />
+            <img id="s" />
+            <img id="t" />
+            <img id="u" />
+            <img id="v" />
+            <img id="w" />
+            <img id="x" />
+            <img id="y" />
+            <img id="z" />
+            <floorplan id="1" />
+            <floorplan id="2" />
+        </objects>
+    </residential>
+    <residential modTime="2013-12-09-10:33:15" status="current">
+        <agentID>5140</agentID>
+        <uniqueID>1322473</uniqueID>
+        <listingAgent id="1">
+            <name>Kelly Flanagan</name>
+            <telephone type="BH">02 6562 3600</telephone>
+            <email>receptionkf@sample.agency.1.com.au</email>
+        </listingAgent>
+        <listingAgent id="2"></listingAgent>
+        <address display="yes">
+            <streetNumber>173</streetNumber>
+            <street>Mungay Creek Road</street>
+            <suburb>Willawarrin</suburb>
+            <state>NSW</state>
+            <postcode>2440</postcode>
+            <country>Australia</country>
+        </address>
+        <price display="yes">219000</price>
+        <priceView></priceView>
+        <headline><![CDATA[Rural Opportunity Knocks/Great Price - 2.63Ha. (6.5Ac)]]></headline>
+        <description><![CDATA[Hurry, hurry, hurry... This is the opportunity you've been waiting for!<br /><br />Small acreage farmlet with good family home &amp; pool for a only $229,000. Wow alright! Yes, believe it - these owners want a quick sale so they can move on with their lives.<br /><br />- Easily maintained, privately set - 2.63Ha. (6.5Ac) block - only 4 minutes drive to the local friendly village of Willawarrin where you will find: primary school, caf&Atilde;&copy;, general store, petrol station, post office, rural store, pharmacy and community facilities.<br /><br />- Modern home - just needs a few last finishing touches (under $5,000 to spend).<br />- Double brick downstairs: lounge, bathroom, laundry, kitchen, dining.<br />- Hardwood frame/Hardiplank clad upstairs: 3 bedrooms, bathroom, family room, veranda.<br />- Modern timber kitchen - dishwasher, double sink, electric stove/electric oven (needs new oven door or, new oven might be easier).<br />- Main bathroom features: big shower + big spa bath!<br />- Tiled floors downstairs, carpet floors upstairs, built-in robes.<br />- Slow combustion fire, 2 x reverse cycle air conditioners.<br />- New stylish in-ground pool.<br />- 2 big 22,500L poly water tanks, 3 clean dams.<span data-description="&lt;br&gt;- Tar sealed road, power, phone, school bus, mail.&lt;br&gt;- Double steel shed.&lt;br&gt;&lt;br&gt;It's only a 25 minutes tar road drive into Kempsey, 40 minutes to beaches!&lt;br&gt;&lt;br&gt;Hurry, get on the phone, call your bank and then come and have a look!  You will be waiting a long time before you get this type of opportunity again.">...</span><a href="#" rel="revealDescription" class="more interesting hidden">show more</a><br>- Tar sealed road, power, phone, school bus, mail.<br>- Double steel shed.<br><br>It's only a 25 minutes tar road drive into Kempsey, 40 minutes to beaches!<br><br>Hurry, get on the phone, call your bank and then come and have a look!  You will be waiting a long time before you get this type of opportunity again.]]></description>
+        <externalLink href="" />
+        <externalLink href="" />
+        <videoLink href="" />
+        <underOffer value="no" />
+        <category name="" />
+        <features>
+            <bedrooms>3</bedrooms>
+            <bathrooms>2</bathrooms>
+            <ensuite></ensuite>
+            <garages>0</garages>
+            <carports>0</carports>
+            <remoteGarage></remoteGarage>
+            <secureParking></secureParking>
+            <airConditioning></airConditioning>
+            <alarmSystem></alarmSystem>
+            <vacuumSystem></vacuumSystem>
+            <intercom></intercom>
+            <poolInGround></poolInGround>
+            <spa></spa>
+            <insideSpa></insideSpa>
+            <outsideSpa></outsideSpa>
+            <tennisCourt></tennisCourt>
+            <balcony></balcony>
+            <courtyard></courtyard>
+            <outdoorEnt></outdoorEnt>
+            <shed></shed>
+            <openFirePlace></openFirePlace>
+            <broadband></broadband>
+            <builtInRobes></builtInRobes>
+            <dishwasher></dishwasher>
+            <gym></gym>
+            <payTV></payTV>
+            <study></study>
+            <workshop></workshop>
+            <openSpaces></openSpaces>
+        </features>
+        <landDetails>
+            <area unit="squareMeter">26300</area>
+            <frontage></frontage>
+            <depth side="left"></depth>
+            <depth side="right"></depth>
+            <depth side="rear"></depth>
+        </landDetails>
+        <buildingDetails>
+            <area unit="squareMeter"></area>
+        </buildingDetails>
+        <inspectionTimes></inspectionTimes>
+        <authority value="exclusive" />
+        <objects>
+            <img id="m" modTime="2013-08-08-11:11:49"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/7936fa520cd33ce9d7951bfda8261a5f068c8ccb"
+                 format="jpg" />
+            <img id="a" modTime="2013-08-08-11:11:51"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/40151daf291fa4726fe75fa9b51c712c43fee001"
+                 format="jpg" />
+            <img id="b" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/86c194e09d04a6fa1dce9d2ef4db9834d44f2f41"
+                 format="jpg" />
+            <img id="c" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/600342f6c3b300daf0e545509cadd42866bc8607"
+                 format="jpg" />
+            <img id="d" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/17807c3119bef01153f244517bbbb319f6e8d9ea"
+                 format="jpg" />
+            <img id="e" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/fcfcc2aa908b58e8451aa61b103a25b9f056c4d5"
+                 format="jpg" />
+            <img id="f" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/b8b98d60f45a899e1f48f0f221286f1ddefb148b"
+                 format="jpg" />
+            <img id="g" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/cd822000eb4d87b9ba6126c0c3de12b45ed80935"
+                 format="jpg" />
+            <img id="h" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/ce5002072b9562fbce526201431426885398594c"
+                 format="jpg" />
+            <img id="i" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/d6ab1cd9edc1c61642ee0eec3abb04616baca226"
+                 format="jpg" />
+            <img id="j" />
+            <img id="k" />
+            <img id="l" />
+            <img id="n" />
+            <img id="o" />
+            <img id="p" />
+            <img id="q" />
+            <img id="r" />
+            <img id="s" />
+            <img id="t" />
+            <img id="u" />
+            <img id="v" />
+            <img id="w" />
+            <img id="x" />
+            <img id="y" />
+            <img id="z" />
+            <floorplan id="1" />
+            <floorplan id="2" />
+        </objects>
+    </residential>
+    <residential modTime="2013-12-09-15:49:03" status="current">
+        <agentID>5140</agentID>
+        <uniqueID>1331411</uniqueID>
+        <listingAgent id="1">
+            <name>Kelly Flanagan</name>
+            <telephone type="BH">02 6562 3600</telephone>
+            <email>receptionkf@sample.agency.1.com.au</email>
+        </listingAgent>
+        <listingAgent id="2"></listingAgent>
+        <address display="yes">
+            <streetNumber>3</streetNumber>
+            <street>Park Road</street>
+            <suburb>Aldavilla</suburb>
+            <state>NSW</state>
+            <postcode>2440</postcode>
+            <country>Australia</country>
+        </address>
+        <price display="yes">289000</price>
+        <priceView></priceView>
+        <headline><![CDATA[Solid Brick Serenity - 1 Acre]]></headline>
+        <description><![CDATA[When one builds a home for themselves they build it better, stronger, with more care, for luxury and longevity. <br /><br />That's how this home was built! Not just sturdy and strong but built for the site and the scenic surrounds. This home encapsulates the magical garden setting and the tree top scenery. It offers peaceful seclusion from the world - a blissful sanctuary.<br /><br />Located in a little hidden-away bitumen road, only 7 minutes from the Kempsey town centre, within an established and respected estate - life here will be very pleasant indeed.<br /><br />ACCOMMODATION: 4 bedrooms (or 3 and a good study) double storey brick veneer with parents retreat on top level (lounge, big bedroom, en-suite, walk-in robe) and family/living areas down stairs: kitchen/family area, 2 bedrooms, study, main bathroom and laundry.<br /><br />FEATURES: new electric stove, new electric oven, dishwasher, slow combustion fire, slate bathroom with garden view spa bath and shower, separate toilet, huge walk-in robe to main bedroom, ceiling fans, cathedral ceilings, reverse cycle air conditioning, gas heating and good storage.<br /><br />Outside the property boasts a huge brick double garage/workshop,<span data-description=" shade houses, large garden shed, water features and loads of paved entertaining area.&lt;br&gt;&lt;br&gt;Motivated vendors, great price!  Call any day/anytime to arrange your inspection.">...</span><a href="#" rel="revealDescription" class="more interesting hidden">show more</a> shade houses, large garden shed, water features and loads of paved entertaining area.<br><br>Motivated vendors, great price!  Call any day/anytime to arrange your inspection.]]></description>
+        <externalLink href="" />
+        <externalLink href="" />
+        <videoLink href="" />
+        <underOffer value="no" />
+        <category name="House" />
+        <features>
+            <bedrooms>4</bedrooms>
+            <bathrooms>2</bathrooms>
+            <ensuite></ensuite>
+            <garages>2</garages>
+            <carports>0</carports>
+            <remoteGarage></remoteGarage>
+            <secureParking></secureParking>
+            <airConditioning></airConditioning>
+            <alarmSystem></alarmSystem>
+            <vacuumSystem></vacuumSystem>
+            <intercom></intercom>
+            <poolInGround></poolInGround>
+            <spa></spa>
+            <insideSpa></insideSpa>
+            <outsideSpa></outsideSpa>
+            <tennisCourt></tennisCourt>
+            <balcony></balcony>
+            <courtyard></courtyard>
+            <outdoorEnt></outdoorEnt>
+            <shed></shed>
+            <openFirePlace></openFirePlace>
+            <broadband></broadband>
+            <builtInRobes></builtInRobes>
+            <dishwasher></dishwasher>
+            <gym></gym>
+            <payTV></payTV>
+            <study></study>
+            <workshop></workshop>
+            <openSpaces></openSpaces>
+        </features>
+        <landDetails>
+            <area unit="squareMeter">4022</area>
+            <frontage></frontage>
+            <depth side="left"></depth>
+            <depth side="right"></depth>
+            <depth side="rear"></depth>
+        </landDetails>
+        <buildingDetails>
+            <area unit="squareMeter"></area>
+        </buildingDetails>
+        <inspectionTimes></inspectionTimes>
+        <authority value="exclusive" />
+        <objects>
+            <img id="m" modTime="2013-10-29-14:16:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/dd41e3f6f8a48ead2476a5c5cab6eae8fcd4b49e"
+                 format="jpg" />
+            <img id="a" modTime="2013-10-29-14:15:59"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/0892a523c14dbc8aa5714df0c8b0e50df0a91505"
+                 format="jpg" />
+            <img id="b" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/aa3f18aed55833c99a6f741cc3e9c1262118db52"
+                 format="jpg" />
+            <img id="c" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/efbf4e5df80d0d4be78f7201ec18c1fb048cda1d"
+                 format="jpg" />
+            <img id="d" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/0ef8d81c4ef5827b35f9b149f6914d67dbe1a317"
+                 format="jpg" />
+            <img id="e" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/f2ce000ba60086597970d7989c8b30f1c6cc6e82"
+                 format="jpg" />
+            <img id="f" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/9e8613a1b4d8538afcb89e88434cd6565a547993"
+                 format="jpg" />
+            <img id="g" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/0b320c5802ae5c52447de519018e7f9698c13b42"
+                 format="jpg" />
+            <img id="h" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/7dc0a3d18244cfca5e4b1baf09506e0030e0e171"
+                 format="jpg" />
+            <img id="i" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/ed538f9f0dd6a7bd7725b64ce4c45935dad0860e"
+                 format="jpg" />
+            <img id="j" />
+            <img id="k" />
+            <img id="l" />
+            <img id="n" />
+            <img id="o" />
+            <img id="p" />
+            <img id="q" />
+            <img id="r" />
+            <img id="s" />
+            <img id="t" />
+            <img id="u" />
+            <img id="v" />
+            <img id="w" />
+            <img id="x" />
+            <img id="y" />
+            <img id="z" />
+            <floorplan id="1" />
+            <floorplan id="2" />
+        </objects>
+    </residential>
+    <residential modTime="2013-12-11-07:20:46" status="current">
+        <agentID>5140</agentID>
+        <uniqueID>1337965</uniqueID>
+        <listingAgent id="1">
+            <name>Kelly Flanagan</name>
+            <telephone type="BH">02 6562 3600</telephone>
+            <email>receptionkf@sample.agency.1.com.au</email>
+        </listingAgent>
+        <listingAgent id="2"></listingAgent>
+        <address display="yes">
+            <streetNumber>2</streetNumber>
+            <street>Leslie Place</street>
+            <suburb>South West Rocks</suburb>
+            <state>NSW</state>
+            <postcode>2431</postcode>
+            <country>Australia</country>
+        </address>
+        <price display="yes">450000</price>
+        <priceView></priceView>
+        <headline><![CDATA[Exquisite Views, 100m Footpath To Golf Course]]></headline>
+        <description><![CDATA[This seems to be the location many seek - close walking or buggy access to South West Rocks Golf Course! You've worked hard all your life and if you like golf you want to be right near the golf course. You could go for a chip anytime.<br /><br />But it's not just about the golf course, it's about all these things too:<br />- An exquisite, immaculate, spacious and modern home.<br />- Picturesque panoramic views over the golf course, tree tops and headlands.<br />- A peaceful location hidden away at the end of a small cul-de-sac (all you hear is the breeze, the birds or nothing at all. It really is delightful to have a no-through street with only 3 other homes. <br />- Mid-way distance to everywhere in The Rocks. Midway to Bi-Lo, the beach, Arakoon and the river.<br /><br />The current owners have lived the dream, they found a superb block, built a super spacious home and retired from the city life. They've enjoyed every peaceful passing day and now offer you this pleasurable lifestyle by the golf course at the beach.<br /><br />Features of this big 3 bedroom home include:<br />- A master suite with: walk-in robe, spacious en-suite, twin basin vanity/big shower, reverse cycle air<span data-description=" conditioning, plush soft carpet.&lt;br&gt;- Spacious formal lounge/dining with plush soft carpet floors and golf course/headland views.&lt;br&gt;- Huge open-plan kitchen/family room.&lt;br&gt;- Spacious covered back deck with exterior shade/weather blinds, fixed window section to create a marvellous outdoor living area.  &lt;br&gt;- Spacious 2nd bedroom featuring: north east facing, built-in robes, access to the rear deck and internal access to family area and amazing views.&lt;br&gt;- 3rd queen-sized bedroom with built-in robe.&lt;br&gt;- Practical main 3-way bathroom with 2nd vanity in with the shower and bathtub.&lt;br&gt;- The enormous kitchen is amazing!  Family living at its best - not just a pokey place to cook, this kitchen is a family place to mingle while you cook and laugh and 6 can sit at the big breakfast bench watching the mayhem!   Featuring: dishwasher, separate fridge/freezer space, huge bench area, electric cooking. &lt;br&gt;- There's wonderful space under the home for storage (or perhaps another room/workshop).&lt;br&gt;- The double garage has internal and remote access.&lt;br&gt;- Outside is low maintenance with not much lawn to mow and a wonderful concrete area under the deck - wonderful for 'keeping things dry, clean and neat' at all times.&lt;br&gt;&lt;br&gt;At a price not to be ignored, these owners are serious.  Call us any day, anytime to have a chat and arrange an inspection of this impeccable home.">...</span><a href="#" rel="revealDescription" class="more interesting hidden">show more</a> conditioning, plush soft carpet.<br>- Spacious formal lounge/dining with plush soft carpet floors and golf course/headland views.<br>- Huge open-plan kitchen/family room.<br>- Spacious covered back deck with exterior shade/weather blinds, fixed window section to create a marvellous outdoor living area.  <br>- Spacious 2nd bedroom featuring: north east facing, built-in robes, access to the rear deck and internal access to family area and amazing views.<br>- 3rd queen-sized bedroom with built-in robe.<br>- Practical main 3-way bathroom with 2nd vanity in with the shower and bathtub.<br>- The enormous kitchen is amazing!  Family living at its best - not just a pokey place to cook, this kitchen is a family place to mingle while you cook and laugh and 6 can sit at the big breakfast bench watching the mayhem!   Featuring: dishwasher, separate fridge/freezer space, huge bench area, electric cooking. <br>- There's wonderful space under the home for storage (or perhaps another room/workshop).<br>- The double garage has internal and remote access.<br>- Outside is low maintenance with not much lawn to mow and a wonderful concrete area under the deck - wonderful for 'keeping things dry, clean and neat' at all times.<br><br>At a price not to be ignored, these owners are serious.  Call us any day, anytime to have a chat and arrange an inspection of this impeccable home.]]></description>
+        <externalLink href="" />
+        <externalLink href="" />
+        <videoLink href="" />
+        <underOffer value="no" />
+        <category name="House" />
+        <features>
+            <bedrooms>3</bedrooms>
+            <bathrooms>2</bathrooms>
+            <ensuite></ensuite>
+            <garages>2</garages>
+            <carports>0</carports>
+            <remoteGarage></remoteGarage>
+            <secureParking></secureParking>
+            <airConditioning>1</airConditioning>
+            <alarmSystem></alarmSystem>
+            <vacuumSystem></vacuumSystem>
+            <intercom></intercom>
+            <poolInGround></poolInGround>
+            <spa></spa>
+            <insideSpa></insideSpa>
+            <outsideSpa></outsideSpa>
+            <tennisCourt></tennisCourt>
+            <balcony></balcony>
+            <courtyard></courtyard>
+            <outdoorEnt></outdoorEnt>
+            <shed></shed>
+            <openFirePlace></openFirePlace>
+            <broadband></broadband>
+            <builtInRobes></builtInRobes>
+            <dishwasher></dishwasher>
+            <gym></gym>
+            <payTV></payTV>
+            <study></study>
+            <workshop></workshop>
+            <openSpaces></openSpaces>
+        </features>
+        <landDetails>
+            <area unit="squareMeter">648.3</area>
+            <frontage></frontage>
+            <depth side="left"></depth>
+            <depth side="right"></depth>
+            <depth side="rear"></depth>
+        </landDetails>
+        <buildingDetails>
+            <area unit="squareMeter"></area>
+        </buildingDetails>
+        <inspectionTimes></inspectionTimes>
+        <authority value="exclusive" />
+        <objects>
+            <img id="m" modTime="2013-06-22-09:06:47"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/cd665bf3aba0e5f5216e7627d3ea77f3555876d3"
+                 format="jpg" />
+            <img id="a" modTime="2013-06-21-17:07:26"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/0776f3d260e9dd5fd816e90f7677429d6db1442d"
+                 format="jpg" />
+            <img id="b" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/f4b5ee764e98133534f40e40bc521e41a90dd750"
+                 format="jpg" />
+            <img id="c" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/064072ce06a131c35c20bcf51b369a61dcf10e58"
+                 format="jpg" />
+            <img id="d" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/6fdffcb63cc3a601caf5170c02d9e8c97888589e"
+                 format="jpg" />
+            <img id="e" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/edef8a9bbc7f5014ae4fea3a2877ff4578cfcc94"
+                 format="jpg" />
+            <img id="f" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/c22c78ce1e86ac266535c4d924b7187fabd132ca"
+                 format="jpg" />
+            <img id="g" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/2e01efb8e609d20503be5c3a0294155037214dae"
+                 format="jpg" />
+            <img id="h" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/cf2071abcafabd13a58112372106777096d0dcb9"
+                 format="jpg" />
+            <img id="i" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/2ce41d762f2fd69a2fce9968061c86289ee19c04"
+                 format="jpg" />
+            <img id="j" />
+            <img id="k" />
+            <img id="l" />
+            <img id="n" />
+            <img id="o" />
+            <img id="p" />
+            <img id="q" />
+            <img id="r" />
+            <img id="s" />
+            <img id="t" />
+            <img id="u" />
+            <img id="v" />
+            <img id="w" />
+            <img id="x" />
+            <img id="y" />
+            <img id="z" />
+            <floorplan id="1" />
+            <floorplan id="2" />
+        </objects>
+    </residential>
+    <residential modTime="2013-12-11-07:22:38" status="current">
+        <agentID>5140</agentID>
+        <uniqueID>1338255</uniqueID>
+        <listingAgent id="1">
+            <name>Kelly Flanagan</name>
+            <telephone type="BH">02 6562 3600</telephone>
+            <email>receptionkf@sample.agency.1.com.au</email>
+        </listingAgent>
+        <listingAgent id="2"></listingAgent>
+        <address display="yes">
+            <streetNumber>23</streetNumber>
+            <street>Kinchela Street</street>
+            <suburb>Gladstone</suburb>
+            <state>NSW</state>
+            <postcode>2440</postcode>
+            <country>Australia</country>
+        </address>
+        <price display="yes">235000</price>
+        <priceView></priceView>
+        <headline><![CDATA[Home Or Shop In Gladstone]]></headline>
+        <description><![CDATA[Here you have a rare chance to purchase a classic building in our thriving riverside village of Gladstone. Gladstone is the jewel of our valley, rich in history, draped in scenic beauty and sought by tourists and locals for a day or night out.<br /><br />This charming old-world timber building has that very special warm, comfortable, relaxing feeling. The current presentation is a mixture of earthy tones and textures with some modern splashes. This yummy feeling may be heightened by the scenic parkland and river views across the road but I think a lot of it comes from the building itself, it seems to offer a serenity and a personality of its very own. The building has certainly led a colourful history - previous uses are known to be: a home, a tobacconist, an ice creamery and currently a thriving Day Spa/hairdressers.<br /> <br />So yes, you could use this building strictly as a place of business, strictly as a home of rest or a mixture of both home &amp; business.<br /><br />Features: <br />- Zoning: 2 (V) Village<br />- Currently used as a business premises.<br />- Can be used as a home or both!<br />- It's gorgeously warm &amp; charming.<br />- Views of river and scenic parkland.<br />- Large<span data-description=" front shop room (or could convert to a kitchen/dining/family room).&lt;br&gt;- 2 separate bedrooms + 2 'new' bathrooms + lounge room (with open fire) + laundry + separate toilet.&lt;br&gt;- One of the bathrooms is exquisitely stylish and modern!&lt;br&gt;- Reverse cycle air conditioning.&lt;br&gt;- Fresh paint.&lt;br&gt;- Lovely polished timber floors.&lt;br&gt;- Bay windows at front.&lt;br&gt;- High ceilings.&lt;br&gt;&lt;br&gt;Come and see, it's gorgeous and one of these properties that 'if you miss it, you will kick yourself'.&lt;br&gt;&lt;br&gt;Be quick this one is special.">...</span><a href="#" rel="revealDescription" class="more interesting hidden">show more</a> front shop room (or could convert to a kitchen/dining/family room).<br>- 2 separate bedrooms + 2 'new' bathrooms + lounge room (with open fire) + laundry + separate toilet.<br>- One of the bathrooms is exquisitely stylish and modern!<br>- Reverse cycle air conditioning.<br>- Fresh paint.<br>- Lovely polished timber floors.<br>- Bay windows at front.<br>- High ceilings.<br><br>Come and see, it's gorgeous and one of these properties that 'if you miss it, you will kick yourself'.<br><br>Be quick this one is special.]]></description>
+        <externalLink href="" />
+        <externalLink href="" />
+        <videoLink href="" />
+        <underOffer value="no" />
+        <category name="House" />
+        <features>
+            <bedrooms>2</bedrooms>
+            <bathrooms>2</bathrooms>
+            <ensuite></ensuite>
+            <garages>0</garages>
+            <carports>0</carports>
+            <remoteGarage></remoteGarage>
+            <secureParking></secureParking>
+            <airConditioning>1</airConditioning>
+            <alarmSystem></alarmSystem>
+            <vacuumSystem></vacuumSystem>
+            <intercom></intercom>
+            <poolInGround></poolInGround>
+            <spa></spa>
+            <insideSpa></insideSpa>
+            <outsideSpa></outsideSpa>
+            <tennisCourt></tennisCourt>
+            <balcony></balcony>
+            <courtyard></courtyard>
+            <outdoorEnt></outdoorEnt>
+            <shed></shed>
+            <openFirePlace></openFirePlace>
+            <broadband></broadband>
+            <builtInRobes></builtInRobes>
+            <dishwasher></dishwasher>
+            <gym></gym>
+            <payTV></payTV>
+            <study></study>
+            <workshop></workshop>
+            <openSpaces></openSpaces>
+        </features>
+        <landDetails>
+            <area unit="squareMeter">419.2</area>
+            <frontage></frontage>
+            <depth side="left"></depth>
+            <depth side="right"></depth>
+            <depth side="rear"></depth>
+        </landDetails>
+        <buildingDetails>
+            <area unit="squareMeter"></area>
+        </buildingDetails>
+        <inspectionTimes></inspectionTimes>
+        <authority value="exclusive" />
+        <objects>
+            <img id="m" modTime="2013-12-02-09:07:16"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/2ad19cc3ed526b5c3ca057161a48571036cf1535"
+                 format="jpg" />
+            <img id="a" modTime="2013-04-30-17:31:19"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/b3636afa291081a2367bd862b18baf001a0c7493"
+                 format="jpg" />
+            <img id="b" modTime="2013-12-02-09:07:16"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/3e7ccecfeda2e03a1e392225410140eca3881503"
+                 format="jpg" />
+            <img id="c" modTime="2013-04-30-17:31:17"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/1088ac8be0bac3d958fa4940326ae21e83be8f54"
+                 format="jpg" />
+            <img id="d" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/1efcf4461f797a5f3aa53145d72aeb6ff25df494"
+                 format="jpg" />
+            <img id="e" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/408c09021bebf6f8dfa14d7c00c209927e99330b"
+                 format="jpg" />
+            <img id="f" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/e581a55ea8d14649c6c16d44b7066b8398a8726c"
+                 format="jpg" />
+            <img id="g" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/1907d9a3116b6db14b71006c669f49a42bc4c354"
+                 format="jpg" />
+            <img id="h" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/9878deef682afab656000191c365e9b596e9c697"
+                 format="jpg" />
+            <img id="i" modTime="1970-01-01-10:00:00"
+                 url="http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/c243ecffbef1afdfe885e08d68db2ee65e08af36"
+                 format="jpg" />
+            <img id="j" />
+            <img id="k" />
+            <img id="l" />
+            <img id="n" />
+            <img id="o" />
+            <img id="p" />
+            <img id="q" />
+            <img id="r" />
+            <img id="s" />
+            <img id="t" />
+            <img id="u" />
+            <img id="v" />
+            <img id="w" />
+            <img id="x" />
+            <img id="y" />
+            <img id="z" />
+            <floorplan id="1" />
+            <floorplan id="2" />
+        </objects>
+    </residential>
+
+    <rental modTime="2014-02-18-13:31:05" status="withdrawn">
+        <agentID>228</agentID>
+        <uniqueID>135R</uniqueID>
+    </rental>
+    <rental modTime="2014-02-18-13:31:05" status="current">
+        <agentID>97</agentID>
+        <uniqueID>1426R</uniqueID>
+        <listingAgent>
+            <name>LJ Hooker Rockhampton</name>
+            <telephone type="BH">(07) 4922 2244</telephone>
+            <email>rockhampton@sample.agency.1.com.au</email>
+            <LJHookerID></LJHookerID>
+        </listingAgent>
+        <dateAvailable>2014-02-20</dateAvailable>
+        <priceView>$330 / Wk</priceView>
+        <rent display="yes" period="weekly">330</rent>
+        <bond>1320</bond>
+        <holiday value="no" />
+        <address display="yes">
+            <streetNumber>5/35</streetNumber>
+            <street>Ross Street</street>
+            <suburb display="yes">ALLENSTOWN</suburb>
+            <state>QLD</state>
+            <postcode>4700</postcode>
+            <country>AUS</country>
+        </address>
+        <category name="Townhouse" />
+        <headline>ROCKHAMPTON - MODERN TOWNHOUSE!</headline>
+        <description>* This is truly one of a kind! this ground floor town house includes fans &#13;&#10;* Security screens, separate lounge &amp; dining&#13;&#10;* Split system air conditioning, built in wardrobes&#13;&#10;* Lovely front patio area, modern kitchen &amp; internal laundry with dryer&#13;&#10;* Single carport accommodation and visitors parking, sorry no pets &#13;&#10;* Well positioned close to CBD shopping and amenities&#13;&#10;Bedrooms: 3&#13;&#10;Bathrooms: 1&#13;&#10;Garage:&#13;&#10;Weekly Rent: $330.00&#13;&#10;&#13;&#10;**Please note we do not accept online applications. Please contact our office** TB&#13;&#10;&#13;&#10;*** This unit is the first unit on the right at the rear of the complex**</description>
+        <features>
+            <bedrooms>3</bedrooms>
+            <bathrooms>1</bathrooms>
+            <ensuite>0</ensuite>
+            <garages>0</garages>
+            <carports>1</carports>
+            <alarmSystem>0</alarmSystem>
+            <vacuumSystem>0</vacuumSystem>
+            <intercom>0</intercom>
+            <pool>0</pool>
+            <spa>0</spa>
+        </features>
+        <images>
+            <img id="m" modTime="2014-02-18-13:31:05"
+                 url="http://images.ljhooker.com.au/RentalProperty/Pictures/01582296.jpg" format="jpg" />
+            <img id="a" modTime="2014-02-18-13:31:05"
+                 url="http://images.ljhooker.com.au/RentalProperty/Pictures/02759173.jpg" format="jpg" />
+            <img id="b" modTime="2014-02-18-13:31:05"
+                 url="http://images.ljhooker.com.au/RentalProperty/Pictures/01582298.jpg" format="jpg" />
+            <img id="c" modTime="2014-02-18-13:31:05"
+                 url="http://images.ljhooker.com.au/RentalProperty/Pictures/02759169.jpg" format="jpg" />
+            <img id="d" modTime="2014-02-18-13:31:05"
+                 url="http://images.ljhooker.com.au/RentalProperty/Pictures/01582299.jpg" format="jpg" />
+            <img id="e" modTime="2014-02-18-13:31:05"
+                 url="http://images.ljhooker.com.au/RentalProperty/Pictures/02759170.jpg" format="jpg" />
+            <img id="f" modTime="2014-02-18-13:31:05"
+                 url="http://images.ljhooker.com.au/RentalProperty/Pictures/02759171.jpg" format="jpg" />
+            <img id="g" modTime="2014-02-18-13:31:05"
+                 url="http://images.ljhooker.com.au/RentalProperty/Pictures/02759172.jpg" format="jpg" />
+            <img id="h" />
+            <img id="i" />
+            <img id="j" />
+            <img id="k" />
+            <img id="l" />
+            <img id="n" />
+            <img id="o" />
+            <img id="p" />
+            <img id="q" />
+            <img id="r" />
+            <img id="s" />
+            <img id="t" />
+            <img id="u" />
+            <img id="v" />
+            <img id="w" />
+            <img id="x" />
+            <img id="y" />
+            <img id="z" />
+        </images>
+        <objects>
+            <floorplan id="1" />
+            <floorplan id="2" />
+        </objects>
+    </rental>
+    <rental modTime="2014-02-18-13:31:05" status="withdrawn">
+        <agentID>271</agentID>
+        <uniqueID>822R</uniqueID>
+    </rental>
+    <rental modTime="2014-02-18-13:31:05" status="current">
+        <agentID>2551</agentID>
+        <uniqueID>171R</uniqueID>
+        <listingAgent>
+            <name>Lee Lehmann</name>
+            <telephone type="BH">03 9689 7774</telephone>
+            <email>footscray@sample.agency.1.com.au</email>
+            <LJHookerID>9960784</LJHookerID>
+        </listingAgent>
+        <dateAvailable>2014-03-04</dateAvailable>
+        <priceView>$440 / Wk</priceView>
+        <rent display="yes" period="weekly">440</rent>
+        <bond>2000</bond>
+        <holiday value="no" />
+        <address display="yes">
+            <streetNumber>8</streetNumber>
+            <street>Ulmara Parkway</street>
+            <suburb display="yes">MAIDSTONE</suburb>
+            <state>VIC</state>
+            <postcode>3012</postcode>
+            <country>AUS</country>
+        </address>
+        <category name="House" />
+        <headline>MASTERLY BUILT</headline>
+        <description>Brand new AV Jennings deluxe home in new and pristine estate, adorned with most outstanding features comprising double remote lock up garage, open plan kitchen/meals with chef gas cook top, wall oven with ample cupboard space, spacious living area, d/stairs powder room with WC, u/stairs linen c/board, 1 x master bdrm with WIR, full ensuite and balcony, 2 x bdrms BIR&apos;s, tiled bright bthrm with toilet, compact laundry, ducted, heating, close to transport and Highpoint Shopping Centre.</description>
+        <features>
+            <bedrooms>3</bedrooms>
+            <bathrooms>2</bathrooms>
+            <ensuite>1</ensuite>
+            <garages>2</garages>
+            <carports>0</carports>
+            <alarmSystem>0</alarmSystem>
+            <vacuumSystem>0</vacuumSystem>
+            <intercom>0</intercom>
+            <pool>0</pool>
+            <spa>0</spa>
+        </features>
+        <images>
+            <img id="m" modTime="2014-02-18-13:31:05"
+                 url="http://images.ljhooker.com.au/RentalProperty/Pictures/02771492.jpg" format="jpg" />
+            <img id="a" modTime="2014-02-18-13:31:05"
+                 url="http://images.ljhooker.com.au/RentalProperty/Pictures/02771493.jpg" format="jpg" />
+            <img id="b" />
+            <img id="c" />
+            <img id="d" />
+            <img id="e" />
+            <img id="f" />
+            <img id="g" />
+            <img id="h" />
+            <img id="i" />
+            <img id="j" />
+            <img id="k" />
+            <img id="l" />
+            <img id="n" />
+            <img id="o" />
+            <img id="p" />
+            <img id="q" />
+            <img id="r" />
+            <img id="s" />
+            <img id="t" />
+            <img id="u" />
+            <img id="v" />
+            <img id="w" />
+            <img id="x" />
+            <img id="y" />
+            <img id="z" />
+        </images>
+        <objects>
+            <floorplan id="1" />
+            <floorplan id="2" />
+        </objects>
+    </rental>
+    <rental modTime="2014-02-18-13:31:05" status="current">
+        <agentID>2419</agentID>
+        <uniqueID>220R</uniqueID>
+        <listingAgent>
+            <name>Robert Rusovan</name>
+            <telephone type="BH">03 9404 3000</telephone>
+            <email>southmorang@sample.agency.1.com.au</email>
+            <LJHookerID>9950262</LJHookerID>
+        </listingAgent>
+        <dateAvailable>2014-01-29</dateAvailable>
+        <priceView>$175 / Wk</priceView>
+        <rent display="yes" period="weekly">175</rent>
+        <bond>760</bond>
+        <holiday value="no" />
+        <address display="yes">
+            <streetNumber>2/245</streetNumber>
+            <street>Gower Street</street>
+            <suburb display="yes">PRESTON</suburb>
+            <state>VIC</state>
+            <postcode>3072</postcode>
+            <country>AUS</country>
+        </address>
+        <category name="Studio" />
+        <headline>Great Value Bedsitter Apartment Vehicle no longer required</headline>
+        <description>Located directly opposite the Preston Library and within a two minute stroll to High Street shopping, 5 minute walk to Train Station &amp; only a seven minute walk to Plenty Road Tram this address provides easy access to everything.&#13;&#10;&#13;&#10;This Unit includes a large open plan lounge/bedroom/living combination, separate kitchenette, bathroom with bathtub with overhead shower, a vanity unit and a toilet.&#13;&#10;&#13;&#10;There is a communal laundry with coded secure access, external washing lines, shared off street parking available on a first come first serve basis. &#13;&#10;&#13;&#10;It includes electric hot water service, electric strip heater, wall to wall carpets, &amp; window blinds.&#13;&#10;&#13;&#10;This location is ideal if you are seeking to be within easy access to Latrobe University, R.M.I.T. Universities &amp; Preston TAFE.&#13;&#10;Great value &amp; very easy to commute see it before someone else does.&#13;&#10;&#13;&#10;Hang on, there&apos;s more!&#13;&#10;&#13;&#10;NOTE: NO WATER USAGE CHARGES APPLY TO THIS PROPERTY.&#13;&#10;</description>
+        <features>
+            <bedrooms>1</bedrooms>
+            <bathrooms>1</bathrooms>
+            <ensuite>0</ensuite>
+            <garages>0</garages>
+            <carports>0</carports>
+            <alarmSystem>0</alarmSystem>
+            <vacuumSystem>0</vacuumSystem>
+            <intercom>0</intercom>
+            <pool>0</pool>
+            <spa>0</spa>
+        </features>
+        <inspectionTimes>
+            <inspection>21-FEB-2014 06:15PM to 06:30PM</inspection>
+        </inspectionTimes>
+        <images>
+            <img id="m" modTime="2014-02-18-13:31:05"
+                 url="http://images.ljhooker.com.au/RentalProperty/Pictures/02668950.jpg" format="jpg" />
+            <img id="a" modTime="2014-02-18-13:31:05"
+                 url="http://images.ljhooker.com.au/RentalProperty/Pictures/01828311.jpg" format="jpg" />
+            <img id="b" modTime="2014-02-18-13:31:05"
+                 url="http://images.ljhooker.com.au/RentalProperty/Pictures/01828315.jpg" format="jpg" />
+            <img id="c" modTime="2014-02-18-13:31:05"
+                 url="http://images.ljhooker.com.au/RentalProperty/Pictures/01828317.jpg" format="jpg" />
+            <img id="d" modTime="2014-02-18-13:31:05"
+                 url="http://images.ljhooker.com.au/RentalProperty/Pictures/01828318.jpg" format="jpg" />
+            <img id="e" modTime="2014-02-18-13:31:05"
+                 url="http://images.ljhooker.com.au/RentalProperty/Pictures/01828310.jpg" format="jpg" />
+            <img id="f" />
+            <img id="g" />
+            <img id="h" />
+            <img id="i" />
+            <img id="j" />
+            <img id="k" />
+            <img id="l" />
+            <img id="n" />
+            <img id="o" />
+            <img id="p" />
+            <img id="q" />
+            <img id="r" />
+            <img id="s" />
+            <img id="t" />
+            <img id="u" />
+            <img id="v" />
+            <img id="w" />
+            <img id="x" />
+            <img id="y" />
+            <img id="z" />
+        </images>
+        <objects>
+            <floorplan id="1" />
+            <floorplan id="2" />
+        </objects>
+    </rental>
+    <rental modTime="2014-02-18-13:31:05" status="current">
+        <agentID>271</agentID>
+        <uniqueID>370R</uniqueID>
+        <listingAgent>
+            <name>Jennie Featherstone</name>
+            <telephone type="BH">(02) 6241 1922</telephone>
+            <email>kaleen@sample.agency.1.com.au</email>
+            <LJHookerID>9956700</LJHookerID>
+        </listingAgent>
+        <dateAvailable>2014-01-31</dateAvailable>
+        <priceView>$395 / Wk</priceView>
+        <rent display="yes" period="weekly">395</rent>
+        <bond>1580</bond>
+        <holiday value="no" />
+        <address display="yes">
+            <streetNumber>36/22</streetNumber>
+            <street>Archibald Street</street>
+            <suburb display="yes">LYNEHAM</suburb>
+            <state>ACT</state>
+            <postcode>2602</postcode>
+            <country>AUS</country>
+        </address>
+        <category name="Unit" />
+        <headline>Single Garage with Extra Carport!</headline>
+        <description>Great two bedroom top floor end unit that is minutes from the City, Lyneham and Dickson shopping centres and both universities. Good size living area, dishwasher, balcony off living area and only one adjoining neighbour. This unit includes brick single GARAGE and extra single CARPORT!! &#13;&#10;&#13;&#10;Contact LJHooker Kaleen on 62411922 for inspections. Join the rentalbug to receive the updated, available list of properties via email.&#13;&#10;&#13;&#10;WISH TO INSPECT?&#13;&#10;1. Click on virtual tour, book inspection button or email agent button&#13;&#10;2. Complete your details&#13;&#10;3. We will instantly respond with available times&#13;&#10;4. Register to join an existing inspection, or register to be notified when times are available &#13;&#10;5. If you do not register, we cannot notify you of any time changes or cancellations&#13;&#10;&#13;&#10;&#13;&#10;</description>
+        <features>
+            <bedrooms>2</bedrooms>
+            <bathrooms>1</bathrooms>
+            <ensuite>0</ensuite>
+            <garages>1</garages>
+            <carports>1</carports>
+            <alarmSystem>0</alarmSystem>
+            <vacuumSystem>0</vacuumSystem>
+            <intercom>0</intercom>
+            <pool>0</pool>
+            <spa>0</spa>
+        </features>
+        <inspectionTimes>
+            <inspection>20-FEB-2014 05:15PM to 05:30PM</inspection>
+        </inspectionTimes>
+        <images>
+            <img id="m" modTime="2014-02-18-13:31:05"
+                 url="http://images.ljhooker.com.au/RentalProperty/Pictures/02776276.jpg" format="jpg" />
+            <img id="a" modTime="2014-02-18-13:31:05"
+                 url="http://images.ljhooker.com.au/RentalProperty/Pictures/02776274.jpg" format="jpg" />
+            <img id="b" modTime="2014-02-18-13:31:05"
+                 url="http://images.ljhooker.com.au/RentalProperty/Pictures/02776267.jpg" format="jpg" />
+            <img id="c" modTime="2014-02-18-13:31:05"
+                 url="http://images.ljhooker.com.au/RentalProperty/Pictures/02776272.jpg" format="jpg" />
+            <img id="d" modTime="2014-02-18-13:31:05"
+                 url="http://images.ljhooker.com.au/RentalProperty/Pictures/02776270.jpg" format="jpg" />
+            <img id="e" modTime="2014-02-18-13:31:05"
+                 url="http://images.ljhooker.com.au/RentalProperty/Pictures/02776268.jpg" format="jpg" />
+            <img id="f" modTime="2014-02-18-13:31:05"
+                 url="http://images.ljhooker.com.au/RentalProperty/Pictures/02776269.jpg" format="jpg" />
+            <img id="g" modTime="2014-02-18-13:31:05"
+                 url="http://images.ljhooker.com.au/RentalProperty/Pictures/02776278.jpg" format="jpg" />
+            <img id="h" modTime="2014-02-18-13:31:05"
+                 url="http://images.ljhooker.com.au/RentalProperty/Pictures/02776264.jpg" format="jpg" />
+            <img id="i" modTime="2014-02-18-13:31:05"
+                 url="http://images.ljhooker.com.au/RentalProperty/Pictures/02776265.jpg" format="jpg" />
+            <img id="j" modTime="2014-02-18-13:31:05"
+                 url="http://images.ljhooker.com.au/RentalProperty/Pictures/02776266.jpg" format="jpg" />
+            <img id="k" />
+            <img id="l" />
+            <img id="n" />
+            <img id="o" />
+            <img id="p" />
+            <img id="q" />
+            <img id="r" />
+            <img id="s" />
+            <img id="t" />
+            <img id="u" />
+            <img id="v" />
+            <img id="w" />
+            <img id="x" />
+            <img id="y" />
+            <img id="z" />
+        </images>
+        <objects>
+            <floorplan id="1" />
+            <floorplan id="2" />
+        </objects>
+    </rental>
+    <rental modTime="2014-02-18-13:31:05" status="current">
+        <agentID>497</agentID>
+        <uniqueID>1283R</uniqueID>
+        <listingAgent>
+            <name>Maryam Ghane</name>
+            <telephone type="BH">(08) 9325 0700</telephone>
+            <email>cityresperth@sample.agency.1.com.au</email>
+            <LJHookerID>9958877</LJHookerID>
+        </listingAgent>
+        <dateAvailable>2014-03-14</dateAvailable>
+        <priceView>$800 / Wk</priceView>
+        <rent display="yes" period="weekly">800</rent>
+        <bond>3200</bond>
+        <holiday value="no" />
+        <address display="yes">
+            <streetNumber>1/2a</streetNumber>
+            <street>Regent Street</street>
+            <suburb display="yes">MOUNT LAWLEY</suburb>
+            <state>WA</state>
+            <postcode>6050</postcode>
+            <country>AUS</country>
+        </address>
+        <category name="Townhouse" />
+        <headline>Spacious Town House!</headline>
+        <description>***TO ARRANGE A VIEWING PLEASE CLICK ON THE &apos;CONTACT THE AGENT&apos; BUTTON AND YOU WILL BE SENT AN INSTANT REPLY TO REGISTER FOR THE SCHEDULED VIEWING/S***&#13;&#10;&#13;&#10;Unfurnished: Beautiful and spacious town house situated in a lovely street with access to parks, cafes, schools, shops all close by and only 5 minutes from the CBD. 4 large bedrooms, all with built in robes. 3 bathrooms with luxury fittings and a large spa bath to the ensuite. Double lock up garage, front and rear courtyards with lovely easy care gardens. Large open plan living, dining and kitchen with stunning marble flooring. Large kitchen is decked out with quality stainless steel appliances and fittings. Other features include air-con and an alarm system. Do not miss out, contact our office today.&#13;&#10;&#13;&#10;Rent Per Fortnight $1,600.00 + Bond $3200.00 = $4,800.00&#13;&#10;&#13;&#10; ***HOME OPEN TIMES ARE SUBJECT TO CHANGE WITHOUT NOTICE.*** Please be on time so you have sufficient time to fully view the property and ensure that it meets your requirements as viewing times cannot be extended, so as not to cause delays for the next home open. See You There.***</description>
+        <features>
+            <bedrooms>4</bedrooms>
+            <bathrooms>3</bathrooms>
+            <ensuite>0</ensuite>
+            <garages>2</garages>
+            <carports>0</carports>
+            <alarmSystem>0</alarmSystem>
+            <vacuumSystem>0</vacuumSystem>
+            <intercom>0</intercom>
+            <pool>0</pool>
+            <spa>0</spa>
+        </features>
+        <images>
+            <img id="m" modTime="2014-02-18-13:31:05"
+                 url="http://images.ljhooker.com.au/RentalProperty/Pictures/02768214.jpg" format="jpg" />
+            <img id="a" modTime="2014-02-18-13:31:05"
+                 url="http://images.ljhooker.com.au/RentalProperty/Pictures/02127384.jpg" format="jpg" />
+            <img id="b" modTime="2014-02-18-13:31:05"
+                 url="http://images.ljhooker.com.au/RentalProperty/Pictures/02768215.jpg" format="jpg" />
+            <img id="c" modTime="2014-02-18-13:31:05"
+                 url="http://images.ljhooker.com.au/RentalProperty/Pictures/02761908.jpg" format="jpg" />
+            <img id="d" />
+            <img id="e" />
+            <img id="f" />
+            <img id="g" />
+            <img id="h" />
+            <img id="i" />
+            <img id="j" />
+            <img id="k" />
+            <img id="l" />
+            <img id="n" />
+            <img id="o" />
+            <img id="p" />
+            <img id="q" />
+            <img id="r" />
+            <img id="s" />
+            <img id="t" />
+            <img id="u" />
+            <img id="v" />
+            <img id="w" />
+            <img id="x" />
+            <img id="y" />
+            <img id="z" />
+        </images>
+        <objects>
+            <floorplan id="1" />
+            <floorplan id="2" />
+        </objects>
+    </rental>
+    <rental modTime="2014-02-18-13:31:06" status="withdrawn">
+        <agentID>2023</agentID>
+        <uniqueID>363R</uniqueID>
+    </rental>
+    <rental modTime="2014-02-18-13:31:06" status="current">
+        <agentID>97</agentID>
+        <uniqueID>801R</uniqueID>
+        <listingAgent>
+            <name>LJ Hooker Rockhampton</name>
+            <telephone type="BH">(07) 4922 2244</telephone>
+            <email>rockhampton@sample.agency.1.com.au</email>
+            <LJHookerID></LJHookerID>
+        </listingAgent>
+        <dateAvailable>2014-02-21</dateAvailable>
+        <priceView>$290 / Wk</priceView>
+        <rent display="yes" period="weekly">290</rent>
+        <bond>1160</bond>
+        <holiday value="no" />
+        <address display="yes">
+            <streetNumber>4/232</streetNumber>
+            <street>Farm Street</street>
+            <suburb display="yes">KAWANA</suburb>
+            <state>QLD</state>
+            <postcode>4701</postcode>
+            <country>AUS</country>
+        </address>
+        <category name="Unit" />
+        <headline>NORTH ROCKHAMPTON - NEATLY PRESENTED UNIT!</headline>
+        <description>* Well presented three bedroom lowset unit&#13;&#10;* Security screens, fans &amp; built-ins + extra storage&#13;&#10;* Split system air-conditioning in living area  &#13;&#10;* Single lock up garage, private court yard with pergola &#13;&#10;* Rear unit away from street view - enjoy the peace and quiet &#13;&#10;* Located within walking distance to Glenmore shopping village &#13;&#10;Bedrooms: 3&#13;&#10;Bathrooms: 1&#13;&#10;Garage: 1&#13;&#10;Weekly Rent: $290.00&#13;&#10;&#13;&#10;**Please note we do not accept online applications. Please contact our office.** TB</description>
+        <features>
+            <bedrooms>3</bedrooms>
+            <bathrooms>1</bathrooms>
+            <ensuite>0</ensuite>
+            <garages>1</garages>
+            <carports>0</carports>
+            <alarmSystem>0</alarmSystem>
+            <vacuumSystem>0</vacuumSystem>
+            <intercom>0</intercom>
+            <pool>0</pool>
+            <spa>0</spa>
+        </features>
+        <images>
+            <img id="m" modTime="2014-02-18-13:31:06"
+                 url="http://images.ljhooker.com.au/RentalProperty/Pictures/01656660.jpg" format="jpg" />
+            <img id="a" modTime="2014-02-18-13:31:06"
+                 url="http://images.ljhooker.com.au/RentalProperty/Pictures/01656661.jpg" format="jpg" />
+            <img id="b" modTime="2014-02-18-13:31:06"
+                 url="http://images.ljhooker.com.au/RentalProperty/Pictures/01656664.jpg" format="jpg" />
+            <img id="c" modTime="2014-02-18-13:31:06"
+                 url="http://images.ljhooker.com.au/RentalProperty/Pictures/02777117.jpg" format="jpg" />
+            <img id="d" modTime="2014-02-18-13:31:06"
+                 url="http://images.ljhooker.com.au/RentalProperty/Pictures/02769530.jpg" format="jpg" />
+            <img id="e" modTime="2014-02-18-13:31:06"
+                 url="http://images.ljhooker.com.au/RentalProperty/Pictures/02777116.jpg" format="jpg" />
+            <img id="f" />
+            <img id="g" />
+            <img id="h" />
+            <img id="i" />
+            <img id="j" />
+            <img id="k" />
+            <img id="l" />
+            <img id="n" />
+            <img id="o" />
+            <img id="p" />
+            <img id="q" />
+            <img id="r" />
+            <img id="s" />
+            <img id="t" />
+            <img id="u" />
+            <img id="v" />
+            <img id="w" />
+            <img id="x" />
+            <img id="y" />
+            <img id="z" />
+        </images>
+        <objects>
+            <floorplan id="1" />
+            <floorplan id="2" />
+        </objects>
+    </rental>
+</propertyList>

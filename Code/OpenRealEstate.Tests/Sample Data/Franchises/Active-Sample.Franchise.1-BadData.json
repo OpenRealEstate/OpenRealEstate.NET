@@ -1,0 +1,27 @@
+﻿{
+  "UpdatedOn": "2014-02-25T01:51:03.2986387Z",
+  "Name": "Sample Franchise",
+  "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vehicula leo massa, sit amet dignissim nunc suscipit sit amet. Suspendisse ut risus a ante varius interdum. Mauris tempor justo a elit commodo, nec tempus nisl semper. Vivamus commodo risus massa, at cursus enim varius vel. Praesent luctus rhoncus nisi posuere feugiat. In tortor mi, gravida vitae dictum vel, gravida vitae tortor. Proin quis sodales quam, vel congue augue. Maecenas molestie sodales velit, quis pulvinar ligula tristique vitae. Nunc cursus ultrices ultricies.",
+  "IsActive": true,
+  "WebSites": {
+    "Google": "http://plus.google.com/+SomePage",
+    "Facebook": "http://www.facebook.com/pages/SampleFranchise"
+  },
+  "Logos": [
+    {
+      "Order": 1,
+      "Url": "http://i.imgur.com/zYXZctI.gif"
+    }
+  ],
+  "Images": [
+    {
+      "Order": 1,
+      "Url": "http://i.imgur.com/Kxfr1yG.jpg"
+    },
+    {
+      "Order": 2,
+      "Url": "http://i.imgur.com/jvG4BTq.gif"
+    }
+  ],
+  "Videos": null
+}

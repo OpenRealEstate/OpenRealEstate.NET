@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E07F6317-2A69-445E-9BF7-8D084553FA68}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OpenRealEstate.Core</RootNamespace>
+    <AssemblyName>OpenRealEstate.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Filters\ListingFilters.cs" />
+    <Compile Include="IValidate.cs" />
+    <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\Agency.cs" />
+    <Compile Include="Models\Agent.cs" />
+    <Compile Include="Models\AggregateRoot.cs" />
+    <Compile Include="Models\CommunicationType.cs" />
+    <Compile Include="Models\Features.cs" />
+    <Compile Include="Models\Franchise.cs" />
+    <Compile Include="Models\Inspection.cs" />
+    <Compile Include="Models\Listing.cs" />
+    <Compile Include="Models\ListingAgent.cs" />
+    <Compile Include="Models\Media.cs" />
+    <Compile Include="Models\Communication.cs" />
+    <Compile Include="Models\PaymentFrequencyType.cs" />
+    <Compile Include="Models\PeropertyType.cs" />
+    <Compile Include="Models\RentalListing.cs" />
+    <Compile Include="Models\RentalPricing.cs" />
+    <Compile Include="Models\ResidentialListing.cs" />
+    <Compile Include="Models\SalePricing.cs" />
+    <Compile Include="Models\StatusType.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
