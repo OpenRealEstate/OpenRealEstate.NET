@@ -5,6 +5,31 @@ namespace OpenRealEstate.Services
 {
     public static class XElementExtensions
     {
+        public static string Value(this XElement xElement,
+            string elementName,
+            string attributeName = null,
+            string attributeValue = null)
+        {
+            var value = ValueOrDefault(xElement, elementName, attributeName, attributeValue);
+
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                return value;
+            }
+
+            var errorMessage = string.Format("Expected the {0} '{1}' but failed to find it in the element '{2}'.",
+                string.IsNullOrWhiteSpace(attributeName) ||
+                string.IsNullOrWhiteSpace(attributeValue)
+                    ? "element"
+                    : "attribute",
+                string.IsNullOrWhiteSpace(attributeName) ||
+                string.IsNullOrWhiteSpace(attributeValue)
+                    ? elementName
+                    : attributeName,
+                xElement.Name);
+            throw new Exception(errorMessage);
+        }
+
         public static string ValueOrDefault(this XElement xElement,
             string elementName,
             string attributeName = null,
@@ -45,6 +70,21 @@ namespace OpenRealEstate.Services
             return childElement.Value.Trim();
         }
 
+        public static string AttributeValue(this XElement xElement, string attributeName)
+        {
+            var value = AttributeValueOrDefault(xElement, attributeName);
+
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                return value;
+            }
+
+            var errorMessage = string.Format("Expected the attribute '{0}' but failed to find it in the element '{1}'.",
+                attributeName,
+                xElement.Name);
+            throw new Exception(errorMessage);
+        }
+
         public static string AttributeValueOrDefault(this XElement xElement, string attributeName)
         {
             if (xElement == null)
@@ -52,8 +92,15 @@ namespace OpenRealEstate.Services
                 return null;
             }
 
+            if (string.IsNullOrWhiteSpace(attributeName))
+            {
+                throw new ArgumentNullException("attributeName");
+            }
+
             var attribute = xElement.Attribute(attributeName);
-            return attribute == null ? null : attribute.Value;
+            return attribute == null
+                ? null 
+                : attribute.Value;
         }
 
         public static int IntValueOrDefault(this XElement xElement, string childElementName = null)

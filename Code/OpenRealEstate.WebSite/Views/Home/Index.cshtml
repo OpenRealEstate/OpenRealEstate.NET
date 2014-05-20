@@ -1,0 +1,29 @@
+﻿
+@{
+    Layout = "_layout.cshtml";
+}
+
+@section scripts {
+    <script src="/Content/Scripts/convert.js"></script>
+}
+
+<form action="/validate" method="POST">
+    <div>
+        <textarea id="reaxmltext" name="reaxmltext" placeholder="Paste some REA XML here" rows="12"></textarea>
+    </div>
+
+    <div>
+        <textarea id="openREJson" name="openREJson" placeholder="Paste some OpenRealEstate Json here" rows="12"></textarea>
+    </div>
+    
+    <div>
+        <pre id="jsonCode"></pre>
+    </div>
+
+    <button class="btn" type="button" onclick="processText(true);"><i class="icon-arrow-right"></i> REA XML to Json</button>
+    <button class="btn" type="button" onclick="processText(false);"><i class="icon-arrow-right"></i> Json to REA XML</button>
+    <button class="btn" type="button" onclick="getSampleReaXml();"><i class="icon-arrow-right"></i> Sample REA XML</button>
+    
+
+    <div id="errorMessage"></div>
+</form>
