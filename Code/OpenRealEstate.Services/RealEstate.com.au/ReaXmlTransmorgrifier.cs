@@ -28,7 +28,7 @@ namespace OpenRealEstate.Services.RealEstate.com.au
 
             Parallel.ForEach(elements, new ParallelOptions { MaxDegreeOfParallelism = 1 }, xml => listings.Add(ConvertFromReaXml(xml)));
             //Parallel.ForEach(elements, xml => listings.Add(ConvertFromReaXml(xml)));
-
+            
             return listings.ToList();
         }
 
@@ -106,10 +106,10 @@ namespace OpenRealEstate.Services.RealEstate.com.au
             listing.ShouldNotBe(null);
             xElement.ShouldNotBe(null);
 
-            listing.UpdatedOn = ParseReaDateTime(xElement.AttributeValueOrDefault("modTime"));
+            listing.UpdatedOn = ParseReaDateTime(xElement.AttributeValue("modTime"));
 
-            listing.AgencyId = xElement.ValueOrDefault("agentID");
-            listing.Id = xElement.ValueOrDefault("uniqueID");
+            listing.AgencyId = xElement.Value("agentID");
+            listing.Id = xElement.Value("uniqueID");
             var status = xElement.AttributeValueOrDefault("status");
             if (!string.IsNullOrWhiteSpace(status))
             {
@@ -330,12 +330,7 @@ namespace OpenRealEstate.Services.RealEstate.com.au
         {
             xElement.ShouldNotBe(null);
 
-            var imageElement = xElement.Element("images");
-            if (imageElement == null)
-            {
-                imageElement = xElement.Element("objects");
-            }
-
+            var imageElement = xElement.Element("images") ?? xElement.Element("objects");
             if (imageElement == null)
             {
                 return null;
