@@ -25,11 +25,11 @@ namespace OpenRealEstate.Tests
                 var listings = reaXmlTransmorgrifier.Convert(reaXml);
 
                 // Assert.
-                listings.Count.ShouldBe(25);
+                listings.Count.ShouldBe(6);
 
                 var residentialListing = listings
                     .AsQueryable()
-                    .WithId("1199536")
+                    .WithId("Residential-ABCD1234")
                     .OfType<ResidentialListing>()
                     .SingleOrDefault();
                 residentialListing.ShouldNotBe(null);
@@ -38,7 +38,7 @@ namespace OpenRealEstate.Tests
 
                 var rentalListing = listings
                     .AsQueryable()
-                    .WithId("1426R")
+                    .WithId("Rental-ABCD1234")
                     .OfType<RentalListing>()
                     .SingleOrDefault();
 
@@ -48,49 +48,51 @@ namespace OpenRealEstate.Tests
 
             private static void AssertResidentialListing(ResidentialListing listing)
             {
-                listing.AgencyId.ShouldBe("5140");
-                listing.Id.ShouldBe("1199536");
+                listing.AgencyId.ShouldBe("XNWXNW");
+                listing.Id.ShouldBe("Residential-ABCD1234");
                 listing.StatusType.ShouldBe(StatusType.Current);
                 listing.PropertyType.ShouldBe(PropertyType.House);
 
                 listing.Address.IsStreetDisplayed.ShouldBe(true);
-                listing.Address.StreetNumber.ShouldBe("30");
-                listing.Address.Street.ShouldBe("Panorama Avenue");
-                listing.Address.Suburb.ShouldBe("South West Rocks");
-                listing.Address.State.ShouldBe("NSW");
+                listing.Address.StreetNumber.ShouldBe("2/39");
+                listing.Address.Street.ShouldBe("Main Road");
+                listing.Address.Suburb.ShouldBe("RICHMOND");
+                listing.Address.State.ShouldBe("vic");
                 listing.Address.CountryIsoCode.ShouldBe("AU");
-                listing.Address.Postcode.ShouldBe("2431");
+                listing.Address.Postcode.ShouldBe("3121");
 
-                listing.Pricing.SalePrice.ShouldBe(329000m);
-                listing.Pricing.SalePriceText.ShouldBeNullOrEmpty();
-                listing.Pricing.IsUnderOffer.ShouldBe(true);
+                listing.Pricing.SalePrice.ShouldBe(500000m);
+                listing.Pricing.SalePriceText.ShouldBe("Between $400,000 and $600,000");
+                listing.Pricing.IsUnderOffer.ShouldBe(false);
 
-                listing.Inspections.Count.ShouldBe(1);
-                listing.Inspections.First().OpensOn.ShouldBe(new DateTime(2014, 2, 21, 18, 15, 0));
-                listing.Inspections.First().ClosesOn.ShouldBe(new DateTime(2014, 2, 21, 18, 30, 0));
+                listing.Inspections.Count.ShouldBe(2);
+                listing.Inspections.First().OpensOn.ShouldBe(new DateTime(2009, 1, 21, 11, 00, 0));
+                listing.Inspections.First().ClosesOn.ShouldBe(new DateTime(2009, 1, 21, 13, 00, 0));
 
                 listing.Agents.Count.ShouldBe(1);
                 var listingAgent = listing.Agents[0];
-                listingAgent.Name.ShouldBe("Kelly Flanagan");
+                listingAgent.Name.ShouldBe("Mr. John Doe");
                 listingAgent.Order.ShouldBe(1);
                 listingAgent.Communications[0].CommunicationType.ShouldBe(CommunicationType.Email);
-                listingAgent.Communications[0].Details.ShouldBe("receptionkf@sample.agency.1.com.au");
+                listingAgent.Communications[0].Details.ShouldBe("jdoe@somedomain.com.au");
                 listingAgent.Communications[1].CommunicationType.ShouldBe(CommunicationType.Landline);
-                listingAgent.Communications[1].Details.ShouldBe("02 6562 3600");
+                listingAgent.Communications[1].Details.ShouldBe("05 1234 5678");
 
-                listing.Features.Bedrooms.ShouldBe(3);
+                listing.Features.Bedrooms.ShouldBe(4);
                 listing.Features.Bathrooms.ShouldBe(2);
-                listing.Features.CarSpaces.ShouldBe(1);
+                listing.Features.CarSpaces.ShouldBe(3);
 
-                listing.Images.Count.ShouldBe(10);
+                listing.Images.Count.ShouldBe(2);
                 listing.Images[0].Order.ShouldBe(1);
-                listing.Images[0].Url.ShouldBe("http://s3-ap-southeast-1.amazonaws.com/img.agentaccount.com/a4f063e1fe5b3468f54cd2a6c8c35292810d035d");
+                listing.Images[0].Url.ShouldBe("http://www.realestate.com.au/tmp/imageM.jpg");
 
                 listing.FloorPlans.Count.ShouldBe(2);
-                listing.FloorPlans[0].Url.ShouldBe("http://img.somedomain.com/floorplan1.png");
+                listing.FloorPlans[0].Url.ShouldBe("http://www.realestate.com.au/tmp/floorplan1.gif");
                 listing.FloorPlans[0].Order.ShouldBe(1);
-                listing.FloorPlans[1].Url.ShouldBe("http://img.somedomain.com/floorplan2.png");
+                listing.FloorPlans[1].Url.ShouldBe("http://www.realestate.com.au/tmp/floorplan2.gif");
                 listing.FloorPlans[0].Order.ShouldBe(1);
+
+                listing.AuctionOn.ShouldBe(new DateTime(2009, 02, 04, 18, 30, 00));
 
                 var errors = new Dictionary<string, string>();
                 listing.Validate(errors);
@@ -99,44 +101,45 @@ namespace OpenRealEstate.Tests
 
             private static void AssertRentalListing(RentalListing listing)
             {
-                listing.AgencyId.ShouldBe("97");
-                listing.Id.ShouldBe("1426R");
+                listing.AgencyId.ShouldBe("XNWXNW");
+                listing.Id.ShouldBe("Rental-ABCD1234");
                 listing.StatusType.ShouldBe(StatusType.Current);
-                listing.PropertyType.ShouldBe(PropertyType.Townhouse);
+                listing.PropertyType.ShouldBe(PropertyType.House);
 
                 listing.Address.IsStreetDisplayed.ShouldBe(true);
-                listing.Address.StreetNumber.ShouldBe("5/35");
-                listing.Address.Street.ShouldBe("Ross Street");
-                listing.Address.Suburb.ShouldBe("ALLENSTOWN");
-                listing.Address.State.ShouldBe("QLD");
+                listing.Address.StreetNumber.ShouldBe("39");
+                listing.Address.Street.ShouldBe("Main Road");
+                listing.Address.Suburb.ShouldBe("RICHMOND");
+                listing.Address.State.ShouldBe("vic");
                 listing.Address.CountryIsoCode.ShouldBe("AU");
-                listing.Address.Postcode.ShouldBe("4700");
+                listing.Address.Postcode.ShouldBe("3121");
 
-                listing.Pricing.RentalPrice.ShouldBe(330);
-                listing.Pricing.RentalPriceText.ShouldBe("$330 / Wk");
-                listing.Pricing.AvailableOn.ShouldBe(new DateTime(2014, 02, 20));
-                listing.Pricing.Bond.ShouldBe(1320);
+                listing.AvailableOn.ShouldBe(new DateTime(2009, 01, 26, 12, 30, 00));
 
-                listing.Inspections.ShouldBe(null);
+                listing.Pricing.RentalPrice.ShouldBe(350);
+                listing.Pricing.RentalPriceText.ShouldBe(null);
+                listing.Pricing.Bond.ShouldBe(350);
+
+                listing.Inspections.Count.ShouldBe(2);
 
                 listing.Agents.Count.ShouldBe(1);
                 var listingAgent = listing.Agents[0];
-                listingAgent.Name.ShouldBe("LJ Hooker Rockhampton");
+                listingAgent.Name.ShouldBe("Mr. John Doe");
                 listingAgent.Order.ShouldBe(1);
                 listingAgent.Communications[0].CommunicationType.ShouldBe(CommunicationType.Email);
-                listingAgent.Communications[0].Details.ShouldBe("rockhampton@sample.agency.1.com.au");
+                listingAgent.Communications[0].Details.ShouldBe("jdoe@somedomain.com.au");
                 listingAgent.Communications[1].CommunicationType.ShouldBe(CommunicationType.Landline);
-                listingAgent.Communications[1].Details.ShouldBe("(07) 4922 2244");
+                listingAgent.Communications[1].Details.ShouldBe("05 1234 5678");
 
-                listing.Features.Bedrooms.ShouldBe(3);
-                listing.Features.Bathrooms.ShouldBe(1);
-                listing.Features.CarSpaces.ShouldBe(0);
+                listing.Features.Bedrooms.ShouldBe(4);
+                listing.Features.Bathrooms.ShouldBe(2);
+                listing.Features.CarSpaces.ShouldBe(3);
 
-                listing.Images.Count.ShouldBe(8);
+                listing.Images.Count.ShouldBe(2);
                 listing.Images[0].Order.ShouldBe(1);
-                listing.Images[0].Url.ShouldBe("http://images.ljhooker.com.au/RentalProperty/Pictures/01582296.jpg");
+                listing.Images[0].Url.ShouldBe("http://www.realestate.com.au/tmp/imageM.jpg");
 
-                listing.FloorPlans.ShouldBe(null);
+                listing.FloorPlans.Count.ShouldBe(2);
 
                 var errors = new Dictionary<string, string>();
                 listing.Validate(errors);

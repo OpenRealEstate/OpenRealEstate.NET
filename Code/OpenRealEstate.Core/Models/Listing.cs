@@ -18,7 +18,7 @@ namespace OpenRealEstate.Core.Models
         public IList<Media> FloorPlans { get; set; }
         public IList<Media> Videos { get; set; }
         public IList<Inspection> Inspections { get; set; }
-
+        
         public new void Validate(Dictionary<string, string> errors)
         {
             if (errors == null)
@@ -31,6 +31,16 @@ namespace OpenRealEstate.Core.Models
             if (StatusType == StatusType.Unknown)
             {
                 errors.Add("StatusType", "Invalid StatusType. Please choose any status except Unknown.");
+            }
+
+            if (string.IsNullOrWhiteSpace(Title))
+            {
+                errors.Add("Title", "A title is required.");
+            }
+
+            if (string.IsNullOrWhiteSpace(Description))
+            {
+                errors.Add("Title", "A description is required.");
             }
 
             Address.Validate(errors);

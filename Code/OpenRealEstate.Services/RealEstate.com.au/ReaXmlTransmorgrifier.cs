@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Xml;
 using System.Xml.Linq;
 using OpenRealEstate.Core.Models;
 using Shouldly;
@@ -26,9 +24,10 @@ namespace OpenRealEstate.Services.RealEstate.com.au
 
             var listings = new ConcurrentBag<Listing>();
 
-            Parallel.ForEach(elements, new ParallelOptions { MaxDegreeOfParallelism = 1 }, xml => listings.Add(ConvertFromReaXml(xml)));
+            Parallel.ForEach(elements, new ParallelOptions {MaxDegreeOfParallelism = 1},
+                xml => listings.Add(ConvertFromReaXml(xml)));
             //Parallel.ForEach(elements, xml => listings.Add(ConvertFromReaXml(xml)));
-            
+
             return listings.ToList();
         }
 
@@ -49,9 +48,6 @@ namespace OpenRealEstate.Services.RealEstate.com.au
         {
             xml.ShouldNotBeNullOrEmpty();
 
-            //var xmlDocument = new XmlDocument { XmlResolver = null };
-            //xmlDocument.LoadXml(xml);
-
             var doc = XElement.Parse(xml);
 
             // Determine the category, so we know why type of listing we need to create.
@@ -67,7 +63,7 @@ namespace OpenRealEstate.Services.RealEstate.com.au
 
             // Extract common data.
             ExtractCommonData(listing, doc);
- 
+
             // Extract specific data.
             if (listing is ResidentialListing)
             {
@@ -97,6 +93,56 @@ namespace OpenRealEstate.Services.RealEstate.com.au
             }
 
             return listing;
+        }
+
+        private static DateTime? ToDateTime(string reaDateTime)
+        {
+            // REFERENCE: http://reaxml.realestate.com.au/docs/reaxml1-xml-format.html#datetime
+            /*
+                YYYY-MM-DD
+                YYYY-MM-DD-hh:mm
+                YYYY-MM-DD-hh:mm:ss
+                YYYY-MM-DDThh:mm
+                YYYY-MM-DDThh:mm:ss
+                YYYYMMDD
+                YYYYMMDD-hhmm
+                YYYYMMDD-hhmmss
+                YYYYMMDDThhmm
+                YYYYMMDDThhmmss
+             */
+            var formats = new[]
+            {
+                "yyyy-MM-dd",
+                "yyyy-MM-dd-HH:mm:ss",
+                "yyyy-MM-ddTHH:mm:ss",
+                "yyyy-MM-dd-HH:mm:",
+                "yyyy-MM-ddTHH:mm:ss",
+                "yyyyMMdd-HHmmss",
+                "yyyyMMddTHHmmss",
+                "yyyyMMdd-HHmm",
+                "yyyyMMddTHHmm",
+                "yyyyMMdd",
+                "o",
+                "s"
+            };
+
+
+            DateTime result;
+            if (DateTime.TryParseExact(reaDateTime,
+                formats,
+                CultureInfo.InvariantCulture,
+                DateTimeStyles.None,
+                out result))
+            {
+                return result;
+            }
+            
+            if (DateTime.TryParse(reaDateTime, out result))
+            {
+                return result;
+            }
+
+            return null;
         }
 
         #region Common listing methods
@@ -144,8 +190,8 @@ namespace OpenRealEstate.Services.RealEstate.com.au
             var address = new Address();
 
             var displayText = addressElement.AttributeValueOrDefault("display");
-            address.IsStreetDisplayed = string.IsNullOrWhiteSpace(displayText) || 
-                displayText.ParseYesNoToBool();
+            address.IsStreetDisplayed = string.IsNullOrWhiteSpace(displayText) ||
+                                        displayText.ParseYesNoToBool();
 
             var subNumber = addressElement.ValueOrDefault("subNumber");
             address.StreetNumber = string.Format("{0}{1}{2}",
@@ -158,7 +204,7 @@ namespace OpenRealEstate.Services.RealEstate.com.au
             address.Suburb = addressElement.ValueOrDefault("suburb");
 
             address.State = addressElement.ValueOrDefault("state");
-            
+
             // REA Xml Rule: Country is ommited == default to Australia.
             // Reference: http://reaxml.realestate.com.au/docs/reaxml1-xml-format.html#country
             var country = addressElement.ValueOrDefault("country");
@@ -199,16 +245,16 @@ namespace OpenRealEstate.Services.RealEstate.com.au
                 }
 
                 var email = agentElement.ValueOrDefault("email");
-                agent.Communications = new  List<Communication>();
+                agent.Communications = new List<Communication>();
                 if (!string.IsNullOrWhiteSpace(email))
                 {
                     agent.Communications.Add(new Communication
                     {
                         CommunicationType = CommunicationType.Email,
-                        Details = email  
+                        Details = email
                     });
                 }
-                
+
                 var phoneMobile = agentElement.ValueOrDefault("telephone", "type", "mobile");
                 if (!string.IsNullOrWhiteSpace(phoneMobile))
                 {
@@ -343,14 +389,14 @@ namespace OpenRealEstate.Services.RealEstate.com.au
             }
 
             var images = (from x in imagesElements
-                          let url = x.AttributeValueOrDefault("url")
-                          let order = x.AttributeValueOrDefault("id")
-                          where !string.IsNullOrWhiteSpace(url)
-                          select new Media
-                          {
-                               Url= url,
-                              Order = ConvertImageOrderToNumber(order)
-                          }).ToList();
+                let url = x.AttributeValueOrDefault("url")
+                let order = x.AttributeValueOrDefault("id")
+                where !string.IsNullOrWhiteSpace(url)
+                select new Media
+                {
+                    Url = url,
+                    Order = ConvertImageOrderToNumber(order)
+                }).ToList();
 
             return images.Any() ? images : null;
         }
@@ -372,14 +418,14 @@ namespace OpenRealEstate.Services.RealEstate.com.au
             }
 
             var floorPlans = (from x in floorPlanElements
-                              let url = x.AttributeValueOrDefault("url")
-                              let order = x.AttributeValueOrDefault("id")
-                              where !string.IsNullOrWhiteSpace(url)
-                              select new Media
-                              {
-                                  Url = url,
-                                  Order = System.Convert.ToInt32(order)
-                              }).ToList();
+                let url = x.AttributeValueOrDefault("url")
+                let order = x.AttributeValueOrDefault("id")
+                where !string.IsNullOrWhiteSpace(url)
+                select new Media
+                {
+                    Url = url,
+                    Order = System.Convert.ToInt32(order)
+                }).ToList();
 
             return floorPlans.Any() ? floorPlans : null;
         }
@@ -392,7 +438,7 @@ namespace OpenRealEstate.Services.RealEstate.com.au
             someDateTime.ShouldNotBeNullOrEmpty();
 
             DateTime resultDateTime;
-            
+
             if (!DateTime.TryParse(someDateTime, out resultDateTime))
             {
                 DateTime.TryParseExact(someDateTime.Trim(), "yyyy-MM-dd-H:mm:ss", CultureInfo.InvariantCulture,
@@ -416,13 +462,14 @@ namespace OpenRealEstate.Services.RealEstate.com.au
             {
                 case "AU":
                 case "AUS":
-                case "AUSTRALIA" :
+                case "AUSTRALIA":
                     return "AU";
-                case "NZ" :
+                case "NZ":
                 case "NEW ZEALAND":
                     return "NZ";
-                default : throw new ArgumentOutOfRangeException("country", 
-                    string.Format("Country '{0}' is unhandled - not sure of the ISO Code to use.", country));
+                default:
+                    throw new ArgumentOutOfRangeException("country",
+                        string.Format("Country '{0}' is unhandled - not sure of the ISO Code to use.", country));
             }
         }
 
@@ -441,12 +488,18 @@ namespace OpenRealEstate.Services.RealEstate.com.au
 
         #region Residential Listing methods
 
-        private static void ExtractResidentialData(ResidentialListing listing, XElement xElement)
+        private static void ExtractResidentialData(ResidentialListing residentialListing, XElement xElement)
         {
-            listing.ShouldNotBe(null);
+            residentialListing.ShouldNotBe(null);
             xElement.ShouldNotBe(null);
 
-            listing.Pricing = ExtractSalePricing(xElement);
+            residentialListing.Pricing = ExtractSalePricing(xElement);
+
+            var auction = xElement.ValueOrDefault("auction");
+            if (!string.IsNullOrWhiteSpace(auction))
+            {
+                residentialListing.AuctionOn = ToDateTime(auction);
+            }
         }
 
         private static SalePricing ExtractSalePricing(XElement xElement)
@@ -460,9 +513,9 @@ namespace OpenRealEstate.Services.RealEstate.com.au
 
             var salePriceText = xElement.ValueOrDefault("priceView");
             var displayAttributeValue = xElement.ValueOrDefault("priceView", "display");
-            var isDisplay = string.IsNullOrWhiteSpace(displayAttributeValue) || 
-                displayAttributeValue.ParseYesNoToBool();
-            salePricing.SalePriceText = isDisplay 
+            var isDisplay = string.IsNullOrWhiteSpace(displayAttributeValue) ||
+                            displayAttributeValue.ParseYesNoToBool();
+            salePricing.SalePriceText = isDisplay
                 ? salePriceText
                 : string.IsNullOrWhiteSpace(salePriceText)
                     ? "Address Witheld"
@@ -470,7 +523,7 @@ namespace OpenRealEstate.Services.RealEstate.com.au
 
             var isUnderOffer = xElement.ValueOrDefault("underOffer", "value");
             salePricing.IsUnderOffer = !string.IsNullOrWhiteSpace(isUnderOffer) &&
-                isUnderOffer.ParseYesNoToBool();
+                                       isUnderOffer.ParseYesNoToBool();
 
             return salePricing;
         }
@@ -483,6 +536,12 @@ namespace OpenRealEstate.Services.RealEstate.com.au
         {
             rentalListing.ShouldNotBe(null);
             xElement.ShouldNotBe(null);
+
+            var dateAvailble = xElement.ValueOrDefault("dateAvailable");
+            if (!string.IsNullOrWhiteSpace(dateAvailble))
+            {
+                rentalListing.AvailableOn = ToDateTime(dateAvailble);
+            }
 
             rentalListing.Pricing = ExtractRentalPricing(xElement);
         }
@@ -531,16 +590,6 @@ namespace OpenRealEstate.Services.RealEstate.com.au
 
             rentalPricing.RentalPriceText = xElement.ValueOrDefault("priceView");
             rentalPricing.Bond = xElement.DecimalValueOrDefault("bond");
-
-            var dateAvailble = xElement.ValueOrDefault("dateAvailable");
-            if (!string.IsNullOrWhiteSpace(dateAvailble))
-            {
-                DateTime date;
-                if (DateTime.TryParse(dateAvailble, out date))
-                {
-                    rentalPricing.AvailableOn = date;
-                }
-            }
 
             return rentalPricing;
         }

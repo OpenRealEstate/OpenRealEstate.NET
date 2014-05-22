@@ -1,7 +1,10 @@
-﻿namespace OpenRealEstate.Core.Models
+﻿using System;
+
+namespace OpenRealEstate.Core.Models
 {
     public class ResidentialListing : Listing
     {
         public SalePricing Pricing { get; set; }
+        public DateTime? AuctionOn { get; set; }
     }
 }

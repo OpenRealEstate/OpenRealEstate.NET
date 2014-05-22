@@ -5,8 +5,9 @@
     <!-- Current listing -->
     <residential modTime="2009-01-01-12:30:00" status="current">
         <agentID>XNWXNW</agentID>
-        <uniqueID>ABCD1234</uniqueID>
-        <authority value="exclusive" />
+        <uniqueID>Residential-ABCD1234</uniqueID>
+        <authority value="auction" />
+        <auction>2009-02-04T18:30</auction>
         <underOffer value="no" />
         <newConstruction>1</newConstruction>
         <listingAgent>
@@ -110,7 +111,7 @@
     <!-- Current Listing -->
     <rental modTime="2009-01-01-12:30:00" status="current">
         <agentID>XNWXNW</agentID>
-        <uniqueID>ABCD1234</uniqueID>
+        <uniqueID>Rental-ABCD1234</uniqueID>
         <listingAgent>
             <name>Mr. John Doe</name>
             <telephone type="BH">05 1234 5678</telephone>
