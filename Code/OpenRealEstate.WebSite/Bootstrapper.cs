@@ -13,7 +13,7 @@ namespace OpenRealEstate.WebSite
 
             RegisterServices(container);
 
-            StaticConfiguration.DisableErrorTraces = true;
+            StaticConfiguration.DisableErrorTraces = false;
 
             Nancy.Json.JsonSettings.MaxJsonLength = int.MaxValue;
         }
