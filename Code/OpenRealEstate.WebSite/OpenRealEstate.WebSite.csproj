@@ -48,8 +48,9 @@
     <Reference Include="Nancy.ViewEngines.Razor">
       <HintPath>..\..\packages\Nancy.Viewengines.Razor.0.22.2\lib\net40\Nancy.ViewEngines.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\packages\Newtonsoft.Json.6.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -75,6 +76,7 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <Content Include="Content\Scripts\jquery\jquery-2.1.0.min.map" />
+    <None Include="Properties\PublishProfiles\openrealestate.pubxml" />
     <None Include="Views\Home\Index.cshtml" />
     <Content Include="Views\_Layout.cshtml" />
     <None Include="Web.Debug.config">
