@@ -15,15 +15,17 @@
     <div>
         <textarea id="openREJson" name="openREJson" placeholder="Paste some OpenRealEstate Json here" rows="12"></textarea>
     </div>
-    
-    <div>
-        <pre id="jsonCode"></pre>
-    </div>
 
     <button class="btn" type="button" onclick="processText(true);"><i class="icon-arrow-right"></i> REA XML to Json</button>
     <button class="btn" type="button" onclick="processText(false);"><i class="icon-arrow-right"></i> Json to REA XML</button>
     <button class="btn" type="button" onclick="getSampleReaXml();"><i class="icon-arrow-right"></i> Sample REA XML</button>
     
+    <br/>
 
-    <div id="errorMessage"></div>
+    <div id="message"></div>
+    
+    <div>
+        <pre id="jsonCode"></pre>
+    </div>
+
 </form>

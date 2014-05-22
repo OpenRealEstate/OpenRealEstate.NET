@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Nancy;
 using OpenRealEstate.Core.Models;
 using OpenRealEstate.Services;
+using OpenRealEstate.WebSite.ViewModels;
 
 namespace OpenRealEstate.WebSite.Modules
 {
@@ -30,7 +32,13 @@ namespace OpenRealEstate.WebSite.Modules
             {
                 IList<Listing> listings = _reaXmlTransmorgrifier.Convert(reaXml);
 
-                return Response.AsJson(listings);
+                var viewModel = new ConvertViewModel
+                {
+                    Listings = listings,
+                    ResidentialCount = listings.OfType<ResidentialListing>().Count(),
+                    RentalCount = listings.OfType<RentalListing>().Count()
+                };
+                return Response.AsJson(viewModel);
             }
             catch (Exception exception)
             {

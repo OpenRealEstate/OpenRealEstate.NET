@@ -72,6 +72,7 @@
     <Compile Include="Modules\ConvertModule.cs" />
     <Compile Include="Modules\HomeModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\ConvertViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

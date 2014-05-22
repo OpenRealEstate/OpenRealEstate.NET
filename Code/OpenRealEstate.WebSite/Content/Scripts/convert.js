@@ -4,7 +4,7 @@
     var json;
 
     $('#jsonCode').text('');
-    $('#errorMessage').text('');
+    $('#message').text('');
 
     if (isConvertingReaXmlToJson) {
         reaXml = $('#reaxmltext').val();
@@ -21,22 +21,29 @@
             'reaXml': reaXml,
             'json': json
         })
-        .done(function(data) {
-                if (isConvertingReaXmlToJson) {
-
-                    //var jsonPretty = JSON.stringify(JSON.parse(data), null, 2);
-                    $('#openREJson').text(JSON.stringify(data));
-                    console.log(JSON.stringify(data));
-                    $('#jsonCode').text(JSON.stringify(data));
-                } else {
-                    $('#reaxmltext').html(data);
-                }
-            }
-        )
+        .done(function(data) { displayListingResult(isConvertingReaXmlToJson, data); })
         .fail(function (qXhr, textStatus, errorThrown) {
-            $('#errorMessage').text(qXhr.responseText);
-        }
-        );
+            $('#message').text(qXhr.responseText);
+        });
+}
+
+function displayListingResult(isConvertingReaXmlToJson, data) {
+    if (isConvertingReaXmlToJson) {
+
+        // Split the pieces of the viewModel up.
+        var jsonListings = JSON.stringify(data.listings);
+        var message = 'Residential Count: ' + data.residentialCount + '.<br/>Rental Count: ' + data.rentalCount + '.<br/><br/>';
+
+        //var jsonPretty = JSON.stringify(JSON.parse(data), null, 2);
+        $('#openREJson').text(jsonListings);
+        console.log(JSON.stringify(jsonListings));
+        $('#jsonCode').text(JSON.stringify(jsonListings));
+
+        $('#message').html(message);
+
+    } else {
+        $('#reaxmltext').html(data);
+    }
 }
 
 function getSampleReaXml() {
