@@ -77,7 +77,7 @@
     <Content Include="packages.config" />
     <Content Include="Content\Scripts\jquery\jquery-2.1.0.min.map" />
     <None Include="Properties\PublishProfiles\openrealestate.pubxml" />
-    <None Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\_Layout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
