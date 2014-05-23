@@ -306,11 +306,20 @@ namespace OpenRealEstate.Services.RealEstate.com.au
                 return null;
             }
 
+            // No one really knows what to use for cars. Garages? Carspaces?
+            // We'll use carspaces over garages.
+            var carspaces = featuresElement.ByteValueOrDefault("carspaces");
+            var garages = featuresElement.ByteValueOrDefault("garages");
+
             var features = new Features
             {
                 Bedrooms = featuresElement.ByteValueOrDefault("bedrooms"),
                 Bathrooms = featuresElement.ByteValueOrDefault("bathrooms"),
-                CarSpaces = featuresElement.ByteValueOrDefault("garages")
+                CarSpaces = carspaces > 0
+                    ? carspaces
+                    : garages > 0
+                        ? garages
+                        : 0
             };
 
             return features;
