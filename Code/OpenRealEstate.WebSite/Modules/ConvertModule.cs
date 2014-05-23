@@ -38,7 +38,15 @@ namespace OpenRealEstate.WebSite.Modules
                 {
                     foreach (var listing in listings)
                     {
-                        listing.Validate(errors);
+                        var keySuffix = string.Format("-{0}-{1}-{2}",
+                            string.IsNullOrEmpty(listing.AgencyId)
+                                ? "no-Agency-Id-"
+                                : listing.AgencyId,
+                            string.IsNullOrEmpty(listing.Id)
+                                ? "no-listing-Id-"
+                                : listing.Id,
+                            Guid.NewGuid());
+                        listing.Validate(errors, keySuffix);
                     }
                 }
 

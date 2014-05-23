@@ -33,14 +33,24 @@ function displayListingResult(isConvertingReaXmlToJson, data) {
         // Split the pieces of the viewModel up.
         var jsonListings = JSON.stringify(data.listings);
         var message = 'Residential Count: ' + data.residentialCount + '.<br/>Rental Count: ' + data.rentalCount + '.<br/><br/>';
+        var errors = data.Errors;
 
-        //var jsonPretty = JSON.stringify(JSON.parse(data), null, 2);
-        $('#openREJson').text(jsonListings);
-        console.log(JSON.stringify(jsonListings));
-        $('#jsonCode').text(JSON.stringify(jsonListings));
+        if (errors && 
+            errors.length > 0) {
+            var errorMessage = '';
+            for (var i = 0; i < errors.length; i++) {
+                errorMessage += errors[i][0] + ': ' + errors[i][1] + '<br/>';
+            }
 
-        $('#message').html(message);
+            $('#message').html(message);
+        } else {
+            //var jsonPretty = JSON.stringify(JSON.parse(data), null, 2);
+            $('#openREJson').text(jsonListings);
+            console.log(JSON.stringify(jsonListings));
+            $('#jsonCode').text(JSON.stringify(jsonListings));
 
+            $('#message').html(message);
+        }
     } else {
         $('#reaxmltext').html(data);
     }

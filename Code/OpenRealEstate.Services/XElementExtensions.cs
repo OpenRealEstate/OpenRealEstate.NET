@@ -18,7 +18,7 @@ namespace OpenRealEstate.Services
                 return value;
             }
 
-            var errorMessage = string.Format("Expected the {0} '{1}' but failed to find it in the element '{2}'.",
+            var errorMessage = string.Format("Expected the {0} '{1}' but failed to find it in the element '{2}' or that element exists, but with no data.",
                 string.IsNullOrWhiteSpace(attributeName) ||
                 string.IsNullOrWhiteSpace(attributeValue)
                     ? "element"

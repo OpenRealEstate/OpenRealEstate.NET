@@ -32,13 +32,6 @@ namespace OpenRealEstate.Core.Models
             if (string.IsNullOrWhiteSpace(keySuffix))
             {
                 keySuffix = string.Empty;
-                //keySuffix = string.Format("{0}-{1}",
-                //string.IsNullOrEmpty(AgencyId)
-                //    ? "no-Agency-Id-" + Guid.NewGuid()
-                //    : AgencyId,
-                //string.IsNullOrEmpty(Id)
-                //    ? "no-listing-Id-" + Guid.NewGuid()
-                //    : Id);
             }
 
             base.Validate(errors, keySuffix);
@@ -48,6 +41,14 @@ namespace OpenRealEstate.Core.Models
                 errors.Add("StatusType" + keySuffix, "Invalid StatusType. Please choose any status except Unknown.");
             }
 
+            if (StatusType == StatusType.Current)
+            {
+                ValidateCurrent(errors, keySuffix);
+            }
+        }
+
+        private void ValidateCurrent(Dictionary<string, string> errors, string keySuffix = null)
+        {
             if (PropertyType == PropertyType.Unknown)
             {
                 errors.Add("ProperType" + keySuffix, "Invalid PropertyType. Please choose any property except Unknown.");
@@ -63,7 +64,14 @@ namespace OpenRealEstate.Core.Models
                 errors.Add("Description" + keySuffix, "A description is required.");
             }
 
-            Address.Validate(errors, keySuffix);
+            if (Address == null)
+            {
+                errors.Add("Address" + keySuffix, "Address information is required.");
+            }
+            else
+            {
+                Address.Validate(errors, keySuffix);
+            }
 
             if (Agents != null &&
                 Agents.Any())
