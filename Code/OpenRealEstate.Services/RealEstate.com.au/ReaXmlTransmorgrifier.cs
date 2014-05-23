@@ -24,9 +24,7 @@ namespace OpenRealEstate.Services.RealEstate.com.au
 
             var listings = new ConcurrentBag<Listing>();
 
-            Parallel.ForEach(elements, new ParallelOptions {MaxDegreeOfParallelism = 1},
-                xml => listings.Add(ConvertFromReaXml(xml)));
-            //Parallel.ForEach(elements, xml => listings.Add(ConvertFromReaXml(xml)));
+            Parallel.ForEach(elements, xml => listings.Add(ConvertFromReaXml(xml)));
 
             return listings.ToList();
         }
@@ -35,7 +33,7 @@ namespace OpenRealEstate.Services.RealEstate.com.au
         {
             xml.ShouldNotBeNullOrEmpty();
 
-            var doc = XElement.Parse(xml);
+            var doc = XElement.Parse(xml).StripNameSpaces();
 
             var elements = new List<XElement>();
             elements.AddRange(doc.Descendants("residential").ToList());
@@ -349,8 +347,17 @@ namespace OpenRealEstate.Services.RealEstate.com.au
                 // Only the following format is accepted as valid: DD-MON-YYYY hh:mm[am|pm] to hh:mm[am|pm]
                 // REF: http://reaxml.realestate.com.au/docs/reaxml1-xml-format.html#inspection
                 var data = inspectionElement.Value.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
-                var inspectionStartsOn = DateTime.Parse(string.Format("{0} {1}", data[0], data[1]));
-                var inspectionEndsOn = DateTime.Parse(string.Format("{0} {1}", data[0], data[3]));
+
+                DateTime inspectionStartsOn, inspectionEndsOn;
+
+                DateTime.TryParse(string.Format("{0} {1}", data[0], data[1]), out inspectionStartsOn);
+                DateTime.TryParse(string.Format("{0} {1}", data[0], data[3]), out inspectionEndsOn);
+
+                if (inspectionStartsOn == DateTime.MinValue ||
+                    inspectionEndsOn == DateTime.MinValue)
+                {
+                    throw new Exception("Inspection element has an invalid Date/Time value. Element: " + inspectionElement);
+                }
 
                 var newInspection = new Inspection
                 {

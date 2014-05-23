@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OpenRealEstate.Core.Models
 {
@@ -18,32 +19,96 @@ namespace OpenRealEstate.Core.Models
         public IList<Media> FloorPlans { get; set; }
         public IList<Media> Videos { get; set; }
         public IList<Inspection> Inspections { get; set; }
-        
-        public new void Validate(Dictionary<string, string> errors)
+
+        public new void Validate(Dictionary<string, string> errors, string keySuffix = null)
         {
             if (errors == null)
             {
                 throw new ArgumentNullException("errors");
             }
 
-            base.Validate(errors);
+            // Each key needs to be determined by the Agency + Unique id. This way,
+            // when we are validating multiple listings, we don't get a duplicate key-conflict.
+            if (string.IsNullOrWhiteSpace(keySuffix))
+            {
+                keySuffix = string.Empty;
+                //keySuffix = string.Format("{0}-{1}",
+                //string.IsNullOrEmpty(AgencyId)
+                //    ? "no-Agency-Id-" + Guid.NewGuid()
+                //    : AgencyId,
+                //string.IsNullOrEmpty(Id)
+                //    ? "no-listing-Id-" + Guid.NewGuid()
+                //    : Id);
+            }
+
+            base.Validate(errors, keySuffix);
 
             if (StatusType == StatusType.Unknown)
             {
-                errors.Add("StatusType", "Invalid StatusType. Please choose any status except Unknown.");
+                errors.Add("StatusType" + keySuffix, "Invalid StatusType. Please choose any status except Unknown.");
+            }
+
+            if (PropertyType == PropertyType.Unknown)
+            {
+                errors.Add("ProperType" + keySuffix, "Invalid PropertyType. Please choose any property except Unknown.");
             }
 
             if (string.IsNullOrWhiteSpace(Title))
             {
-                errors.Add("Title", "A title is required.");
+                errors.Add("Title" + keySuffix, "A title is required.");
             }
 
             if (string.IsNullOrWhiteSpace(Description))
             {
-                errors.Add("Title", "A description is required.");
+                errors.Add("Description" + keySuffix, "A description is required.");
             }
 
-            Address.Validate(errors);
+            Address.Validate(errors, keySuffix);
+
+            if (Agents != null &&
+                Agents.Any())
+            {
+                foreach (var agent in Agents)
+                {
+                    agent.Validate(errors, keySuffix);
+                }
+            }
+
+            if (Images != null &&
+                Images.Any())
+            {
+                foreach (var image in Images)
+                {
+                    image.Validate(errors, keySuffix);
+                }
+            }
+
+            if (FloorPlans != null &&
+                FloorPlans.Any())
+            {
+                foreach (var floorPlan in FloorPlans)
+                {
+                    floorPlan.Validate(errors, keySuffix);
+                }
+            }
+
+            if (Videos != null &&
+                Videos.Any())
+            {
+                foreach (var video in Videos)
+                {
+                    video.Validate(errors, keySuffix);
+                }
+            }
+
+            if (Inspections != null &&
+                Inspections.Any())
+            {
+                foreach (var inspection in Inspections)
+                {
+                    inspection.Validate(errors, keySuffix);
+                }
+            }
         }
     }
 }

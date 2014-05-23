@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Xml.Linq;
 
 namespace OpenRealEstate.Services
@@ -196,6 +197,21 @@ namespace OpenRealEstate.Services
             }
 
             return number;
+        }
+
+        public static XElement StripNameSpaces(this XElement root)
+        {
+            var xElement = new XElement(
+                root.Name.LocalName,
+                root.HasElements ?
+                    root.Elements().Select(StripNameSpaces) :
+                    (object)root.Value
+            );
+
+            xElement.ReplaceAttributes(root.Attributes()
+                .Where(attr => (!attr.IsNamespaceDeclaration)));
+
+            return xElement;
         }
     }
 }

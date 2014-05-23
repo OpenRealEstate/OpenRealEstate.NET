@@ -84,5 +84,9 @@
   ],
   "Videos": null,
   "Id": "Ref1111",
-  "UpdatedOn": "2014-02-25T01: 51: 03.2986387Z"
+  "UpdatedOn": "2014-02-25T01: 51: 03.2986387Z",
+  "Title": "This is a sample title",
+  "Description" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquam porta nisi, eget commodo tellus elementum eget. Fusce at est massa. Mauris nec feugiat dui. Aliquam lacinia vehicula mauris, a facilisis dolor tincidunt non. Donec a quam eget metus ornare ornare posuere scelerisque nulla. Aenean et neque adipiscing, molestie eros in, bibendum dui. Fusce eget mauris sapien. Nulla quam risus, varius a velit eget, commodo pellentesque elit.",
+  "StatusType": "Current",
+  "PropertyType": "House"
 }

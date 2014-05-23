@@ -16,26 +16,32 @@ namespace OpenRealEstate.Core.Models
         public decimal Longitude { get; set; }
         public bool IsStreetDisplayed { get; set; }
 
-        public void Validate(Dictionary<string, string> errors)
+        public void Validate(Dictionary<string, string> errors, string keySuffix = null)
         {
             if (errors == null)
             {
                 throw new ArgumentNullException("errors");
             }
 
+            // We can have a string.Empty keySuffix, which means do have a key to postpend.
+            if (keySuffix == null)
+            {
+                throw new ArgumentNullException("keySuffix");
+            }
+
             if (string.IsNullOrWhiteSpace(Suburb))
             {
-                errors.Add("Suburb", "A Suburb is required. Eg. Ivanhoe or Pott's Point.");
+                errors.Add("Suburb" + keySuffix, "A Suburb is required. Eg. Ivanhoe or Pott's Point.");
             }
 
             if (string.IsNullOrWhiteSpace(State))
             {
-                errors.Add("State", "A State is required. Eg. Victoria or New South Wales.");
+                errors.Add("State" + keySuffix, "A State is required. Eg. Victoria or New South Wales.");
             }
 
             if (string.IsNullOrWhiteSpace(CountryIsoCode))
             {
-                errors.Add("CountryIsoCode", "A Country ISO code is required. eg. AU, NZ, etc.");
+                errors.Add("CountryIsoCode" + keySuffix, "A Country ISO code is required. eg. AU, NZ, etc.");
             }
         }
     }

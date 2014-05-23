@@ -8,5 +8,6 @@ namespace OpenRealEstate.WebSite.ViewModels
         public int ResidentialCount { get; set; }
         public int RentalCount { get; set; }
         public IEnumerable<Listing> Listings { get; set; }
+        public IDictionary<string, string> ValidationErrors { get; set; }
     }
 }

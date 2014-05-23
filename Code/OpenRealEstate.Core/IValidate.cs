@@ -4,7 +4,6 @@ namespace OpenRealEstate.Core
 {
     public interface IValidate
     {
-        //Dictionary<string, string> Validate();
-        void Validate(Dictionary<string, string> errors);
+        void Validate(Dictionary<string, string> errors, string keySuffix = null);
     }
 }
