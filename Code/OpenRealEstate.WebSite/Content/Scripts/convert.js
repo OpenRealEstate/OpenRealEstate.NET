@@ -43,7 +43,7 @@ function displayListingResult(isConvertingReaXmlToJson, data) {
                 };
             });
 
-            var errorMessage = '';
+            var errorMessage = '<br>Errors have occurred.<br/><br/>';
             $.each(errors, function(index, error) {
                 errorMessage = errorMessage + 'key: ' + error.Key + ' - error: ' + error.Value + '<br/>';
             });
