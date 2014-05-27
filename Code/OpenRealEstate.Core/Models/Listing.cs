@@ -51,7 +51,7 @@ namespace OpenRealEstate.Core.Models
         {
             if (PropertyType == PropertyType.Unknown)
             {
-                errors.Add("ProperType" + keySuffix, "Invalid PropertyType. Please choose any property except Unknown.");
+                errors.Add("PropertyType" + keySuffix, "Invalid PropertyType. Please choose any property except Unknown.");
             }
 
             if (string.IsNullOrWhiteSpace(Title))

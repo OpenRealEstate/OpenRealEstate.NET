@@ -50,7 +50,13 @@ namespace OpenRealEstate.WebSite.Modules
                     }
                 }
 
-                var viewModel = new ConvertViewModel
+
+                var viewModel = errors.Any()
+                    ? new ConvertViewModel
+                    {
+                        ValidationErrors = errors
+                    }
+                    : new ConvertViewModel
                 {
                     Listings = listings,
                     ResidentialCount = listings == null
@@ -58,8 +64,7 @@ namespace OpenRealEstate.WebSite.Modules
                         : listings.OfType<ResidentialListing>().Count(),
                     RentalCount = listings == null
                         ? 0
-                        : listings.OfType<RentalListing>().Count(),
-                    ValidationErrors = errors
+                        : listings.OfType<RentalListing>().Count()
                 };
 
                 return Response.AsJson(viewModel);
