@@ -43,7 +43,6 @@ namespace OpenRealEstate.Tests
                     .SingleOrDefault();
 
                 AssertRentalListing(rentalListing);
-
             }
 
             private static void AssertResidentialListing(ResidentialListing listing)
@@ -80,7 +79,7 @@ namespace OpenRealEstate.Tests
 
                 listing.Features.Bedrooms.ShouldBe(4);
                 listing.Features.Bathrooms.ShouldBe(2);
-                listing.Features.CarSpaces.ShouldBe(3);
+                listing.Features.CarSpaces.ShouldBe(2);
 
                 listing.Images.Count.ShouldBe(2);
                 listing.Images[0].Order.ShouldBe(1);
@@ -133,7 +132,7 @@ namespace OpenRealEstate.Tests
 
                 listing.Features.Bedrooms.ShouldBe(4);
                 listing.Features.Bathrooms.ShouldBe(2);
-                listing.Features.CarSpaces.ShouldBe(3);
+                listing.Features.CarSpaces.ShouldBe(2);
 
                 listing.Images.Count.ShouldBe(2);
                 listing.Images[0].Order.ShouldBe(1);

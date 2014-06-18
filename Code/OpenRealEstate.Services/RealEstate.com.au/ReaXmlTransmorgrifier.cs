@@ -308,7 +308,7 @@ namespace OpenRealEstate.Services.RealEstate.com.au
 
             // No one really knows what to use for cars. Garages? Carspaces?
             // We'll use carspaces over garages.
-            var carspaces = featuresElement.ByteValueOrDefault("carspaces");
+            var carspaces = featuresElement.ByteValueOrDefault("carports");
             var garages = featuresElement.ByteValueOrDefault("garages");
 
             var features = new Features
