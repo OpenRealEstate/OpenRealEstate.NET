@@ -549,7 +549,7 @@ namespace OpenRealEstate.Services.RealEstate.com.au
             if (soldDetails != null)
             {
                 salePricing.SoldPrice = soldDetails.DecimalValueOrDefault("price");
-                var soldDisplayAttribute = xElement.ValueOrDefault("price", "display");
+                var soldDisplayAttribute = soldDetails.ValueOrDefault("price", "display");
                 salePricing.IsSoldPriceVisibile = string.IsNullOrWhiteSpace(soldDisplayAttribute) ||
                                                   soldDisplayAttribute.ParseYesNoToBool();
 

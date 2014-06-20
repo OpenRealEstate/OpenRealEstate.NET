@@ -113,6 +113,48 @@ namespace OpenRealEstate.Tests
             }
 
             [Fact]
+            public void GivenTheFileREAResidentialSoldWithNoDisplayPrice_Convert_ReturnsAResidentialSoldListing()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA-Residential-Sold-NoDisplayPrice.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var listings = reaXmlTransmorgrifier.Convert(reaXml);
+
+                // Assert.
+                listings.Count.ShouldBe(1);
+
+                var residentialSoldListing = listings
+                    .AsQueryable()
+                    .WithId("Residential-Sold-ABCD1234")
+                    .OfType<ResidentialListing>()
+                    .SingleOrDefault();
+                AssertResidentialSoldListing(residentialSoldListing);
+            }
+
+            [Fact]
+            public void GivenTheFileREAResidentialSoldWithDisplayPriceIsNo_Convert_ReturnsAResidentialSoldListing()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA-Residential-Sold-DisplayPriceIsNo.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var listings = reaXmlTransmorgrifier.Convert(reaXml);
+
+                // Assert.
+                listings.Count.ShouldBe(1);
+
+                var residentialSoldListing = listings
+                    .AsQueryable()
+                    .WithId("Residential-Sold-ABCD1234")
+                    .OfType<ResidentialListing>()
+                    .SingleOrDefault();
+                AssertResidentialSoldListing(residentialSoldListing, false);
+            }
+
+            [Fact]
             public void GivenTheFileREAResidentialWithdawn_Convert_ReturnsAResidentialWithdawnListing()
             {
                 // Arrange.
@@ -249,14 +291,15 @@ namespace OpenRealEstate.Tests
                 errors.Count.ShouldBe(0);
             }
 
-            private static void AssertResidentialSoldListing(ResidentialListing listing)
+            private static void AssertResidentialSoldListing(ResidentialListing listing,
+                bool IsSoldPriceVisibile = true)
             {
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Residential-Sold-ABCD1234");
                 listing.StatusType.ShouldBe(StatusType.Sold);
 
                 listing.Pricing.SoldPrice.ShouldBe(580000m);
-                listing.Pricing.IsSoldPriceVisibile.ShouldBe(true);
+                listing.Pricing.IsSoldPriceVisibile.ShouldBe(IsSoldPriceVisibile);
                 listing.Pricing.SoldOn.ShouldBe(new DateTime(2009, 01, 10, 12, 30, 00));
 
                 var errors = new Dictionary<string, string>();
