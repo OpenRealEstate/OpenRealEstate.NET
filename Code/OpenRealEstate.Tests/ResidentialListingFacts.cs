@@ -41,7 +41,7 @@ namespace OpenRealEstate.Tests
                 listing.Pricing.SalePriceText.ShouldBe("Contact Agent");
                 listing.Pricing.SoldOn.ShouldBe(null);
                 listing.Pricing.SoldPrice.ShouldBe(null);
-                listing.Pricing.SoldPriceText.ShouldBe(null);
+                listing.Pricing.IsSoldPriceVisibile.ShouldBe(false);
 
                 listing.Features.Bedrooms.ShouldBe(1);
                 listing.Features.Bathrooms.ShouldBe(2);

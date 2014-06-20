@@ -5,7 +5,7 @@
     <!-- Current listing -->
     <residential modTime="2009-01-01-12:30:00" status="current">
         <agentID>XNWXNW</agentID>
-        <uniqueID>Residential-ABCD1234</uniqueID>
+        <uniqueID>Residential-Current-ABCD1234</uniqueID>
         <authority value="auction" />
         <auction>2009-02-04T18:30</auction>
         <underOffer value="no" />
@@ -95,7 +95,7 @@
     <!-- Sold listing -->
     <residential modTime="2009-01-01-12:30:00" status="sold">
         <agentID>XNWXNW</agentID>
-        <uniqueID>ABCD12345</uniqueID>
+        <uniqueID>Residential-Sold-ABCD1234</uniqueID>
         <soldDetails>
             <price display="yes">580000</price>
             <date>2009-01-10-12:30:00</date>
@@ -104,14 +104,14 @@
     <!-- Deleted listing -->
     <residential modTime="2009-01-01-12:30:00" status="withdrawn">
         <agentID>XNWXNW</agentID>
-        <uniqueID>ABCD123456</uniqueID>
+        <uniqueID>Residential-Withdrawn-ABCD1234</uniqueID>
     </residential>
 
 
     <!-- Current Listing -->
     <rental modTime="2009-01-01-12:30:00" status="current">
         <agentID>XNWXNW</agentID>
-        <uniqueID>Rental-ABCD1234</uniqueID>
+        <uniqueID>Rental-Current-ABCD1234</uniqueID>
         <listingAgent>
             <name>Mr. John Doe</name>
             <telephone type="BH">05 1234 5678</telephone>
@@ -201,11 +201,11 @@
     <!-- Leased Listing -->
     <rental modTime="2009-01-01-12:30:00" status="leased">
         <agentID>XNWXNW</agentID>
-        <uniqueID>ABCD12345</uniqueID>
+        <uniqueID>Rental-Leased-ABCD1234</uniqueID>
     </rental>
     <!-- Deleted Listing -->
     <rental modTime="2009-01-01-12:30:00" status="withdrawn">
         <agentID>XNWXNW</agentID>
-        <uniqueID>ABCD123456</uniqueID>
+        <uniqueID>Rental-Withdrawn-ABCD1234</uniqueID>
     </rental>
 </propertyList>

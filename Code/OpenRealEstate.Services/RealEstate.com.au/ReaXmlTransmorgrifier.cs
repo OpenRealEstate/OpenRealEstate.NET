@@ -527,6 +527,8 @@ namespace OpenRealEstate.Services.RealEstate.com.au
                 SalePrice = xElement.DecimalValueOrDefault("price")
             };
 
+            // Selling data.
+
             var salePriceText = xElement.ValueOrDefault("priceView");
             var displayAttributeValue = xElement.ValueOrDefault("priceView", "display");
             var isDisplay = string.IsNullOrWhiteSpace(displayAttributeValue) ||
@@ -540,6 +542,23 @@ namespace OpenRealEstate.Services.RealEstate.com.au
             var isUnderOffer = xElement.ValueOrDefault("underOffer", "value");
             salePricing.IsUnderOffer = !string.IsNullOrWhiteSpace(isUnderOffer) &&
                                        isUnderOffer.ParseYesNoToBool();
+
+
+            // Sold data.
+            var soldDetails = xElement.Element("soldDetails");
+            if (soldDetails != null)
+            {
+                salePricing.SoldPrice = soldDetails.DecimalValueOrDefault("price");
+                var soldDisplayAttribute = xElement.ValueOrDefault("price", "display");
+                salePricing.IsSoldPriceVisibile = string.IsNullOrWhiteSpace(soldDisplayAttribute) ||
+                                                  soldDisplayAttribute.ParseYesNoToBool();
+
+                var soldOnText = soldDetails.ValueOrDefault("date");
+                if (!string.IsNullOrWhiteSpace(soldOnText))
+                {
+                    salePricing.SoldOn = ToDateTime(soldOnText);
+                }
+            }
 
             return salePricing;
         }

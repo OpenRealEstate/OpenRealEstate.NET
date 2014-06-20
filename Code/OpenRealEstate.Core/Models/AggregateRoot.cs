@@ -18,7 +18,7 @@ namespace OpenRealEstate.Core.Models
             // We can have a string.Empty keySuffix, which means do have a key to postpend.
             if (keySuffix == null)
             {
-                throw new ArgumentNullException("keySuffix");
+                keySuffix = string.Empty;
             }
 
             if (string.IsNullOrWhiteSpace(Id))

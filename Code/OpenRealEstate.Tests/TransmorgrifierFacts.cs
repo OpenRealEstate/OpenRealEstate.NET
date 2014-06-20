@@ -15,10 +15,10 @@ namespace OpenRealEstate.Tests
         public class ReaXmlTransmorgrifierFacts
         {
             [Fact]
-            public void GivenAnReaXmlFile_Convert_ReturnsAListOfListings()
+            public void GivenTheFileREAAllTypes_Convert_ReturnsAListOfListings()
             {
                 // Arrange.
-                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\Rea.xml");
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA-AllTypes.xml");
                 var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
 
                 // Act.
@@ -27,28 +27,179 @@ namespace OpenRealEstate.Tests
                 // Assert.
                 listings.Count.ShouldBe(6);
 
-                var residentialListing = listings
+                var residentialCurrentListing = listings
                     .AsQueryable()
-                    .WithId("Residential-ABCD1234")
+                    .WithId("Residential-Current-ABCD1234")
                     .OfType<ResidentialListing>()
                     .SingleOrDefault();
-                residentialListing.ShouldNotBe(null);
+                residentialCurrentListing.ShouldNotBe(null);
 
-                AssertResidentialListing(residentialListing);
+                var residentialSoldListing = listings
+                    .AsQueryable()
+                    .WithId("Residential-Sold-ABCD1234")
+                    .OfType<ResidentialListing>()
+                    .SingleOrDefault();
+                residentialSoldListing.ShouldNotBe(null);
+
+                var residentialWithdrawnListing = listings
+                    .AsQueryable()
+                    .WithId("Residential-Withdrawn-ABCD1234")
+                    .OfType<ResidentialListing>()
+                    .SingleOrDefault();
+                residentialWithdrawnListing.ShouldNotBe(null);
+
+                var rentalCurrentListing = listings
+                    .AsQueryable()
+                    .WithId("Rental-Current-ABCD1234")
+                    .OfType<RentalListing>()
+                    .SingleOrDefault();
+                rentalCurrentListing.ShouldNotBe(null);
+
+                var rentalLeasedListing = listings
+                    .AsQueryable()
+                    .WithId("Rental-Leased-ABCD1234")
+                    .OfType<RentalListing>()
+                    .SingleOrDefault();
+                rentalLeasedListing.ShouldNotBe(null);
 
                 var rentalListing = listings
                     .AsQueryable()
-                    .WithId("Rental-ABCD1234")
+                    .WithId("Rental-Withdrawn-ABCD1234")
                     .OfType<RentalListing>()
                     .SingleOrDefault();
-
-                AssertRentalListing(rentalListing);
+                rentalListing.ShouldNotBe(null);
             }
 
-            private static void AssertResidentialListing(ResidentialListing listing)
+            [Fact]
+            public void GivenTheFileREAResidentialCurrent_Convert_ReturnsAResidentialCurrentListing()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA-Residential-Current.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var listings = reaXmlTransmorgrifier.Convert(reaXml);
+
+                // Assert.
+                listings.Count.ShouldBe(1);
+
+                var residentialCurrentListing = listings
+                    .AsQueryable()
+                    .WithId("Residential-Current-ABCD1234")
+                    .OfType<ResidentialListing>()
+                    .SingleOrDefault();
+                AssertResidentialCurrentListing(residentialCurrentListing);
+            }
+
+            [Fact]
+            public void GivenTheFileREAResidentialSold_Convert_ReturnsAResidentialSoldListing()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA-Residential-Sold.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var listings = reaXmlTransmorgrifier.Convert(reaXml);
+
+                // Assert.
+                listings.Count.ShouldBe(1);
+
+                var residentialSoldListing = listings
+                    .AsQueryable()
+                    .WithId("Residential-Sold-ABCD1234")
+                    .OfType<ResidentialListing>()
+                    .SingleOrDefault();
+                AssertResidentialSoldListing(residentialSoldListing);
+            }
+
+            [Fact]
+            public void GivenTheFileREAResidentialWithdawn_Convert_ReturnsAResidentialWithdawnListing()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA-Residential-Withdawn.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var listings = reaXmlTransmorgrifier.Convert(reaXml);
+
+                // Assert.
+                listings.Count.ShouldBe(1);
+
+                var residentialWithdrawnListing = listings
+                    .AsQueryable()
+                    .WithId("Residential-Withdrawn-ABCD1234")
+                    .OfType<ResidentialListing>()
+                    .SingleOrDefault();
+                AssertResidentialWithdrawnListing(residentialWithdrawnListing);
+            }
+
+            [Fact]
+            public void GivenTheFileREARentalCurrent_Convert_ReturnsARentalCurrentListing()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA-Rental-Current.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var listings = reaXmlTransmorgrifier.Convert(reaXml);
+
+                // Assert.
+                listings.Count.ShouldBe(1);
+
+                var rentalCurrentListing = listings
+                    .AsQueryable()
+                    .WithId("Rental-Current-ABCD1234")
+                    .OfType<RentalListing>()
+                    .SingleOrDefault();
+                AssertRentalCurrentListing(rentalCurrentListing);
+            }
+
+            [Fact]
+            public void GivenTheFileREARentalLeased_Convert_ReturnsALeasedListing()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA-Rental-Leased.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var listings = reaXmlTransmorgrifier.Convert(reaXml);
+
+                // Assert.
+                listings.Count.ShouldBe(1);
+
+                var rentalLeasedListing = listings
+                    .AsQueryable()
+                    .WithId("Rental-Leased-ABCD1234")
+                    .OfType<RentalListing>()
+                    .SingleOrDefault();
+                AssertRentalLeasedListing(rentalLeasedListing);
+            }
+
+            [Fact]
+            public void GivenTheFileREARentalWithdrawn_Convert_ReturnsARentalWithdrawnListing()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA-Rental-Withdrawn.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var listings = reaXmlTransmorgrifier.Convert(reaXml);
+
+                // Assert.
+                listings.Count.ShouldBe(1);
+
+                var rentalListing = listings
+                    .AsQueryable()
+                    .WithId("Rental-Withdrawn-ABCD1234")
+                    .OfType<RentalListing>()
+                    .SingleOrDefault();
+                AssertRentalWithdrawnListing(rentalListing);
+            }
+
+            private static void AssertResidentialCurrentListing(ResidentialListing listing)
             {
                 listing.AgencyId.ShouldBe("XNWXNW");
-                listing.Id.ShouldBe("Residential-ABCD1234");
+                listing.Id.ShouldBe("Residential-Current-ABCD1234");
                 listing.StatusType.ShouldBe(StatusType.Current);
                 listing.PropertyType.ShouldBe(PropertyType.House);
 
@@ -98,10 +249,36 @@ namespace OpenRealEstate.Tests
                 errors.Count.ShouldBe(0);
             }
 
-            private static void AssertRentalListing(RentalListing listing)
+            private static void AssertResidentialSoldListing(ResidentialListing listing)
             {
                 listing.AgencyId.ShouldBe("XNWXNW");
-                listing.Id.ShouldBe("Rental-ABCD1234");
+                listing.Id.ShouldBe("Residential-Sold-ABCD1234");
+                listing.StatusType.ShouldBe(StatusType.Sold);
+
+                listing.Pricing.SoldPrice.ShouldBe(580000m);
+                listing.Pricing.IsSoldPriceVisibile.ShouldBe(true);
+                listing.Pricing.SoldOn.ShouldBe(new DateTime(2009, 01, 10, 12, 30, 00));
+
+                var errors = new Dictionary<string, string>();
+                listing.Validate(errors);
+                errors.Count.ShouldBe(0);
+            }
+
+            private static void AssertResidentialWithdrawnListing(ResidentialListing listing)
+            {
+                listing.AgencyId.ShouldBe("XNWXNW");
+                listing.Id.ShouldBe("Residential-Withdrawn-ABCD1234");
+                listing.StatusType.ShouldBe(StatusType.Withdrawn);
+
+                var errors = new Dictionary<string, string>();
+                listing.Validate(errors);
+                errors.Count.ShouldBe(0);
+            }
+
+            private static void AssertRentalCurrentListing(RentalListing listing)
+            {
+                listing.AgencyId.ShouldBe("XNWXNW");
+                listing.Id.ShouldBe("Rental-Current-ABCD1234");
                 listing.StatusType.ShouldBe(StatusType.Current);
                 listing.PropertyType.ShouldBe(PropertyType.House);
 
@@ -139,6 +316,28 @@ namespace OpenRealEstate.Tests
                 listing.Images[0].Url.ShouldBe("http://www.realestate.com.au/tmp/imageM.jpg");
 
                 listing.FloorPlans.Count.ShouldBe(2);
+
+                var errors = new Dictionary<string, string>();
+                listing.Validate(errors);
+                errors.Count.ShouldBe(0);
+            }
+
+            private static void AssertRentalLeasedListing(RentalListing listing)
+            {
+                listing.AgencyId.ShouldBe("XNWXNW");
+                listing.Id.ShouldBe("Rental-Leased-ABCD1234");
+                listing.StatusType.ShouldBe(StatusType.Leased);
+
+                var errors = new Dictionary<string, string>();
+                listing.Validate(errors);
+                errors.Count.ShouldBe(0);
+            }
+
+            private static void AssertRentalWithdrawnListing(RentalListing listing)
+            {
+                listing.AgencyId.ShouldBe("XNWXNW");
+                listing.Id.ShouldBe("Rental-Withdrawn-ABCD1234");
+                listing.StatusType.ShouldBe(StatusType.Withdrawn);
 
                 var errors = new Dictionary<string, string>();
                 listing.Validate(errors);
