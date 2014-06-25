@@ -1,7 +1,7 @@
 ﻿using Nancy;
 using Nancy.TinyIoc;
 using OpenRealEstate.Services;
-using OpenRealEstate.Services.RealEstate.com.au;
+using OpenRealEstate.Services.RealEstateComAu;
 
 namespace OpenRealEstate.WebSite
 {

@@ -46,8 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ITransmorgrifier.cs" />
-    <Compile Include="RealEstate.com.au\CategoryType.cs" />
-    <Compile Include="RealEstate.com.au\ReaXmlTransmorgrifier.cs" />
+    <Compile Include="RealEstateComAu\CategoryType.cs" />
+    <Compile Include="RealEstateComAu\ReaXmlTransmorgrifier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemExtensions.cs" />
     <Compile Include="XElementExtensions.cs" />

@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using OpenRealEstate.Core.Filters;
 using OpenRealEstate.Core.Models;
-using OpenRealEstate.Services.RealEstate.com.au;
+using OpenRealEstate.Services.RealEstateComAu;
 using Shouldly;
 using Xunit;
 
@@ -238,6 +238,63 @@ namespace OpenRealEstate.Tests
                 AssertRentalWithdrawnListing(rentalListing);
             }
 
+            [Fact]
+            public void GivenTheFileREASegmentResidentialCurrent_Convert_ReturnsAResidentialCurrentListing()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA-Segment-Residential-Current.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var listings = reaXmlTransmorgrifier.Convert(reaXml);
+
+                // Assert.
+                listings.Count.ShouldBe(1);
+
+                var residentialCurrentListing = listings
+                    .AsQueryable()
+                    .WithId("Residential-Current-ABCD1234")
+                    .OfType<ResidentialListing>()
+                    .SingleOrDefault();
+                AssertResidentialCurrentListing(residentialCurrentListing);
+            }
+
+            [Fact]
+            public void GivenTheFileREASegmentRentalCurrent_Convert_ReturnsARentalCurrentListing()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA-Segment-Rental-Current.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var listings = reaXmlTransmorgrifier.Convert(reaXml);
+
+                // Assert.
+                listings.Count.ShouldBe(1);
+
+                var rentalCurrentListing = listings
+                    .AsQueryable()
+                    .WithId("Rental-Current-ABCD1234")
+                    .OfType<RentalListing>()
+                    .SingleOrDefault();
+                AssertRentalCurrentListing(rentalCurrentListing);
+            }
+
+            [Fact]
+            public void GivenTheFileREABadContent_Convert_ThrowsAnException()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA-BadContent.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var exception = Should.Throw<Exception>(() => reaXmlTransmorgrifier.Convert(reaXml));
+
+                // Assert.
+                exception.ShouldNotBe(null);
+                exception.Message.ShouldBe("Unable to parse the xml data provided. Currently, only a <propertyList/> or listing segments <residential/> / <rental/>. Root node found: 'badContent'.");
+            }
+
             private static void AssertResidentialCurrentListing(ResidentialListing listing)
             {
                 listing.AgencyId.ShouldBe("XNWXNW");
@@ -292,14 +349,14 @@ namespace OpenRealEstate.Tests
             }
 
             private static void AssertResidentialSoldListing(ResidentialListing listing,
-                bool IsSoldPriceVisibile = true)
+                bool isSoldPriceVisibile = true)
             {
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Residential-Sold-ABCD1234");
                 listing.StatusType.ShouldBe(StatusType.Sold);
 
                 listing.Pricing.SoldPrice.ShouldBe(580000m);
-                listing.Pricing.IsSoldPriceVisibile.ShouldBe(IsSoldPriceVisibile);
+                listing.Pricing.IsSoldPriceVisibile.ShouldBe(isSoldPriceVisibile);
                 listing.Pricing.SoldOn.ShouldBe(new DateTime(2009, 01, 10, 12, 30, 00));
 
                 var errors = new Dictionary<string, string>();

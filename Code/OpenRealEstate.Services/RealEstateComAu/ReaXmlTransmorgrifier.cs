@@ -8,10 +8,16 @@ using System.Xml.Linq;
 using OpenRealEstate.Core.Models;
 using Shouldly;
 
-namespace OpenRealEstate.Services.RealEstate.com.au
+namespace OpenRealEstate.Services.RealEstateComAu
 {
     public class ReaXmlTransmorgrifier : ITransmorgrifier
     {
+        /// <summary>
+        /// Converts some REA Xml data into a collection of parsed listings.
+        /// </summary>
+        /// <param name="data">Xml data to parse.</param>
+        /// <returns>Collection of listings.</returns>
+        /// <remarks>The Xml data can either be a full REA Xml document (ie. &lt;propertyList/&gt; or a listing segment (ie. &lt;rental/&gt; / &lt;residential/&gt;.</remarks>
         public IList<Listing> Convert(string data)
         {
             data.ShouldNotBeNullOrEmpty();
@@ -34,12 +40,27 @@ namespace OpenRealEstate.Services.RealEstate.com.au
             xml.ShouldNotBeNullOrEmpty();
 
             var doc = XElement.Parse(xml).StripNameSpaces();
+            
+            // Check if we have a full ReaXml document or just a listing segment.
+            if (doc.Name.LocalName.ToUpperInvariant() == "PROPERTYLIST")
+            {
+                var elements = new List<XElement>();
+                elements.AddRange(doc.Descendants("residential").ToList());
+                elements.AddRange(doc.Descendants("rental").ToList());
 
-            var elements = new List<XElement>();
-            elements.AddRange(doc.Descendants("residential").ToList());
-            elements.AddRange(doc.Descendants("rental").ToList());
+                return elements.Select(x => x.ToString()).ToList();
+            }
+            
+            if (doc.Name.LocalName.ToUpperInvariant() == "RESIDENTIAL" ||
+                doc.Name.LocalName.ToUpperInvariant() == "RENTAL")
+            {
+                return new List<string> { doc.ToString() };
+            }
 
-            return elements.Select(x => x.ToString()).ToList();
+            var errorMessage =
+                string.Format("Unable to parse the xml data provided. Currently, only a <propertyList/> or listing segments <residential/> / <rental/>. Root node found: '{0}'.",
+                doc.Name.LocalName);
+            throw new Exception(errorMessage);
         }
 
         private static Listing ConvertFromReaXml(string xml)

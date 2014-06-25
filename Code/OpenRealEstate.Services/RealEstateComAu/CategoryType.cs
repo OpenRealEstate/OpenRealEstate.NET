@@ -1,7 +1,7 @@
 ﻿using System.Xml.Linq;
 using Shouldly;
 
-namespace OpenRealEstate.Services.RealEstate.com.au
+namespace OpenRealEstate.Services.RealEstateComAu
 {
     // Notes.
     /* CategoryType's
