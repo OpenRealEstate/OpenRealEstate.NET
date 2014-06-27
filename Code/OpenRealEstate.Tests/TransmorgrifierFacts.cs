@@ -295,6 +295,43 @@ namespace OpenRealEstate.Tests
                 exception.Message.ShouldBe("Unable to parse the xml data provided. Currently, only a <propertyList/> or listing segments <residential/> / <rental/>. Root node found: 'badContent'.");
             }
 
+            [Fact]
+            public void GivenTheFileREAInvalidCharacterAndNoBadCharacterCleaning_Convert_ThrowsAnException()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA-InvalidCharacter.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var exception = Should.Throw<Exception>(() => reaXmlTransmorgrifier.Convert(reaXml));
+
+                // Assert.
+                exception.ShouldNotBe(null);
+                exception.Message.ShouldBe(
+                    "The REA Xml data provided contains some invalid characters. Line: 0, Position: 1661. Error: '\x16', hexadecimal value 0x16, is an invalid character. Suggested Solution: Either set the 'areBadCharactersRemoved' parameter to 'true' so invalid characters are removed automatically OR manually remove the errors from the file OR manually handle the error (eg. notify the people who sent you this data, that it contains bad data and they should clean it up.)");
+            }
+
+            [Fact]
+            public void GivenTheFileREAInvalidCharacterAndBadCharacterCleaning_Convert_ThrowsAnException()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA-InvalidCharacter.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var listings = reaXmlTransmorgrifier.Convert(reaXml, true);
+
+                // Assert.
+                listings.Count.ShouldBe(1);
+
+                var residentialCurrentListing = listings
+                    .AsQueryable()
+                    .WithId("Residential-Current-ABCD1234")
+                    .OfType<ResidentialListing>()
+                    .SingleOrDefault();
+                residentialCurrentListing.ShouldNotBe(null);
+            }
+
             private static void AssertResidentialCurrentListing(ResidentialListing listing)
             {
                 listing.AgencyId.ShouldBe("XNWXNW");

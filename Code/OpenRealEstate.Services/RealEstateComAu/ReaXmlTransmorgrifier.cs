@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Linq;
 using OpenRealEstate.Core.Models;
 using Shouldly;
@@ -16,11 +17,24 @@ namespace OpenRealEstate.Services.RealEstateComAu
         /// Converts some REA Xml data into a collection of parsed listings.
         /// </summary>
         /// <param name="data">Xml data to parse.</param>
+        /// <param name="areBadCharactersRemoved">Option to remove/strip out bad characters.</param>
         /// <returns>Collection of listings.</returns>
         /// <remarks>The Xml data can either be a full REA Xml document (ie. &lt;propertyList/&gt; or a listing segment (ie. &lt;rental/&gt; / &lt;residential/&gt;.</remarks>
-        public IList<Listing> Convert(string data)
+        public IList<Listing> Convert(string data, bool areBadCharactersRemoved = false)
         {
             data.ShouldNotBeNullOrEmpty();
+
+            var validationErrorMessage = ValidateXmlString(data);
+            if (!string.IsNullOrWhiteSpace(validationErrorMessage))
+            {
+                if (!areBadCharactersRemoved)
+                {
+                    throw new Exception(validationErrorMessage);
+                }
+
+                // Some bad data occurs, so lets clean any bad data out.
+                data = RemoveInvalidXmlChars(data);
+            }
 
             var elements = SplitReaXmlIntoElements(data);
             if (!elements.Any())
@@ -33,6 +47,37 @@ namespace OpenRealEstate.Services.RealEstateComAu
             Parallel.ForEach(elements, xml => listings.Add(ConvertFromReaXml(xml)));
 
             return listings.ToList();
+        }
+
+        private static string ValidateXmlString(string text)
+        {
+            text.ShouldNotBeNullOrEmpty();
+
+            try
+            {
+                XmlConvert.VerifyXmlChars(text);
+                return null;
+            }
+            catch (XmlException exception)
+            {
+                return string.Format(
+                    "The REA Xml data provided contains some invalid characters. Line: {0}, Position: {1}. Error: {2} Suggested Solution: Either set the 'areBadCharactersRemoved' parameter to 'true' so invalid characters are removed automatically OR manually remove the errors from the file OR manually handle the error (eg. notify the people who sent you this data, that it contains bad data and they should clean it up.)",
+                    exception.LineNumber,
+                    exception.LinePosition,
+                    exception.Message);
+            }
+            catch (Exception exception)
+            {
+                return string.Format("Failed to valid the xml string provided. Unknown error: {0}.", exception.Message);
+            }
+        }
+
+        private static string RemoveInvalidXmlChars(string text)
+        {
+            text.ShouldNotBeNullOrEmpty();
+
+            var validXmlChars = text.Where(XmlConvert.IsXmlChar).ToArray();
+            return new string(validXmlChars);
         }
 
         private static IList<string> SplitReaXmlIntoElements(string xml)

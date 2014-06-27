@@ -5,6 +5,6 @@ namespace OpenRealEstate.Services
 {
     public interface ITransmorgrifier
     {
-        IList<Listing> Convert(string data);
+        IList<Listing> Convert(string data, bool areBadCharactersRemoved = false);
     }
 }
