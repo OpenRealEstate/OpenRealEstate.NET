@@ -12,8 +12,8 @@ namespace OpenRealEstate.Core.Models
         /// <remarks>More Info: http://en.wikipedia.org/wiki/ISO_3166-1</remarks>
         public string CountryIsoCode { get; set; }
         public string Postcode { get; set; }
-        public decimal Latitude { get; set; }
-        public decimal Longitude { get; set; }
+        public decimal? Latitude { get; set; }
+        public decimal? Longitude { get; set; }
         public bool IsStreetDisplayed { get; set; }
 
         public void Validate(Dictionary<string, string> errors, string keySuffix = null)
