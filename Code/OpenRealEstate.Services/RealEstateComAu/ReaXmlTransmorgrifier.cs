@@ -218,6 +218,10 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
             listing.UpdatedOn = ParseReaDateTime(xElement.AttributeValue("modTime"));
 
+            // We have no idea if this was created before this date, but we need to set a date
+            // so we'll default it to this.
+            listing.CreatedOn = listing.UpdatedOn;
+
             listing.AgencyId = xElement.Value("agentID");
             listing.Id = xElement.Value("uniqueID");
             var status = xElement.AttributeValueOrDefault("status");
