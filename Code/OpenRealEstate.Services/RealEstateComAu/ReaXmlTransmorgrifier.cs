@@ -832,29 +832,55 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 return null;
             }
 
+            var areaValue = landDetailsElement.ValueOrDefault("area");
+            var areaType = landDetailsElement.ValueOrDefault("area", "unit");
+            var frontageValue = landDetailsElement.ValueOrDefault("frontage");
+            var frontageType = landDetailsElement.ValueOrDefault("frontage", "unit");
+            var depthValue = landDetailsElement.ValueOrDefault("depth");
+            var depthType = landDetailsElement.ValueOrDefault("depth", "unit");
+            var depthSide = landDetailsElement.ValueOrDefault("depth", "side"); 
+
             var details = new Details
             {
-                Area = new UnitOfMeasure
+                CrossOver = landDetailsElement.ValueOrDefault("crossOver", "value")
+            };
+
+            if (!string.IsNullOrWhiteSpace(areaValue))
+            {
+                details.Area = new UnitOfMeasure
                 {
-                    Value = landDetailsElement.ValueOrDefault("area"),
-                    Type = landDetailsElement.ValueOrDefault("area", "unit")
-                },
-                Frontage = new UnitOfMeasure
+                    Value = areaValue,
+                    Type = string.IsNullOrWhiteSpace(areaType)
+                        ? "Total"
+                        : areaType
+                };
+            }
+
+            if (!string.IsNullOrWhiteSpace(frontageValue))
+            {
+                details.Frontage = new UnitOfMeasure
                 {
-                    Value = landDetailsElement.ValueOrDefault("frontage"),
-                    Type = landDetailsElement.ValueOrDefault("frontage", "unit")
-                },
-                Depth = new Depth
+                    Value = frontageValue,
+                    Type = string.IsNullOrWhiteSpace(frontageType)
+                        ? "Total"
+                        : frontageType
+                };
+            }
+
+            if (!string.IsNullOrWhiteSpace(depthValue))
+            {
+                details.Depth = new Depth
                 {
                     UnitOfMeasure = new UnitOfMeasure
                     {
-                        Value = landDetailsElement.ValueOrDefault("depth"),
-                        Type = landDetailsElement.ValueOrDefault("depth", "unit")
+                        Value = depthValue,
+                        Type = string.IsNullOrWhiteSpace(depthType)
+                            ? "Total"
+                            : depthType
                     },
-                    Side = landDetailsElement.ValueOrDefault("depth", "side")
-                },
-                CrossOver = landDetailsElement.ValueOrDefault("crossOver", "value")
-            };
+                    Side = depthSide
+                };
+            }
 
             return details;
         }

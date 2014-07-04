@@ -390,6 +390,31 @@ namespace OpenRealEstate.Tests
                 AssertLandCurrentListing(landCurrentListing);
             }
 
+            [Fact]
+            public void GivenTheFileREALandCurrentIncompleteLandDetails_Convert_ReturnsALandCurrentListing()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Land\\REA-Land-Current-IncompleteLandDetails.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var listings = reaXmlTransmorgrifier.Convert(reaXml);
+
+                // Assert.
+                listings.Count.ShouldBe(1);
+
+                var landListing = listings
+                    .AsQueryable()
+                    .WithId("Land-Current-ABCD1234")
+                    .OfType<LandListing>()
+                    .SingleOrDefault();
+
+                landListing.Details.Area.ShouldBe(null);
+                landListing.Details.Frontage.ShouldBe(null);
+                landListing.Details.Depth.ShouldBe(null);
+                landListing.Details.CrossOver.ShouldBeNullOrEmpty();
+            }
+
             private static void AssertLandCurrentListing(LandListing listing)
             {
                 listing.AgencyId.ShouldBe("XNWXNW");

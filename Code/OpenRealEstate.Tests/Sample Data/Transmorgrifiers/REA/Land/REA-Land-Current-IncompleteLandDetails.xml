@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE propertyList SYSTEM "http://reaxml.realestate.com.au/propertyList.dtd">
+<propertyList date="2009-01-01-12:30:00" username="xmluser" password="xmlpassword">
+    <!-- Current Listing -->
+    <land modTime="2009-01-01-12:30:00" status="current">
+        <agentID>XNWXNW</agentID>
+        <uniqueID>Land-Current-ABCD1234</uniqueID>
+        <authority value="auction" />
+        <underOffer value="no" />
+        <listingAgent>
+            <name>Mr. John Doe</name>
+            <telephone type="BH">05 1234 5678</telephone>
+            <email>jdoe@somedomain.com.au</email>
+        </listingAgent>
+        <price display="yes" plusSAV="no">80000</price>
+        <priceView>To suit buyers 60K+</priceView>
+        <address display="yes">
+            <lotNumber>12</lotNumber>
+            <streetNumber>39</streetNumber>
+            <street>Main Road</street>
+            <suburb display="yes">RICHMOND</suburb>
+            <state>vic</state>
+            <postcode>3121</postcode>
+            <country>AUS</country>
+        </address>
+        <municipality>Yarra</municipality>
+        <estate>
+            <name>Panorama</name>
+            <stage>5</stage>
+        </estate>
+        <streetDirectory type="melways">
+            <page>44</page>
+            <reference>G7</reference>
+        </streetDirectory>
+        <landCategory name="Residential" />
+        <headline>SHOW STOPPER!!!</headline>
+        <description>Don't pass up an opportunity like this! First to inspect will buy! Close to local amenities and schools. Features lavishly appointed bathrooms, modern kitchen, rustic outhouse</description>
+        <features>
+            <fullyFenced>yes</fullyFenced>
+        </features>
+        <landDetails>
+            <area unit="square"></area>
+            <frontage unit="meter"></frontage>
+        </landDetails>
+        <auction date="2009-01-24-12:30:00" />
+        <vendorDetails>
+            <name>Mr. John Doe</name>
+            <telephone type="BH">05 1234 5678</telephone>
+        </vendorDetails>
+        <externalLink href="http://www.realestate.com.au/" />
+        <images>
+            <img id="m" modTime="2009-01-01-12:30:00" url="http://www.realestate.com.au/tmp/imageM.jpg" format="jpg"></img>
+            <img id="a" modTime="2009-01-01-12:30:00" url="http://www.realestate.com.au/tmp/imageA.jpg" format="jpg"></img>
+        </images>
+        <objects>
+            <floorplan id="1" modTime="2009-01-01-12:30:00" url="http://www.realestate.com.au/tmp/floorplan1.gif"
+                       format="gif">
+            </floorplan>
+            <floorplan id="2" modTime="2009-01-01-12:30:00" url="http://www.realestate.com.au/tmp/floorplan2.gif"
+                       format="gif">
+            </floorplan>
+        </objects>
+    </land>
+</propertyList>
