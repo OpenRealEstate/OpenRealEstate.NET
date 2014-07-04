@@ -50,7 +50,7 @@
     <Compile Include="FranchiseFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResidentialListingFacts.cs" />
-    <Compile Include="TransmorgrifierFacts.cs" />
+    <Compile Include="ReaTransmorgrifierFacts.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -87,79 +87,85 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Sample Data\Transmorgrifiers\REA-Residential-Withdawn.xml">
+    <None Include="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Withdawn.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Sample Data\Transmorgrifiers\REA-Residential-Current.xml">
+    <None Include="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Sample Data\Transmorgrifiers\REA-Residential-Sold.xml">
+    <None Include="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Sold.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Sample Data\Transmorgrifiers\REA-Rental-Current.xml">
+    <None Include="Sample Data\Transmorgrifiers\REA\Rental\REA-Rental-Current.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Sample Data\Transmorgrifiers\REA-Rental-Leased.xml">
+    <None Include="Sample Data\Transmorgrifiers\REA\Rental\REA-Rental-Leased.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Sample Data\Transmorgrifiers\REA-AllTypes.xml">
+    <None Include="Sample Data\Transmorgrifiers\REA\REA-AllTypes.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Sample Data\Transmorgrifiers\REA-Rental-Withdrawn.xml">
+    <None Include="Sample Data\Transmorgrifiers\REA\Rental\REA-Rental-Withdrawn.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Sample Data\Transmorgrifiers\REA-Residential-Sold-NoDisplayPrice.xml">
+    <None Include="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Sold-NoDisplayPrice.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Sample Data\Transmorgrifiers\REA-Residential-Sold-DisplayPriceIsNo.xml">
+    <None Include="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Sold-DisplayPriceIsNo.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Sample Data\Transmorgrifiers\REA-BadContent.xml">
+    <None Include="Sample Data\Transmorgrifiers\REA\REA-BadContent.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Sample Data\Transmorgrifiers\REA-Segment-Rental-Current.xml">
+    <None Include="Sample Data\Transmorgrifiers\REA\Rental\REA-Segment-Rental-Current.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Sample Data\Transmorgrifiers\REA-Segment-Residential-Current.xml">
+    <None Include="Sample Data\Transmorgrifiers\REA\Residential\REA-Segment-Residential-Current.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Sample Data\Transmorgrifiers\REA-InvalidCharacter.xml">
+    <None Include="Sample Data\Transmorgrifiers\REA\REA-InvalidCharacter.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Sample Data\Transmorgrifiers\REA\Land\REA-Land-Current.xml">
+      <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

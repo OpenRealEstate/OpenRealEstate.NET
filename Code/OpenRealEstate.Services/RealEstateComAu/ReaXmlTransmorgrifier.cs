@@ -7,7 +7,10 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 using OpenRealEstate.Core.Models;
+using OpenRealEstate.Core.Models.Land;
 using Shouldly;
+using Features = OpenRealEstate.Core.Models.Features;
+using LandFeatures = OpenRealEstate.Core.Models.Land.Features;
 
 namespace OpenRealEstate.Services.RealEstateComAu
 {
@@ -85,26 +88,30 @@ namespace OpenRealEstate.Services.RealEstateComAu
             xml.ShouldNotBeNullOrEmpty();
 
             var doc = XElement.Parse(xml).StripNameSpaces();
-            
-            // Check if we have a full ReaXml document or just a listing segment.
+
+            // Do we have a full ReaXml document?
             if (doc.Name.LocalName.ToUpperInvariant() == "PROPERTYLIST")
             {
                 var elements = new List<XElement>();
                 elements.AddRange(doc.Descendants("residential").ToList());
                 elements.AddRange(doc.Descendants("rental").ToList());
+                elements.AddRange(doc.Descendants("land").ToList());
 
                 return elements.Select(x => x.ToString()).ToList();
             }
-            
+
+            // Do we have a single listing *segment* ?
             if (doc.Name.LocalName.ToUpperInvariant() == "RESIDENTIAL" ||
-                doc.Name.LocalName.ToUpperInvariant() == "RENTAL")
+                doc.Name.LocalName.ToUpperInvariant() == "RENTAL" ||
+                doc.Name.LocalName.ToUpperInvariant() == "LAND")
             {
-                return new List<string> { doc.ToString() };
+                return new List<string> {doc.ToString()};
             }
 
             var errorMessage =
-                string.Format("Unable to parse the xml data provided. Currently, only a <propertyList/> or listing segments <residential/> / <rental/>. Root node found: '{0}'.",
-                doc.Name.LocalName);
+                string.Format(
+                    "Unable to parse the xml data provided. Currently, only a <propertyList/> or listing segments <residential/> / <rental/> / <land/>. Root node found: '{0}'.",
+                    doc.Name.LocalName);
             throw new Exception(errorMessage);
         }
 
@@ -139,6 +146,11 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 ExtractRentalData(listing as RentalListing, doc);
             }
 
+            if (listing is LandListing)
+            {
+                ExtractLandData(listing as LandListing, doc);
+            }
+
             return listing;
         }
 
@@ -153,6 +165,13 @@ namespace OpenRealEstate.Services.RealEstateComAu
                     break;
                 case CategoryType.Rent:
                     listing = new RentalListing();
+                    break;
+                case CategoryType.Land:
+                    listing = new LandListing();
+                    break;
+                default:
+                    // Not sure if we should do some logging here?
+                    listing = null;
                     break;
             }
 
@@ -200,7 +219,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             {
                 return result;
             }
-            
+
             if (DateTime.TryParse(reaDateTime, out result))
             {
                 return result;
@@ -229,17 +248,12 @@ namespace OpenRealEstate.Services.RealEstateComAu
             {
                 listing.StatusType = StatusTypeHelpers.ToStatusType(status);
             }
-            var category = xElement.ValueOrDefault("category", "name");
-            if (!string.IsNullOrWhiteSpace(category))
-            {
-                listing.PropertyType = PropertyTypeHelpers.ToPropertyType(category);
-            }
+
             listing.Title = xElement.ValueOrDefault("headline");
             listing.Description = xElement.ValueOrDefault("description");
 
             listing.Address = ExtractAddress(xElement);
             listing.Agents = ExtractAgent(xElement);
-            listing.Features = ExtractFeatures(xElement);
             listing.Inspections = ExtractInspectionTimes(xElement);
             listing.Images = ExtractImages(xElement);
             listing.FloorPlans = ExtractFloorPlans(xElement);
@@ -257,20 +271,30 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
             var address = new Address();
 
-            var displayText = addressElement.AttributeValueOrDefault("display");
-            address.IsStreetDisplayed = string.IsNullOrWhiteSpace(displayText) ||
-                                        displayText.ParseYesNoToBool();
-
+            // Land and CommericalLand should only provide lot numbers. 
+            var lotNumber = addressElement.ValueOrDefault("lotNumber");
             var subNumber = addressElement.ValueOrDefault("subNumber");
-            address.StreetNumber = string.Format("{0}{1}{2}",
-                subNumber,
-                string.IsNullOrEmpty(subNumber) ? string.Empty : "/",
+            address.StreetNumber = string.Format("{0}{1}{2}{3}{4}",
+                string.IsNullOrWhiteSpace(lotNumber)
+                    ? string.Empty
+                    : lotNumber.IndexOf("lot", StringComparison.InvariantCultureIgnoreCase) > 0
+                        ? lotNumber
+                        : string.Format("LOT {0}", lotNumber),
+                !string.IsNullOrWhiteSpace(lotNumber) &&
+                !string.IsNullOrWhiteSpace(subNumber)
+                    ? " "
+                    : string.Empty,
+                string.IsNullOrWhiteSpace(subNumber)
+                ? string.Empty
+                : subNumber,
+                string.IsNullOrEmpty(lotNumber) &&
+                string.IsNullOrEmpty(subNumber)
+                    ? string.Empty
+                    : "/",
                 addressElement.ValueOrDefault("streetNumber"));
 
             address.Street = addressElement.ValueOrDefault("street");
-
             address.Suburb = addressElement.ValueOrDefault("suburb");
-
             address.State = addressElement.ValueOrDefault("state");
 
             // REA Xml Rule: Country is ommited == default to Australia.
@@ -281,6 +305,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 : "AU";
 
             address.Postcode = addressElement.ValueOrDefault("postcode");
+            address.IsStreetDisplayed = addressElement.AttributeBoolValueOrDefault("display");
 
             return address;
         }
@@ -435,7 +460,8 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 if (inspectionStartsOn == DateTime.MinValue ||
                     inspectionEndsOn == DateTime.MinValue)
                 {
-                    throw new Exception("Inspection element has an invalid Date/Time value. Element: " + inspectionElement);
+                    throw new Exception("Inspection element has an invalid Date/Time value. Element: " +
+                                        inspectionElement);
                 }
 
                 var newInspection = new Inspection
@@ -516,6 +542,85 @@ namespace OpenRealEstate.Services.RealEstateComAu
             return floorPlans.Any() ? floorPlans : null;
         }
 
+        private static PropertyType ExtractResidentialAndRentalPropertyType(XElement xElement)
+        {
+            var propertyType = PropertyType.Unknown;
+
+            var category = xElement.ValueOrDefault("category", "name");
+            if (!string.IsNullOrWhiteSpace(category))
+            {
+                propertyType = PropertyTypeHelpers.ToPropertyType(category);
+            }
+
+            return propertyType;
+        }
+
+        private static SalePricing ExtractSalePricing(XElement xElement)
+        {
+            xElement.ShouldNotBe(null);
+
+            var salePricing = new SalePricing
+            {
+                SalePrice = xElement.DecimalValueOrDefault("price")
+            };
+
+            // Selling data.
+
+            var salePriceText = xElement.ValueOrDefault("priceView");
+            var displayAttributeValue = xElement.ValueOrDefault("priceView", "display");
+            var isDisplay = string.IsNullOrWhiteSpace(displayAttributeValue) ||
+                            displayAttributeValue.ParseYesNoToBool();
+            salePricing.SalePriceText = isDisplay
+                ? salePriceText
+                : string.IsNullOrWhiteSpace(salePriceText)
+                    ? "Address Witheld"
+                    : salePriceText;
+
+            var isUnderOffer = xElement.ValueOrDefault("underOffer", "value");
+            salePricing.IsUnderOffer = !string.IsNullOrWhiteSpace(isUnderOffer) &&
+                                       isUnderOffer.ParseYesNoToBool();
+
+
+            // Sold data.
+            var soldDetails = xElement.Element("soldDetails");
+            if (soldDetails != null)
+            {
+                salePricing.SoldPrice = soldDetails.DecimalValueOrDefault("price");
+                var soldDisplayAttribute = soldDetails.ValueOrDefault("price", "display");
+                salePricing.IsSoldPriceVisibile = string.IsNullOrWhiteSpace(soldDisplayAttribute) ||
+                                                  soldDisplayAttribute.ParseYesNoToBool();
+
+                var soldOnText = soldDetails.ValueOrDefault("date");
+                if (!string.IsNullOrWhiteSpace(soldOnText))
+                {
+                    salePricing.SoldOn = ToDateTime(soldOnText);
+                }
+            }
+
+            return salePricing;
+        }
+
+        private static DateTime? ExtractAuction(XElement xElement)
+        {
+            xElement.ShouldNotBe(null);
+
+            var auction = xElement.ValueOrDefault("auction");
+
+            // NOTE: The REA documentation is vague as to the 100% specification on this.
+            // So i'm going to assume the following (in order)
+            // 1. <auction>date-time-in-here</auction>
+            // 2. <auction date="date-time-in-here"></auction>
+            // ** YET ANOTHER FRICKING EXAMPLE OF WHY THIS SCHEMA AND XML ARE F'ING CRAP **
+            if (string.IsNullOrWhiteSpace(auction))
+            {
+                auction = xElement.ValueOrDefault("auction", "date");
+            }
+
+            return (!string.IsNullOrWhiteSpace(auction))
+                ? ToDateTime(auction)
+                : null;
+        }
+
         /// <summary>
         /// REA Specific DateTime parsing.
         /// </summary>
@@ -579,58 +684,10 @@ namespace OpenRealEstate.Services.RealEstateComAu
             residentialListing.ShouldNotBe(null);
             xElement.ShouldNotBe(null);
 
+            residentialListing.PropertyType = ExtractResidentialAndRentalPropertyType(xElement);
             residentialListing.Pricing = ExtractSalePricing(xElement);
-
-            var auction = xElement.ValueOrDefault("auction");
-            if (!string.IsNullOrWhiteSpace(auction))
-            {
-                residentialListing.AuctionOn = ToDateTime(auction);
-            }
-        }
-
-        private static SalePricing ExtractSalePricing(XElement xElement)
-        {
-            xElement.ShouldNotBe(null);
-
-            var salePricing = new SalePricing
-            {
-                SalePrice = xElement.DecimalValueOrDefault("price")
-            };
-
-            // Selling data.
-
-            var salePriceText = xElement.ValueOrDefault("priceView");
-            var displayAttributeValue = xElement.ValueOrDefault("priceView", "display");
-            var isDisplay = string.IsNullOrWhiteSpace(displayAttributeValue) ||
-                            displayAttributeValue.ParseYesNoToBool();
-            salePricing.SalePriceText = isDisplay
-                ? salePriceText
-                : string.IsNullOrWhiteSpace(salePriceText)
-                    ? "Address Witheld"
-                    : salePriceText;
-
-            var isUnderOffer = xElement.ValueOrDefault("underOffer", "value");
-            salePricing.IsUnderOffer = !string.IsNullOrWhiteSpace(isUnderOffer) &&
-                                       isUnderOffer.ParseYesNoToBool();
-
-
-            // Sold data.
-            var soldDetails = xElement.Element("soldDetails");
-            if (soldDetails != null)
-            {
-                salePricing.SoldPrice = soldDetails.DecimalValueOrDefault("price");
-                var soldDisplayAttribute = soldDetails.ValueOrDefault("price", "display");
-                salePricing.IsSoldPriceVisibile = string.IsNullOrWhiteSpace(soldDisplayAttribute) ||
-                                                  soldDisplayAttribute.ParseYesNoToBool();
-
-                var soldOnText = soldDetails.ValueOrDefault("date");
-                if (!string.IsNullOrWhiteSpace(soldOnText))
-                {
-                    salePricing.SoldOn = ToDateTime(soldOnText);
-                }
-            }
-
-            return salePricing;
+            residentialListing.AuctionOn = ExtractAuction(xElement);
+            residentialListing.Features = ExtractFeatures(xElement);
         }
 
         #endregion
@@ -648,7 +705,9 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 rentalListing.AvailableOn = ToDateTime(dateAvailble);
             }
 
+            rentalListing.PropertyType = ExtractResidentialAndRentalPropertyType(xElement);
             rentalListing.Pricing = ExtractRentalPricing(xElement);
+            rentalListing.Features = ExtractFeatures(xElement);
         }
 
         public static RentalPricing ExtractRentalPricing(XElement xElement)
@@ -697,6 +756,107 @@ namespace OpenRealEstate.Services.RealEstateComAu
             rentalPricing.Bond = xElement.DecimalValueOrDefault("bond");
 
             return rentalPricing;
+        }
+
+        #endregion
+
+        #region Land Listing Methods
+
+        private static void ExtractLandData(LandListing landListing, XElement xElement)
+        {
+            landListing.ShouldNotBe(null);
+            xElement.ShouldNotBe(null);
+
+            landListing.CategoryType = ExtractLandCategoryType(xElement);
+            landListing.Pricing = ExtractSalePricing(xElement);
+            landListing.AuctionOn = ExtractAuction(xElement);
+            landListing.Estate = ExtractLandEstate(xElement);
+            landListing.Features = ExtractLandFeatures(xElement);
+            landListing.Details = ExtractLandDetails(xElement);
+            landListing.AuctionOn = ExtractAuction(xElement);
+        }
+
+        private static Core.Models.Land.CategoryType ExtractLandCategoryType(XElement xElement)
+        {
+            var categoryType = Core.Models.Land.CategoryType.Unknown;
+
+            var category = xElement.ValueOrDefault("landCategory", "name");
+            if (!string.IsNullOrWhiteSpace(category))
+            {
+                categoryType = CategoryTypeHelpers.ToCategoryType(category);
+            }
+
+            return categoryType;
+        }
+
+        private static LandEstate ExtractLandEstate(XElement xElement)
+        {
+            xElement.ShouldNotBe(null);
+
+            var estateElement = xElement.Element("estate");
+            if (estateElement == null)
+            {
+                return null;
+            }
+
+            return new LandEstate
+            {
+                Name = estateElement.ValueOrDefault("name"),
+                Stage = estateElement.ValueOrDefault("stage")
+            };
+        }
+
+        private static LandFeatures ExtractLandFeatures(XElement xElement)
+        {
+            xElement.ShouldNotBe(null);
+
+            var featuresElement = xElement.Element("features");
+            if (featuresElement == null)
+            {
+                return null;
+            }
+
+            return new LandFeatures
+            {
+                FullyFenced = featuresElement.BoolValueOrDefault("fullyFenced")
+            };
+        }
+
+        private static Details ExtractLandDetails(XElement xElement)
+        {
+            xElement.ShouldNotBe(null);
+
+            var landDetailsElement = xElement.Element("landDetails");
+            if (landDetailsElement == null)
+            {
+                return null;
+            }
+
+            var details = new Details
+            {
+                Area = new UnitOfMeasure
+                {
+                    Value = landDetailsElement.ValueOrDefault("area"),
+                    Type = landDetailsElement.ValueOrDefault("area", "unit")
+                },
+                Frontage = new UnitOfMeasure
+                {
+                    Value = landDetailsElement.ValueOrDefault("frontage"),
+                    Type = landDetailsElement.ValueOrDefault("frontage", "unit")
+                },
+                Depth = new Depth
+                {
+                    UnitOfMeasure = new UnitOfMeasure
+                    {
+                        Value = landDetailsElement.ValueOrDefault("depth"),
+                        Type = landDetailsElement.ValueOrDefault("depth", "unit")
+                    },
+                    Side = landDetailsElement.ValueOrDefault("depth", "side")
+                },
+                CrossOver = landDetailsElement.ValueOrDefault("crossOver", "value")
+            };
+
+            return details;
         }
 
         #endregion

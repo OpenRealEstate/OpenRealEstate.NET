@@ -8,13 +8,11 @@ namespace OpenRealEstate.Core.Models
     {
         public string AgencyId { get; set; }
         public StatusType StatusType { get; set; }
-        public PropertyType PropertyType { get; set; }
         public DateTime CreatedOn { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public Address Address { get; set; }
         public IList<ListingAgent> Agents { get; set; }
-        public Features Features { get; set; }
         public IList<Media> Images { get; set; }
         public IList<Media> FloorPlans { get; set; }
         public IList<Media> Videos { get; set; }
@@ -43,17 +41,12 @@ namespace OpenRealEstate.Core.Models
 
             if (StatusType == StatusType.Current)
             {
-                ValidateCurrent(errors, keySuffix);
+                ValidateACurrentStatusType(errors, keySuffix);
             }
         }
 
-        private void ValidateCurrent(Dictionary<string, string> errors, string keySuffix = null)
+        private void ValidateACurrentStatusType(Dictionary<string, string> errors, string keySuffix = null)
         {
-            if (PropertyType == PropertyType.Unknown)
-            {
-                errors.Add("PropertyType" + keySuffix, "Invalid PropertyType. Please choose any property except Unknown.");
-            }
-
             if (string.IsNullOrWhiteSpace(Title))
             {
                 errors.Add("Title" + keySuffix, "A title is required.");

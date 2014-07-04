@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Xml.Linq;
+using Shouldly;
 
 namespace OpenRealEstate.Services
 {
@@ -38,8 +39,10 @@ namespace OpenRealEstate.Services
         {
             if (xElement == null)
             {
-                return null;
+                throw new ArgumentNullException();
             }
+
+            elementName.ShouldNotBeNullOrEmpty();
 
             var childElement = xElement.Element(elementName);
             if (childElement == null)
@@ -90,7 +93,7 @@ namespace OpenRealEstate.Services
         {
             if (xElement == null)
             {
-                return null;
+               throw new ArgumentNullException();
             }
 
             if (string.IsNullOrWhiteSpace(attributeName))
@@ -102,6 +105,32 @@ namespace OpenRealEstate.Services
             return attribute == null
                 ? null 
                 : attribute.Value;
+        }
+
+        public static bool AttributeBoolValueOrDefault(this XElement xElement, string attributeName)
+        {
+            if (xElement == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            if (string.IsNullOrWhiteSpace(attributeName))
+            {
+                throw new ArgumentNullException();
+            }
+
+            var attribute = xElement.Attribute(attributeName);
+            if (attribute == null)
+            {
+                // No attribute (for this element) found.
+                throw new ArgumentNullException();
+            }
+
+            // Check to see if this value can be converted to a bool. Ie. 0/1/true/false.
+            bool boolValue;
+            return bool.TryParse(attribute.Value, out boolValue)
+                ? boolValue 
+                : attribute.Value.ParseYesNoToBool();
         }
 
         public static int IntValueOrDefault(this XElement xElement, string childElementName = null)
@@ -197,6 +226,40 @@ namespace OpenRealEstate.Services
             }
 
             return number;
+        }
+
+        public static bool BoolValueOrDefault(this XElement xElement, string childElementName = null)
+        {
+            if (xElement == null)
+            {
+                throw new ArgumentNullException("xElement");
+            }
+
+            // If we don't provide a child element name, then use the current one.
+            var childElement = string.IsNullOrEmpty(childElementName)
+                ? xElement
+                : xElement.Element(childElementName);
+            if (childElement == null)
+            {
+                // We've asked for a child element, but it doesn't exist.
+                // Child elements are optional - which is why we're not throwning an exception.
+                //return false;
+                throw new Exception(
+                    string.Format("The element '{0}' was not found. Please provide a valid element or Child Element.", childElementName));
+            }
+
+            var value = childElement.Value;
+            if (string.IsNullOrEmpty(value))
+            {
+                // Element exists but it has no value.
+                return false;
+            }
+
+            // Checking for 0/1/YES/NO
+            bool boolValue;
+            return bool.TryParse(value, out boolValue)
+                ? boolValue
+                : value.ParseYesNoToBool();
         }
 
         public static XElement StripNameSpaces(this XElement root)
