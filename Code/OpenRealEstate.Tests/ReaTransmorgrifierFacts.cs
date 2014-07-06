@@ -443,11 +443,11 @@ namespace OpenRealEstate.Tests
                 listing.Estate.Stage.ShouldBe("5");
 
                 listing.Details.Area.Type.ShouldBe("square");
-                listing.Details.Area.Value.ShouldBe("60");
+                listing.Details.Area.Value.ShouldBe(60m);
                 listing.Details.Frontage.Type.ShouldBe("meter");
-                listing.Details.Frontage.Value.ShouldBe("20");
+                listing.Details.Frontage.Value.ShouldBe(20m);
                 listing.Details.Depth.UnitOfMeasure.Type.ShouldBe("meter");
-                listing.Details.Depth.UnitOfMeasure.Value.ShouldBe("30");
+                listing.Details.Depth.UnitOfMeasure.Value.ShouldBe(30m);
                 listing.Details.Depth.Side.ShouldBe("rear");
                 listing.Details.CrossOver.ShouldBe("left");
 
