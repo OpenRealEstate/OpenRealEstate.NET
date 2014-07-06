@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Nancy;
 using OpenRealEstate.Core.Models;
+using OpenRealEstate.Core.Models.Rental;
+using OpenRealEstate.Core.Models.Residential;
 using OpenRealEstate.Services;
 using OpenRealEstate.WebSite.ViewModels;
 

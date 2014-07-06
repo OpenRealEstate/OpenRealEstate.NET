@@ -8,6 +8,8 @@ using System.Xml;
 using System.Xml.Linq;
 using OpenRealEstate.Core.Models;
 using OpenRealEstate.Core.Models.Land;
+using OpenRealEstate.Core.Models.Rental;
+using OpenRealEstate.Core.Models.Residential;
 using Shouldly;
 using Features = OpenRealEstate.Core.Models.Features;
 using LandFeatures = OpenRealEstate.Core.Models.Land.Features;

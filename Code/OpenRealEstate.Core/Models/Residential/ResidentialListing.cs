@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace OpenRealEstate.Core.Models
+namespace OpenRealEstate.Core.Models.Residential
 {
-    public class RentalListing : Listing
+    public class ResidentialListing : Listing
     {
         public PropertyType PropertyType { get; set; }
-        public DateTime? AvailableOn { get; set; }
-        public RentalPricing Pricing { get; set; }
+        public SalePricing Pricing { get; set; }
+        public DateTime? AuctionOn { get; set; }
         public Features Features { get; set; }
 
         public new void Validate(Dictionary<string, string> errors, string keySuffix = null)

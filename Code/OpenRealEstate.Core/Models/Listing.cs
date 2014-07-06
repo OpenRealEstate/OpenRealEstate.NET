@@ -17,6 +17,7 @@ namespace OpenRealEstate.Core.Models
         public IList<Media> FloorPlans { get; set; }
         public IList<Media> Videos { get; set; }
         public IList<Inspection> Inspections { get; set; }
+        public LandDetails LandDetails { get; set; }
 
         public new void Validate(Dictionary<string, string> errors, string keySuffix = null)
         {

@@ -5,6 +5,8 @@ using System.Linq;
 using OpenRealEstate.Core.Filters;
 using OpenRealEstate.Core.Models;
 using OpenRealEstate.Core.Models.Land;
+using OpenRealEstate.Core.Models.Rental;
+using OpenRealEstate.Core.Models.Residential;
 using OpenRealEstate.Services.RealEstateComAu;
 using Shouldly;
 using Xunit;

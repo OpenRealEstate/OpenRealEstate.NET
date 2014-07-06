@@ -57,11 +57,11 @@
     <Compile Include="Models\ListingAgent.cs" />
     <Compile Include="Models\Media.cs" />
     <Compile Include="Models\Communication.cs" />
-    <Compile Include="Models\PaymentFrequencyType.cs" />
+    <Compile Include="Models\Rental\PaymentFrequencyType.cs" />
     <Compile Include="Models\PeropertyType.cs" />
-    <Compile Include="Models\RentalListing.cs" />
-    <Compile Include="Models\RentalPricing.cs" />
-    <Compile Include="Models\ResidentialListing.cs" />
+    <Compile Include="Models\Rental\RentalListing.cs" />
+    <Compile Include="Models\Rental\RentalPricing.cs" />
+    <Compile Include="Models\Residential\ResidentialListing.cs" />
     <Compile Include="Models\SalePricing.cs" />
     <Compile Include="Models\StatusType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

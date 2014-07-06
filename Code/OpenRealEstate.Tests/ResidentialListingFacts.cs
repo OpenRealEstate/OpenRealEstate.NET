@@ -2,6 +2,7 @@
 using System.IO;
 using Newtonsoft.Json;
 using OpenRealEstate.Core.Models;
+using OpenRealEstate.Core.Models.Residential;
 using Shouldly;
 using Xunit;
 

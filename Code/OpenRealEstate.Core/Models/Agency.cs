@@ -16,7 +16,7 @@ namespace OpenRealEstate.Core.Models
         public IList<Media> Images { get; set; }
         public IList<Media> Videos { get; set; }
 
-        public new void Validate(Dictionary<string, string> errors)
+        public void Validate(Dictionary<string, string> errors)
         {
             if (errors == null)
             {

@@ -1,4 +1,4 @@
-﻿namespace OpenRealEstate.Core.Models
+﻿namespace OpenRealEstate.Core.Models.Rental
 {
     public enum PaymentFrequencyType
     {
