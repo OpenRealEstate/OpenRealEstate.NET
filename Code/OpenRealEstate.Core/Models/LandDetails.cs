@@ -1,6 +1,6 @@
-﻿namespace OpenRealEstate.Core.Models.Land
+﻿namespace OpenRealEstate.Core.Models
 {
-    public class Details
+    public class LandDetails
     {
         public UnitOfMeasure Area { get; set; }
         public UnitOfMeasure Frontage { get; set; }

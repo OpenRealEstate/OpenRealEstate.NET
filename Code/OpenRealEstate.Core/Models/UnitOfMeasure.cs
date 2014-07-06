@@ -1,4 +1,4 @@
-﻿namespace OpenRealEstate.Core.Models.Land
+﻿namespace OpenRealEstate.Core.Models
 {
     public class UnitOfMeasure
     {

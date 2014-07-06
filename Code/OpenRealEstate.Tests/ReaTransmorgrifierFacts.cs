@@ -192,6 +192,14 @@ namespace OpenRealEstate.Tests
 
                 listing.AuctionOn.ShouldBe(new DateTime(2009, 02, 04, 18, 30, 00));
 
+                listing.LandDetails.Area.Value.ShouldBe(80M);
+                listing.LandDetails.Area.Type.ShouldBe("square");
+                listing.LandDetails.Frontage.Value.ShouldBe(20M);
+                listing.LandDetails.Frontage.Type.ShouldBe("meter");
+                listing.LandDetails.Depth.Value.ShouldBe(40M);
+                listing.LandDetails.Depth.Type.ShouldBe("meter");
+                listing.LandDetails.Depth.Side.ShouldBe("rear");
+
                 var errors = new Dictionary<string, string>();
                 listing.Validate(errors);
                 errors.Count.ShouldBe(0);
@@ -409,10 +417,10 @@ namespace OpenRealEstate.Tests
                     .OfType<LandListing>()
                     .SingleOrDefault();
 
-                landListing.Details.Area.ShouldBe(null);
-                landListing.Details.Frontage.ShouldBe(null);
-                landListing.Details.Depth.ShouldBe(null);
-                landListing.Details.CrossOver.ShouldBeNullOrEmpty();
+                landListing.LandDetails.Area.ShouldBe(null);
+                landListing.LandDetails.Frontage.ShouldBe(null);
+                landListing.LandDetails.Depth.ShouldBe(null);
+                landListing.LandDetails.CrossOver.ShouldBeNullOrEmpty();
             }
 
             private static void AssertLandCurrentListing(LandListing listing)
@@ -442,14 +450,14 @@ namespace OpenRealEstate.Tests
                 listing.Estate.Name.ShouldBe("Panorama");
                 listing.Estate.Stage.ShouldBe("5");
 
-                listing.Details.Area.Type.ShouldBe("square");
-                listing.Details.Area.Value.ShouldBe(60m);
-                listing.Details.Frontage.Type.ShouldBe("meter");
-                listing.Details.Frontage.Value.ShouldBe(20m);
-                listing.Details.Depth.UnitOfMeasure.Type.ShouldBe("meter");
-                listing.Details.Depth.UnitOfMeasure.Value.ShouldBe(30m);
-                listing.Details.Depth.Side.ShouldBe("rear");
-                listing.Details.CrossOver.ShouldBe("left");
+                listing.LandDetails.Area.Type.ShouldBe("square");
+                listing.LandDetails.Area.Value.ShouldBe(60m);
+                listing.LandDetails.Frontage.Type.ShouldBe("meter");
+                listing.LandDetails.Frontage.Value.ShouldBe(20m);
+                listing.LandDetails.Depth.Type.ShouldBe("meter");
+                listing.LandDetails.Depth.Value.ShouldBe(30m);
+                listing.LandDetails.Depth.Side.ShouldBe("rear");
+                listing.LandDetails.CrossOver.ShouldBe("left");
 
                 listing.Images.Count.ShouldBe(2);
                 listing.Images[0].Order.ShouldBe(1);

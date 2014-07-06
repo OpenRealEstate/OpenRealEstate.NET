@@ -621,6 +621,66 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 : null;
         }
 
+        private static LandDetails ExtractLandDetails(XElement xElement)
+        {
+            xElement.ShouldNotBe(null);
+
+            var landDetailsElement = xElement.Element("landDetails");
+            if (landDetailsElement == null)
+            {
+                return null;
+            }
+
+            var areaValue = landDetailsElement.DecimalValueOrDefault("area");
+            var areaType = landDetailsElement.ValueOrDefault("area", "unit");
+            var frontageValue = landDetailsElement.DecimalValueOrDefault("frontage");
+            var frontageType = landDetailsElement.ValueOrDefault("frontage", "unit");
+            var depthValue = landDetailsElement.DecimalValueOrDefault("depth");
+            var depthType = landDetailsElement.ValueOrDefault("depth", "unit");
+            var depthSide = landDetailsElement.ValueOrDefault("depth", "side");
+
+            var details = new LandDetails
+            {
+                CrossOver = landDetailsElement.ValueOrDefault("crossOver", "value")
+            };
+
+            if (areaValue > 0)
+            {
+                details.Area = new UnitOfMeasure
+                {
+                    Value = areaValue,
+                    Type = string.IsNullOrWhiteSpace(areaType)
+                        ? "Total"
+                        : areaType
+                };
+            }
+
+            if (frontageValue > 0)
+            {
+                details.Frontage = new UnitOfMeasure
+                {
+                    Value = frontageValue,
+                    Type = string.IsNullOrWhiteSpace(frontageType)
+                        ? "Total"
+                        : frontageType
+                };
+            }
+
+            if (depthValue > 0)
+            {
+                details.Depth = new Depth
+                {
+                    Value = depthValue,
+                    Type = string.IsNullOrWhiteSpace(depthType)
+                        ? "Total"
+                        : depthType,
+                    Side = depthSide
+                };
+            }
+
+            return details;
+        }
+
         /// <summary>
         /// REA Specific DateTime parsing.
         /// </summary>
@@ -688,6 +748,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             residentialListing.Pricing = ExtractSalePricing(xElement);
             residentialListing.AuctionOn = ExtractAuction(xElement);
             residentialListing.Features = ExtractFeatures(xElement);
+            residentialListing.LandDetails = ExtractLandDetails(xElement);
         }
 
         #endregion
@@ -772,7 +833,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             landListing.AuctionOn = ExtractAuction(xElement);
             landListing.Estate = ExtractLandEstate(xElement);
             landListing.Features = ExtractLandFeatures(xElement);
-            landListing.Details = ExtractLandDetails(xElement);
+            landListing.LandDetails = ExtractLandDetails(xElement);
             landListing.AuctionOn = ExtractAuction(xElement);
         }
 
@@ -820,69 +881,6 @@ namespace OpenRealEstate.Services.RealEstateComAu
             {
                 FullyFenced = featuresElement.BoolValueOrDefault("fullyFenced")
             };
-        }
-
-        private static Details ExtractLandDetails(XElement xElement)
-        {
-            xElement.ShouldNotBe(null);
-
-            var landDetailsElement = xElement.Element("landDetails");
-            if (landDetailsElement == null)
-            {
-                return null;
-            }
-
-            var areaValue = landDetailsElement.DecimalValueOrDefault("area");
-            var areaType = landDetailsElement.ValueOrDefault("area", "unit");
-            var frontageValue = landDetailsElement.DecimalValueOrDefault("frontage");
-            var frontageType = landDetailsElement.ValueOrDefault("frontage", "unit");
-            var depthValue = landDetailsElement.DecimalValueOrDefault("depth");
-            var depthType = landDetailsElement.ValueOrDefault("depth", "unit");
-            var depthSide = landDetailsElement.ValueOrDefault("depth", "side"); 
-
-            var details = new Details
-            {
-                CrossOver = landDetailsElement.ValueOrDefault("crossOver", "value")
-            };
-
-            if (areaValue > 0)
-            {
-                details.Area = new UnitOfMeasure
-                {
-                    Value = areaValue,
-                    Type = string.IsNullOrWhiteSpace(areaType)
-                        ? "Total"
-                        : areaType
-                };
-            }
-
-            if (frontageValue > 0)
-            {
-                details.Frontage = new UnitOfMeasure
-                {
-                    Value = frontageValue,
-                    Type = string.IsNullOrWhiteSpace(frontageType)
-                        ? "Total"
-                        : frontageType
-                };
-            }
-
-            if (depthValue > 0)
-            {
-                details.Depth = new Depth
-                {
-                    UnitOfMeasure = new UnitOfMeasure
-                    {
-                        Value = depthValue,
-                        Type = string.IsNullOrWhiteSpace(depthType)
-                            ? "Total"
-                            : depthType
-                    },
-                    Side = depthSide
-                };
-            }
-
-            return details;
         }
 
         #endregion
