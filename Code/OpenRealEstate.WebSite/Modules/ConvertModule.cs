@@ -33,8 +33,9 @@ namespace OpenRealEstate.WebSite.Modules
 
             try
             {
-                IList<Listing> listings = _reaXmlTransmorgrifier.Convert(reaXml);
-            
+                var result = _reaXmlTransmorgrifier.ConvertTo(reaXml);
+                var listings = result.Listings;
+
                 var errors = new Dictionary<string, string>();
                 if (listings != null)
                 {

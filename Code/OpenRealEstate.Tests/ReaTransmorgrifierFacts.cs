@@ -28,12 +28,14 @@ namespace OpenRealEstate.Tests
                 var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
 
                 // Act.
-                var listings = reaXmlTransmorgrifier.Convert(reaXml);
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                listings.Count.ShouldBe(1);
+                result.ShouldNotBe(null);
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
 
-                var residentialCurrentListing = listings
+                var residentialCurrentListing = result.Listings
                     .AsQueryable()
                     .WithId("Residential-Current-ABCD1234")
                     .OfType<ResidentialListing>()
@@ -49,12 +51,13 @@ namespace OpenRealEstate.Tests
                 var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
 
                 // Act.
-                var listings = reaXmlTransmorgrifier.Convert(reaXml);
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                listings.Count.ShouldBe(1);
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
 
-                var residentialSoldListing = listings
+                var residentialSoldListing = result.Listings
                     .AsQueryable()
                     .WithId("Residential-Sold-ABCD1234")
                     .OfType<ResidentialListing>()
@@ -70,12 +73,13 @@ namespace OpenRealEstate.Tests
                 var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
 
                 // Act.
-                var listings = reaXmlTransmorgrifier.Convert(reaXml);
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                listings.Count.ShouldBe(1);
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
 
-                var residentialSoldListing = listings
+                var residentialSoldListing = result.Listings
                     .AsQueryable()
                     .WithId("Residential-Sold-ABCD1234")
                     .OfType<ResidentialListing>()
@@ -91,12 +95,13 @@ namespace OpenRealEstate.Tests
                 var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
 
                 // Act.
-                var listings = reaXmlTransmorgrifier.Convert(reaXml);
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                listings.Count.ShouldBe(1);
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
 
-                var residentialSoldListing = listings
+                var residentialSoldListing = result.Listings
                     .AsQueryable()
                     .WithId("Residential-Sold-ABCD1234")
                     .OfType<ResidentialListing>()
@@ -112,12 +117,13 @@ namespace OpenRealEstate.Tests
                 var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
 
                 // Act.
-                var listings = reaXmlTransmorgrifier.Convert(reaXml);
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                listings.Count.ShouldBe(1);
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
 
-                var residentialWithdrawnListing = listings
+                var residentialWithdrawnListing = result.Listings
                     .AsQueryable()
                     .WithId("Residential-Withdrawn-ABCD1234")
                     .OfType<ResidentialListing>()
@@ -133,12 +139,13 @@ namespace OpenRealEstate.Tests
                 var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
 
                 // Act.
-                var listings = reaXmlTransmorgrifier.Convert(reaXml);
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                listings.Count.ShouldBe(1);
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
 
-                var residentialCurrentListing = listings
+                var residentialCurrentListing = result.Listings
                     .AsQueryable()
                     .WithId("Residential-Current-ABCD1234")
                     .OfType<ResidentialListing>()
@@ -238,12 +245,13 @@ namespace OpenRealEstate.Tests
                 var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
 
                 // Act.
-                var listings = reaXmlTransmorgrifier.Convert(reaXml);
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                listings.Count.ShouldBe(1);
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
 
-                var rentalCurrentListing = listings
+                var rentalCurrentListing = result.Listings
                     .AsQueryable()
                     .WithId("Rental-Current-ABCD1234")
                     .OfType<RentalListing>()
@@ -259,12 +267,13 @@ namespace OpenRealEstate.Tests
                 var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
 
                 // Act.
-                var listings = reaXmlTransmorgrifier.Convert(reaXml);
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                listings.Count.ShouldBe(1);
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
 
-                var rentalLeasedListing = listings
+                var rentalLeasedListing = result.Listings
                     .AsQueryable()
                     .WithId("Rental-Leased-ABCD1234")
                     .OfType<RentalListing>()
@@ -280,12 +289,13 @@ namespace OpenRealEstate.Tests
                 var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
 
                 // Act.
-                var listings = reaXmlTransmorgrifier.Convert(reaXml);
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                listings.Count.ShouldBe(1);
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
 
-                var rentalListing = listings
+                var rentalListing = result.Listings
                     .AsQueryable()
                     .WithId("Rental-Withdrawn-ABCD1234")
                     .OfType<RentalListing>()
@@ -301,12 +311,13 @@ namespace OpenRealEstate.Tests
                 var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
 
                 // Act.
-                var listings = reaXmlTransmorgrifier.Convert(reaXml);
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                listings.Count.ShouldBe(1);
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
 
-                var rentalCurrentListing = listings
+                var rentalCurrentListing = result.Listings
                     .AsQueryable()
                     .WithId("Rental-Current-ABCD1234")
                     .OfType<RentalListing>()
@@ -354,6 +365,14 @@ namespace OpenRealEstate.Tests
                 listing.Images[0].Order.ShouldBe(1);
                 listing.Images[0].Url.ShouldBe("http://www.realestate.com.au/tmp/imageM.jpg");
 
+                listing.LandDetails.Area.Value.ShouldBe(60M);
+                listing.LandDetails.Area.Type.ShouldBe("square");
+                listing.LandDetails.Frontage.Value.ShouldBe(15M);
+                listing.LandDetails.Frontage.Type.ShouldBe("meter");
+                listing.LandDetails.Depth.Value.ShouldBe(40M);
+                listing.LandDetails.Depth.Type.ShouldBe("meter");
+                listing.LandDetails.Depth.Side.ShouldBe("rear");
+
                 listing.FloorPlans.Count.ShouldBe(2);
 
                 var errors = new Dictionary<string, string>();
@@ -387,12 +406,13 @@ namespace OpenRealEstate.Tests
                 var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
 
                 // Act.
-                var listings = reaXmlTransmorgrifier.Convert(reaXml);
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                listings.Count.ShouldBe(1);
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
 
-                var landCurrentListing = listings
+                var landCurrentListing = result.Listings
                     .AsQueryable()
                     .WithId("Land-Current-ABCD1234")
                     .OfType<LandListing>()
@@ -408,12 +428,13 @@ namespace OpenRealEstate.Tests
                 var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
 
                 // Act.
-                var listings = reaXmlTransmorgrifier.Convert(reaXml);
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                listings.Count.ShouldBe(1);
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
 
-                var landListing = listings
+                var landListing = result.Listings
                     .AsQueryable()
                     .WithId("Land-Current-ABCD1234")
                     .OfType<LandListing>()
@@ -464,12 +485,12 @@ namespace OpenRealEstate.Tests
                 listing.Images.Count.ShouldBe(2);
                 listing.Images[0].Order.ShouldBe(1);
                 listing.Images[0].Url.ShouldBe("http://www.realestate.com.au/tmp/imageM.jpg");
-               
+
                 listing.FloorPlans.Count.ShouldBe(2);
                 listing.FloorPlans[0].Order.ShouldBe(1);
                 listing.FloorPlans[0].Url.ShouldBe("http://www.realestate.com.au/tmp/floorplan1.gif");
 
-                //listing.AuctionOn.ShouldBe(new DateTime(2009, 1, 24, 12, 30, 00));
+                listing.AuctionOn.ShouldBe(new DateTime(2009, 1, 24, 12, 30, 00));
             }
 
             #endregion
@@ -482,10 +503,12 @@ namespace OpenRealEstate.Tests
                 var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
 
                 // Act.
-                var listings = reaXmlTransmorgrifier.Convert(reaXml);
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                listings.Count.ShouldBe(6);
+                result.Listings.Count.ShouldBe(6);
+                result.UnhandledData.ShouldBe(null);
+                var listings = result.Listings;
 
                 var residentialCurrentListing = listings
                     .AsQueryable()
@@ -538,11 +561,27 @@ namespace OpenRealEstate.Tests
                 var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
 
                 // Act.
-                var exception = Should.Throw<Exception>(() => reaXmlTransmorgrifier.Convert(reaXml));
+                var exception = Should.Throw<Exception>(() => reaXmlTransmorgrifier.ConvertTo(reaXml));
 
                 // Assert.
                 exception.ShouldNotBe(null);
                 exception.Message.ShouldBe("Unable to parse the xml data provided. Currently, only a <propertyList/> or listing segments <residential/> / <rental/> / <land/>. Root node found: 'badContent'.");
+            }
+
+            [Fact]
+            public void GivenTheFileREAMixedContent_Convert_ReturnsAConvertResultWithListingsAndUnhandedData()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\REA-MixedContent.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.ShouldNotBe(null);
+                result.Listings.Count.ShouldBe(2);
+                result.UnhandledData.Count.ShouldBe(3);
             }
 
             [Fact]
@@ -553,7 +592,7 @@ namespace OpenRealEstate.Tests
                 var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
 
                 // Act.
-                var exception = Should.Throw<Exception>(() => reaXmlTransmorgrifier.Convert(reaXml));
+                var exception = Should.Throw<Exception>(() => reaXmlTransmorgrifier.ConvertTo(reaXml));
 
                 // Assert.
                 exception.ShouldNotBe(null);
@@ -569,12 +608,12 @@ namespace OpenRealEstate.Tests
                 var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
 
                 // Act.
-                var listings = reaXmlTransmorgrifier.Convert(reaXml, true);
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml, true);
 
                 // Assert.
-                listings.Count.ShouldBe(1);
+                result.Listings.Count.ShouldBe(1);
 
-                var residentialCurrentListing = listings
+                var residentialCurrentListing = result.Listings
                     .AsQueryable()
                     .WithId("Residential-Current-ABCD1234")
                     .OfType<ResidentialListing>()

@@ -25,7 +25,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
         /// <param name="areBadCharactersRemoved">Option to remove/strip out bad characters.</param>
         /// <returns>Collection of listings.</returns>
         /// <remarks>The Xml data can either be a full REA Xml document (ie. &lt;propertyList/&gt; or a listing segment (ie. &lt;rental/&gt; / &lt;residential/&gt;.</remarks>
-        public IList<Listing> Convert(string data, bool areBadCharactersRemoved = false)
+        public ConvertToResult ConvertTo(string data, bool areBadCharactersRemoved = false)
         {
             data.ShouldNotBeNullOrEmpty();
 
@@ -42,16 +42,23 @@ namespace OpenRealEstate.Services.RealEstateComAu
             }
 
             var elements = SplitReaXmlIntoElements(data);
-            if (!elements.Any())
+            if (!elements.KnownXmlData.Any() &&
+                !elements.UnknownXmlData.Any())
             {
                 return null;
             }
 
             var listings = new ConcurrentBag<Listing>();
+            Parallel.ForEach(elements.KnownXmlData, element => listings.Add(ConvertFromReaXml(element)));
 
-            Parallel.ForEach(elements, xml => listings.Add(ConvertFromReaXml(xml)));
-
-            return listings.ToList();
+            return new ConvertToResult
+            {
+                Listings = listings.ToList(),
+                UnhandledData = elements.UnknownXmlData != null &&
+                                elements.UnknownXmlData.Any()
+                    ? elements.UnknownXmlData.Select(x => x.Value).ToList()
+                    : null
+            };
         }
 
         private static string ValidateXmlString(string text)
@@ -85,29 +92,50 @@ namespace OpenRealEstate.Services.RealEstateComAu
             return new string(validXmlChars);
         }
 
-        private static IList<string> SplitReaXmlIntoElements(string xml)
+        private static SplitElementResult SplitReaXmlIntoElements(string xml)
         {
             xml.ShouldNotBeNullOrEmpty();
 
             var doc = XElement.Parse(xml).StripNameSpaces();
 
+            var knownNodes = new[]
+            {
+                "residential",
+                "rental",
+                "land"
+            };
+
+
             // Do we have a full ReaXml document?
             if (doc.Name.LocalName.ToUpperInvariant() == "PROPERTYLIST")
             {
-                var elements = new List<XElement>();
-                elements.AddRange(doc.Descendants("residential").ToList());
-                elements.AddRange(doc.Descendants("rental").ToList());
-                elements.AddRange(doc.Descendants("land").ToList());
+                return new SplitElementResult
+                {
+                    KnownXmlData = doc.Elements()
+                        .Where(
+                            x =>
+                                knownNodes.Any(
+                                    node =>
+                                        string.Compare(node, x.Name.LocalName, true, CultureInfo.InvariantCulture) == 0))
+                        .ToList(),
 
-                return elements.Select(x => x.ToString()).ToList();
+                    UnknownXmlData = doc.Elements()
+                        .Where(
+                            x =>
+                                knownNodes.All(
+                                    node =>
+                                        string.Compare(node, x.Name.LocalName, true, CultureInfo.InvariantCulture) != 0))
+                        .ToList()
+                };
             }
 
             // Do we have a single listing *segment* ?
-            if (doc.Name.LocalName.ToUpperInvariant() == "RESIDENTIAL" ||
-                doc.Name.LocalName.ToUpperInvariant() == "RENTAL" ||
-                doc.Name.LocalName.ToUpperInvariant() == "LAND")
+            if (knownNodes.Any(node => string.Compare(node, doc.Name.LocalName, true, CultureInfo.InvariantCulture) == 0))
             {
-                return new List<string> {doc.ToString()};
+                return new SplitElementResult
+                {
+                    KnownXmlData = new List<XElement> {doc}
+                };
             }
 
             var errorMessage =
@@ -117,11 +145,52 @@ namespace OpenRealEstate.Services.RealEstateComAu
             throw new Exception(errorMessage);
         }
 
-        private static Listing ConvertFromReaXml(string xml)
-        {
-            xml.ShouldNotBeNullOrEmpty();
+        //private static IList<SplitElementResult> asdasd(string xml)
+        //{
+        //    xml.ShouldNotBeNullOrEmpty();
 
-            var doc = XElement.Parse(xml);
+        //    var results = new List<SplitElementResult>();
+
+        //    var doc = XElement.Parse(xml).StripNameSpaces();
+
+        //    // Do we have a full ReaXml document?
+        //    if (doc.Name.LocalName.ToUpperInvariant() == "PROPERTYLIST")
+        //    {
+        //        var elements = new List<XElement>();
+        //        elements.AddRange(doc.Descendants("residential").ToList());
+        //        elements.AddRange(doc.Descendants("rental").ToList());
+        //        elements.AddRange(doc.Descendants("land").ToList());
+
+        //        var knownElements = elements.Select(x => new SplitElementResult
+        //        {
+        //            XmlData = x.ToString(),
+        //            IsAHandledNode = true
+        //        }).ToList();
+
+        //        results.AddRange(knownElements);
+        //    }
+
+        //    // Which nodes are we not handling (missing data).
+
+
+        //    // Do we have a single listing *segment* ?
+        //    if (doc.Name.LocalName.ToUpperInvariant() == "RESIDENTIAL" ||
+        //        doc.Name.LocalName.ToUpperInvariant() == "RENTAL" ||
+        //        doc.Name.LocalName.ToUpperInvariant() == "LAND")
+        //    {
+        //        return new List<string> {doc.ToString()};
+        //    }
+
+        //    var errorMessage =
+        //        string.Format(
+        //            "Unable to parse the xml data provided. Currently, only a <propertyList/> or listing segments <residential/> / <rental/> / <land/>. Root node found: '{0}'.",
+        //            doc.Name.LocalName);
+        //    throw new Exception(errorMessage);
+        //}
+
+        private static Listing ConvertFromReaXml(XElement doc)
+        {
+            doc.ShouldNotBe(null);
 
             // Determine the category, so we know why type of listing we need to create.
             var categoryType = doc.Name.ToCategoryType();
@@ -259,6 +328,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             listing.Inspections = ExtractInspectionTimes(xElement);
             listing.Images = ExtractImages(xElement);
             listing.FloorPlans = ExtractFloorPlans(xElement);
+            listing.LandDetails = ExtractLandDetails(xElement);
         }
 
         private static Address ExtractAddress(XElement xElement)
@@ -750,7 +820,6 @@ namespace OpenRealEstate.Services.RealEstateComAu
             residentialListing.Pricing = ExtractSalePricing(xElement);
             residentialListing.AuctionOn = ExtractAuction(xElement);
             residentialListing.Features = ExtractFeatures(xElement);
-            residentialListing.LandDetails = ExtractLandDetails(xElement);
         }
 
         #endregion
@@ -835,7 +904,6 @@ namespace OpenRealEstate.Services.RealEstateComAu
             landListing.AuctionOn = ExtractAuction(xElement);
             landListing.Estate = ExtractLandEstate(xElement);
             landListing.Features = ExtractLandFeatures(xElement);
-            landListing.LandDetails = ExtractLandDetails(xElement);
             landListing.AuctionOn = ExtractAuction(xElement);
         }
 
@@ -886,5 +954,11 @@ namespace OpenRealEstate.Services.RealEstateComAu
         }
 
         #endregion
+
+        private class SplitElementResult
+        {
+            public IList<XElement> KnownXmlData { get; set; }
+            public IList<XElement> UnknownXmlData { get; set; }
+        }
     }
 }
