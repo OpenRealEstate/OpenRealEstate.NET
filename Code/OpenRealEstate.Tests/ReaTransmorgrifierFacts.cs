@@ -582,6 +582,7 @@ namespace OpenRealEstate.Tests
                 result.ShouldNotBe(null);
                 result.Listings.Count.ShouldBe(2);
                 result.UnhandledData.Count.ShouldBe(3);
+                result.UnhandledData[0].StartsWith("<pewPew1").ShouldBe(true);
             }
 
             [Fact]

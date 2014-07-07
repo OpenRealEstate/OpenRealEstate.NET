@@ -56,7 +56,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 Listings = listings.ToList(),
                 UnhandledData = elements.UnknownXmlData != null &&
                                 elements.UnknownXmlData.Any()
-                    ? elements.UnknownXmlData.Select(x => x.Value).ToList()
+                    ? elements.UnknownXmlData.Select(x => x.ToString()).ToList()
                     : null
             };
         }
