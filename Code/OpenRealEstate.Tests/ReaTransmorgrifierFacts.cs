@@ -35,7 +35,7 @@ namespace OpenRealEstate.Tests
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
 
-                var residentialCurrentListing = result.Listings
+                var residentialCurrentListing = result.Listings.Select(x => x.Listing)
                     .AsQueryable()
                     .WithId("Residential-Current-ABCD1234")
                     .OfType<ResidentialListing>()
@@ -57,7 +57,7 @@ namespace OpenRealEstate.Tests
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
 
-                var residentialSoldListing = result.Listings
+                var residentialSoldListing = result.Listings.Select(x => x.Listing)
                     .AsQueryable()
                     .WithId("Residential-Sold-ABCD1234")
                     .OfType<ResidentialListing>()
@@ -79,7 +79,7 @@ namespace OpenRealEstate.Tests
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
 
-                var residentialSoldListing = result.Listings
+                var residentialSoldListing = result.Listings.Select(x => x.Listing)
                     .AsQueryable()
                     .WithId("Residential-Sold-ABCD1234")
                     .OfType<ResidentialListing>()
@@ -101,7 +101,7 @@ namespace OpenRealEstate.Tests
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
 
-                var residentialSoldListing = result.Listings
+                var residentialSoldListing = result.Listings.Select(x => x.Listing)
                     .AsQueryable()
                     .WithId("Residential-Sold-ABCD1234")
                     .OfType<ResidentialListing>()
@@ -123,7 +123,7 @@ namespace OpenRealEstate.Tests
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
 
-                var residentialWithdrawnListing = result.Listings
+                var residentialWithdrawnListing = result.Listings.Select(x => x.Listing)
                     .AsQueryable()
                     .WithId("Residential-Withdrawn-ABCD1234")
                     .OfType<ResidentialListing>()
@@ -145,7 +145,7 @@ namespace OpenRealEstate.Tests
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
 
-                var residentialCurrentListing = result.Listings
+                var residentialCurrentListing = result.Listings.Select(x => x.Listing)
                     .AsQueryable()
                     .WithId("Residential-Current-ABCD1234")
                     .OfType<ResidentialListing>()
@@ -251,7 +251,7 @@ namespace OpenRealEstate.Tests
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
 
-                var rentalCurrentListing = result.Listings
+                var rentalCurrentListing = result.Listings.Select(x => x.Listing)
                     .AsQueryable()
                     .WithId("Rental-Current-ABCD1234")
                     .OfType<RentalListing>()
@@ -273,7 +273,7 @@ namespace OpenRealEstate.Tests
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
 
-                var rentalLeasedListing = result.Listings
+                var rentalLeasedListing = result.Listings.Select(x => x.Listing)
                     .AsQueryable()
                     .WithId("Rental-Leased-ABCD1234")
                     .OfType<RentalListing>()
@@ -295,7 +295,7 @@ namespace OpenRealEstate.Tests
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
 
-                var rentalListing = result.Listings
+                var rentalListing = result.Listings.Select(x => x.Listing)
                     .AsQueryable()
                     .WithId("Rental-Withdrawn-ABCD1234")
                     .OfType<RentalListing>()
@@ -317,7 +317,7 @@ namespace OpenRealEstate.Tests
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
 
-                var rentalCurrentListing = result.Listings
+                var rentalCurrentListing = result.Listings.Select(x => x.Listing)
                     .AsQueryable()
                     .WithId("Rental-Current-ABCD1234")
                     .OfType<RentalListing>()
@@ -412,7 +412,7 @@ namespace OpenRealEstate.Tests
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
 
-                var landCurrentListing = result.Listings
+                var landCurrentListing = result.Listings.Select(x => x.Listing)
                     .AsQueryable()
                     .WithId("Land-Current-ABCD1234")
                     .OfType<LandListing>()
@@ -434,7 +434,7 @@ namespace OpenRealEstate.Tests
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
 
-                var landListing = result.Listings
+                var landListing = result.Listings.Select(x => x.Listing)
                     .AsQueryable()
                     .WithId("Land-Current-ABCD1234")
                     .OfType<LandListing>()
@@ -508,7 +508,7 @@ namespace OpenRealEstate.Tests
                 // Assert.
                 result.Listings.Count.ShouldBe(6);
                 result.UnhandledData.ShouldBe(null);
-                var listings = result.Listings;
+                var listings = result.Listings.Select(x => x.Listing).ToList();
 
                 var residentialCurrentListing = listings
                     .AsQueryable()
@@ -614,7 +614,7 @@ namespace OpenRealEstate.Tests
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
 
-                var residentialCurrentListing = result.Listings
+                var residentialCurrentListing = result.Listings.Select(x => x.Listing)
                     .AsQueryable()
                     .WithId("Residential-Current-ABCD1234")
                     .OfType<ResidentialListing>()

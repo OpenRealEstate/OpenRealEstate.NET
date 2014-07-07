@@ -12,7 +12,6 @@ using OpenRealEstate.Core.Models.Rental;
 using OpenRealEstate.Core.Models.Residential;
 using Shouldly;
 using Features = OpenRealEstate.Core.Models.Features;
-using LandFeatures = OpenRealEstate.Core.Models.Land.Features;
 
 namespace OpenRealEstate.Services.RealEstateComAu
 {
@@ -48,8 +47,13 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 return null;
             }
 
-            var listings = new ConcurrentBag<Listing>();
-            Parallel.ForEach(elements.KnownXmlData, element => listings.Add(ConvertFromReaXml(element)));
+            var listings = new ConcurrentBag<ListingResult>();
+            Parallel.ForEach(elements.KnownXmlData, element =>
+                listings.Add(new ListingResult
+                {
+                    Listing = ConvertFromReaXml(element),
+                    SourceData = element.ToString()
+                }));
 
             return new ConvertToResult
             {
@@ -144,49 +148,6 @@ namespace OpenRealEstate.Services.RealEstateComAu
                     doc.Name.LocalName);
             throw new Exception(errorMessage);
         }
-
-        //private static IList<SplitElementResult> asdasd(string xml)
-        //{
-        //    xml.ShouldNotBeNullOrEmpty();
-
-        //    var results = new List<SplitElementResult>();
-
-        //    var doc = XElement.Parse(xml).StripNameSpaces();
-
-        //    // Do we have a full ReaXml document?
-        //    if (doc.Name.LocalName.ToUpperInvariant() == "PROPERTYLIST")
-        //    {
-        //        var elements = new List<XElement>();
-        //        elements.AddRange(doc.Descendants("residential").ToList());
-        //        elements.AddRange(doc.Descendants("rental").ToList());
-        //        elements.AddRange(doc.Descendants("land").ToList());
-
-        //        var knownElements = elements.Select(x => new SplitElementResult
-        //        {
-        //            XmlData = x.ToString(),
-        //            IsAHandledNode = true
-        //        }).ToList();
-
-        //        results.AddRange(knownElements);
-        //    }
-
-        //    // Which nodes are we not handling (missing data).
-
-
-        //    // Do we have a single listing *segment* ?
-        //    if (doc.Name.LocalName.ToUpperInvariant() == "RESIDENTIAL" ||
-        //        doc.Name.LocalName.ToUpperInvariant() == "RENTAL" ||
-        //        doc.Name.LocalName.ToUpperInvariant() == "LAND")
-        //    {
-        //        return new List<string> {doc.ToString()};
-        //    }
-
-        //    var errorMessage =
-        //        string.Format(
-        //            "Unable to parse the xml data provided. Currently, only a <propertyList/> or listing segments <residential/> / <rental/> / <land/>. Root node found: '{0}'.",
-        //            doc.Name.LocalName);
-        //    throw new Exception(errorMessage);
-        //}
 
         private static Listing ConvertFromReaXml(XElement doc)
         {
@@ -903,7 +864,6 @@ namespace OpenRealEstate.Services.RealEstateComAu
             landListing.Pricing = ExtractSalePricing(xElement);
             landListing.AuctionOn = ExtractAuction(xElement);
             landListing.Estate = ExtractLandEstate(xElement);
-            landListing.Features = ExtractLandFeatures(xElement);
             landListing.AuctionOn = ExtractAuction(xElement);
         }
 
@@ -934,22 +894,6 @@ namespace OpenRealEstate.Services.RealEstateComAu
             {
                 Name = estateElement.ValueOrDefault("name"),
                 Stage = estateElement.ValueOrDefault("stage")
-            };
-        }
-
-        private static LandFeatures ExtractLandFeatures(XElement xElement)
-        {
-            xElement.ShouldNotBe(null);
-
-            var featuresElement = xElement.Element("features");
-            if (featuresElement == null)
-            {
-                return null;
-            }
-
-            return new LandFeatures
-            {
-                FullyFenced = featuresElement.BoolValueOrDefault("fullyFenced")
             };
         }
 

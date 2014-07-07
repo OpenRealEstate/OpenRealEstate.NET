@@ -8,7 +8,6 @@ namespace OpenRealEstate.Core.Models.Rental
         public PropertyType PropertyType { get; set; }
         public DateTime? AvailableOn { get; set; }
         public RentalPricing Pricing { get; set; }
-        public Features Features { get; set; }
 
         public new void Validate(Dictionary<string, string> errors, string keySuffix = null)
         {
