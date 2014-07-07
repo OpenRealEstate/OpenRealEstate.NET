@@ -34,13 +34,7 @@ namespace OpenRealEstate.Tests
                 result.ShouldNotBe(null);
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
-
-                var residentialCurrentListing = result.Listings.Select(x => x.Listing)
-                    .AsQueryable()
-                    .WithId("Residential-Current-ABCD1234")
-                    .OfType<ResidentialListing>()
-                    .SingleOrDefault();
-                AssertResidentialCurrentListing(residentialCurrentListing);
+                AssertResidentialCurrentListing((ResidentialListing)result.Listings.First().Listing);
             }
 
             [Fact]
