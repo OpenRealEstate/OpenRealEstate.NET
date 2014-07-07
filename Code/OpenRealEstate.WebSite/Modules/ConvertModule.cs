@@ -33,25 +33,23 @@ namespace OpenRealEstate.WebSite.Modules
 
             try
             {
-                var result = _reaXmlTransmorgrifier.ConvertTo(reaXml);
-                var listings = result.Listings;
+                ConvertToResult result = _reaXmlTransmorgrifier.ConvertTo(reaXml);
+                var listings = result.Listings.Select(x => x.Listing).ToList();
 
                 var errors = new Dictionary<string, string>();
-                if (listings != null)
+                foreach (var listing in listings)
                 {
-                    foreach (var listing in listings)
-                    {
-                        var keySuffix = string.Format("-{0}-{1}-{2}",
-                            string.IsNullOrEmpty(listing.AgencyId)
-                                ? "no-Agency-Id-"
-                                : listing.AgencyId,
-                            string.IsNullOrEmpty(listing.Id)
-                                ? "no-listing-Id-"
-                                : listing.Id,
-                            Guid.NewGuid());
-                        listing.Validate(errors, keySuffix);
-                    }
+                    var keySuffix = string.Format("-{0}-{1}-{2}-",
+                        string.IsNullOrWhiteSpace(listing.AgencyId)
+                            ? "no-Agency-Id-"
+                            : listing.AgencyId,
+                        string.IsNullOrWhiteSpace(listing.Id)
+                            ? "no-listing-Id-"
+                            : listing.Id,
+                        Guid.NewGuid());
+                    listing.Validate(errors, keySuffix);
                 }
+
 
 
                 var viewModel = errors.Any()

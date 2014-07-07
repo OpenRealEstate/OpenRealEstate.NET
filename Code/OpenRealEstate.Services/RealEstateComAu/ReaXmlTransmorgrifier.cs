@@ -485,6 +485,12 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 // REF: http://reaxml.realestate.com.au/docs/reaxml1-xml-format.html#inspection
                 var data = inspectionElement.Value.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
 
+                if (data.Length < 4)
+                {
+                    throw new Exception("Inspection element has an invald Date/Time value. Element: " +
+                                        inspectionElement);
+                }
+
                 DateTime inspectionStartsOn, inspectionEndsOn;
 
                 DateTime.TryParse(string.Format("{0} {1}", data[0], data[1]), out inspectionStartsOn);
