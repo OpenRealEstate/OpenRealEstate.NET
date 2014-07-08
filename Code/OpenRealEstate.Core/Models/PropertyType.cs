@@ -82,63 +82,63 @@ namespace OpenRealEstate.Core.Models
                 throw new ArgumentNullException("value");
             }
 
-            switch (value.ToLowerInvariant())
+            switch (value.ToUpperInvariant())
             {
-                case "acr":
-                case "acreage":
+                case "ACR":
+                case "ACREAGE":
                     return PropertyType.Acreage;
-                case "asr":
-                case "acreagesemi-rural":
-                case "acreagesemirural":
+                case "ASR":
+                case "ACREAGESEMI-RURAL":
+                case "ACREAGESEMIRURAL":
                     return PropertyType.AcreageSemiRural;
-                case "alp":
-                case "alpine":
+                case "ALP":
+                case "ALPINE":
                     return PropertyType.Alpine;
-                case "apt":
-                case "apartment":
+                case "APT":
+                case "APARTMENT":
                     return PropertyType.Apartment;
-                case "bou":
-                case "blockofunits":
+                case "BOU":
+                case "BLOCKOFUNITS":
                     return PropertyType.BlockOfUnits;
-                case "flt":
-                case "flat":
+                case "FLT":
+                case "FLAT":
                     return PropertyType.Flat;
-                case "hse":
-                case "house":
+                case "HSE":
+                case "HOUSE":
                     return PropertyType.House;
-                case "rtm":
-                case "retirement":
+                case "RTM":
+                case "RETIREMENT":
                     return PropertyType.Retirement;
-                case "sdc":
-                case "duplexsemi-detached":
-                case "semidetached":
+                case "SDC":
+                case "DUPLEXSEMI-DETACHED":
+                case "SEMIDETACHED":
                     return PropertyType.SemiDetached;
-                case "sap":
-                case "servicedapartment":
+                case "SAP":
+                case "SERVICEDAPARTMENT":
                     return PropertyType.ServicedApartment;
-                case "std":
-                case "studio":
+                case "STD":
+                case "STUDIO":
                     return PropertyType.Studio;
-                case "tce":
-                case "terrace":
+                case "TCE":
+                case "TERRACE":
                     return PropertyType.Terrace;
-                case "ths":
-                case "townhouse":
+                case "THS":
+                case "TOWNHOUSE":
                     return PropertyType.Townhouse;
-                case "unt":
-                case "unit":
+                case "UNT":
+                case "UNIT":
                     return PropertyType.Unit;
-                case "lnd":
-                case "vacantland":
+                case "LND":
+                case "VACANTLAND":
                     return PropertyType.VacantLand;
-                case "vil":
-                case "villa":
+                case "VIL":
+                case "VILLA":
                     return PropertyType.Villa;
-                case "whs":
-                case "warehouse":
+                case "WHS":
+                case "WAREHOUSE":
                     return PropertyType.Warehouse;
-                case "oth":
-                case "other":
+                case "OTH":
+                case "OTHER":
                     return PropertyType.Other;
                 default:
                     return PropertyType.Unknown;
