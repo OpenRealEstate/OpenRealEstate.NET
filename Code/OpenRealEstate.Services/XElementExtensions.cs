@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Xml;
 using System.Xml.Linq;
 using Shouldly;
 
@@ -8,7 +9,7 @@ namespace OpenRealEstate.Services
     public static class XElementExtensions
     {
         public static string Value(this XElement xElement,
-            string elementName,
+            string elementName = null,
             string attributeName = null,
             string attributeValue = null)
         {
@@ -33,7 +34,7 @@ namespace OpenRealEstate.Services
         }
 
         public static string ValueOrDefault(this XElement xElement,
-            string elementName,
+            string elementName = null,
             string attributeName = null,
             string attributeValue = null)
         {
@@ -42,9 +43,9 @@ namespace OpenRealEstate.Services
                 throw new ArgumentNullException();
             }
 
-            elementName.ShouldNotBeNullOrEmpty();
-
-            var childElement = xElement.Element(elementName);
+            var childElement = string.IsNullOrEmpty(elementName)
+               ? xElement
+               : xElement.Element(elementName);
             if (childElement == null)
             {
                 return null;
@@ -122,8 +123,7 @@ namespace OpenRealEstate.Services
             var attribute = xElement.Attribute(attributeName);
             if (attribute == null)
             {
-                // No attribute (for this element) found.
-                throw new ArgumentNullException();
+                return false;
             }
 
             // Check to see if this value can be converted to a bool. Ie. 0/1/true/false.
@@ -133,58 +133,17 @@ namespace OpenRealEstate.Services
                 : attribute.Value.ParseYesNoToBool();
         }
 
-        public static int IntValueOrDefault(this XElement xElement, string childElementName = null)
+        public static int IntValueOrDefault(this XElement xElement, string elementName = null)
         {
-            if (xElement == null)
-            {
-                return 0;
-            }
-
-            // If we don't provide a child element name, then use the current one.
-            var childElement = string.IsNullOrEmpty(childElementName)
-                ? xElement
-                : xElement.Element(childElementName);
-            if (childElement == null)
-            {
-                return 0;
-            }
-
-            var value = childElement.Value;
-            if (string.IsNullOrEmpty(value))
-            {
-                return 0;
-            }
-
-            int number;
-            if (value.Contains("."))
-            {
-                int.TryParse(value.Substring(0, value.IndexOf(".", StringComparison.Ordinal)), out number);
-            }
-            else
-            {
-                int.TryParse(value, out number);
-            }
-
-            return number;
+            return (int) xElement.DecimalValueOrDefault(elementName);
         }
 
         public static decimal DecimalValueOrDefault(this XElement xElement, string elementName)
         {
-            if (xElement == null)
-            {
-                return 0;
-            }
-
-            var childElement = xElement.Element(elementName);
-            if (childElement == null)
-            {
-                return 0;
-            }
-
-            var value = childElement.Value;
+            var value = xElement.ValueOrDefault(elementName);
             if (string.IsNullOrEmpty(value))
             {
-                return 0;
+                return 0M;
             }
 
             decimal number;
@@ -193,65 +152,16 @@ namespace OpenRealEstate.Services
             return number;
         }
 
-        public static byte ByteValueOrDefault(this XElement xElement, string childElementName = null)
+        public static byte ByteValueOrDefault(this XElement xElement, string elementName = null)
         {
-            if (xElement == null)
-            {
-                return 0;
-            }
-
-            // If we don't provide a child element name, then use the current one.
-            var childElement = string.IsNullOrEmpty(childElementName)
-                ? xElement
-                : xElement.Element(childElementName);
-            if (childElement == null)
-            {
-                return 0;
-            }
-
-            var value = childElement.Value;
-            if (string.IsNullOrEmpty(value))
-            {
-                return 0;
-            }
-
-            byte number;
-            if (value.Contains("."))
-            {
-                byte.TryParse(value.Substring(0, value.IndexOf(".", StringComparison.Ordinal)), out number);
-            }
-            else
-            {
-                byte.TryParse(value, out number);
-            }
-
-            return number;
+            return (byte) xElement.DecimalValueOrDefault(elementName);
         }
 
-        public static bool BoolValueOrDefault(this XElement xElement, string childElementName = null)
+        public static bool BoolValueOrDefault(this XElement xElement, string elementName = null)
         {
-            if (xElement == null)
+            var value = xElement.ValueOrDefault(elementName);
+            if (string.IsNullOrWhiteSpace(value))
             {
-                throw new ArgumentNullException("xElement");
-            }
-
-            // If we don't provide a child element name, then use the current one.
-            var childElement = string.IsNullOrEmpty(childElementName)
-                ? xElement
-                : xElement.Element(childElementName);
-            if (childElement == null)
-            {
-                // We've asked for a child element, but it doesn't exist.
-                // Child elements are optional - which is why we're not throwning an exception.
-                //return false;
-                throw new Exception(
-                    string.Format("The element '{0}' was not found. Please provide a valid element or Child Element.", childElementName));
-            }
-
-            var value = childElement.Value;
-            if (string.IsNullOrEmpty(value))
-            {
-                // Element exists but it has no value.
                 return false;
             }
 
