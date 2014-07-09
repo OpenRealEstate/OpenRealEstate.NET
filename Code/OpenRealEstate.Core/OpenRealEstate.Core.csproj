@@ -51,13 +51,15 @@
     <Compile Include="Models\LandDetails.cs" />
     <Compile Include="Models\Land\LandEstate.cs" />
     <Compile Include="Models\Land\LandListing.cs" />
+    <Compile Include="Models\Rural\RuralListing.cs" />
+    <Compile Include="Models\Rural\CategoryType.cs" />
     <Compile Include="Models\UnitOfMeasure.cs" />
     <Compile Include="Models\Listing.cs" />
     <Compile Include="Models\ListingAgent.cs" />
     <Compile Include="Models\Media.cs" />
     <Compile Include="Models\Communication.cs" />
     <Compile Include="Models\Rental\PaymentFrequencyType.cs" />
-    <Compile Include="Models\PeropertyType.cs" />
+    <Compile Include="Models\PropertyType.cs" />
     <Compile Include="Models\Rental\RentalListing.cs" />
     <Compile Include="Models\Rental\RentalPricing.cs" />
     <Compile Include="Models\Residential\ResidentialListing.cs" />

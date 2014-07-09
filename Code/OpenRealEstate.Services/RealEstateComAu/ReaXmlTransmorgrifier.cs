@@ -10,8 +10,9 @@ using OpenRealEstate.Core.Models;
 using OpenRealEstate.Core.Models.Land;
 using OpenRealEstate.Core.Models.Rental;
 using OpenRealEstate.Core.Models.Residential;
+using OpenRealEstate.Core.Models.Rural;
 using Shouldly;
-using Features = OpenRealEstate.Core.Models.Features;
+using CategoryTypeHelpers = OpenRealEstate.Core.Models.Land.CategoryTypeHelpers;
 
 namespace OpenRealEstate.Services.RealEstateComAu
 {
@@ -106,9 +107,9 @@ namespace OpenRealEstate.Services.RealEstateComAu
             {
                 "residential",
                 "rental",
-                "land"
+                "land",
+                "rural"
             };
-
 
             // Do we have a full ReaXml document?
             if (doc.Name.LocalName.ToUpperInvariant() == "PROPERTYLIST")
@@ -122,7 +123,6 @@ namespace OpenRealEstate.Services.RealEstateComAu
                                     node =>
                                         string.Compare(node, x.Name.LocalName, true, CultureInfo.InvariantCulture) == 0))
                         .ToList(),
-
                     UnknownXmlData = doc.Elements()
                         .Where(
                             x =>
@@ -144,7 +144,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
             var errorMessage =
                 string.Format(
-                    "Unable to parse the xml data provided. Currently, only a <propertyList/> or listing segments <residential/> / <rental/> / <land/>. Root node found: '{0}'.",
+                    "Unable to parse the xml data provided. Currently, only a <propertyList/> or listing segments <residential/> / <rental/> / <land/> / <rural/>. Root node found: '{0}'.",
                     doc.Name.LocalName);
             throw new Exception(errorMessage);
         }
@@ -183,6 +183,11 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 ExtractLandData(listing as LandListing, doc);
             }
 
+            if (listing is RuralListing)
+            {
+                ExtractRuralData(listing as RuralListing, doc);
+            }
+
             return listing;
         }
 
@@ -200,6 +205,9 @@ namespace OpenRealEstate.Services.RealEstateComAu
                     break;
                 case CategoryType.Land:
                     listing = new LandListing();
+                    break;
+                case CategoryType.Rural:
+                    listing = new RuralListing();
                     break;
                 default:
                     // Not sure if we should do some logging here?
@@ -318,8 +326,8 @@ namespace OpenRealEstate.Services.RealEstateComAu
                     ? " "
                     : string.Empty,
                 string.IsNullOrWhiteSpace(subNumber)
-                ? string.Empty
-                : subNumber,
+                    ? string.Empty
+                    : subNumber,
                 string.IsNullOrEmpty(lotNumber) &&
                 string.IsNullOrEmpty(subNumber)
                     ? string.Empty
@@ -575,7 +583,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 select new Media
                 {
                     Url = url,
-                    Order = System.Convert.ToInt32(order)
+                    Order = Convert.ToInt32(order)
                 }).ToList();
 
             return floorPlans.Any() ? floorPlans : null;
@@ -875,15 +883,10 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         private static Core.Models.Land.CategoryType ExtractLandCategoryType(XElement xElement)
         {
-            var categoryType = Core.Models.Land.CategoryType.Unknown;
-
             var category = xElement.ValueOrDefault("landCategory", "name");
-            if (!string.IsNullOrWhiteSpace(category))
-            {
-                categoryType = CategoryTypeHelpers.ToCategoryType(category);
-            }
-
-            return categoryType;
+            return string.IsNullOrWhiteSpace(category)
+                ? Core.Models.Land.CategoryType.Unknown
+                : CategoryTypeHelpers.ToCategoryType(category);
         }
 
         private static LandEstate ExtractLandEstate(XElement xElement)
@@ -901,6 +904,35 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 Name = estateElement.ValueOrDefault("name"),
                 Stage = estateElement.ValueOrDefault("stage")
             };
+        }
+
+        #endregion
+
+        #region Rural Listing Methods
+
+        private static void ExtractRuralData(RuralListing listing, XElement document)
+        {
+            document.ShouldNotBe(null);
+
+            listing.CategoryType = ExtractRuralCategoryType(document);
+            listing.Pricing = ExtractSalePricing(document);
+            listing.AuctionOn = ExtractAuction(document);
+        }
+
+        private static Core.Models.Rural.CategoryType ExtractRuralCategoryType(XElement document)
+        {
+            document.ShouldNotBe(null);
+
+            var categoryElement = document.Element("ruralCategory");
+            if (categoryElement == null)
+            {
+                return Core.Models.Rural.CategoryType.Unknown;
+            }
+
+            var categoryValue = categoryElement.AttributeValueOrDefault("name");
+            return string.IsNullOrWhiteSpace(categoryValue)
+                ? Core.Models.Rural.CategoryType.Unknown
+                : Core.Models.Rural.CategoryTypeHelpers.ToCategoryType(categoryValue);
         }
 
         #endregion

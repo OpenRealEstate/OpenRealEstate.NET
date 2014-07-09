@@ -7,10 +7,12 @@ using OpenRealEstate.Core.Models;
 using OpenRealEstate.Core.Models.Land;
 using OpenRealEstate.Core.Models.Rental;
 using OpenRealEstate.Core.Models.Residential;
+using OpenRealEstate.Core.Models.Rural;
 using OpenRealEstate.Services.RealEstateComAu;
 using Shouldly;
 using Xunit;
-using CategoryType = OpenRealEstate.Core.Models.Land.CategoryType;
+using CategoryType = OpenRealEstate.Core.Models.Rural.CategoryType;
+using LandCategoryType = OpenRealEstate.Core.Models.Land.CategoryType;
 
 namespace OpenRealEstate.Tests
 {
@@ -60,10 +62,10 @@ namespace OpenRealEstate.Tests
             }
 
             [Fact]
-            public void GivenTheFileREAResidentialSoldWithNoDisplayPrice_Convert_ReturnsAResidentialSoldListing()
+            public void GivenTheFileREAResidentialSoldWithMissingDisplayPrice_Convert_ReturnsAResidentialSoldListing()
             {
                 // Arrange.
-                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Sold-NoDisplayPrice.xml");
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Sold-MissingDisplayPrice.xml");
                 var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
 
                 // Act.
@@ -107,7 +109,7 @@ namespace OpenRealEstate.Tests
             public void GivenTheFileREAResidentialWithdawn_Convert_ReturnsAResidentialWithdawnListing()
             {
                 // Arrange.
-                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Withdawn.xml");
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Withdrawn.xml");
                 var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
 
                 // Act.
@@ -117,12 +119,10 @@ namespace OpenRealEstate.Tests
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
 
-                var residentialWithdrawnListing = result.Listings.Select(x => x.Listing)
-                    .AsQueryable()
-                    .WithId("Residential-Withdrawn-ABCD1234")
-                    .OfType<ResidentialListing>()
-                    .SingleOrDefault();
-                AssertResidentialWithdrawnListing(residentialWithdrawnListing);
+                var listing = result.Listings.First().Listing;
+                listing.AgencyId.ShouldBe("XNWXNW");
+                listing.Id.ShouldBe("Residential-Withdrawn-ABCD1234");
+                listing.StatusType.ShouldBe(StatusType.Withdrawn);
             }
 
             [Fact]
@@ -235,13 +235,6 @@ namespace OpenRealEstate.Tests
                 listing.Pricing.SoldPrice.ShouldBe(580000m);
                 listing.Pricing.IsSoldPriceVisibile.ShouldBe(isSoldPriceVisibile);
                 listing.Pricing.SoldOn.ShouldBe(new DateTime(2009, 01, 10, 12, 30, 00));
-            }
-
-            private static void AssertResidentialWithdrawnListing(ResidentialListing listing)
-            {
-                listing.AgencyId.ShouldBe("XNWXNW");
-                listing.Id.ShouldBe("Residential-Withdrawn-ABCD1234");
-                listing.StatusType.ShouldBe(StatusType.Withdrawn);
             }
 
             #endregion
@@ -462,7 +455,7 @@ namespace OpenRealEstate.Tests
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Land-Current-ABCD1234");
                 listing.StatusType.ShouldBe(StatusType.Current);
-                listing.CategoryType.ShouldBe(CategoryType.Residential);
+                listing.CategoryType.ShouldBe(LandCategoryType.Residential);
 
                 var errors = new Dictionary<string, string>();
                 listing.Validate(errors);
@@ -502,6 +495,133 @@ namespace OpenRealEstate.Tests
                 listing.FloorPlans[0].Url.ShouldBe("http://www.realestate.com.au/tmp/floorplan1.gif");
 
                 listing.AuctionOn.ShouldBe(new DateTime(2009, 1, 24, 12, 30, 00));
+            }
+
+            #endregion
+
+            #region Rural
+
+            [Fact]
+            public void GivenTheFileREARuralCurrent_Convert_ReturnsARurualCurrentListing()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Rural\\REA-Rural-Current.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.ShouldNotBe(null);
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
+                AssertRuralCurrentListing((RuralListing)result.Listings.First().Listing);
+            }
+
+            [Fact]
+            public void GivenTheFileREARuralSold_Convert_ReturnsARuralSoldListing()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Rural\\REA-Rural-Sold.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
+
+                var listing = result.Listings.First().Listing;
+                AssertRuralSoldListing(listing as RuralListing);
+            }
+
+            [Fact]
+            public void GivenTheFileREARuralSoldDisplayPriceisNo_Convert_ReturnsARuralSoldListing()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Rural\\REA-Rural-Sold-DisplayPriceisNo.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
+
+                var listing = result.Listings.First().Listing;
+                AssertRuralSoldListing(listing as RuralListing, false);
+            }
+
+            [Fact]
+            public void GivenTheFileREARuralWithdawn_Convert_ReturnsARuralWithdawnListing()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Rural\\REA-Rural-Withdrawn.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
+
+                var listing = result.Listings.First().Listing;
+                listing.AgencyId.ShouldBe("XNWXNW");
+                listing.Id.ShouldBe("Rural-Withdrawn-ABCD1234");
+                listing.StatusType.ShouldBe(StatusType.Withdrawn);
+            }
+
+            private static void AssertRuralCurrentListing(RuralListing listing)
+            {
+                listing.AgencyId.ShouldBe("XNWXNW");
+                listing.Id.ShouldBe("Rural-Current-ABCD1234");
+                listing.StatusType.ShouldBe(StatusType.Current);
+                listing.CategoryType.ShouldBe(CategoryType.Cropping);
+
+                listing.Agents.Count.ShouldBe(1);
+                listing.Agents[0].Name.ShouldBe("Mr. John Doe");
+                listing.Agents[0].Communications.Count.ShouldBe(2);
+
+                listing.Address.StreetNumber.ShouldBe("39");
+                listing.Address.Street.ShouldBe("Main Road");
+                listing.Address.Suburb.ShouldBe("RICHMOND");
+                listing.Address.IsStreetDisplayed.ShouldBe(true);
+
+                listing.Title.ShouldBe("SHOW STOPPER!!!");
+                listing.Description.ShouldStartWith("Don't pass up an opportunity like this! First to inspect will buy! Close to local amen");
+
+                listing.Pricing.IsUnderOffer.ShouldBe(false);
+                listing.Pricing.SalePrice.ShouldBe(400000);
+                listing.Pricing.SalePriceText.ShouldBe("To suit buyers 300K+");
+
+                listing.LandDetails.Area.Value.ShouldBe(50);
+                listing.LandDetails.Area.Type.ShouldBe("acre");
+                listing.LandDetails.Frontage.Value.ShouldBe(500);
+                listing.LandDetails.Frontage.Type.ShouldBe("meter");
+                listing.LandDetails.Depth.Value.ShouldBe(400);
+                listing.LandDetails.Depth.Type.ShouldBe("meter");
+                listing.LandDetails.Depth.Side.ShouldBe("rear");
+
+                listing.Inspections.Count.ShouldBe(2);
+
+                listing.Images.Count.ShouldBe(2);
+                listing.FloorPlans.Count.ShouldBe(2);
+
+                listing.AuctionOn.ShouldBe(new DateTime(2009, 01, 24, 14, 30, 00));
+            }
+
+            private static void AssertRuralSoldListing(RuralListing listing, bool isSoldPriceVisibile = true)
+            {
+                listing.AgencyId.ShouldBe("XNWXNW");
+                listing.Id.ShouldBe("Rural-Sold-ABCD1234");
+                listing.StatusType.ShouldBe(StatusType.Sold);
+
+                listing.Pricing.SoldPrice.ShouldBe(85000m);
+                listing.Pricing.IsSoldPriceVisibile.ShouldBe(isSoldPriceVisibile);
+                listing.Pricing.SoldOn.ShouldBe(new DateTime(2009, 01, 10, 12, 30, 00));
             }
 
             #endregion
@@ -576,7 +696,7 @@ namespace OpenRealEstate.Tests
 
                 // Assert.
                 exception.ShouldNotBe(null);
-                exception.Message.ShouldBe("Unable to parse the xml data provided. Currently, only a <propertyList/> or listing segments <residential/> / <rental/> / <land/>. Root node found: 'badContent'.");
+                exception.Message.ShouldBe("Unable to parse the xml data provided. Currently, only a <propertyList/> or listing segments <residential/> / <rental/> / <land/> / <rural/>. Root node found: 'badContent'.");
             }
 
             [Fact]
