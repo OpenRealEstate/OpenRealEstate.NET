@@ -36,7 +36,7 @@ namespace OpenRealEstate.Tests
                 result.ShouldNotBe(null);
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
-                AssertResidentialCurrentListing((ResidentialListing)result.Listings.First().Listing);
+                AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing);
             }
 
             [Fact]
@@ -52,13 +52,7 @@ namespace OpenRealEstate.Tests
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
-
-                var residentialSoldListing = result.Listings.Select(x => x.Listing)
-                    .AsQueryable()
-                    .WithId("Residential-Sold-ABCD1234")
-                    .OfType<ResidentialListing>()
-                    .SingleOrDefault();
-                AssertResidentialSoldListing(residentialSoldListing);
+                AssertResidentialSoldListing(result.Listings.First().Listing as ResidentialListing);
             }
 
             [Fact]
@@ -74,13 +68,7 @@ namespace OpenRealEstate.Tests
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
-
-                var residentialSoldListing = result.Listings.Select(x => x.Listing)
-                    .AsQueryable()
-                    .WithId("Residential-Sold-ABCD1234")
-                    .OfType<ResidentialListing>()
-                    .SingleOrDefault();
-                AssertResidentialSoldListing(residentialSoldListing);
+                AssertResidentialSoldListing(result.Listings.First().Listing as ResidentialListing);
             }
 
             [Fact]
@@ -96,13 +84,7 @@ namespace OpenRealEstate.Tests
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
-
-                var residentialSoldListing = result.Listings.Select(x => x.Listing)
-                    .AsQueryable()
-                    .WithId("Residential-Sold-ABCD1234")
-                    .OfType<ResidentialListing>()
-                    .SingleOrDefault();
-                AssertResidentialSoldListing(residentialSoldListing, false);
+                AssertResidentialSoldListing(result.Listings.First().Listing as ResidentialListing, false);
             }
 
             [Fact]
@@ -138,13 +120,7 @@ namespace OpenRealEstate.Tests
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
-
-                var residentialCurrentListing = result.Listings.Select(x => x.Listing)
-                    .AsQueryable()
-                    .WithId("Residential-Current-ABCD1234")
-                    .OfType<ResidentialListing>()
-                    .SingleOrDefault();
-                AssertResidentialCurrentListing(residentialCurrentListing);
+                AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing);
             }
 
             [Fact]
@@ -254,13 +230,7 @@ namespace OpenRealEstate.Tests
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
-
-                var rentalCurrentListing = result.Listings.Select(x => x.Listing)
-                    .AsQueryable()
-                    .WithId("Rental-Current-ABCD1234")
-                    .OfType<RentalListing>()
-                    .SingleOrDefault();
-                AssertRentalCurrentListing(rentalCurrentListing);
+                AssertRentalCurrentListing(result.Listings.First().Listing as RentalListing);
             }
 
             [Fact]
@@ -276,13 +246,10 @@ namespace OpenRealEstate.Tests
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
-
-                var rentalLeasedListing = result.Listings.Select(x => x.Listing)
-                    .AsQueryable()
-                    .WithId("Rental-Leased-ABCD1234")
-                    .OfType<RentalListing>()
-                    .SingleOrDefault();
-                AssertRentalLeasedListing(rentalLeasedListing);
+                var listing = result.Listings.First().Listing;
+                listing.AgencyId.ShouldBe("XNWXNW");
+                listing.Id.ShouldBe("Rental-Leased-ABCD1234");
+                listing.StatusType.ShouldBe(StatusType.Leased);
             }
 
             [Fact]
@@ -298,13 +265,10 @@ namespace OpenRealEstate.Tests
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
-
-                var rentalListing = result.Listings.Select(x => x.Listing)
-                    .AsQueryable()
-                    .WithId("Rental-Withdrawn-ABCD1234")
-                    .OfType<RentalListing>()
-                    .SingleOrDefault();
-                AssertRentalWithdrawnListing(rentalListing);
+                var listing = result.Listings.First().Listing;
+                listing.AgencyId.ShouldBe("XNWXNW");
+                listing.Id.ShouldBe("Rental-Withdrawn-ABCD1234");
+                listing.StatusType.ShouldBe(StatusType.Withdrawn);
             }
 
             [Fact]
@@ -320,13 +284,7 @@ namespace OpenRealEstate.Tests
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
-
-                var rentalCurrentListing = result.Listings.Select(x => x.Listing)
-                    .AsQueryable()
-                    .WithId("Rental-Current-ABCD1234")
-                    .OfType<RentalListing>()
-                    .SingleOrDefault();
-                AssertRentalCurrentListing(rentalCurrentListing);
+                AssertRentalCurrentListing(result.Listings.First().Listing as RentalListing);
             }
 
             private static void AssertRentalCurrentListing(RentalListing listing)
@@ -384,20 +342,6 @@ namespace OpenRealEstate.Tests
                 errors.Count.ShouldBe(0);
             }
 
-            private static void AssertRentalLeasedListing(RentalListing listing)
-            {
-                listing.AgencyId.ShouldBe("XNWXNW");
-                listing.Id.ShouldBe("Rental-Leased-ABCD1234");
-                listing.StatusType.ShouldBe(StatusType.Leased);
-            }
-
-            private static void AssertRentalWithdrawnListing(RentalListing listing)
-            {
-                listing.AgencyId.ShouldBe("XNWXNW");
-                listing.Id.ShouldBe("Rental-Withdrawn-ABCD1234");
-                listing.StatusType.ShouldBe(StatusType.Withdrawn);
-            }
-
             #endregion
 
             #region Land
@@ -415,13 +359,7 @@ namespace OpenRealEstate.Tests
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
-
-                var landCurrentListing = result.Listings.Select(x => x.Listing)
-                    .AsQueryable()
-                    .WithId("Land-Current-ABCD1234")
-                    .OfType<LandListing>()
-                    .SingleOrDefault();
-                AssertLandCurrentListing(landCurrentListing);
+                AssertLandCurrentListing(result.Listings.First().Listing as LandListing);
             }
 
             [Fact]
@@ -438,16 +376,11 @@ namespace OpenRealEstate.Tests
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
 
-                var landListing = result.Listings.Select(x => x.Listing)
-                    .AsQueryable()
-                    .WithId("Land-Current-ABCD1234")
-                    .OfType<LandListing>()
-                    .SingleOrDefault();
-
-                landListing.LandDetails.Area.ShouldBe(null);
-                landListing.LandDetails.Frontage.ShouldBe(null);
-                landListing.LandDetails.Depth.ShouldBe(null);
-                landListing.LandDetails.CrossOver.ShouldBeNullOrEmpty();
+                var listing = result.Listings.First().Listing;
+                listing.LandDetails.Area.ShouldBe(null);
+                listing.LandDetails.Frontage.ShouldBe(null);
+                listing.LandDetails.Depth.ShouldBe(null);
+                listing.LandDetails.CrossOver.ShouldBeNullOrEmpty();
             }
 
             private static void AssertLandCurrentListing(LandListing listing)
@@ -515,7 +448,7 @@ namespace OpenRealEstate.Tests
                 result.ShouldNotBe(null);
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
-                AssertRuralCurrentListing((RuralListing)result.Listings.First().Listing);
+                AssertRuralCurrentListing(result.Listings.First().Listing as RuralListing);
             }
 
             [Fact]
@@ -531,9 +464,7 @@ namespace OpenRealEstate.Tests
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
-
-                var listing = result.Listings.First().Listing;
-                AssertRuralSoldListing(listing as RuralListing);
+                AssertRuralSoldListing(result.Listings.First().Listing as RuralListing);
             }
 
             [Fact]
@@ -549,9 +480,7 @@ namespace OpenRealEstate.Tests
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
-
-                var listing = result.Listings.First().Listing;
-                AssertRuralSoldListing(listing as RuralListing, false);
+                AssertRuralSoldListing(result.Listings.First().Listing as RuralListing, false);
             }
 
             [Fact]
