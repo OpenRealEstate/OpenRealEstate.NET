@@ -7,6 +7,7 @@ namespace OpenRealEstate.Core.Models
     {
         public int Order { get; set; }
         public string Url { get; set; }
+        public string Tag { get; set; }
         
         public void Validate(Dictionary<string, string> errors, string keySuffix = null)
         {
