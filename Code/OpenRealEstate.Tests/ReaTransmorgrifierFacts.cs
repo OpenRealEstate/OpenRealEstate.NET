@@ -383,6 +383,58 @@ namespace OpenRealEstate.Tests
                 listing.LandDetails.CrossOver.ShouldBeNullOrEmpty();
             }
 
+            [Fact]
+            public void GivenTheFileREALandSold_Convert_ReturnsALandSoldListing()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Land\\REA-Land-Sold.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+                
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
+                AssertLandSoldListing(result.Listings.First().Listing as LandListing);
+            }
+
+            [Fact]
+            public void GivenTheFileREALandSoldDisplayPriceisNo_Convert_ReturnsALandSoldListing()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Land\\REA-Land-Sold-DisplayPriceisNo.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
+                AssertLandSoldListing(result.Listings.First().Listing as LandListing, false);
+            }
+
+            [Fact]
+            public void GivenTheFileREALandWithdawn_Convert_ReturnsALandWithdawnListing()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Land\\REA-Land-Withdrawn.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
+
+                var listing = result.Listings.First().Listing;
+                listing.AgencyId.ShouldBe("XNWXNW");
+                listing.Id.ShouldBe("Land-Withdrawn-ABCD1234");
+                listing.StatusType.ShouldBe(StatusType.Withdrawn);
+            }
+
             private static void AssertLandCurrentListing(LandListing listing)
             {
                 listing.AgencyId.ShouldBe("XNWXNW");
@@ -428,6 +480,18 @@ namespace OpenRealEstate.Tests
                 listing.FloorPlans[0].Url.ShouldBe("http://www.realestate.com.au/tmp/floorplan1.gif");
 
                 listing.AuctionOn.ShouldBe(new DateTime(2009, 1, 24, 12, 30, 00));
+            }
+
+            private static void AssertLandSoldListing(LandListing listing,
+                bool isSoldPriceVisibile = true)
+            {
+                listing.AgencyId.ShouldBe("XNWXNW");
+                listing.Id.ShouldBe("Land-Sold-ABCD1234");
+                listing.StatusType.ShouldBe(StatusType.Sold);
+
+                listing.Pricing.SoldPrice.ShouldBe(85000m);
+                listing.Pricing.IsSoldPriceVisibile.ShouldBe(isSoldPriceVisibile);
+                listing.Pricing.SoldOn.ShouldBe(new DateTime(2009, 01, 10, 12, 30, 00));
             }
 
             #endregion
