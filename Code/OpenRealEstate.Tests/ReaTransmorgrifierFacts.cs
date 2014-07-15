@@ -195,10 +195,6 @@ namespace OpenRealEstate.Tests
                 listing.LandDetails.Depth.Value.ShouldBe(40M);
                 listing.LandDetails.Depth.Type.ShouldBe("meter");
                 listing.LandDetails.Depth.Side.ShouldBe("rear");
-
-                var errors = new Dictionary<string, string>();
-                listing.Validate(errors);
-                errors.Count.ShouldBe(0);
             }
 
             private static void AssertResidentialSoldListing(ResidentialListing listing,
@@ -209,7 +205,9 @@ namespace OpenRealEstate.Tests
                 listing.StatusType.ShouldBe(StatusType.Sold);
 
                 listing.Pricing.SoldPrice.ShouldBe(580000m);
-                listing.Pricing.IsSoldPriceVisibile.ShouldBe(isSoldPriceVisibile);
+                listing.Pricing.SoldPriceText.ShouldBe(isSoldPriceVisibile
+                    ? null
+                    : "Sold Price Witheld");
                 listing.Pricing.SoldOn.ShouldBe(new DateTime(2009, 01, 10, 12, 30, 00));
             }
 
@@ -442,10 +440,6 @@ namespace OpenRealEstate.Tests
                 listing.StatusType.ShouldBe(StatusType.Current);
                 listing.CategoryType.ShouldBe(LandCategoryType.Residential);
 
-                var errors = new Dictionary<string, string>();
-                listing.Validate(errors);
-                errors.Count.ShouldBe(0);
-
                 listing.Agents.Count.ShouldBe(1);
                 listing.Agents[0].Name.ShouldBe("Mr. John Doe");
                 listing.Agents[0].Communications.Count.ShouldBe(2);
@@ -490,7 +484,9 @@ namespace OpenRealEstate.Tests
                 listing.StatusType.ShouldBe(StatusType.Sold);
 
                 listing.Pricing.SoldPrice.ShouldBe(85000m);
-                listing.Pricing.IsSoldPriceVisibile.ShouldBe(isSoldPriceVisibile);
+                listing.Pricing.SoldPriceText.ShouldBe(isSoldPriceVisibile
+                    ? null
+                    : "Sold Price Witheld");
                 listing.Pricing.SoldOn.ShouldBe(new DateTime(2009, 01, 10, 12, 30, 00));
             }
 
@@ -613,7 +609,9 @@ namespace OpenRealEstate.Tests
                 listing.StatusType.ShouldBe(StatusType.Sold);
 
                 listing.Pricing.SoldPrice.ShouldBe(85000m);
-                listing.Pricing.IsSoldPriceVisibile.ShouldBe(isSoldPriceVisibile);
+                listing.Pricing.SoldPriceText.ShouldBe(isSoldPriceVisibile
+                    ? null
+                    : "Sold Price Witheld");
                 listing.Pricing.SoldOn.ShouldBe(new DateTime(2009, 01, 10, 12, 30, 00));
             }
 

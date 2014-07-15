@@ -348,7 +348,10 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 : "AU";
 
             address.Postcode = addressElement.ValueOrDefault("postcode");
-            address.IsStreetDisplayed = addressElement.AttributeBoolValueOrDefault("display");
+            
+            var isStreetDisplayedText = addressElement.AttributeValueOrDefault("display");
+            address.IsStreetDisplayed = string.IsNullOrWhiteSpace(isStreetDisplayedText) ||
+                                        addressElement.AttributeBoolValueOrDefault("display");
 
             return address;
         }
@@ -396,7 +399,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 {
                     agent.Communications.Add(new Communication
                     {
-                        CommunicationType = CommunicationType.Landline,
+                        CommunicationType = CommunicationType.Mobile,
                         Details = phoneMobile
                     });
                 }
@@ -622,7 +625,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             salePricing.SalePriceText = isDisplay
                 ? salePriceText
                 : string.IsNullOrWhiteSpace(salePriceText)
-                    ? "Address Witheld"
+                    ? "Price Witheld"
                     : salePriceText;
 
             var isUnderOffer = document.ValueOrDefault("underOffer", "value");
@@ -634,19 +637,49 @@ namespace OpenRealEstate.Services.RealEstateComAu
             var soldDetails = document.Element("soldDetails");
             if (soldDetails != null)
             {
-                salePricing.SoldPrice = soldDetails.DecimalValueOrDefault("price");
-                var soldDisplayAttribute = soldDetails.ValueOrDefault("price", "display");
-                salePricing.IsSoldPriceVisibile = string.IsNullOrWhiteSpace(soldDisplayAttribute) ||
-                                                  soldDisplayAttribute.ParseYesNoToBool();
-
-                var soldOnText = soldDetails.ValueOrDefault("date");
-                if (!string.IsNullOrWhiteSpace(soldOnText))
+                // SoldPrice could be price or soldPrice. Thanks REA for such a great schema.
+                var soldPrice = soldDetails.Element("price") ??
+                                soldDetails.Element("soldPrice");
+                if (soldPrice != null)
                 {
-                    salePricing.SoldOn = ToDateTime(soldOnText);
+                    ExtractSoldPrice(soldPrice, salePricing);
+                }
+
+                var soldDate = soldDetails.Element("date") ??
+                               soldDetails.Element("soldDate");
+                if (soldDate != null)
+                {
+                    ExtractSoldOn(soldDate, salePricing);
                 }
             }
 
             return salePricing;
+        }
+
+        private static void ExtractSoldPrice(XElement element, SalePricing salePricing)
+        {
+            element.ShouldNotBe(null);
+
+            salePricing.SoldPrice = element.DecimalValueOrDefault();
+
+            var soldDisplayAttribute = element.ValueOrDefault(null, "display");
+            // NOTE: no display price assumes a 'YES' and that the price -is- to be displayed.
+            salePricing.SoldPriceText = string.IsNullOrWhiteSpace(soldDisplayAttribute) ||
+                                        soldDisplayAttribute.ParseYesNoToBool()
+                ? null
+                : "Sold Price Witheld";
+        }
+
+        private static void ExtractSoldOn(XElement element, SalePricing salePricing)
+        {
+            element.ShouldNotBe(null);
+
+            // SoldOn could be date or soldData. Thanks REA for such a great schema.
+            var soldOnText = element.ValueOrDefault();
+            if (!string.IsNullOrWhiteSpace(soldOnText))
+            {
+                salePricing.SoldOn = ToDateTime(soldOnText);
+            }
         }
 
         private static DateTime? ExtractAuction(XElement document)

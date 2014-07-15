@@ -138,7 +138,7 @@ namespace OpenRealEstate.Services
             return (int) xElement.DecimalValueOrDefault(elementName);
         }
 
-        public static decimal DecimalValueOrDefault(this XElement xElement, string elementName)
+        public static decimal DecimalValueOrDefault(this XElement xElement, string elementName = null)
         {
             var value = xElement.ValueOrDefault(elementName);
             if (string.IsNullOrEmpty(value))

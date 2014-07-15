@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentValidation">
+      <HintPath>..\..\packages\FluentValidation.5.4.0.0\lib\Net40\FluentValidation.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -49,8 +52,25 @@
     <Compile Include="AgentFacts.cs" />
     <Compile Include="FranchiseFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResidentialListingFacts.cs" />
     <Compile Include="ReaTransmorgrifierFacts.cs" />
+    <Compile Include="Validators\AddressValidatorFacts.cs" />
+    <Compile Include="Validators\AgencyValidatorFacts.cs" />
+    <Compile Include="Validators\FeaturesValidatorFacts.cs" />
+    <Compile Include="Validators\CommunicationValidatorFacts.cs" />
+    <Compile Include="Validators\AgentValidatorFacts.cs" />
+    <Compile Include="Validators\Land\LandListingValidatorFacts.cs" />
+    <Compile Include="Validators\ListingAgentValidatorFacts.cs" />
+    <Compile Include="Validators\InspectionValidatorFacts.cs" />
+    <Compile Include="Validators\FranchiseValidatorFacts.cs" />
+    <Compile Include="Validators\LandValidatorFacts.cs" />
+    <Compile Include="Validators\MediaValidatorFacts.cs" />
+    <Compile Include="Validators\Rental\RentalListingValidatorFacts.cs" />
+    <Compile Include="Validators\Rental\RentalPricingValidatorFacts.cs" />
+    <Compile Include="Validators\ResidentialListingValidatorFacts.cs" />
+    <Compile Include="Validators\Residential\ResidentialListingValidatorFacts.cs" />
+    <Compile Include="Validators\Rural\RuralListingValidatorFacts.cs" />
+    <Compile Include="Validators\SalePricingValidatorFacts.cs" />
+    <Compile Include="Validators\UnitOfMeasureValidatorFacts.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -72,9 +92,6 @@
     <None Include="Sample Data\Franchises\Active-Sample.Franchise.1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Sample Data\Listings\Residential-Current-Sample.Agency.1-Ref1111.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OpenRealEstate.Core\OpenRealEstate.Core.csproj">
@@ -84,6 +101,10 @@
     <ProjectReference Include="..\OpenRealEstate.Services\OpenRealEstate.Services.csproj">
       <Project>{629E585C-9CD6-4F0D-9074-769DF0CEF540}</Project>
       <Name>OpenRealEstate.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenRealEstate.Validation\OpenRealEstate.Validation.csproj">
+      <Project>{8293644E-3DF3-4E12-8C4F-80712F24598F}</Project>
+      <Name>OpenRealEstate.Validation</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

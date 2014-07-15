@@ -47,7 +47,8 @@ namespace OpenRealEstate.WebSite.Modules
                             ? "no-listing-Id-"
                             : listing.Id,
                         Guid.NewGuid());
-                    listing.Validate(errors, keySuffix);
+                    //listing.Validate(errors, keySuffix);
+                    throw new NotImplementedException("Need to validate with the new fluent validation.");
                 }
 
 

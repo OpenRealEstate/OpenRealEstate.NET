@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using Newtonsoft.Json;
 using OpenRealEstate.Core.Models;
 using Shouldly;
@@ -22,9 +20,6 @@ namespace OpenRealEstate.Tests
             // Assert.
             franchise.ShouldNotBe(null);
             franchise.Id.ShouldBe("sample.franchise.1");
-            var validationErrors = new Dictionary<string, string>();
-            franchise.Validate(validationErrors);
-            validationErrors.ShouldBeEmpty();
         }
 
         [Fact]
@@ -39,11 +34,6 @@ namespace OpenRealEstate.Tests
             // Assert.
             franchise.ShouldNotBe(null);
             franchise.Id.ShouldBe(null); // Missing data.
-            var validationErrors = new Dictionary<string, string>();
-            franchise.Validate(validationErrors);
-            validationErrors.ShouldNotBeEmpty();
-            validationErrors.First().Key.ShouldBe("Id");
-            validationErrors.First().Value.ShouldBe("An Id is required. eg. Raywhite.Kew, Belle.Mosman69, 12345XXAbCdE");
         }
     }
 }

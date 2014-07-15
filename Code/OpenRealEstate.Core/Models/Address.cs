@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace OpenRealEstate.Core.Models
 {
-    public class Address : IValidate
+    public class Address
     {
         public string StreetNumber { get; set; }
         public string Street { get; set; }
@@ -18,35 +17,6 @@ namespace OpenRealEstate.Core.Models
         public decimal? Latitude { get; set; }
         public decimal? Longitude { get; set; }
         public bool IsStreetDisplayed { get; set; }
-
-        public void Validate(Dictionary<string, string> errors, string keySuffix = null)
-        {
-            if (errors == null)
-            {
-                throw new ArgumentNullException("errors");
-            }
-
-            // We can have a string.Empty keySuffix, which means do have a key to postpend.
-            if (keySuffix == null)
-            {
-                throw new ArgumentNullException("keySuffix");
-            }
-
-            if (string.IsNullOrWhiteSpace(Suburb))
-            {
-                errors.Add("Suburb" + keySuffix, "A Suburb is required. Eg. Ivanhoe or Pott's Point.");
-            }
-
-            if (string.IsNullOrWhiteSpace(State))
-            {
-                errors.Add("State" + keySuffix, "A State is required. Eg. Victoria or New South Wales.");
-            }
-
-            if (string.IsNullOrWhiteSpace(CountryIsoCode))
-            {
-                errors.Add("CountryIsoCode" + keySuffix, "A Country ISO code is required. eg. AU, NZ, etc.");
-            }
-        }
 
         public override string ToString()
         {

@@ -12,20 +12,5 @@ namespace OpenRealEstate.Core.Models
         public IList<Media> Logos { get; set; }
         public IList<Media> Images { get; set; }
         public IList<Media> Videos { get; set; }
-
-        public void Validate(Dictionary<string, string> errors)
-        {
-            if (errors == null)
-            {
-                throw new ArgumentNullException("errors");
-            }
-
-            base.Validate(errors);
-
-            if (string.IsNullOrWhiteSpace(Name))
-            {
-                errors.Add("Name", "A name is required.");
-            }
-        }
     }
 }

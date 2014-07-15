@@ -23,9 +23,6 @@ namespace OpenRealEstate.Tests
             // Assert.
             agency.ShouldNotBe(null);
             agency.Id.ShouldBe("sample.agency.1");
-            var validationErrors = new Dictionary<string, string>();
-            agency.Validate(validationErrors);
-            validationErrors.ShouldBeEmpty();
         }
 
         [Fact]
@@ -40,11 +37,6 @@ namespace OpenRealEstate.Tests
             // Assert.
             agency.ShouldNotBe(null);
             agency.Id.ShouldBe("sample.agency.1");
-            var validationErrors = new Dictionary<string, string>();
-            agency.Validate(validationErrors);
-            validationErrors.ShouldNotBe(null);
-            validationErrors.First().Key.ShouldBe("Name");
-            validationErrors.First().Value.ShouldBe("A name is required.");
         }
     }
 }

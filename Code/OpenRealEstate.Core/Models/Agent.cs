@@ -31,7 +31,6 @@ namespace OpenRealEstate.Core.Models
                 throw new ArgumentNullException("errors");
             }
 
-            base.Validate(errors);
 
             if (string.IsNullOrWhiteSpace(Name))
             {

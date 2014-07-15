@@ -23,7 +23,7 @@ namespace OpenRealEstate.Core.Models.Rental
                 keySuffix = string.Empty;
             }
 
-            base.Validate(errors, keySuffix);
+            //base.Validate(errors, keySuffix);
 
             if (PropertyType == PropertyType.Unknown)
             {
