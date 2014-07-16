@@ -6,6 +6,8 @@ namespace OpenRealEstate.Validation
 {
     public class ListingValidator<T> : AggregateRootValidator<T> where T : Listing
     {
+        public static string CurrentRuleSet = "default,Current";
+
         public ListingValidator()
         {
             RuleFor(listing => listing.AgencyId).NotEmpty()
@@ -16,7 +18,7 @@ namespace OpenRealEstate.Validation
                 .WithMessage(
                     "The Date/Time value is illegal. Please use a valid value, which is a more current value .. like .. something from this century, please, or a NULL value (ie. Not sure when it closes on).");
 
-            RuleSet("Current", () =>
+            RuleSet(CurrentRuleSet, () =>
             {
                 RuleFor(listing => listing.Title).NotEmpty();
                 RuleFor(listing => listing.Description).NotEmpty();

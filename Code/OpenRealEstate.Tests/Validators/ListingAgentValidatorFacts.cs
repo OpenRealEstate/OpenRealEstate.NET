@@ -1,5 +1,4 @@
-﻿using System;
-using FluentValidation.TestHelper;
+﻿using FluentValidation.TestHelper;
 using OpenRealEstate.Core.Models;
 using OpenRealEstate.Validation;
 using Xunit;
@@ -8,23 +7,23 @@ namespace OpenRealEstate.Tests.Validators
 {
     public class ListingAgentValidatorFacts
     {
-        private readonly ListingAgentValidator _listingAgentValidator;
+        private readonly ListingAgentValidator _validator;
 
         public ListingAgentValidatorFacts()
         {
-            _listingAgentValidator = new ListingAgentValidator();
+            _validator = new ListingAgentValidator();
         }
 
         [Fact]
         public void GivenAName_Validate_ShouldNotHaveAValidationError()
         {
-            _listingAgentValidator.ShouldNotHaveValidationErrorFor(agent => agent.Name, "a");
+            _validator.ShouldNotHaveValidationErrorFor(agent => agent.Name, "a");
         }
 
         [Fact]
         public void GivenAnInvalidOpensOn_Validate_ShouldHaveAValidationError()
         {
-            _listingAgentValidator.ShouldHaveValidationErrorFor(agent => agent.Name, "");
+            _validator.ShouldHaveValidationErrorFor(agent => agent.Name, "");
         }
 
         [Fact]
@@ -38,8 +37,8 @@ namespace OpenRealEstate.Tests.Validators
             };
 
             // Act & Assert.
-            _listingAgentValidator.ShouldHaveChildValidator(agent => agent.Communications, typeof(CommunicationValidator));
-            _listingAgentValidator.ShouldNotHaveValidationErrorFor(agent => agent.Communications, new [] { communication} );
+            _validator.ShouldHaveChildValidator(agent => agent.Communications, typeof (CommunicationValidator));
+            _validator.ShouldNotHaveValidationErrorFor(agent => agent.Communications, new[] {communication});
         }
 
         [Fact]
@@ -53,8 +52,8 @@ namespace OpenRealEstate.Tests.Validators
             };
 
             // Act & Assert.
-            _listingAgentValidator.ShouldHaveChildValidator(agent => agent.Communications, typeof(CommunicationValidator));
-            _listingAgentValidator.ShouldHaveValidationErrorFor(agent => agent.Communications, new[] { communication });
+            _validator.ShouldHaveChildValidator(agent => agent.Communications, typeof (CommunicationValidator));
+            _validator.ShouldHaveValidationErrorFor(agent => agent.Communications, new[] {communication});
         }
     }
 }
