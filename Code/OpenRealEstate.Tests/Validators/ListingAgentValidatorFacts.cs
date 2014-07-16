@@ -1,6 +1,8 @@
-﻿using FluentValidation.TestHelper;
+﻿using System.Collections.Generic;
+using FluentValidation.TestHelper;
 using OpenRealEstate.Core.Models;
 using OpenRealEstate.Validation;
+using Shouldly;
 using Xunit;
 
 namespace OpenRealEstate.Tests.Validators
@@ -30,30 +32,52 @@ namespace OpenRealEstate.Tests.Validators
         public void GiveSomeCommunication_Validate_ShouldNotHaveAValidationError()
         {
             // Arrange.
-            var communication = new Communication
+            var listingAgent = new ListingAgent
             {
-                CommunicationType = CommunicationType.Email,
-                Details = "a"
+                Name = "a",
+                Communications = new List<Communication>
+                {
+                    new Communication
+                    {
+                        CommunicationType = CommunicationType.Email,
+                        Details = "a"
+                    }
+                }
             };
 
-            // Act & Assert.
+            // Act.
             _validator.ShouldHaveChildValidator(agent => agent.Communications, typeof (CommunicationValidator));
-            _validator.ShouldNotHaveValidationErrorFor(agent => agent.Communications, new[] {communication});
+            var result = _validator.Validate(listingAgent);
+            //_validator.ShouldNotHaveValidationErrorFor(agent => agent.Communications, new[] {communication});
+
+            // Assert.
+            result.Errors.Count.ShouldBe(0);
         }
 
         [Fact]
         public void GiveACommunicationWithAnUnknownType_Validate_ShouldHaveAValidationError()
         {
             // Arrange.
-            var communication = new Communication
+            var listingAgent = new ListingAgent
             {
-                CommunicationType = CommunicationType.Unknown,
-                Details = "a"
+                Name = "a",
+                Communications = new List<Communication>
+                {
+                    new Communication
+                    {
+                        CommunicationType = CommunicationType.Unknown,
+                        Details = "a"
+                    }
+                }
             };
 
-            // Act & Assert.
-            _validator.ShouldHaveChildValidator(agent => agent.Communications, typeof (CommunicationValidator));
-            _validator.ShouldHaveValidationErrorFor(agent => agent.Communications, new[] {communication});
+            // Act.
+            _validator.ShouldHaveChildValidator(agent => agent.Communications, typeof(CommunicationValidator));
+            var result = _validator.Validate(listingAgent);
+            //_validator.ShouldNotHaveValidationErrorFor(agent => agent.Communications, new[] {communication});
+
+            // Assert.
+            result.Errors.ShouldContain(x => x.PropertyName == "Communications[0].CommunicationType");
         }
     }
 }

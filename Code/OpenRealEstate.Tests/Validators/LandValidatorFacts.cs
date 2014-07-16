@@ -1,47 +1,57 @@
 ﻿using FluentValidation.TestHelper;
 using OpenRealEstate.Core.Models;
 using OpenRealEstate.Validation;
+using Shouldly;
 using Xunit;
 
 namespace OpenRealEstate.Tests.Validators
 {
     public class LandValidatorFacts
     {
-        private readonly LandDetailsValidator _landDetailsValidator;
-
-        public LandValidatorFacts()
+        [Fact]
+        public void GivenAnAreavalidate_ShouldNotHaveAValidationError()
         {
-            _landDetailsValidator = new LandDetailsValidator();
+            // Arrange.
+            var validator = new LandDetailsValidator();
+            var landDetails = new LandDetails
+            {
+                Area = new UnitOfMeasure
+                {
+                    Type = "a",
+                    Value = 1m
+                }
+            };
+
+            // Act.
+            validator.ShouldHaveChildValidator(land => land.Area, typeof (UnitOfMeasureValidator));
+            var result = validator.Validate(landDetails);
+            //validator.ShouldHaveValidationErrorFor(land => land.Area, area);
+
+            // Assert.
+            result.Errors.Count.ShouldBe(0);
         }
 
         [Fact]
-        public void GivenAnArea_Validate_ShouldNotHaveAValidationError()
+        public void GivenAnAreaWithNoTypevalidate_ShouldHaveAValidationError()
         {
             // Arrange.
-            var area = new UnitOfMeasure
+            var validator = new LandDetailsValidator();
+            var landDetails = new LandDetails
             {
-                Type = "a",
-                Value = -1123213m
+                Area = new UnitOfMeasure
+                {
+                    Type = null,
+                    Value = 1m
+                }
             };
 
-            // Act & Assert.
-            _landDetailsValidator.ShouldHaveChildValidator(land => land.Area, typeof(UnitOfMeasureValidator));
-            _landDetailsValidator.ShouldNotHaveValidationErrorFor(land => land.Area, area);
-        }
+            // Act.
+            validator.ShouldHaveChildValidator(land => land.Area, typeof (UnitOfMeasureValidator));
+            var result = validator.Validate(landDetails);
+            //validator.ShouldHaveValidationErrorFor(land => land.Area, area);
 
-        [Fact]
-        public void GivenAnAreaWithNoType_Validate_ShouldHaveAValidationError()
-        {
-            // Arrange.
-            var area = new UnitOfMeasure
-            {
-                Type = null,
-                Value = 1m
-            };
-
-            // Act & Assert.
-            _landDetailsValidator.ShouldHaveChildValidator(land => land.Area, typeof(UnitOfMeasureValidator));
-            _landDetailsValidator.ShouldHaveValidationErrorFor(land => land.Area, area);
+            // Assert.
+            result.Errors.ShouldContain(x => x.PropertyName == "Area.Type");
         }
     }
 }

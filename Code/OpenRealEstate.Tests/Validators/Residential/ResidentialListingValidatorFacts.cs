@@ -33,25 +33,85 @@ namespace OpenRealEstate.Tests.Validators.Residential
 
                 // Act.
                 var result = validator.Validate(listing,
-                    ruleSet: ResidentialListingValidator.CurrentRuleSet);
+                    ruleSet: ResidentialListingValidator.MinimumRuleSet);
 
                 // Assert.
                 result.Errors.Count.ShouldBe(0);
             }
 
             [Fact]
-            public void GivenAnIncompleteListingAndACommonRuleSet_Validate_ShouldHaveSomeValidationErrors()
+            public void GivenAnIncompleteListingAndAMinimumRuleSet_Validate_ShouldHaveSomeValidationErrors()
             {
                 // Arrange.
                 var validator = new ResidentialListingValidator();
 
                 // Act.
                 var result = validator.Validate(new ResidentialListing(),
-                    ruleSet: ResidentialListingValidator.CurrentRuleSet);
+                    ruleSet: ResidentialListingValidator.MinimumRuleSet);
 
                 // Assert.
                 result.ShouldNotBe(null);
-                result.Errors.Count.ShouldBe(6);
+                result.Errors.Count.ShouldBe(8);
+            }
+
+            [Fact]
+            public void GivenAListingWithAMissingSuburbAddress_Validate_ShouldHaveSomeValidationErrors()
+            {
+                // Arrange.
+                var validator = new ResidentialListingValidator();
+                var listing = CreateListing();
+                listing.Address.Suburb = null;
+
+                // Act.
+                var result = validator.Validate(listing, ruleSet: ResidentialListingValidator.MinimumRuleSet);
+
+                // Assert.
+                result.Errors.ShouldContain(x => x.PropertyName == "Address.Suburb");
+            }
+
+            [Fact]
+            public void GivenAListingWithAStreetNumberButMissingStreet_Validate_ShouldHaveSomeValidationErrors()
+            {
+                // Arrange.
+                var validator = new ResidentialListingValidator();
+                var listing = CreateListing();
+                listing.Address.Street = string.Empty;
+
+                // Act.
+                var result = validator.Validate(listing, ruleSet: ResidentialListingValidator.MinimumRuleSet);
+
+                // Assert.
+                result.Errors.ShouldContain(x => x.PropertyName == "Address.Street");
+            }
+
+            [Fact]
+            public void GivenAListingWithAMissingAgentName_Validate_ShouldHaveSomeValidationErrors()
+            {
+                // Arrange.
+                var validator = new ResidentialListingValidator();
+                var listing = CreateListing();
+                listing.Agents.First().Name = string.Empty;
+
+                // Act.
+                var result = validator.Validate(listing, ruleSet: ResidentialListingValidator.MinimumRuleSet);
+
+                // Assert.
+                result.Errors.ShouldContain(x => x.PropertyName == "Agents[0].Name");
+            }
+
+            [Fact]
+            public void GivenAListingWithAMissingImageUrl_Validate_ShouldHaveSomeValidationErrors()
+            {
+                // Arrange.
+                var validator = new ResidentialListingValidator();
+                var listing = CreateListing();
+                listing.Images.First().Url = string.Empty;
+
+                // Act.
+                var result = validator.Validate(listing, ruleSet: ResidentialListingValidator.MinimumRuleSet);
+
+                // Assert.
+                result.Errors.ShouldContain(x => x.PropertyName == "Images[0].Url");
             }
         }
 

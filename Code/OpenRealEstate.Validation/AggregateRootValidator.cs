@@ -9,10 +9,10 @@ namespace OpenRealEstate.Validation
         public AggregateRootValidator()
         {
             RuleFor(aggregateRoot => aggregateRoot.Id).NotEmpty()
-                .WithMessage("An Id is required. eg. Raywhite.Kew, Belle.Mosman69, 12345XXAbCdE");
+                .WithMessage("An 'Id' is required. eg. RayWhite.Kew, Belle.Mosman69, 12345XXAbCdE");
 
             RuleFor(aggregateRoot => aggregateRoot.UpdatedOn).NotEqual(DateTime.MinValue)
-                .WithMessage("A valid UpdatedOn is required. Please use a Date/Time value that is in this decade or so.");
+                .WithMessage("A valid 'UpdatedOn' is required. Please use a date/time value that is in this decade or so.");
         }
     }
 }
