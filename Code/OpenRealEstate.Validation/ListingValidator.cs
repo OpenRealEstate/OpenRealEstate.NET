@@ -6,7 +6,8 @@ namespace OpenRealEstate.Validation
 {
     public class ListingValidator<T> : AggregateRootValidator<T> where T : Listing
     {
-        public static string MinimumRuleSet = "default,Minimum";
+        public const string MinimumRuleSet = "default," + MinimumRuleSetKey;
+        protected const string MinimumRuleSetKey = "Minimum";
 
         public ListingValidator()
         {
@@ -20,7 +21,7 @@ namespace OpenRealEstate.Validation
                     "A valid 'UpdatedOn' is required. Please use a date/time value that is in this decade or so.");
             
             // Minimum data required to have a listing.
-            RuleSet("Minimum", () =>
+            RuleSet(MinimumRuleSetKey, () =>
             {
                 // Required.
                 RuleFor(listing => listing.Title).NotEmpty();

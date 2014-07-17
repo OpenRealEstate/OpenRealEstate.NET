@@ -25,7 +25,7 @@ namespace OpenRealEstate.Tests.Validators.Residential
             }
 
             [Fact]
-            public void GivenACommonRuleSet_Validate_ShouldNotHaveAnyValidationErrors()
+            public void GivenAMinimumRuleSet_Validate_ShouldNotHaveAnyValidationErrors()
             {
                 // Arrange.
                 var listing = CreateListing();
@@ -55,7 +55,7 @@ namespace OpenRealEstate.Tests.Validators.Residential
             }
 
             [Fact]
-            public void GivenAListingWithAMissingSuburbAddress_Validate_ShouldHaveSomeValidationErrors()
+            public void GivenAListingWithAMissingSuburbAddressAndAMinimumRuleSet_Validate_ShouldHaveSomeValidationErrors()
             {
                 // Arrange.
                 var validator = new ResidentialListingValidator();
@@ -70,7 +70,7 @@ namespace OpenRealEstate.Tests.Validators.Residential
             }
 
             [Fact]
-            public void GivenAListingWithAStreetNumberButMissingStreet_Validate_ShouldHaveSomeValidationErrors()
+            public void GivenAListingWithAStreetNumberButMissingStreetAndAMinimumRuleSet_Validate_ShouldHaveSomeValidationErrors()
             {
                 // Arrange.
                 var validator = new ResidentialListingValidator();
@@ -85,7 +85,7 @@ namespace OpenRealEstate.Tests.Validators.Residential
             }
 
             [Fact]
-            public void GivenAListingWithAMissingAgentName_Validate_ShouldHaveSomeValidationErrors()
+            public void GivenAListingWithAMissingAgentNameAndAMinimumRuleSet_Validate_ShouldHaveSomeValidationErrors()
             {
                 // Arrange.
                 var validator = new ResidentialListingValidator();
@@ -100,7 +100,7 @@ namespace OpenRealEstate.Tests.Validators.Residential
             }
 
             [Fact]
-            public void GivenAListingWithAMissingImageUrl_Validate_ShouldHaveSomeValidationErrors()
+            public void GivenAListingWithAMissingImageUrlAndAMinimumRuleSet_Validate_ShouldHaveSomeValidationErrors()
             {
                 // Arrange.
                 var validator = new ResidentialListingValidator();

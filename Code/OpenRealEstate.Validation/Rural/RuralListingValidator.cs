@@ -8,9 +8,12 @@ namespace OpenRealEstate.Validation.Rural
     {
         public RuralListingValidator()
         {
-            RuleFor(listing => listing.CategoryType).NotEqual(CategoryType.Unknown);
+            // Optional.
             RuleFor(listing => listing.AuctionOn).NotEqual(DateTime.MinValue);
             RuleFor(listing => listing.Pricing).SetValidator(new SalePricingValidator());
+
+            RuleSet(MinimumRuleSetKey, () => 
+                RuleFor(listing => listing.CategoryType).NotEqual(CategoryType.Unknown));
         }
     }
 }
