@@ -108,6 +108,26 @@ namespace OpenRealEstate.Tests
             }
 
             [Fact]
+            public void GivenTheFileREAResidentialOffMarket_Convert_ReturnsAResidentialOffMarketListing()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-OffMarket.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+                
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
+
+                var listing = result.Listings.First().Listing;
+                listing.AgencyId.ShouldBe("XNWXNW");
+                listing.Id.ShouldBe("Residential-OffMarket-ABCD1234");
+                listing.StatusType.ShouldBe(StatusType.OffMarket);
+            }
+
+            [Fact]
             public void GivenTheFileREASegmentResidentialCurrent_Convert_ReturnsAResidentialCurrentListing()
             {
                 // Arrange.
@@ -267,6 +287,25 @@ namespace OpenRealEstate.Tests
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Rental-Withdrawn-ABCD1234");
                 listing.StatusType.ShouldBe(StatusType.Withdrawn);
+            }
+
+            [Fact]
+            public void GivenTheFileREARentalOffMarket_Convert_ReturnsARentalOffMarketListing()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Rental\\REA-Rental-OffMarket.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
+                var listing = result.Listings.First().Listing;
+                listing.AgencyId.ShouldBe("XNWXNW");
+                listing.Id.ShouldBe("Rental-OffMarket-ABCD1234");
+                listing.StatusType.ShouldBe(StatusType.OffMarket);
             }
 
             [Fact]
@@ -433,6 +472,26 @@ namespace OpenRealEstate.Tests
                 listing.StatusType.ShouldBe(StatusType.Withdrawn);
             }
 
+            [Fact]
+            public void GivenTheFileREALandOffMarket_Convert_ReturnsALandOffMarketListing()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Land\\REA-Land-OffMarket.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
+
+                var listing = result.Listings.First().Listing;
+                listing.AgencyId.ShouldBe("XNWXNW");
+                listing.Id.ShouldBe("Land-OffMarket-ABCD1234");
+                listing.StatusType.ShouldBe(StatusType.OffMarket);
+            }
+
             private static void AssertLandCurrentListing(LandListing listing)
             {
                 listing.AgencyId.ShouldBe("XNWXNW");
@@ -561,6 +620,26 @@ namespace OpenRealEstate.Tests
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Rural-Withdrawn-ABCD1234");
                 listing.StatusType.ShouldBe(StatusType.Withdrawn);
+            }
+
+            [Fact]
+            public void GivenTheFileREARuralOffMarket_Convert_ReturnsARuralOffMarketListing()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Rural\\REA-Rural-OffMarket.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
+
+                var listing = result.Listings.First().Listing;
+                listing.AgencyId.ShouldBe("XNWXNW");
+                listing.Id.ShouldBe("Rural-OffMarket-ABCD1234");
+                listing.StatusType.ShouldBe(StatusType.OffMarket);
             }
 
             private static void AssertRuralCurrentListing(RuralListing listing)
