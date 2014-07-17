@@ -26,7 +26,7 @@ namespace OpenRealEstate.Validation
                 // Required.
                 RuleFor(listing => listing.Title).NotEmpty();
                 RuleFor(listing => listing.Description).NotEmpty();
-                RuleFor(listing => listing.Address).SetValidator(new AddressValidator());
+                RuleFor(listing => listing.Address).NotNull().SetValidator(new AddressValidator());
             
                 // Optional.
                 RuleFor(listing => listing.Agents).SetCollectionValidator(new ListingAgentValidator());

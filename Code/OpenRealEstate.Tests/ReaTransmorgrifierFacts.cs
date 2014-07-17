@@ -373,10 +373,6 @@ namespace OpenRealEstate.Tests
                 listing.LandDetails.Depth.Side.ShouldBe("rear");
 
                 listing.FloorPlans.Count.ShouldBe(2);
-
-                var errors = new Dictionary<string, string>();
-                listing.Validate(errors);
-                errors.Count.ShouldBe(0);
             }
 
             #endregion

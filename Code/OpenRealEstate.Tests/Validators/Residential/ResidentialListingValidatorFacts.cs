@@ -16,31 +16,30 @@ namespace OpenRealEstate.Tests.Validators.Residential
     {
         public class RuleSetFacts
         {
-            private static ResidentialListing CreateListing()
+            private static ResidentialListing CreateListing(string fileName = null)
             {
-                var xml =
-                    File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current.xml");
+                var xml = File.ReadAllText(fileName
+                                           ?? "Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current.xml");
                 var transmogrifier = new ReaXmlTransmorgrifier();
                 return transmogrifier.ConvertTo(xml).Listings.First().Listing as ResidentialListing;
             }
 
             [Fact]
-            public void GivenAMinimumRuleSet_Validate_ShouldNotHaveAnyValidationErrors()
+            public void GivenTheFileREAResidentialCurrentXml_Validate_ShouldNotHaveValidationErrors()
             {
                 // Arrange.
-                var listing = CreateListing();
                 var validator = new ResidentialListingValidator();
+                var listing = CreateListing();
 
                 // Act.
-                var result = validator.Validate(listing,
-                    ruleSet: ResidentialListingValidator.MinimumRuleSet);
+                var result = validator.Validate(listing, ruleSet: ResidentialListingValidator.MinimumRuleSet);
 
                 // Assert.
                 result.Errors.Count.ShouldBe(0);
             }
 
             [Fact]
-            public void GivenAnIncompleteListingAndAMinimumRuleSet_Validate_ShouldHaveSomeValidationErrors()
+            public void GivenAnIncompleteListingAndAMinimumRuleSet_Validate_ShouldHaveValidationErrors()
             {
                 // Arrange.
                 var validator = new ResidentialListingValidator();
@@ -51,11 +50,11 @@ namespace OpenRealEstate.Tests.Validators.Residential
 
                 // Assert.
                 result.ShouldNotBe(null);
-                result.Errors.Count.ShouldBe(8);
+                result.Errors.Count.ShouldBe(9);
             }
 
             [Fact]
-            public void GivenAListingWithAMissingSuburbAddressAndAMinimumRuleSet_Validate_ShouldHaveSomeValidationErrors()
+            public void GivenAListingWithAMissingSuburbAddressAndAMinimumRuleSet_Validate_ShouldHaveValidationErrors()
             {
                 // Arrange.
                 var validator = new ResidentialListingValidator();
@@ -70,7 +69,7 @@ namespace OpenRealEstate.Tests.Validators.Residential
             }
 
             [Fact]
-            public void GivenAListingWithAStreetNumberButMissingStreetAndAMinimumRuleSet_Validate_ShouldHaveSomeValidationErrors()
+            public void GivenAListingWithAStreetNumberButMissingStreetAndAMinimumRuleSet_Validate_ShouldHaveValidationErrors()
             {
                 // Arrange.
                 var validator = new ResidentialListingValidator();
@@ -85,7 +84,7 @@ namespace OpenRealEstate.Tests.Validators.Residential
             }
 
             [Fact]
-            public void GivenAListingWithAMissingAgentNameAndAMinimumRuleSet_Validate_ShouldHaveSomeValidationErrors()
+            public void GivenAListingWithAMissingAgentNameAndAMinimumRuleSet_Validate_ShouldHaveValidationErrors()
             {
                 // Arrange.
                 var validator = new ResidentialListingValidator();
@@ -100,18 +99,87 @@ namespace OpenRealEstate.Tests.Validators.Residential
             }
 
             [Fact]
-            public void GivenAListingWithAMissingImageUrlAndAMinimumRuleSet_Validate_ShouldHaveSomeValidationErrors()
+            public void GivenTheFileREAResidentialSoldXml_Validate_ShouldNotHaveValidationErrors()
             {
                 // Arrange.
                 var validator = new ResidentialListingValidator();
-                var listing = CreateListing();
-                listing.Images.First().Url = string.Empty;
+                var listing = CreateListing("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Sold.xml");
+
+                // Act.
+                var result = validator.Validate(listing);
+
+                // Assert.
+                result.Errors.Count.ShouldBe(0);
+            }
+
+            [Fact]
+            public void GivenTheFileREAResidentialSoldXmlAndTheMinimumRuleSet_Validate_ShouldHaveValidationErrors()
+            {
+                // Arrange.
+                var validator = new ResidentialListingValidator();
+                var listing = CreateListing("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Sold.xml");
 
                 // Act.
                 var result = validator.Validate(listing, ruleSet: ResidentialListingValidator.MinimumRuleSet);
 
                 // Assert.
-                result.Errors.ShouldContain(x => x.PropertyName == "Images[0].Url");
+                result.Errors.Count.ShouldBe(4);
+            }
+
+            [Fact]
+            public void GivenTheFileREAResidentialWithdrawnXml_Validate_ShouldNotHaveValidationErrors()
+            {
+                // Arrange.
+                var validator = new ResidentialListingValidator();
+                var listing = CreateListing("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Withdrawn.xml");
+
+                // Act.
+                var result = validator.Validate(listing);
+
+                // Assert.
+                result.Errors.Count.ShouldBe(0);
+            }
+
+            [Fact]
+            public void GivenTheFileREAResidentialWithdrawnXmlAndTheMinimumRuleSet_Validate_ShouldHaveValidationErrors()
+            {
+                // Arrange.
+                var validator = new ResidentialListingValidator();
+                var listing = CreateListing("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Withdrawn.xml");
+
+                // Act.
+                var result = validator.Validate(listing, ruleSet: ResidentialListingValidator.MinimumRuleSet);
+
+                // Assert.
+                result.Errors.Count.ShouldBe(4);
+            }
+
+            [Fact]
+            public void GivenTheFileREAResidentialOffMarketXml_Validate_ShouldNotHaveValidationErrors()
+            {
+                // Arrange.
+                var validator = new ResidentialListingValidator();
+                var listing = CreateListing("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-OffMarket.xml");
+
+                // Act.
+                var result = validator.Validate(listing);
+
+                // Assert.
+                result.Errors.Count.ShouldBe(0);
+            }
+
+            [Fact]
+            public void GivenTheFileREAResidentialOffMarketXmlAndTheMinimumRuleSet_Validate_ShouldHaveValidationErrors()
+            {
+                // Arrange.
+                var validator = new ResidentialListingValidator();
+                var listing = CreateListing("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-OffMarket.xml");
+
+                // Act.
+                var result = validator.Validate(listing, ruleSet: ResidentialListingValidator.MinimumRuleSet);
+
+                // Assert.
+                result.Errors.Count.ShouldBe(4);
             }
         }
 
@@ -124,7 +192,15 @@ namespace OpenRealEstate.Tests.Validators.Residential
                 _validator = new ResidentialListingValidator();
             }
 
-            [Fact]
+            private static ResidentialListing CreateListing(string fileName = null)
+            {
+                var xml = File.ReadAllText(fileName
+                                           ?? "Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current.xml");
+                var transmogrifier = new ReaXmlTransmorgrifier();
+                return transmogrifier.ConvertTo(xml).Listings.First().Listing as ResidentialListing;
+            }
+
+            [Fact(Skip = "Need to figure out how to use the RuleSet in this extension method.")]
             public void GivenAPropertyType_Validate_ShouldNotHaveAValidationError()
             {
                 _validator.ShouldNotHaveValidationErrorFor(listing => listing.PropertyType, PropertyType.Townhouse);
@@ -133,10 +209,18 @@ namespace OpenRealEstate.Tests.Validators.Residential
             [Fact]
             public void GivenAnUnknownPropertyType_Validate_ShouldHaveAValidationError()
             {
-                _validator.ShouldHaveValidationErrorFor(listing => listing.PropertyType, PropertyType.Unknown);
+                // Arrange.
+                var listing = CreateListing();
+                listing.PropertyType = PropertyType.Unknown;
+
+                // Act.
+                var result = _validator.Validate(listing, ruleSet: ResidentialListingValidator.MinimumRuleSet);
+
+                // Assert.
+                result.Errors.ShouldContain(x => x.PropertyName == "PropertyType");
             }
 
-            [Fact]
+            [Fact(Skip = "Need to figure out how to use the RuleSet in this extension method.")]
             public void GivenAnAuctionOn_Validate_ShouldNotHaveAValidationError()
             {
                 _validator.ShouldNotHaveValidationErrorFor(listing => listing.AuctionOn, DateTime.UtcNow);
@@ -145,10 +229,18 @@ namespace OpenRealEstate.Tests.Validators.Residential
             [Fact]
             public void GivenAnInvalidAuctionOn_Validate_ShouldHaveAValidationError()
             {
-                _validator.ShouldHaveValidationErrorFor(listing => listing.AuctionOn, DateTime.MinValue);
+                // Arrange.
+                var listing = CreateListing();
+                listing.AuctionOn = DateTime.MinValue;
+
+                // Act.
+                var result = _validator.Validate(listing, ruleSet: ResidentialListingValidator.MinimumRuleSet);
+
+                // Assert.
+                result.Errors.ShouldContain(x => x.PropertyName == "AuctionOn");
             }
 
-            [Fact]
+            [Fact(Skip = "Need to figure out how to use the RuleSet in this extension method.")]
             public void GivenANullAuctionOn_Validate_ShouldNotHaveAValidationError()
             {
                 _validator.ShouldNotHaveValidationErrorFor(listing => listing.AuctionOn, (DateTime?) null);
