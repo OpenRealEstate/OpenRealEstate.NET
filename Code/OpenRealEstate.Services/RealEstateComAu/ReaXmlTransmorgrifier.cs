@@ -621,7 +621,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             var salePriceText = document.ValueOrDefault("priceView");
             var displayAttributeValue = document.ValueOrDefault("priceView", "display");
             var isDisplay = string.IsNullOrWhiteSpace(displayAttributeValue) ||
-                            displayAttributeValue.ParseYesNoToBool();
+                            displayAttributeValue.ParseOneYesZeroNoToBool();
             salePricing.SalePriceText = isDisplay
                 ? salePriceText
                 : string.IsNullOrWhiteSpace(salePriceText)
@@ -630,7 +630,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
             var isUnderOffer = document.ValueOrDefault("underOffer", "value");
             salePricing.IsUnderOffer = !string.IsNullOrWhiteSpace(isUnderOffer) &&
-                                       isUnderOffer.ParseYesNoToBool();
+                                       isUnderOffer.ParseOneYesZeroNoToBool();
 
 
             // Sold data.
@@ -665,7 +665,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             var soldDisplayAttribute = element.ValueOrDefault(null, "display");
             // NOTE: no display price assumes a 'YES' and that the price -is- to be displayed.
             salePricing.SoldPriceText = string.IsNullOrWhiteSpace(soldDisplayAttribute) ||
-                                        soldDisplayAttribute.ParseYesNoToBool()
+                                        soldDisplayAttribute.ParseOneYesZeroNoToBool()
                 ? null
                 : "Sold Price Witheld";
         }

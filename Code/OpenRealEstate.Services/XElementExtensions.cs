@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Linq;
-using System.Xml;
 using System.Xml.Linq;
-using Shouldly;
 
 namespace OpenRealEstate.Services
 {
@@ -20,16 +18,18 @@ namespace OpenRealEstate.Services
                 return value;
             }
 
-            var errorMessage = string.Format("Expected the {0} '{1}' but failed to find it in the element '{2}' or that element exists, but with no data.",
-                string.IsNullOrWhiteSpace(attributeName) ||
-                string.IsNullOrWhiteSpace(attributeValue)
-                    ? "element"
-                    : "attribute",
-                string.IsNullOrWhiteSpace(attributeName) ||
-                string.IsNullOrWhiteSpace(attributeValue)
-                    ? elementName
-                    : attributeName,
-                xElement.Name);
+            var errorMessage =
+                string.Format(
+                    "Expected the {0} '{1}' but failed to find it in the element '{2}' or that element exists, but with no data.",
+                    string.IsNullOrWhiteSpace(attributeName) ||
+                    string.IsNullOrWhiteSpace(attributeValue)
+                        ? "element"
+                        : "attribute",
+                    string.IsNullOrWhiteSpace(attributeName) ||
+                    string.IsNullOrWhiteSpace(attributeValue)
+                        ? elementName
+                        : attributeName,
+                    xElement.Name);
             throw new Exception(errorMessage);
         }
 
@@ -44,8 +44,8 @@ namespace OpenRealEstate.Services
             }
 
             var childElement = string.IsNullOrEmpty(elementName)
-               ? xElement
-               : xElement.Element(elementName);
+                ? xElement
+                : xElement.Element(elementName);
             if (childElement == null)
             {
                 return null;
@@ -94,7 +94,7 @@ namespace OpenRealEstate.Services
         {
             if (xElement == null)
             {
-               throw new ArgumentNullException();
+                throw new ArgumentNullException();
             }
 
             if (string.IsNullOrWhiteSpace(attributeName))
@@ -104,7 +104,7 @@ namespace OpenRealEstate.Services
 
             var attribute = xElement.Attribute(attributeName);
             return attribute == null
-                ? null 
+                ? null
                 : attribute.Value;
         }
 
@@ -129,8 +129,8 @@ namespace OpenRealEstate.Services
             // Check to see if this value can be converted to a bool. Ie. 0/1/true/false.
             bool boolValue;
             return bool.TryParse(attribute.Value, out boolValue)
-                ? boolValue 
-                : attribute.Value.ParseYesNoToBool();
+                ? boolValue
+                : attribute.Value.ParseOneYesZeroNoToBool();
         }
 
         public static int IntValueOrDefault(this XElement xElement, string elementName = null)
@@ -169,17 +169,17 @@ namespace OpenRealEstate.Services
             bool boolValue;
             return bool.TryParse(value, out boolValue)
                 ? boolValue
-                : value.ParseYesNoToBool();
+                : value.ParseOneYesZeroNoToBool();
         }
 
         public static XElement StripNameSpaces(this XElement root)
         {
             var xElement = new XElement(
                 root.Name.LocalName,
-                root.HasElements ?
-                    root.Elements().Select(StripNameSpaces) :
-                    (object)root.Value
-            );
+                root.HasElements
+                    ? root.Elements().Select(StripNameSpaces)
+                    : (object) root.Value
+                );
 
             xElement.ReplaceAttributes(root.Attributes()
                 .Where(attr => (!attr.IsNamespaceDeclaration)));
