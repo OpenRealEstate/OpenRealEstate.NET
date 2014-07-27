@@ -18,6 +18,8 @@ namespace OpenRealEstate.Services.RealEstateComAu
 {
     public class ReaXmlTransmorgrifier : ITransmorgrifier
     {
+        private static readonly IList<string> ValidRootNodes = new List<string> { "propertyList", "residential", "rental", "rural", "land" };
+
         /// <summary>
         /// Converts some REA Xml data into a collection of parsed listings.
         /// </summary>
@@ -41,6 +43,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 data = RemoveInvalidXmlChars(data);
             }
 
+            // Now split it up into the known listing types.
             var elements = SplitReaXmlIntoElements(data);
             if (!elements.KnownXmlData.Any() &&
                 !elements.UnknownXmlData.Any())
@@ -48,6 +51,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 return null;
             }
 
+            // Finally, we convert each segment into a listing.
             var listings = new ConcurrentBag<ListingResult>();
             Parallel.ForEach(elements.KnownXmlData, element =>
                 listings.Add(new ListingResult
@@ -97,11 +101,41 @@ namespace OpenRealEstate.Services.RealEstateComAu
             return new string(validXmlChars);
         }
 
+        private static void EnsureXmlHasRootNode(ref XDocument document)
+        {
+            document.ShouldNotBe(null);
+
+            var rootNode = document.Root == null
+                ? null
+                : document.Root.Name.LocalName;
+
+            if (string.IsNullOrWhiteSpace(rootNode) ||
+                !ValidRootNodes.Contains(document.Root.Name.LocalName))
+            {
+                var errorMessage =
+                    string.Format(
+                        "Unable to parse the xml data provided. Currently, only a <propertyList/> or listing segments <residential/> / <rental/> / <land/> / <rural/>. Root node found: '{0}'.",
+                        document.Root == null
+                            ? "-no root node"
+                            : document.Root.Name.LocalName);
+                throw new Exception(errorMessage);
+            }
+
+            // Lets make sure our document has a propertyList root node.
+            if (rootNode != "propertyList")
+            {
+                document = new XDocument(new XElement("propertyList", document.Root));
+            }
+        }
+
         private static SplitElementResult SplitReaXmlIntoElements(string xml)
         {
             xml.ShouldNotBeNullOrEmpty();
 
-            var document = XElement.Parse(xml).StripNameSpaces();
+            var document = XDocument.Parse(xml);
+
+            // Prepare the xml data we're given.
+            EnsureXmlHasRootNode(ref document);
 
             var knownNodes = new[]
             {
@@ -111,19 +145,18 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 "rural"
             };
 
-            // Do we have a full ReaXml document?
-            if (document.Name.LocalName.ToUpperInvariant() == "PROPERTYLIST")
-            {
-                return new SplitElementResult
+            return document.Root == null
+                ? null
+                : new SplitElementResult
                 {
-                    KnownXmlData = document.Elements()
+                    KnownXmlData = document.Root.Elements()
                         .Where(
                             x =>
                                 knownNodes.Any(
                                     node =>
                                         string.Compare(node, x.Name.LocalName, true, CultureInfo.InvariantCulture) == 0))
                         .ToList(),
-                    UnknownXmlData = document.Elements()
+                    UnknownXmlData = document.Root.Elements()
                         .Where(
                             x =>
                                 knownNodes.All(
@@ -131,24 +164,6 @@ namespace OpenRealEstate.Services.RealEstateComAu
                                         string.Compare(node, x.Name.LocalName, true, CultureInfo.InvariantCulture) != 0))
                         .ToList()
                 };
-            }
-
-            // Do we have a single listing *segment* ?
-            if (
-                knownNodes.Any(
-                    node => string.Compare(node, document.Name.LocalName, true, CultureInfo.InvariantCulture) == 0))
-            {
-                return new SplitElementResult
-                {
-                    KnownXmlData = new List<XElement> {document}
-                };
-            }
-
-            var errorMessage =
-                string.Format(
-                    "Unable to parse the xml data provided. Currently, only a <propertyList/> or listing segments <residential/> / <rental/> / <land/> / <rural/>. Root node found: '{0}'.",
-                    document.Name.LocalName);
-            throw new Exception(errorMessage);
         }
 
         private static Listing ConvertFromReaXml(XElement document)
@@ -283,8 +298,8 @@ namespace OpenRealEstate.Services.RealEstateComAu
             // so we'll default it to this.
             listing.CreatedOn = listing.UpdatedOn;
 
-            listing.AgencyId = document.Value("agentID");
-            listing.Id = document.Value("uniqueID");
+            listing.AgencyId = document.ValueOrDefault("agentID");
+            listing.Id = document.ValueOrDefault("uniqueID");
             var status = document.AttributeValueOrDefault("status");
             if (!string.IsNullOrWhiteSpace(status))
             {
@@ -348,7 +363,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 : "AU";
 
             address.Postcode = addressElement.ValueOrDefault("postcode");
-            
+
             var isStreetDisplayedText = addressElement.AttributeValueOrDefault("display");
             address.IsStreetDisplayed = string.IsNullOrWhiteSpace(isStreetDisplayedText) ||
                                         addressElement.AttributeBoolValueOrDefault("display");

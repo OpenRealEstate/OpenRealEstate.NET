@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FluentValidation.Results;
 using Nancy;
 using OpenRealEstate.Core.Models;
+using OpenRealEstate.Core.Models.Land;
 using OpenRealEstate.Core.Models.Rental;
 using OpenRealEstate.Core.Models.Residential;
+using OpenRealEstate.Core.Models.Rural;
 using OpenRealEstate.Services;
+using OpenRealEstate.Validation;
 using OpenRealEstate.WebSite.ViewModels;
 
 namespace OpenRealEstate.WebSite.Modules
@@ -36,48 +40,44 @@ namespace OpenRealEstate.WebSite.Modules
                 ConvertToResult result = _reaXmlTransmorgrifier.ConvertTo(reaXml);
                 var listings = result.Listings.Select(x => x.Listing).ToList();
 
-                var errors = new Dictionary<string, string>();
+                var errors = new List<ValidationFailure>();
                 foreach (var listing in listings)
                 {
-                    var keySuffix = string.Format("-{0}-{1}-{2}-",
-                        string.IsNullOrWhiteSpace(listing.AgencyId)
-                            ? "no-Agency-Id-"
-                            : listing.AgencyId,
-                        string.IsNullOrWhiteSpace(listing.Id)
-                            ? "no-listing-Id-"
-                            : listing.Id,
-                        Guid.NewGuid());
-                    //listing.Validate(errors, keySuffix);
-                    throw new NotImplementedException("Need to validate with the new fluent validation.");
+                    var ruleSet = listing.StatusType == StatusType.Current
+                        ? ValidatorMediator.MinimumRuleSet
+                        : null;
+                    var validationResults = ValidatorMediator.Validate(listing, ruleSet);
+                    if (validationResults.Errors != null &&
+                        validationResults.Errors.Any())
+                    {
+                        errors.AddRange(validationResults.Errors);
+                    }
                 }
-
-
 
                 var viewModel = errors.Any()
                     ? new ConvertViewModel
                     {
-                        ValidationErrors = errors
+                        ValidationErrors = errors.ToDictionary(k => k.PropertyName, v => v.ErrorMessage)
                     }
                     : new ConvertViewModel
                 {
                     Listings = listings,
-                    ResidentialCount = listings == null
-                        ? 0
-                        : listings.OfType<ResidentialListing>().Count(),
-                    RentalCount = listings == null
-                        ? 0
-                        : listings.OfType<RentalListing>().Count()
+                    ResidentialCount = listings.OfType<ResidentialListing>().Count(),
+                    RentalCount = listings.OfType<RentalListing>().Count(),
+                    RuralCount = listings.OfType<RuralListing>().Count(),
+                    LandCount = listings.OfType<LandListing>().Count()
                 };
 
                 return Response.AsJson(viewModel);
             }
             catch (Exception exception)
             {
-                return Response.AsJson(
+                return Response.AsText(
                     string.Format("Failed to convert the ReaXml to OpenRealEstate json. Error message: {0}.",
                         exception.InnerException != null
                             ? exception.InnerException.Message
-                            : exception.Message), HttpStatusCode.InternalServerError);
+                            : exception.Message))
+                    .WithStatusCode(HttpStatusCode.InternalServerError);
             }
         }
     }

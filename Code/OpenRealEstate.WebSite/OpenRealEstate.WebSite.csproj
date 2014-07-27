@@ -38,6 +38,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentValidation">
+      <HintPath>..\..\packages\FluentValidation.5.4.0.0\lib\Net40\FluentValidation.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Nancy">
       <HintPath>..\..\packages\Nancy.0.22.2\lib\net40\Nancy.dll</HintPath>
@@ -60,6 +63,145 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\OpenRealEstate.Tests\Sample Data\Transmorgrifiers\REA\Land\REA-Land-Current-IncompleteLandDetails.xml">
+      <Link>Content\REA\Land\REA-Land-Current-IncompleteLandDetails.xml</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\OpenRealEstate.Tests\Sample Data\Transmorgrifiers\REA\Land\REA-Land-Current.xml">
+      <Link>Content\REA\Land\REA-Land-Current.xml</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\OpenRealEstate.Tests\Sample Data\Transmorgrifiers\REA\Land\REA-Land-OffMarket.xml">
+      <Link>Content\REA\Land\REA-Land-OffMarket.xml</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\OpenRealEstate.Tests\Sample Data\Transmorgrifiers\REA\Land\REA-Land-Sold-DisplayPriceIsNo.xml">
+      <Link>Content\REA\Land\REA-Land-Sold-DisplayPriceIsNo.xml</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\OpenRealEstate.Tests\Sample Data\Transmorgrifiers\REA\Land\REA-Land-Sold.xml">
+      <Link>Content\REA\Land\REA-Land-Sold.xml</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\OpenRealEstate.Tests\Sample Data\Transmorgrifiers\REA\Land\REA-Land-Withdrawn.xml">
+      <Link>Content\REA\Land\REA-Land-Withdrawn.xml</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\OpenRealEstate.Tests\Sample Data\Transmorgrifiers\REA\Rental\REA-Rental-Current.xml">
+      <Link>Content\REA\Rental\REA-Rental-Current.xml</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\OpenRealEstate.Tests\Sample Data\Transmorgrifiers\REA\Rental\REA-Rental-Leased.xml">
+      <Link>Content\REA\Rental\REA-Rental-Leased.xml</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\OpenRealEstate.Tests\Sample Data\Transmorgrifiers\REA\Rental\REA-Rental-OffMarket.xml">
+      <Link>Content\REA\Rental\REA-Rental-OffMarket.xml</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\OpenRealEstate.Tests\Sample Data\Transmorgrifiers\REA\Rental\REA-Rental-Withdrawn.xml">
+      <Link>Content\REA\Rental\REA-Rental-Withdrawn.xml</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\OpenRealEstate.Tests\Sample Data\Transmorgrifiers\REA\Rental\REA-Segment-Rental-Current.xml">
+      <Link>Content\REA\Rental\REA-Segment-Rental-Current.xml</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\OpenRealEstate.Tests\Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current.xml">
+      <Link>Content\REA\Residential\REA-Residential-Current.xml</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\OpenRealEstate.Tests\Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-CurrentBadInspectionTime.xml">
+      <Link>Content\REA\Residential\REA-Residential-CurrentBadInspectionTime.xml</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\OpenRealEstate.Tests\Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-OffMarket.xml">
+      <Link>Content\REA\Residential\REA-Residential-OffMarket.xml</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\OpenRealEstate.Tests\Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Sold-DisplayPriceIsNo.xml">
+      <Link>Content\REA\Residential\REA-Residential-Sold-DisplayPriceIsNo.xml</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\OpenRealEstate.Tests\Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Sold-MissingDisplayPrice.xml">
+      <Link>Content\REA\Residential\REA-Residential-Sold-MissingDisplayPrice.xml</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\OpenRealEstate.Tests\Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Sold.xml">
+      <Link>Content\REA\Residential\REA-Residential-Sold.xml</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\OpenRealEstate.Tests\Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Withdrawn.xml">
+      <Link>Content\REA\Residential\REA-Residential-Withdrawn.xml</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\OpenRealEstate.Tests\Sample Data\Transmorgrifiers\REA\Residential\REA-Segment-Residential-Current.xml">
+      <Link>Content\REA\Residential\REA-Segment-Residential-Current.xml</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\OpenRealEstate.Tests\Sample Data\Transmorgrifiers\REA\Rural\REA-Rural-Current.xml">
+      <Link>Content\REA\Rural\REA-Rural-Current.xml</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\OpenRealEstate.Tests\Sample Data\Transmorgrifiers\REA\Rural\REA-Rural-OffMarket.xml">
+      <Link>Content\REA\Rural\REA-Rural-OffMarket.xml</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\OpenRealEstate.Tests\Sample Data\Transmorgrifiers\REA\Rural\REA-Rural-Sold-DisplayPriceIsNo.xml">
+      <Link>Content\REA\Rural\REA-Rural-Sold-DisplayPriceIsNo.xml</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\OpenRealEstate.Tests\Sample Data\Transmorgrifiers\REA\Rural\REA-Rural-Sold.xml">
+      <Link>Content\REA\Rural\REA-Rural-Sold.xml</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\OpenRealEstate.Tests\Sample Data\Transmorgrifiers\REA\Rural\REA-Rural-Withdrawn.xml">
+      <Link>Content\REA\Rural\REA-Rural-Withdrawn.xml</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\OpenRealEstate.Tests\Sample Data\Transmorgrifiers\REA\REA-AllTypes.xml">
+      <Link>Content\REA\REA-AllTypes.xml</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\OpenRealEstate.Tests\Sample Data\Transmorgrifiers\REA\REA-BadContent.xml">
+      <Link>Content\REA\REA-BadContent.xml</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\OpenRealEstate.Tests\Sample Data\Transmorgrifiers\REA\REA-InvalidCharacter.xml">
+      <Link>Content\REA\REA-InvalidCharacter.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\OpenRealEstate.Tests\Sample Data\Transmorgrifiers\REA\REA-MixedContent.xml">
+      <Link>Content\REA\REA-MixedContent.xml</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\ReaXmlSample.xml" />
     <Content Include="Content\Scripts\convert.js" />
     <None Include="Content\Scripts\jquery\jquery-2.1.0.intellisense.js" />
@@ -98,6 +240,10 @@
     <ProjectReference Include="..\OpenRealEstate.Services\OpenRealEstate.Services.csproj">
       <Project>{629e585c-9cd6-4f0d-9074-769df0cef540}</Project>
       <Name>OpenRealEstate.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenRealEstate.Validation\OpenRealEstate.Validation.csproj">
+      <Project>{8293644e-3df3-4e12-8c4f-80712f24598f}</Project>
+      <Name>OpenRealEstate.Validation</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
@@ -139,4 +285,13 @@ xcopy /s /y /R "$(SolutionDir)packages\Nancy.Viewengines.Razor.0.22.2\lib\Net40\
   <Target Name="AfterBuild">
   </Target>
   -->
+
+    <Target Name="CopyLinkedContentFiles" BeforeTargets="Build">
+        <Copy SourceFiles="%(Content.Identity)"
+              DestinationFiles="%(Content.Link)"
+              SkipUnchangedFiles='true'
+              OverwriteReadOnlyFiles='true'
+              Condition="'%(Content.Link)' != ''" />
+    </Target>
+    
 </Project>

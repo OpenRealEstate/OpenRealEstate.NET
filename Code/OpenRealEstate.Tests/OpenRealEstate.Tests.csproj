@@ -71,6 +71,7 @@
     <Compile Include="Validators\Rural\RuralListingValidatorFacts.cs" />
     <Compile Include="Validators\SalePricingValidatorFacts.cs" />
     <Compile Include="Validators\UnitOfMeasureValidatorFacts.cs" />
+    <Compile Include="Validators\ValidatorMediatorFacts.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -57,6 +57,7 @@
     <Compile Include="Rural\RuralListingValidator.cs" />
     <Compile Include="SalePricingValidator.cs" />
     <Compile Include="UnitOfMeasureValidator.cs" />
+    <Compile Include="ValidatorMediator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

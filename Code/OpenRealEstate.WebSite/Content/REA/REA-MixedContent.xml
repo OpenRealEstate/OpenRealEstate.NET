@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<propertyList date="2009-01-01-12:30:00" username="xmluser" password="xmlpassword">
+    
+    <!-- Sold listing -->
+    <residential modTime="2009-01-01-12:30:00" status="sold">
+        <agentID>XNWXNW</agentID>
+        <uniqueID>Residential-Sold-ABCD1234-1</uniqueID>
+        <soldDetails>
+            <price display="yes">580000</price>
+            <date>2009-01-10-12:30:00</date>
+        </soldDetails>
+    </residential>
+
+    <residential modTime="2009-01-01-12:30:00" status="sold">
+        <agentID>XNWXNW</agentID>
+        <uniqueID>Residential-Sold-ABCD1234-2</uniqueID>
+        <soldDetails>
+            <price display="yes">580000</price>
+            <date>2009-01-10-12:30:00</date>
+        </soldDetails>
+    </residential>
+    
+    <pewPew1>damn it!</pewPew1>
+    <pewPew2>damn it!</pewPew2>
+    <pewPew3>damn it!</pewPew3>
+
+</propertyList>

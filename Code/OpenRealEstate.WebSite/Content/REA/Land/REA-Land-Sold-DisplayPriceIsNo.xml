@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE propertyList SYSTEM "http://reaxml.realestate.com.au/propertyList.dtd">
+<propertyList date="2009-01-01-12:30:00" username="xmluser" password="xmlpassword">
+    <!-- Sold Listing -->
+    <land modTime="2009-01-01-12:30:00" status="sold">
+        <agentID>XNWXNW</agentID>
+        <uniqueID>Land-Sold-ABCD1234</uniqueID>
+        <soldDetails>
+            <price display="no" plusSAV="no">85000</price>
+            <date>2009-01-10-12:30:00</date>
+        </soldDetails>
+    </land>
+</propertyList>

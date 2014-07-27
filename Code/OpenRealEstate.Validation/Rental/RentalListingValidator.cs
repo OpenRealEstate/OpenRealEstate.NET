@@ -1,5 +1,6 @@
 ﻿using System;
 using FluentValidation;
+using OpenRealEstate.Core.Models;
 using OpenRealEstate.Core.Models.Rental;
 
 namespace OpenRealEstate.Validation.Rental
@@ -10,6 +11,12 @@ namespace OpenRealEstate.Validation.Rental
         {
             // Optional.
             RuleFor(listing => listing.AvailableOn).NotEqual(DateTime.MinValue);
+
+            RuleSet(MinimumRuleSetKey, () =>
+            {
+                // Required.
+                RuleFor(listing => listing.PropertyType).NotEqual(PropertyType.Unknown);
+            });
         }
     }
 }
