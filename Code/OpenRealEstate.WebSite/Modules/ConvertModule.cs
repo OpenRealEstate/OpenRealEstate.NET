@@ -57,7 +57,7 @@ namespace OpenRealEstate.WebSite.Modules
                 var viewModel = errors.Any()
                     ? new ConvertViewModel
                     {
-                        ValidationErrors = errors.ToDictionary(k => k.PropertyName, v => v.ErrorMessage)
+                        ValidationErrors = ConvertErrorsToDictionary(errors)
                     }
                     : new ConvertViewModel
                 {
@@ -79,6 +79,18 @@ namespace OpenRealEstate.WebSite.Modules
                             : exception.Message))
                     .WithStatusCode(HttpStatusCode.InternalServerError);
             }
+        }
+
+        private static IDictionary<string, string> ConvertErrorsToDictionary(IList<ValidationFailure> errors)
+        {
+            var result = new Dictionary<string, string>();
+            for(int i = 0; i < errors.Count; i++)
+            {
+                result.Add(string.Format("{0} - {1}", i + 1, errors[i].PropertyName), 
+                    errors[i].ErrorMessage);
+            }
+
+            return result;
         }
     }
 }
