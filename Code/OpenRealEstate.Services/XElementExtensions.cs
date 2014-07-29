@@ -147,9 +147,13 @@ namespace OpenRealEstate.Services
             }
 
             decimal number;
-            decimal.TryParse(value, out number);
+            if (decimal.TryParse(value, out number))
+            {
+                return number;
+            }
 
-            return number;
+            var errorMessage = string.Format("Failed to parse the value '{0}' into a decimal.", value);
+            throw new Exception(errorMessage);
         }
 
         public static byte ByteValueOrDefault(this XElement xElement, string elementName = null)

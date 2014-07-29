@@ -159,6 +159,21 @@ namespace OpenRealEstate.Tests
                 result.InnerException.Message.ShouldBe("Inspection element has an invald Date/Time value. Element: <inspection> 12:00AM to 12:00AM</inspection>");
             }
 
+            [Fact]
+            public void GivenTheFileReaResidentialCurrentBadSalePrice_Convert_ThrowsAnException()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current-BadSalePrice.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = Should.Throw<AggregateException>(() => reaXmlTransmorgrifier.ConvertTo(reaXml));
+
+                // Assert.
+                result.ShouldNotBe(null);
+                result.Message.ShouldBe("One or more errors occurred.");
+                result.InnerException.Message.ShouldBe("Failed to parse the value '550000600000550000600000550000600000' into a decimal.");
+            }
 
             private static void AssertResidentialCurrentListing(ResidentialListing listing)
             {
