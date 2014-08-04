@@ -8,11 +8,17 @@ namespace OpenRealEstate.Validation.Land
     {
         public LandListingValidator()
         {
-            RuleFor(listing => listing.CategoryType).NotEqual(CategoryType.Unknown);
+            // Optional.
             RuleFor(listing => listing.AuctionOn).NotEqual(DateTime.MinValue);
             RuleFor(listing => listing.Pricing).SetValidator(new SalePricingValidator());
 
             // NOTE: No rules needed for listing.LandEstate.
+
+            RuleSet(MinimumRuleSetKey, () =>
+            {
+                RuleFor(listing => listing.CategoryType).NotEqual(CategoryType.Unknown)
+                    .WithMessage("Invalid 'CategoryType'. Please choose any category except Unknown.");
+            });
         }
     }
 }

@@ -158,10 +158,10 @@ namespace OpenRealEstate.Tests.Validators
                 var listing = (LandListing)GetListing(typeof(LandListing));
                 listing.Id = null;
                 listing.AgencyId = null;
-                listing.CategoryType = CategoryType.Unknown;
+                listing.CategoryType = CategoryType.Unknown; 
 
                 // Arrange.
-                var result = ValidatorMediator.Validate(listing);
+                var result = ValidatorMediator.Validate(listing, ValidatorMediator.MinimumRuleSet);
 
                 // Assert.
                 result.Errors.Count.ShouldBe(3);
