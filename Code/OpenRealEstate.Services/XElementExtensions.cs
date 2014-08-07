@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Xml.Linq;
 
 namespace OpenRealEstate.Services
@@ -72,7 +73,10 @@ namespace OpenRealEstate.Services
                 }
             }
 
-            return childElement.Value.Trim();
+            var value = childElement.Value.Trim();
+            return string.IsNullOrWhiteSpace(value)
+                ? null
+                : value;
         }
 
         public static string AttributeValue(this XElement xElement, string attributeName)
