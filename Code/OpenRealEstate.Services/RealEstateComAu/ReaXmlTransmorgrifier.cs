@@ -19,6 +19,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
     public class ReaXmlTransmorgrifier : ITransmorgrifier
     {
         private static readonly IList<string> ValidRootNodes = new List<string> { "propertyList", "residential", "rental", "rural", "land" };
+        private CultureInfo _defaultCultureInfo;
 
         /// <summary>
         /// Converts some REA Xml data into a collection of parsed listings.
@@ -56,7 +57,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             Parallel.ForEach(elements.KnownXmlData, element =>
                 listings.Add(new ListingResult
                 {
-                    Listing = ConvertFromReaXml(element),
+                    Listing = ConvertFromReaXml(element, DefaultCultureInfo),
                     SourceData = element.ToString()
                 }));
 
@@ -68,6 +69,16 @@ namespace OpenRealEstate.Services.RealEstateComAu
                     ? elements.UnknownXmlData.Select(x => x.ToString()).ToList()
                     : null
             };
+        }
+
+        public CultureInfo DefaultCultureInfo
+        {
+            get { return _defaultCultureInfo ?? new CultureInfo("en-au"); }
+            set
+            {
+                if (value == null) throw new ArgumentNullException("value");
+                _defaultCultureInfo = value;
+            }
         }
 
         private static string ValidateXmlString(string text)
@@ -166,7 +177,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 };
         }
 
-        private static Listing ConvertFromReaXml(XElement document)
+        private static Listing ConvertFromReaXml(XElement document, CultureInfo cultureInfo)
         {
             document.ShouldNotBe(null);
 
@@ -187,22 +198,22 @@ namespace OpenRealEstate.Services.RealEstateComAu
             // Extract specific data.
             if (listing is ResidentialListing)
             {
-                ExtractResidentialData(listing as ResidentialListing, document);
+                ExtractResidentialData(listing as ResidentialListing, document, cultureInfo);
             }
 
             if (listing is RentalListing)
             {
-                ExtractRentalData(listing as RentalListing, document);
+                ExtractRentalData(listing as RentalListing, document, cultureInfo);
             }
 
             if (listing is LandListing)
             {
-                ExtractLandData(listing as LandListing, document);
+                ExtractLandData(listing as LandListing, document, cultureInfo);
             }
 
             if (listing is RuralListing)
             {
-                ExtractRuralData(listing as RuralListing, document);
+                ExtractRuralData(listing as RuralListing, document, cultureInfo);
             }
 
             return listing;
@@ -622,13 +633,13 @@ namespace OpenRealEstate.Services.RealEstateComAu
             return propertyType;
         }
 
-        private static SalePricing ExtractSalePricing(XElement document)
+        private static SalePricing ExtractSalePricing(XElement document, CultureInfo cultureInfo)
         {
             document.ShouldNotBe(null);
 
             var salePricing = new SalePricing
             {
-                SalePrice = document.DecimalValueOrDefault("price")
+                SalePrice = document.MoneyValueOrDefault(cultureInfo, "price")
             };
 
             // Selling data.
@@ -836,13 +847,13 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         #region Residential Listing methods
 
-        private static void ExtractResidentialData(ResidentialListing residentialListing, XElement xElement)
+        private static void ExtractResidentialData(ResidentialListing residentialListing, XElement xElement, CultureInfo cultureInfo)
         {
             residentialListing.ShouldNotBe(null);
             xElement.ShouldNotBe(null);
 
             residentialListing.PropertyType = ExtractResidentialAndRentalPropertyType(xElement);
-            residentialListing.Pricing = ExtractSalePricing(xElement);
+            residentialListing.Pricing = ExtractSalePricing(xElement, cultureInfo);
             residentialListing.AuctionOn = ExtractAuction(xElement);
             residentialListing.Features = ExtractFeatures(xElement);
         }
@@ -851,7 +862,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         #region Rental Listing Methods
 
-        public static void ExtractRentalData(RentalListing rentalListing, XElement xElement)
+        private static void ExtractRentalData(RentalListing rentalListing, XElement xElement, CultureInfo cultureInfo)
         {
             rentalListing.ShouldNotBe(null);
             xElement.ShouldNotBe(null);
@@ -863,11 +874,11 @@ namespace OpenRealEstate.Services.RealEstateComAu
             }
 
             rentalListing.PropertyType = ExtractResidentialAndRentalPropertyType(xElement);
-            rentalListing.Pricing = ExtractRentalPricing(xElement);
+            rentalListing.Pricing = ExtractRentalPricing(xElement, cultureInfo);
             rentalListing.Features = ExtractFeatures(xElement);
         }
 
-        public static RentalPricing ExtractRentalPricing(XElement xElement)
+        private static RentalPricing ExtractRentalPricing(XElement xElement, CultureInfo cultureInfo)
         {
             xElement.ShouldNotBe(null);
 
@@ -883,9 +894,9 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
             // We will only use the WEEKLY one.
             var rentalPricing = new RentalPricing();
-            foreach (var re in rentElements)
+            foreach (var rentElement in rentElements)
             {
-                var frequency = re.AttributeValueOrDefault("period");
+                var frequency = rentElement.AttributeValueOrDefault("period");
                 if (string.IsNullOrWhiteSpace(frequency))
                 {
                     continue;
@@ -898,19 +909,13 @@ namespace OpenRealEstate.Services.RealEstateComAu
                     continue;
                 }
 
-                var rentalPrice = re.Value;
-                decimal value;
-                if (!string.IsNullOrWhiteSpace(rentalPrice) &&
-                    Decimal.TryParse(rentalPrice, out value))
-                {
-                    rentalPricing.RentalPrice = value;
-                }
+                rentalPricing.RentalPrice = rentElement.MoneyValueOrDefault(cultureInfo);
 
                 break;
             }
 
             rentalPricing.RentalPriceText = xElement.ValueOrDefault("priceView");
-            rentalPricing.Bond = xElement.DecimalValueOrDefault("bond");
+            rentalPricing.Bond = xElement.MoneyValueOrDefault(cultureInfo, "bond");
 
             return rentalPricing;
         }
@@ -919,13 +924,13 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         #region Land Listing Methods
 
-        private static void ExtractLandData(LandListing landListing, XElement xElement)
+        private static void ExtractLandData(LandListing landListing, XElement xElement, CultureInfo cultureInfo)
         {
             landListing.ShouldNotBe(null);
             xElement.ShouldNotBe(null);
 
             landListing.CategoryType = ExtractLandCategoryType(xElement);
-            landListing.Pricing = ExtractSalePricing(xElement);
+            landListing.Pricing = ExtractSalePricing(xElement, cultureInfo);
             landListing.AuctionOn = ExtractAuction(xElement);
             landListing.Estate = ExtractLandEstate(xElement);
             landListing.AuctionOn = ExtractAuction(xElement);
@@ -960,12 +965,12 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         #region Rural Listing Methods
 
-        private static void ExtractRuralData(RuralListing listing, XElement document)
+        private static void ExtractRuralData(RuralListing listing, XElement document, CultureInfo cultureInfo)
         {
             document.ShouldNotBe(null);
 
             listing.CategoryType = ExtractRuralCategoryType(document);
-            listing.Pricing = ExtractSalePricing(document);
+            listing.Pricing = ExtractSalePricing(document, cultureInfo);
             listing.AuctionOn = ExtractAuction(document);
         }
 

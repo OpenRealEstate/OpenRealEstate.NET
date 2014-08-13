@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Xml.Linq;
+using NUnit.Framework.Constraints;
 
 namespace OpenRealEstate.Services
 {
@@ -139,7 +141,20 @@ namespace OpenRealEstate.Services
 
         public static int IntValueOrDefault(this XElement xElement, string elementName = null)
         {
-            return (int) xElement.DecimalValueOrDefault(elementName);
+            var value = xElement.ValueOrDefault(elementName);
+            if (string.IsNullOrEmpty(value))
+            {
+                return 0;
+            }
+
+            int number;
+            if (int.TryParse(value, out number))
+            {
+                return number;
+            }
+
+            var errorMessage = string.Format("Failed to parse the value '{0}' into an int.", value);
+            throw new Exception(errorMessage);
         }
 
         public static decimal DecimalValueOrDefault(this XElement xElement, string elementName = null)
@@ -150,6 +165,7 @@ namespace OpenRealEstate.Services
                 return 0M;
             }
 
+            // NOTE: This -cannot- handle currencies.
             decimal number;
             if (decimal.TryParse(value, out number))
             {
@@ -160,9 +176,45 @@ namespace OpenRealEstate.Services
             throw new Exception(errorMessage);
         }
 
+        public static decimal MoneyValueOrDefault(this XElement xElement, CultureInfo cultureInfo, string elementName = null)
+        {
+            var value = xElement.ValueOrDefault(elementName);
+            if (string.IsNullOrEmpty(value))
+            {
+                return 0M;
+            }
+
+            // NOTE: This can now handle values that are either currency or just numbers.
+            //       ie. $1000, 1000, etc.
+            decimal number;
+            if (decimal.TryParse(value,
+                NumberStyles.AllowCurrencySymbol | NumberStyles.Number,
+                cultureInfo,
+                out number))
+            {
+                return number;
+            }
+
+            var errorMessage = string.Format("Failed to parse the value '{0}' into a decimal.", value);
+            throw new Exception(errorMessage);
+        }
+
         public static byte ByteValueOrDefault(this XElement xElement, string elementName = null)
         {
-            return (byte) xElement.DecimalValueOrDefault(elementName);
+            byte number = 0;
+            var value = xElement.ValueOrDefault(elementName);
+            if (string.IsNullOrEmpty(value))
+            {
+                return number;
+            }
+            
+            if (byte.TryParse(value, out number))
+            {
+                return number;
+            }
+
+            var errorMessage = string.Format("Failed to parse the value '{0}' into a byte.", value);
+            throw new Exception(errorMessage);
         }
 
         public static bool BoolValueOrDefault(this XElement xElement, string elementName = null)
