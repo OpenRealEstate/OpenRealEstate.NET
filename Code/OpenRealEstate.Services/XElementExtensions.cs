@@ -46,36 +46,48 @@ namespace OpenRealEstate.Services
                 throw new ArgumentNullException();
             }
 
-            var childElement = string.IsNullOrEmpty(elementName)
-                ? xElement
-                : xElement.Element(elementName);
-            if (childElement == null)
+            XElement element;
+            if (string.IsNullOrWhiteSpace(elementName))
+            {
+                element = xElement;
+            }
+            else if (string.IsNullOrWhiteSpace(attributeName) &&
+                     string.IsNullOrWhiteSpace(attributeValue))
+            {
+                element = xElement.Element(elementName);
+            }
+            else
+            {
+                if (string.IsNullOrWhiteSpace(attributeValue))
+                {
+                    // We are trying to find the value of this attribute - so lets get the first element with this attribute.
+                    element = xElement
+                        .Descendants(elementName)
+                        .FirstOrDefault(x => x.Attribute(attributeName) != null);
+                }
+                else
+                {
+                    // This is where things get tricky. We need to get the element that contains an attribute name AND attribute value.
+                    // For example, an Agent section has 2x <telephone /> elements, but are different by the attributes.
+                    // <telephone type="mobile" /> vs <telephone type="BH" />
+                    element = xElement
+                        .Descendants(elementName)
+                        .FirstOrDefault(x => (string) x.Attribute(attributeName) == attributeValue);
+                }
+            }
+
+
+            if (element == null)
             {
                 return null;
             }
 
-            // We are either after the value of an attribute OR
-            // the element value given an matching attribute AND an attribute value.
-            if (!string.IsNullOrEmpty(attributeName))
-            {
-                var attribute = childElement.Attribute(attributeName);
-                if (attribute == null)
-                {
-                    return null;
-                }
+            // This is the next tricky part. Are we after the element value or the attribute value?
+            var value = !string.IsNullOrWhiteSpace(attributeName) &&
+                string.IsNullOrWhiteSpace(attributeValue)
+                ? AttributeValueOrDefault(element, attributeName)
+                : element.Value.Trim();
 
-                if (string.IsNullOrWhiteSpace(attributeValue))
-                {
-                    return attribute.Value;
-                }
-
-                if (attribute.Value != attributeValue)
-                {
-                    return null;
-                }
-            }
-
-            var value = childElement.Value.Trim();
             return string.IsNullOrWhiteSpace(value)
                 ? null
                 : value;

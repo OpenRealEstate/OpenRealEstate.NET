@@ -204,8 +204,10 @@ namespace OpenRealEstate.Tests
                 listingAgent.Order.ShouldBe(1);
                 listingAgent.Communications[0].CommunicationType.ShouldBe(CommunicationType.Email);
                 listingAgent.Communications[0].Details.ShouldBe("jdoe@somedomain.com.au");
-                listingAgent.Communications[1].CommunicationType.ShouldBe(CommunicationType.Landline);
-                listingAgent.Communications[1].Details.ShouldBe("05 1234 5678");
+                listingAgent.Communications[1].CommunicationType.ShouldBe(CommunicationType.Mobile);
+                listingAgent.Communications[1].Details.ShouldBe("0418 123 456");
+                listingAgent.Communications[2].CommunicationType.ShouldBe(CommunicationType.Landline);
+                listingAgent.Communications[2].Details.ShouldBe("05 1234 5678");
 
                 listing.Features.Bedrooms.ShouldBe(4);
                 listing.Features.Bathrooms.ShouldBe(2);
@@ -512,7 +514,7 @@ namespace OpenRealEstate.Tests
 
                 listing.Agents.Count.ShouldBe(1);
                 listing.Agents[0].Name.ShouldBe("Mr. John Doe");
-                listing.Agents[0].Communications.Count.ShouldBe(2);
+                listing.Agents[0].Communications.Count.ShouldBe(3);
 
                 listing.Address.StreetNumber.ShouldBe("LOT 12/39");
                 listing.Address.Street.ShouldBe("Main Road");

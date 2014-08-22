@@ -11,6 +11,7 @@
         <listingAgent>
             <name>Mr. John Doe</name>
             <telephone type="BH">05 1234 5678</telephone>
+            <telephone type="mobile">0418 123 456</telephone>
             <email>jdoe@somedomain.com.au</email>
         </listingAgent>
         <price display="yes" plusSAV="no">80000</price>
