@@ -11,6 +11,7 @@ using OpenRealEstate.Core.Models.Residential;
 using OpenRealEstate.Core.Models.Rural;
 using OpenRealEstate.Services;
 using OpenRealEstate.Validation;
+using OpenRealEstate.WebSite.Models;
 using OpenRealEstate.WebSite.ViewModels;
 
 namespace OpenRealEstate.WebSite.Modules
@@ -40,7 +41,7 @@ namespace OpenRealEstate.WebSite.Modules
                 ConvertToResult result = _reaXmlTransmorgrifier.ConvertTo(reaXml);
                 var listings = result.Listings.Select(x => x.Listing).ToList();
 
-                var errors = new List<ValidationFailure>();
+                var errors = new List<ValidationError>();
                 foreach (var listing in listings)
                 {
                     var ruleSet = listing.StatusType == StatusType.Current
@@ -50,7 +51,7 @@ namespace OpenRealEstate.WebSite.Modules
                     if (validationResults.Errors != null &&
                         validationResults.Errors.Any())
                     {
-                        errors.AddRange(validationResults.Errors);
+                        errors.AddRange(ValidationError.ConvertToValidationErrors(listing.ToString(), validationResults.Errors));
                     }
                 }
 
@@ -81,13 +82,16 @@ namespace OpenRealEstate.WebSite.Modules
             }
         }
 
-        private static IDictionary<string, string> ConvertErrorsToDictionary(IList<ValidationFailure> errors)
+        private static IDictionary<string, string> ConvertErrorsToDictionary(IList<ValidationError> errors)
         {
             var result = new Dictionary<string, string>();
             for(int i = 0; i < errors.Count; i++)
             {
-                result.Add(string.Format("{0} - {1}", i + 1, errors[i].PropertyName), 
-                    errors[i].ErrorMessage);
+                result.Add(string.Format("{0} :: {1} - {2}", 
+                    errors[i].Id,
+                    i + 1, 
+                    errors[i].ValidationFailure.PropertyName),
+                    errors[i].ValidationFailure.ErrorMessage);
             }
 
             return result;

@@ -7,5 +7,10 @@ namespace OpenRealEstate.Core.Models.Residential
         public PropertyType PropertyType { get; set; }
         public SalePricing Pricing { get; set; }
         public DateTime? AuctionOn { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("Residential >> {0}", base.ToString());
+        }
     }
 }

@@ -211,6 +211,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Models\ValidationError.cs" />
     <Compile Include="Modules\ConvertModule.cs" />
     <Compile Include="Modules\HomeModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -229,9 +230,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\OpenRealEstate.Core\OpenRealEstate.Core.csproj">
       <Project>{e07f6317-2a69-445e-9bf7-8d084553fa68}</Project>
@@ -285,13 +284,7 @@ xcopy /s /y /R "$(SolutionDir)packages\Nancy.Viewengines.Razor.0.22.2\lib\Net40\
   <Target Name="AfterBuild">
   </Target>
   -->
-
-    <Target Name="CopyLinkedContentFiles" BeforeTargets="Build">
-        <Copy SourceFiles="%(Content.Identity)"
-              DestinationFiles="%(Content.Link)"
-              SkipUnchangedFiles='true'
-              OverwriteReadOnlyFiles='true'
-              Condition="'%(Content.Link)' != ''" />
-    </Target>
-    
+  <Target Name="CopyLinkedContentFiles" BeforeTargets="Build">
+    <Copy SourceFiles="%(Content.Identity)" DestinationFiles="%(Content.Link)" SkipUnchangedFiles="true" OverwriteReadOnlyFiles="true" Condition="'%(Content.Link)' != ''" />
+  </Target>
 </Project>

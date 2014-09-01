@@ -19,5 +19,16 @@ namespace OpenRealEstate.Core.Models
         public IList<Inspection> Inspections { get; set; }
         public LandDetails LandDetails { get; set; }
         public Features Features { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("Agency: {0}; Id: {1}",
+                string.IsNullOrWhiteSpace(AgencyId)
+                    ? "--no Agency Id--"
+                    : AgencyId,
+                string.IsNullOrWhiteSpace(Id)
+                    ? "--No Id--"
+                    : Id);
+        }
     }
 }
