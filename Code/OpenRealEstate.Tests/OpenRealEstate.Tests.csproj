@@ -62,7 +62,7 @@
     <Compile Include="Validators\ListingAgentValidatorFacts.cs" />
     <Compile Include="Validators\InspectionValidatorFacts.cs" />
     <Compile Include="Validators\FranchiseValidatorFacts.cs" />
-    <Compile Include="Validators\LandValidatorFacts.cs" />
+    <Compile Include="Validators\LandDetailsValidatorFacts.cs" />
     <Compile Include="Validators\MediaValidatorFacts.cs" />
     <Compile Include="Validators\Rental\RentalListingValidatorFacts.cs" />
     <Compile Include="Validators\Rental\RentalPricingValidatorFacts.cs" />
@@ -277,6 +277,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current-BadSalePrice.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Sample Data\Transmorgrifiers\REA\Land\REA-Land-Current-MissingLandCategory.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

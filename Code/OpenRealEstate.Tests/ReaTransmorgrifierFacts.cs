@@ -505,12 +505,29 @@ namespace OpenRealEstate.Tests
                 listing.StatusType.ShouldBe(StatusType.OffMarket);
             }
 
-            private static void AssertLandCurrentListing(LandListing listing)
+            [Fact]
+            public void GivenTheFileReaLandCurrentMissingLandCategory_Convert_ReturnsALandCurrentListing()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Land\\REA-Land-Current-MissingLandCategory.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
+                AssertLandCurrentListing(result.Listings.First().Listing as LandListing, LandCategoryType.Unknown);
+            }
+
+            private static void AssertLandCurrentListing(LandListing listing,
+                LandCategoryType landCategoryType = LandCategoryType.Residential)
             {
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Land-Current-ABCD1234");
                 listing.StatusType.ShouldBe(StatusType.Current);
-                listing.CategoryType.ShouldBe(LandCategoryType.Residential);
+                listing.CategoryType.ShouldBe(landCategoryType);
 
                 listing.Agents.Count.ShouldBe(1);
                 listing.Agents[0].Name.ShouldBe("Mr. John Doe");

@@ -6,10 +6,10 @@ using Xunit;
 
 namespace OpenRealEstate.Tests.Validators
 {
-    public class LandValidatorFacts
+    public class LandDetailsValidatorFacts
     {
         [Fact]
-        public void GivenAnAreavalidate_ShouldNotHaveAValidationError()
+        public void GivenAnArea_Validate_ShouldNotHaveAValidationError()
         {
             // Arrange.
             var validator = new LandDetailsValidator();
@@ -32,7 +32,7 @@ namespace OpenRealEstate.Tests.Validators
         }
 
         [Fact]
-        public void GivenAnAreaWithNoTypevalidate_ShouldHaveAValidationError()
+        public void GivenAnAreaWithNoType_Validate_ShouldHaveAValidationError()
         {
             // Arrange.
             var validator = new LandDetailsValidator();

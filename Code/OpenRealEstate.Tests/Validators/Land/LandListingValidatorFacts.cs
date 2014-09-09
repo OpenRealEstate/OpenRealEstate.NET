@@ -23,10 +23,10 @@ namespace OpenRealEstate.Tests.Validators.Land
             _validator.ShouldNotHaveValidationErrorFor(listing => listing.CategoryType, CategoryType.Residential);
         }
 
-        [Fact(Skip = "Waiting for the new NuGet package to be released")]
+        [Fact]
         public void GivenAnUnknownCategoryType_Validate_ShouldHaveAValidationError()
         {
-            //_validator.ShouldHaveValidationErrorFor(listing => listing.CategoryType, CategoryType.Unknown, LandListingValidator.MinimumRuleSet);
+            _validator.ShouldNotHaveValidationErrorFor(listing => listing.CategoryType, CategoryType.Unknown);
         }
 
         [Fact]

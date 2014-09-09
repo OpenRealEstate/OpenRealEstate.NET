@@ -13,12 +13,6 @@ namespace OpenRealEstate.Validation.Land
             RuleFor(listing => listing.Pricing).SetValidator(new SalePricingValidator());
 
             // NOTE: No rules needed for listing.LandEstate.
-
-            RuleSet(MinimumRuleSetKey, () =>
-            {
-                RuleFor(listing => listing.CategoryType).NotEqual(CategoryType.Unknown)
-                    .WithMessage("Invalid 'CategoryType'. Please choose any category except Unknown.");
-            });
         }
     }
 }

@@ -158,13 +158,13 @@ namespace OpenRealEstate.Tests.Validators
                 var listing = (LandListing)GetListing(typeof(LandListing));
                 listing.Id = null;
                 listing.AgencyId = null;
-                listing.CategoryType = CategoryType.Unknown; 
+                listing.CategoryType = CategoryType.Unknown; // That's allowed, now :(
 
                 // Arrange.
                 var result = ValidatorMediator.Validate(listing, ValidatorMediator.MinimumRuleSet);
 
                 // Assert.
-                result.Errors.Count.ShouldBe(3);
+                result.Errors.Count.ShouldBe(2);
             }
         }
     }
