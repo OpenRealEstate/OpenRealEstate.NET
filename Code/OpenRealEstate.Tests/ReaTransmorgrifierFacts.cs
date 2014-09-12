@@ -175,12 +175,33 @@ namespace OpenRealEstate.Tests
                 result.InnerException.Message.ShouldBe("Failed to parse the value '550000600000550000600000550000600000' into a decimal.");
             }
 
-            private static void AssertResidentialCurrentListing(ResidentialListing listing)
+            [Fact]
+            public void GivenTheFileREAResidentialCurrentBedroomIsStudio_Convert_ReturnsAResidentialCurrentListing()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current-BedroomIsStudio.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.ShouldNotBe(null);
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
+                AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
+                    PropertyType.Studio,
+                    0);
+            }
+
+            private static void AssertResidentialCurrentListing(ResidentialListing listing,
+                PropertyType expectedPropertyType = PropertyType.House,
+                int expectedBedroomsCount = 4)
             {
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Residential-Current-ABCD1234");
                 listing.StatusType.ShouldBe(StatusType.Current);
-                listing.PropertyType.ShouldBe(PropertyType.House);
+                listing.PropertyType.ShouldBe(expectedPropertyType);
 
                 listing.Address.IsStreetDisplayed.ShouldBe(true);
                 listing.Address.StreetNumber.ShouldBe("2/39");
@@ -209,7 +230,7 @@ namespace OpenRealEstate.Tests
                 listingAgent.Communications[2].CommunicationType.ShouldBe(CommunicationType.Landline);
                 listingAgent.Communications[2].Details.ShouldBe("05 1234 5678");
 
-                listing.Features.Bedrooms.ShouldBe(4);
+                listing.Features.Bedrooms.ShouldBe(expectedBedroomsCount);
                 listing.Features.Bathrooms.ShouldBe(2);
                 listing.Features.CarSpaces.ShouldBe(2);
 

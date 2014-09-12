@@ -478,9 +478,19 @@ namespace OpenRealEstate.Services.RealEstateComAu
             var carspaces = featuresElement.ByteValueOrDefault("carports");
             var garages = featuresElement.ByteValueOrDefault("garages");
 
+            // NOTE: Bedrooms can be a number -or- the value 'STUDIO'.
+                //       YES - where a number is the logical value, they can now have a string.
+                //       So, if the value is a string, like STUDIO (or anything else), then the
+                //       value will be returned as ZERO.
+            var bedroomsValue = featuresElement.ValueOrDefault("bedrooms");
+            var bedrooms = !string.IsNullOrWhiteSpace(bedroomsValue) &&
+                           bedroomsValue.Equals("studio", StringComparison.OrdinalIgnoreCase)
+                ? 0
+                : featuresElement.ByteValueOrDefault("bedrooms");
+
             var features = new Features
             {
-                Bedrooms = featuresElement.ByteValueOrDefault("bedrooms"),
+                Bedrooms = bedrooms,
                 Bathrooms = featuresElement.ByteValueOrDefault("bathrooms"),
                 CarSpaces = carspaces > 0
                     ? carspaces
