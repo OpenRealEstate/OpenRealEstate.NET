@@ -45,9 +45,45 @@ namespace OpenRealEstate.Tests.Validators
         }
 
         [Fact]
-        public void GivenNoSuburb_Validate_ShouldNHaveAValidationError()
+        public void GivenNoSuburb_Validate_ShouldHaveAValidationError()
         {
             _addressValidator.ShouldHaveValidationErrorFor(address => address.Suburb, "");
+        }
+
+        [Fact]
+        public void GivenNoLatitude_Validate_ShouldNotHaveAValidationError()
+        {
+            _addressValidator.ShouldNotHaveValidationErrorFor(address => address.Latitude, (decimal?)null);
+        }
+
+        [Fact]
+        public void GivenALatitude_Validate_ShouldNotHaveAValidationError()
+        {
+            _addressValidator.ShouldNotHaveValidationErrorFor(address => address.Latitude, -23M);
+        }
+
+        [Fact]
+        public void GivenNoLongitude_Validate_ShouldNotHaveAValidationError()
+        {
+            _addressValidator.ShouldNotHaveValidationErrorFor(address => address.Longitude, (decimal?)null);
+        }
+
+        [Fact]
+        public void GivenALongitude_Validate_ShouldNotHaveAValidationError()
+        {
+            _addressValidator.ShouldNotHaveValidationErrorFor(address => address.Longitude, 170M);
+        }
+
+        [Fact]
+        public void GivenAnInvalidLatitude_Validate_ShouldHaveAValidationError()
+        {
+            _addressValidator.ShouldHaveValidationErrorFor(address => address.Latitude, -123M);
+        }
+
+        [Fact]
+        public void GivenAnInvalidLongitude_Validate_ShouldHaveAValidationError()
+        {
+            _addressValidator.ShouldHaveValidationErrorFor(address => address.Longitude, 200M);
         }
     }
 }

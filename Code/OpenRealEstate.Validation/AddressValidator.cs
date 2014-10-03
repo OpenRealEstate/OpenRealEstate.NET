@@ -24,6 +24,18 @@ namespace OpenRealEstate.Validation
 
                 RuleFor(address => address.CountryIsoCode).NotEmpty()
                     .WithMessage("A Country ISO code is required. eg. AU, NZ, etc.");
+
+                RuleFor(address => address.Latitude)
+                    .GreaterThanOrEqualTo(-90M)
+                    .LessThanOrEqualTo(90M)
+                    .When(address => address.Latitude.HasValue)
+                        .WithMessage("Latitude value has to be between -90 and 90.");
+
+                RuleFor(address => address.Longitude)
+                        .GreaterThanOrEqualTo(-180M)
+                        .LessThanOrEqualTo(180M)
+                        .When(address => address.Longitude.HasValue)
+                            .WithMessage("Longitude value has to be between -180 and 180.");
             //});
         }
     }
