@@ -1,7 +1,9 @@
 ﻿using Nancy;
 using Nancy.TinyIoc;
+using Newtonsoft.Json;
 using OpenRealEstate.Services;
 using OpenRealEstate.Services.RealEstateComAu;
+using OpenRealEstate.WebSite.Models;
 
 namespace OpenRealEstate.WebSite
 {
@@ -15,7 +17,9 @@ namespace OpenRealEstate.WebSite
 
             StaticConfiguration.DisableErrorTraces = false;
 
-            Nancy.Json.JsonSettings.MaxJsonLength = int.MaxValue;
+            container.Register(typeof(JsonConverter), typeof(CustomJsonSerializer));
+
+            //Nancy.Json.JsonSettings.MaxJsonLength = int.MaxValue;
         }
 
         private static void RegisterServices(TinyIoCContainer container)
