@@ -17,9 +17,10 @@ namespace OpenRealEstate.WebSite
 
             StaticConfiguration.DisableErrorTraces = false;
 
-            container.Register(typeof(JsonConverter), typeof(CustomJsonSerializer));
+            //container.Register(typeof(JsonConverter), typeof(CustomJsonSerializer));
 
-            //Nancy.Json.JsonSettings.MaxJsonLength = int.MaxValue;
+            //Nancy.Json.JsonSettings.Converters
+            Nancy.Json.JsonSettings.MaxJsonLength = int.MaxValue;
         }
 
         private static void RegisterServices(TinyIoCContainer container)
