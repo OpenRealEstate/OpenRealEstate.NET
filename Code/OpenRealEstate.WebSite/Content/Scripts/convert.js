@@ -4,6 +4,7 @@
     var json;
 
     $('#jsonCode').text('');
+    $('#errorMessage').text('');
     $('#message').text('');
 
     if (isConvertingReaXmlToJson) {
@@ -23,20 +24,16 @@
         })
         .done(function(data) { displayListingResult(isConvertingReaXmlToJson, data); })
         .fail(function (qXhr, textStatus, errorThrown) {
-            $('#message').text(qXhr.responseText);
+            $('#errorMessage').text(qXhr.responseText);
         });
 }
 
 function displayListingResult(isConvertingReaXmlToJson, data) {
     if (isConvertingReaXmlToJson) {
 
-        // Split the pieces of the viewModel up.
-        var jsonListings = JSON.stringify(data.listings);
-        var message = 'Residential Count: ' + data.residentialCount + '.<br/>Rental Count: ' + data.rentalCount + '.<br/>Rural Count: ' + data.ruralCount + '.<br/>Land Count: ' + data.landCount + '.<br/><br/>';
-
-        if (data.validationErrors) {
+        if (data.ValidationErrors) {
             
-            var errors = jQuery.map(data.validationErrors, function (value, key) {
+            var errors = jQuery.map(data.ValidationErrors, function (value, key) {
                 return {
                     "Key": key,
                     "Value": value
@@ -48,15 +45,19 @@ function displayListingResult(isConvertingReaXmlToJson, data) {
                 errorMessage = errorMessage + error.Key + ' - error: ' + error.Value + '<br/>';
             });
 
-            $('#message').html(errorMessage);
-        } else {
-            //var jsonPretty = JSON.stringify(JSON.parse(data), null, 2);
-            $('#openREJson').text(jsonListings);
-            console.log(JSON.stringify(jsonListings));
-            $('#jsonCode').text(JSON.stringify(jsonListings));
+            $('#errorMessage').html(errorMessage);
+        } 
 
-            $('#message').html(message);
-        }
+        // Split the pieces of the viewModel up.
+        var jsonListings = data.Listings == null ? '': JSON.stringify(data.Listings);
+        var message = 'Residential Count: ' + data.ResidentialCount + '.<br/>Rental Count: ' + data.RentalCount + '.<br/>Rural Count: ' + data.RuralCount + '.<br/>Land Count: ' + data.LandCount + '.<br/><br/>';
+
+        $('#openREJson').text(jsonListings);
+        console.log(JSON.stringify(jsonListings));
+        $('#jsonCode').text(JSON.stringify(jsonListings));
+
+        $('#message').html(message);
+        
     } else {
         $('#reaxmltext').html(data);
     }

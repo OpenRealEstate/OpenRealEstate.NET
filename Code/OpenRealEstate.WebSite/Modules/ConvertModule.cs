@@ -39,35 +39,41 @@ namespace OpenRealEstate.WebSite.Modules
             try
             {
                 ConvertToResult result = _reaXmlTransmorgrifier.ConvertTo(reaXml);
-                var listings = result.Listings.Select(x => x.Listing).ToList();
+                var listings = result == null
+                    ? null
+                    : result.Listings.Select(x => x.Listing).ToList();
 
                 var errors = new List<ValidationError>();
-                foreach (var listing in listings)
+                var viewModel = new ConvertViewModel();
+
+                if (listings != null)
                 {
-                    var ruleSet = listing.StatusType == StatusType.Current
-                        ? ValidatorMediator.MinimumRuleSet
-                        : null;
-                    var validationResults = ValidatorMediator.Validate(listing, ruleSet);
-                    if (validationResults.Errors != null &&
-                        validationResults.Errors.Any())
+                    foreach (var listing in listings)
                     {
-                        errors.AddRange(ValidationError.ConvertToValidationErrors(listing.ToString(), validationResults.Errors));
+                        var ruleSet = listing.StatusType == StatusType.Current
+                            ? ValidatorMediator.MinimumRuleSet
+                            : null;
+                        var validationResults = ValidatorMediator.Validate(listing, ruleSet);
+                        if (validationResults.Errors != null &&
+                            validationResults.Errors.Any())
+                        {
+                            errors.AddRange(ValidationError.ConvertToValidationErrors(listing.ToString(),
+                                validationResults.Errors));
+                        }
                     }
+
+
+                    viewModel.Listings = listings;
+                    viewModel.ResidentialCount = listings.OfType<ResidentialListing>().Count();
+                    viewModel.RentalCount = listings.OfType<RentalListing>().Count();
+                    viewModel.RuralCount = listings.OfType<RuralListing>().Count();
+                    viewModel.LandCount = listings.OfType<LandListing>().Count();
                 }
 
-                var viewModel = errors.Any()
-                    ? new ConvertViewModel
-                    {
-                        ValidationErrors = ConvertErrorsToDictionary(errors)
-                    }
-                    : new ConvertViewModel
+                if (errors.Any())
                 {
-                    Listings = listings,
-                    ResidentialCount = listings.OfType<ResidentialListing>().Count(),
-                    RentalCount = listings.OfType<RentalListing>().Count(),
-                    RuralCount = listings.OfType<RuralListing>().Count(),
-                    LandCount = listings.OfType<LandListing>().Count()
-                };
+                    viewModel.ValidationErrors = ConvertErrorsToDictionary(errors);
+                }
 
                 return Response.AsJson(viewModel);
             }
