@@ -212,12 +212,9 @@
     </Content>
     <Content Include="Content\ReaXmlSample.xml" />
     <Content Include="Content\Scripts\convert.js" />
-    <None Include="Content\Scripts\jquery\jquery-2.1.0.intellisense.js" />
-    <Content Include="Content\Scripts\jquery\jquery-2.1.0.js" />
-    <Content Include="Content\Scripts\jquery\jquery-2.1.0.min.js" />
-    <None Include="Scripts\jquery-2.1.1.intellisense.js" />
-    <Content Include="Scripts\jquery-2.1.1.js" />
-    <Content Include="Scripts\jquery-2.1.1.min.js" />
+    <None Include="Content\Scripts\jquery\jquery-2.1.1.intellisense.js" />
+    <Content Include="Content\Scripts\jquery\jquery-2.1.1.js" />
+    <Content Include="Content\Scripts\jquery\jquery-2.1.1.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -233,11 +230,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <Content Include="Content\Scripts\jquery\jquery-2.1.0.min.map" />
     <None Include="Properties\PublishProfiles\openrealestate.pubxml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\_Layout.cshtml" />
-    <Content Include="Scripts\jquery-2.1.1.min.map" />
+    <Content Include="Content\Scripts\jquery\jquery-2.1.1.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
