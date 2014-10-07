@@ -18,10 +18,10 @@ namespace OpenRealEstate.WebSite
 
             StaticConfiguration.DisableErrorTraces = false;
 
-            //container.Register(typeof(JsonConverter), typeof(CustomJsonSerializer));
+            container.Register<JsonSerializer, CustomJsonSerializer>();
 
             //Nancy.Json.JsonSettings.Converters
-            JsonSettings.MaxJsonLength = int.MaxValue;
+            //JsonSettings.MaxJsonLength = int.MaxValue;
             //JsonSettings.RetainCasing = false;
         }
 
