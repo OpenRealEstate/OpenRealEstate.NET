@@ -230,7 +230,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <None Include="Properties\PublishProfiles\openrealestate.pubxml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\_Layout.cshtml" />
     <Content Include="Content\Scripts\jquery\jquery-2.1.1.min.map" />
