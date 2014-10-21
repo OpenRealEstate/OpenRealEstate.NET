@@ -806,18 +806,34 @@ namespace OpenRealEstate.Services.RealEstateComAu
         {
             someDateTime.ShouldNotBeNullOrEmpty();
 
+            // FFS REA!!!! URGH!!!!!!!! :( 
+            // Stick to fricking ISO
+            var reaDateTimeFormats = new[]
+            {
+                "yyyy-MM-dd",
+                "yyyy-MM-dd-hh:mm",
+                "yyyy-MM-dd-hh:mm:ss",
+                "yyyy-MM-ddThh:mm",
+                "yyyy-MM-ddThh:mm:ss",
+                "yyyyYYYYMMdd",
+                "yyyyMMdd-hhmm",
+                "yyyyMMDD-hhmmss",
+                "yyyyMMDDThhmm",
+                "yyyyMMddThhmmss"
+            };
+
             DateTime resultDateTime;
 
             if (!DateTime.TryParse(someDateTime, out resultDateTime))
             {
-                DateTime.TryParseExact(someDateTime.Trim(), "yyyy-MM-dd-H:mm:ss", CultureInfo.InvariantCulture,
-                    DateTimeStyles.None, out resultDateTime);
-            }
-
-            if (resultDateTime == DateTime.MinValue)
-            {
-                DateTime.TryParseExact(someDateTime.Trim(), "yyyyMMdd", CultureInfo.InvariantCulture,
-                    DateTimeStyles.None, out resultDateTime);
+                foreach (var reaTimeFormat in reaDateTimeFormats)
+                {
+                    if (DateTime.TryParseExact(someDateTime.Trim(), reaTimeFormat, CultureInfo.InvariantCulture,
+                        DateTimeStyles.None, out resultDateTime))
+                    {
+                        break;
+                    }
+                }
             }
 
             return resultDateTime;
