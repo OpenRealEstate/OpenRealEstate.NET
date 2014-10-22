@@ -807,33 +807,29 @@ namespace OpenRealEstate.Services.RealEstateComAu
             someDateTime.ShouldNotBeNullOrEmpty();
 
             // FFS REA!!!! URGH!!!!!!!! :( 
-            // Stick to fricking ISO
+            // Stick to fricking ISO8061 with yyyy-MM-ddTHH:mm:ss 
+            // ONE FORMAT TO RULE THEM ALL.
+            // (not that hard, peeps).
             var reaDateTimeFormats = new[]
             {
                 "yyyy-MM-dd",
-                "yyyy-MM-dd-hh:mm",
-                "yyyy-MM-dd-hh:mm:ss",
-                "yyyy-MM-ddThh:mm",
-                "yyyy-MM-ddThh:mm:ss",
-                "yyyyYYYYMMdd",
-                "yyyyMMdd-hhmm",
-                "yyyyMMDD-hhmmss",
-                "yyyyMMDDThhmm",
-                "yyyyMMddThhmmss"
+                "yyyy-MM-dd-HH:mm",
+                "yyyy-MM-dd-HH:mm:ss",
+                "yyyy-MM-ddTHH:mm",
+                "yyyy-MM-ddTHH:mm:ss",
+                "yyyyMMdd",
+                "yyyyMMdd-HHmm",
+                "yyyyMMDD-HHmmss",
+                "yyyyMMDDTHHmm",
+                "yyyyMMddTHHmmss"
             };
 
             DateTime resultDateTime;
 
             if (!DateTime.TryParse(someDateTime, out resultDateTime))
             {
-                foreach (var reaTimeFormat in reaDateTimeFormats)
-                {
-                    if (DateTime.TryParseExact(someDateTime.Trim(), reaTimeFormat, CultureInfo.InvariantCulture,
-                        DateTimeStyles.None, out resultDateTime))
-                    {
-                        break;
-                    }
-                }
+                DateTime.TryParseExact(someDateTime.Trim(), reaDateTimeFormats, CultureInfo.InvariantCulture,
+                    DateTimeStyles.None, out resultDateTime);
             }
 
             return resultDateTime;
