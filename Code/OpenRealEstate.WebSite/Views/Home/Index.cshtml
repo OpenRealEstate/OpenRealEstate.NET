@@ -7,7 +7,6 @@
     <script src="/Content/Scripts/convert.js"></script>
 }
 
-<form action="/validate" method="POST">
     <div>
         <textarea id="reaxmltext" name="reaxmltext" placeholder="Paste some REA XML here" rows="12" cols="80"></textarea>
     </div>
@@ -36,6 +35,16 @@
     </select>
     <button class="btn" type="button" onclick="getSampleReaXml($('#fileNameOptions').val());"><i class="icon-arrow-right"></i> Sample REA XML</button>
     
+    <p>
+        Or browse for some files...<br/>
+        <form action="/convert/files" method="POST" enctype="multipart/form-data">
+            <input name="upload" id="upload" type="file" size="40" multiple /><br/>
+            <button type="button" onclick="uploadFiles();">Process File(s)</button>
+        </form>    
+    </p>
+    
+    <hr/>
+
     <br/>
     
     <div id="errorMessage"></div>
@@ -45,5 +54,3 @@
     <div>
         <pre id="jsonCode"></pre>
     </div>
-
-</form>

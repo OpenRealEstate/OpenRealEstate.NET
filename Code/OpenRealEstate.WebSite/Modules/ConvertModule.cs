@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
-using FluentValidation.Results;
+using System.Text;
 using Nancy;
 using OpenRealEstate.Core.Models;
-using OpenRealEstate.Core.Models.Land;
-using OpenRealEstate.Core.Models.Rental;
-using OpenRealEstate.Core.Models.Residential;
-using OpenRealEstate.Core.Models.Rural;
 using OpenRealEstate.Services;
 using OpenRealEstate.Validation;
 using OpenRealEstate.WebSite.Models;
@@ -25,54 +21,56 @@ namespace OpenRealEstate.WebSite.Modules
             _reaXmlTransmorgrifier = reaXmlTransmorgrifier;
 
             Post["/ReaToORE"] = parameters => PostConvertReaToOre();
+            Post["/Files"] = parameters => PostConvertFiles();
         }
 
         private dynamic PostConvertReaToOre()
         {
             var reaXml = Request.Form.reaXml;
 
-            if (string.IsNullOrWhiteSpace(reaXml))
+            return string.IsNullOrWhiteSpace(reaXml)
+                ? Response.AsJson("Please provide an ReaXml value to convert.", HttpStatusCode.BadRequest)
+                : ConvertReaXmlToJson(new Dictionary<string, string> { {"no file name", reaXml }});
+        }
+
+        private dynamic PostConvertFiles()
+        {
+            if (Request.Files == null ||
+                !Request.Files.Any())
             {
-                return Response.AsJson("Please provide an ReaXml value to convert.", HttpStatusCode.BadRequest);
+                return Response.AsJson("Please provide one or more files to convert.", HttpStatusCode.BadRequest);
             }
 
+            var reaXmls = new Dictionary<string, string>();
+            foreach (var file in Request.Files)
+            {
+                var memoryStream = new MemoryStream();
+                file.Value.CopyTo(memoryStream);
+                reaXmls.Add(file.Name, Encoding.ASCII.GetString(memoryStream.ToArray()));
+            }
+
+            return ConvertReaXmlToJson(reaXmls);
+        }
+
+        private dynamic ConvertReaXmlToJson(IEnumerable<KeyValuePair<string, string>> contents)
+        {
             try
             {
-                ConvertToResult result = _reaXmlTransmorgrifier.ConvertTo(reaXml);
-                var listings = result == null
-                    ? null
-                    : result.Listings.Select(x => x.Listing).ToList();
+                var results = new Dictionary<string, ConvertToResult>();
 
-                var errors = new List<ValidationError>();
-                var viewModel = new ConvertViewModel();
-
-                if (listings != null)
+                foreach (var content in contents)
                 {
-                    foreach (var listing in listings)
+                    var convertToResult = _reaXmlTransmorgrifier.ConvertTo(content.Value);
+                    if (convertToResult != null)
                     {
-                        var ruleSet = listing.StatusType == StatusType.Current
-                            ? ValidatorMediator.MinimumRuleSet
-                            : null;
-                        var validationResults = ValidatorMediator.Validate(listing, ruleSet);
-                        if (validationResults.Errors != null &&
-                            validationResults.Errors.Any())
-                        {
-                            errors.AddRange(ValidationError.ConvertToValidationErrors(listing.ToString(),
-                                validationResults.Errors));
-                        }
+                        results.Add(content.Key, convertToResult);
                     }
-
-
-                    viewModel.Listings = listings;
-                    viewModel.ResidentialCount = listings.OfType<ResidentialListing>().Count();
-                    viewModel.RentalCount = listings.OfType<RentalListing>().Count();
-                    viewModel.RuralCount = listings.OfType<RuralListing>().Count();
-                    viewModel.LandCount = listings.OfType<LandListing>().Count();
                 }
 
-                if (errors.Any())
+                var viewModel = new ConvertViewModel();
+                foreach (var convertToResult in results)
                 {
-                    viewModel.ValidationErrors = ConvertErrorsToDictionary(errors);
+                    CopyToViewModel(convertToResult, viewModel);
                 }
 
                 return Response.AsJson(viewModel);
@@ -88,14 +86,71 @@ namespace OpenRealEstate.WebSite.Modules
             }
         }
 
-        private static IDictionary<string, string> ConvertErrorsToDictionary(IList<ValidationError> errors)
+        private static void CopyToViewModel(KeyValuePair<string, ConvertToResult> convertToResultKeyValuePair, ConvertViewModel viewModel)
+        {
+            if (convertToResultKeyValuePair.Value == null)
+            {
+                throw new ArgumentNullException("convertToResultKeyValuePair");
+            }
+
+            if (viewModel == null)
+            {
+                throw new ArgumentNullException("viewModel");
+            }
+
+            var errors = new List<ValidationError>();
+
+            var listings = convertToResultKeyValuePair.Value.Listings.Select(x => x.Listing).ToList();
+
+            if (listings.Any())
+            {
+                foreach (var listing in listings)
+                {
+                    var ruleSet = listing.StatusType == StatusType.Current
+                        ? ValidatorMediator.MinimumRuleSet
+                        : null;
+                    var validationResults = ValidatorMediator.Validate(listing, ruleSet);
+                    if (validationResults.Errors != null &&
+                        validationResults.Errors.Any())
+                    {
+                        errors.AddRange(ValidationError.ConvertToValidationErrors(listing.ToString(),
+                            validationResults.Errors));
+                    }
+                }
+
+                if (viewModel.Listings == null)
+                {
+                    viewModel.Listings = new List<Listing>();
+                }
+
+                viewModel.Listings.AddRange(listings);
+            }
+
+            if (errors.Any())
+            {
+                if (viewModel.ValidationErrors == null)
+                {
+                    viewModel.ValidationErrors = new Dictionary<string, string>();
+                }
+
+                var convertedErrors = ConvertErrorsToDictionary(convertToResultKeyValuePair.Key, errors);
+                foreach (var convertedError in convertedErrors)
+                {
+                    viewModel.ValidationErrors.Add(convertedError);
+                }
+            }
+        }
+
+        private static IEnumerable<KeyValuePair<string, string>> ConvertErrorsToDictionary(string fileName,
+            IList<ValidationError> errors)
         {
             var result = new Dictionary<string, string>();
-            for(int i = 0; i < errors.Count; i++)
+            for (int i = 0; i < errors.Count; i++)
             {
-                result.Add(string.Format("{0} :: {1} - {2}", 
+                result.Add(string.Format("{0} | {1} :: {2} - {3}",
+                    fileName,
                     errors[i].Id,
-                    i + 1, 
+                    i + 1,
                     errors[i].ValidationFailure.PropertyName),
                     errors[i].ValidationFailure.ErrorMessage);
             }

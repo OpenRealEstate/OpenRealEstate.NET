@@ -1,4 +1,5 @@
-﻿function processText(isConvertingReaXmlToJson) {
+﻿
+function processText(isConvertingReaXmlToJson) {
 
     var reaXml;
     var json;
@@ -71,6 +72,42 @@ function getSampleReaXml(fileName) {
         dataType: 'text',
         success: function(xml) {
             $('#reaxmltext').val(xml);
+        }
+    });
+}
+
+function uploadFiles() {
+
+    var files = $('#upload')[0].files;
+
+    // Grab all of the file data.
+    var formData = new FormData();
+    $.each(files, function(key, value) {
+        formData.append(key, value);
+    });
+
+    $.ajax({
+        url: '/convert/files',
+        type: 'POST',
+        data: formData,
+        cache: false,
+        dataType: 'json',
+        processData: false, // Don't process the files
+        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+        success: function (data, textStatus, qXhr) {
+            if (typeof data.error === 'undefined') {
+                // Success so call function to process the form
+                displayListingResult(true, data);
+            }
+            else {
+                // Handle errors here
+                $('#errorMessage').text(qXhr.responseText);
+            }
+        },
+        error: function (qXhr, textStatus, errorThrown) {
+            // Handle errors here
+            $('#errorMessage').text(qXhr.responseText);
+            // STOP LOADING SPINNER
         }
     });
 }
