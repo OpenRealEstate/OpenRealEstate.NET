@@ -14,7 +14,7 @@
     <dateAvailable>2009-01-26-12:30:00</dateAvailable>
     <rent period="week">350</rent>
     <newConstruction>true</newConstruction>
-    <bond>350</bond>
+    <bond>999</bond>
     <address display="yes">
         <streetNumber>39</streetNumber>
         <street>Main Road</street>

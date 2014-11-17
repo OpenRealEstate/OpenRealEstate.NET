@@ -380,8 +380,9 @@ namespace OpenRealEstate.Tests
                 listing.AvailableOn.ShouldBe(new DateTime(2009, 01, 26, 12, 30, 00));
 
                 listing.Pricing.RentalPrice.ShouldBe(350);
-                listing.Pricing.RentalPriceText.ShouldBe(null);
-                listing.Pricing.Bond.ShouldBe(350);
+                listing.Pricing.RentalPriceText.ShouldBe("350");
+                listing.Pricing.PaymentFrequencyType.ShouldBe(PaymentFrequencyType.Weekly);
+                listing.Pricing.Bond.ShouldBe(999);
 
                 listing.Inspections.Count.ShouldBe(2);
 

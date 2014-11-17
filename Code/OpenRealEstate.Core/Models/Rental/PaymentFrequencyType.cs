@@ -4,7 +4,6 @@
     {
         Unknown,
         Weekly,
-        Fortnightly,
         Monthly
     }
 }

@@ -900,6 +900,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             rentalListing.Features = ExtractFeatures(xElement);
         }
 
+        // REF: http://reaxml.realestate.com.au/docs/reaxml1-xml-format.html#rent
         private static RentalPricing ExtractRentalPricing(XElement xElement, CultureInfo cultureInfo)
         {
             xElement.ShouldNotBe(null);
@@ -918,25 +919,46 @@ namespace OpenRealEstate.Services.RealEstateComAu
             var rentalPricing = new RentalPricing();
             foreach (var rentElement in rentElements)
             {
+                // Have to have a period.
                 var frequency = rentElement.AttributeValueOrDefault("period");
                 if (string.IsNullOrWhiteSpace(frequency))
                 {
                     continue;
                 }
 
-                frequency = frequency.ToUpperInvariant();
-                if (frequency != "WEEK" &&
-                    frequency != "WEEKLY")
+                if (frequency.Equals("week", StringComparison.InvariantCultureIgnoreCase) ||
+                    frequency.Equals("weekly", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    continue;
+                    rentalPricing.PaymentFrequencyType = PaymentFrequencyType.Weekly;
+                }
+                else if (frequency.Equals("month", StringComparison.InvariantCultureIgnoreCase) ||
+                    frequency.Equals("monthly", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    rentalPricing.PaymentFrequencyType = PaymentFrequencyType.Monthly;
                 }
 
                 rentalPricing.RentalPrice = rentElement.MoneyValueOrDefault(cultureInfo);
 
+                var displayAttributeValue = rentElement.AttributeValueOrDefault("display");
+                var isDisplay = string.IsNullOrWhiteSpace(displayAttributeValue) ||
+                                displayAttributeValue.ParseOneYesZeroNoToBool();
+                rentalPricing.RentalPriceText = isDisplay
+                    ? rentalPricing.RentalPrice.ToString()
+                    : null;
+
+                // NOTE: We only parse the first one. You have more than one? Pffftttt!!! Die!
                 break;
             }
 
-            rentalPricing.RentalPriceText = xElement.ValueOrDefault("priceView");
+            // NOTE: Even though we have set the rental price text to be the last
+            //       rental period's value ... this can now be overwritten by
+            //       whatever value they might have in here ... if they have a value.
+            var priceView = xElement.ValueOrDefault("priceView");
+            if (!string.IsNullOrWhiteSpace(priceView))
+            {
+                rentalPricing.RentalPriceText = priceView;
+            } 
+
             rentalPricing.Bond = xElement.MoneyValueOrDefault(cultureInfo, "bond");
 
             return rentalPricing;
