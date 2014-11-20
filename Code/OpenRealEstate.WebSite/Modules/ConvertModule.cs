@@ -30,7 +30,7 @@ namespace OpenRealEstate.WebSite.Modules
 
             return string.IsNullOrWhiteSpace(reaXml)
                 ? Response.AsJson("Please provide an ReaXml value to convert.", HttpStatusCode.BadRequest)
-                : ConvertReaXmlToJson(new Dictionary<string, string> { {"no file name", reaXml }});
+                : ConvertReaXmlToJson(new Dictionary<string, string> {{"no file name", reaXml}});
         }
 
         private dynamic PostConvertFiles()
@@ -54,12 +54,15 @@ namespace OpenRealEstate.WebSite.Modules
 
         private dynamic ConvertReaXmlToJson(IEnumerable<KeyValuePair<string, string>> contents)
         {
+            string lastFile = null;
+
             try
             {
                 var results = new Dictionary<string, ConvertToResult>();
 
                 foreach (var content in contents)
                 {
+                    lastFile = content.Key;
                     var convertToResult = _reaXmlTransmorgrifier.ConvertTo(content.Value);
                     if (convertToResult != null)
                     {
@@ -78,7 +81,10 @@ namespace OpenRealEstate.WebSite.Modules
             catch (Exception exception)
             {
                 return Response.AsText(
-                    string.Format("Failed to convert the ReaXml to OpenRealEstate json. Error message: {0}.",
+                    string.Format("Failed to convert the ReaXml to OpenRealEstate json. File: {0}. Error message: {1}.",
+                        string.IsNullOrEmpty(lastFile)
+                            ? "--no filename--"
+                            : lastFile,
                         exception.InnerException != null
                             ? exception.InnerException.Message
                             : exception.Message))
@@ -86,7 +92,8 @@ namespace OpenRealEstate.WebSite.Modules
             }
         }
 
-        private static void CopyToViewModel(KeyValuePair<string, ConvertToResult> convertToResultKeyValuePair, ConvertViewModel viewModel)
+        private static void CopyToViewModel(KeyValuePair<string, ConvertToResult> convertToResultKeyValuePair,
+            ConvertViewModel viewModel)
         {
             if (convertToResultKeyValuePair.Value == null)
             {
