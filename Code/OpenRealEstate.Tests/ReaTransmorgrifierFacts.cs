@@ -886,7 +886,7 @@ namespace OpenRealEstate.Tests
                 var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                var firstListing = result.Listings.First();
+                var firstListing = result.Listings.Single(x => x.Listing.Id == "Residential-Current-ABCD1234");
                 firstListing.Listing.Category.ShouldBe("House");
             }
 
