@@ -319,7 +319,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
             listing.Title = document.ValueOrDefault("headline");
             listing.Description = document.ValueOrDefault("description");
-
+            listing.Category = document.ValueOrDefault("category", "name");
             listing.Address = ExtractAddress(document);
             listing.Agents = ExtractAgent(document);
             listing.Inspections = ExtractInspectionTimes(document);
@@ -591,11 +591,13 @@ namespace OpenRealEstate.Services.RealEstateComAu
             var images = (from x in imagesElements
                 let url = x.AttributeValueOrDefault("url")
                 let order = x.AttributeValueOrDefault("id")
+                let format = x.AttributeValueOrDefault("format")
                 where !string.IsNullOrWhiteSpace(url)
                 select new Media
                 {
                     Url = url,
-                    Order = ConvertImageOrderToNumber(order)
+                    Order = ConvertImageOrderToNumber(order),
+                    Format = format
                 }).ToList();
 
             return images.Any() ? images : null;

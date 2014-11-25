@@ -237,6 +237,7 @@ namespace OpenRealEstate.Tests
                 listing.Images.Count.ShouldBe(2);
                 listing.Images[0].Order.ShouldBe(1);
                 listing.Images[0].Url.ShouldBe("http://www.realestate.com.au/tmp/imageM.jpg");
+                listing.Images[0].Format.ShouldBe("jpg");
 
                 listing.FloorPlans.Count.ShouldBe(2);
                 listing.FloorPlans[0].Url.ShouldBe("http://www.realestate.com.au/tmp/floorplan1.gif");
@@ -873,6 +874,26 @@ namespace OpenRealEstate.Tests
                     .OfType<ResidentialListing>()
                     .SingleOrDefault();
                 residentialCurrentListing.ShouldNotBe(null);
+            }
+
+            [Fact]
+            public void GivenTheFileREAAllTypes_Convert_MapsCategoryToProperty()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\REA-AllTypes.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                var residentialCurrentListing = result.Listings.Select(x => x.Listing)
+                    .AsQueryable()
+                    .WithId("Residential-Current-ABCD1234")
+                    .OfType<ResidentialListing>()
+                    .Single();
+
+                residentialCurrentListing.Category.ShouldBe("House");
             }
         }
     }

@@ -11,6 +11,7 @@ namespace OpenRealEstate.Core.Models
         public DateTime CreatedOn { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
+        public string Category { get; set; }
         public Address Address { get; set; }
         public IList<ListingAgent> Agents { get; set; }
         public IList<Media> Images { get; set; }
