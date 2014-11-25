@@ -319,7 +319,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
             listing.Title = document.ValueOrDefault("headline");
             listing.Description = document.ValueOrDefault("description");
-
+            listing.Category = document.ValueOrDefault("category", "name");
             listing.Address = ExtractAddress(document);
             listing.Agents = ExtractAgent(document);
             listing.Inspections = ExtractInspectionTimes(document);

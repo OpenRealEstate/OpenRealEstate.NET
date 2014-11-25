@@ -874,6 +874,22 @@ namespace OpenRealEstate.Tests
                     .SingleOrDefault();
                 residentialCurrentListing.ShouldNotBe(null);
             }
+
+            [Fact]
+            public void GivenTheFileREAAllTypes_Convert_MapsCategoryToProperty()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\REA-AllTypes.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                var firstListing = result.Listings.First();
+                firstListing.Listing.Category.ShouldBe("House");
+            }
+
         }
     }
 }
