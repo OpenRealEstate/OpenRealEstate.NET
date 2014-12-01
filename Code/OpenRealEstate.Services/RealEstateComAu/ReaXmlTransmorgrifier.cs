@@ -591,7 +591,8 @@ namespace OpenRealEstate.Services.RealEstateComAu
             var images = (from x in imagesElements
                 let url = x.AttributeValueOrDefault("url")
                 let order = x.AttributeValueOrDefault("id")
-                where !string.IsNullOrWhiteSpace(url)
+                where !string.IsNullOrWhiteSpace(url) &&
+                    !string.IsNullOrWhiteSpace(order)
                 select new Media
                 {
                     Url = url,
