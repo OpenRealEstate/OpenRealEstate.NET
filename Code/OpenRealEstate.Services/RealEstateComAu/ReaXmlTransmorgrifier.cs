@@ -473,33 +473,120 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 return null;
             }
 
-            // No one really knows what to use for cars. Garages? Carspaces?
-            // We'll use carspaces over garages.
-            var carspaces = featuresElement.ByteValueOrDefault("carports");
-            var garages = featuresElement.ByteValueOrDefault("garages");
+            var tags = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
             // NOTE: Bedrooms can be a number -or- the value 'STUDIO'.
-                //       YES - where a number is the logical value, they can now have a string.
-                //       So, if the value is a string, like STUDIO (or anything else), then the
-                //       value will be returned as ZERO.
+            //       YES - where a number is the logical value, they can now have a string. :cry:
+            //       So, if the value is a string, like STUDIO (or anything else), then the
+            //       value will be returned as ZERO.
+            //       If it's a STUDIO, we'll add that to the feature's tag hash set.
             var bedroomsValue = featuresElement.ValueOrDefault("bedrooms");
-            var bedrooms = !string.IsNullOrWhiteSpace(bedroomsValue) &&
-                           bedroomsValue.Equals("studio", StringComparison.OrdinalIgnoreCase)
-                ? 0
-                : featuresElement.ByteValueOrDefault("bedrooms");
+            var bedrooms = 0;
+            if (!string.IsNullOrWhiteSpace(bedroomsValue))
+            {
+                if (bedroomsValue.Equals("studio", StringComparison.OrdinalIgnoreCase))
+                {
+                    // *epic le sigh - yes, we have a text value for (what looks like) a number value.
+                    tags.Add("bedroom-studio");
+                }
+                else
+                {
+                    bedrooms = featuresElement.ByteValueOrDefault("bedrooms");
+                }
+            }
+            
+            ExtractHeatingOrHotWater(featuresElement,
+                "heating",
+                new[] {"gas", "electric", "GDH", "solid", "other"},
+                tags);
+            ExtractHeatingOrHotWater(featuresElement,
+                "hotWaterService",
+                new[] {"gas", "electric", "solar"},
+                tags);
+            ExtractOtherFeatures(featuresElement, tags);
 
-            var features = new Features
+            // Now for the final, tricky part - extracting all the boolean stuff into tags.
+            foreach (var feature in new[] {"features", "allowances", "ecoFriendly"}
+                .Select(node => featuresElement.Element(node))
+                .Where(element => element != null).Select(ExtractBooleanFeatures)
+                .Where(features => features.Any()).SelectMany(features => features))
+            {
+                tags.Add(feature);
+            }
+
+            var finalFeatures = new Features
             {
                 Bedrooms = bedrooms,
                 Bathrooms = featuresElement.ByteValueOrDefault("bathrooms"),
-                CarSpaces = carspaces > 0
-                    ? carspaces
-                    : garages > 0
-                        ? garages
-                        : 0
+                Garages = featuresElement.ByteValueOrDefault("garages"),
+                Carports = featuresElement.ByteValueOrDefault("carports"),
+                Ensuits = featuresElement.ByteValueOrDefault("ensuite"),
+                Toilets = featuresElement.ByteValueOrDefault("toilets"),
+                LivingAreas = featuresElement.ByteValueOrDefault("livingAreas"),
+                OpenSpaces = featuresElement.ByteValueOrDefault("openSpaces")
             };
 
-            return features;
+            return finalFeatures;
+        }
+
+        private static void ExtractHeatingOrHotWater(XElement features, 
+            string elementName, 
+            string[] validValues,
+            ISet<string> tags)
+        {
+            features.ShouldNotBe(null);
+            elementName.ShouldNotBeNullOrEmpty();
+            validValues.ShouldNotBe(null);
+            tags.ShouldNotBe(null);
+
+            var element = features.Element(elementName);
+            if (element == null)
+            {
+                return;
+            }
+
+            var type = element.ValueOrDefault(elementName, ("type"));
+            if (string.IsNullOrWhiteSpace(type))
+            {
+                return;
+            }
+
+            if (validValues.Contains(type, StringComparer.InvariantCultureIgnoreCase))
+            {
+                tags.Add(string.Format("{0}-{1}", elementName, type));
+            }
+        }
+
+        private static void ExtractOtherFeatures(XElement features, ISet<string> tags)
+        {
+            features.ShouldNotBe(null);
+            tags.ShouldNotBe(null);
+
+            var value = features.ValueOrDefault("otherFeatures");
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return;
+            }
+
+            // Split the value up into comma delimeted parts.
+            var parts = value.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var part in parts)
+            {
+                tags.Add(part);
+            }
+        }
+
+        private static ISet<string> ExtractBooleanFeatures(XElement xElement)
+        {
+            var suppliedFeatures = new ConcurrentBag<string>();
+
+            Parallel.ForEach(XmlFeatureHelpers.PossibleBooleanFeatures, possibleFeature =>
+            {
+                var boolean = xElement.BoolValueOrDefault(possibleFeature.XmlField);
+                if (boolean) suppliedFeatures.Add(possibleFeature.XmlField);
+            });
+
+            return new HashSet<string>(suppliedFeatures);
         }
 
         private static IList<Inspection> ExtractInspectionTimes(XElement document)

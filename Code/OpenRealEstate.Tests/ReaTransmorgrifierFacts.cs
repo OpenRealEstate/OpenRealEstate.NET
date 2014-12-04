@@ -232,7 +232,13 @@ namespace OpenRealEstate.Tests
 
                 listing.Features.Bedrooms.ShouldBe(expectedBedroomsCount);
                 listing.Features.Bathrooms.ShouldBe(2);
-                listing.Features.CarSpaces.ShouldBe(2);
+                listing.Features.Garages.ShouldBe(3);
+                listing.Features.Carports.ShouldBe(2);
+                listing.Features.Ensuits.ShouldBe(2);
+                listing.Features.Toilets.ShouldBe(0);
+                listing.Features.LivingAreas.ShouldBe(0);
+                listing.Features.OpenSpaces.ShouldBe(0);
+                listing.Features.Tags.ShouldBe(null);
 
                 listing.Images.Count.ShouldBe(2);
                 listing.Images[0].Order.ShouldBe(1);
@@ -397,7 +403,12 @@ namespace OpenRealEstate.Tests
 
                 listing.Features.Bedrooms.ShouldBe(4);
                 listing.Features.Bathrooms.ShouldBe(2);
-                listing.Features.CarSpaces.ShouldBe(2);
+                listing.Features.Garages.ShouldBe(3);
+                listing.Features.Carports.ShouldBe(2);
+                listing.Features.Ensuits.ShouldBe(2);
+                listing.Features.Toilets.ShouldBe(0);
+                listing.Features.LivingAreas.ShouldBe(0);
+                listing.Features.OpenSpaces.ShouldBe(0);
 
                 listing.Images.Count.ShouldBe(2);
                 listing.Images[0].Order.ShouldBe(1);
