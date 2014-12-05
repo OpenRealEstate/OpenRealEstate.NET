@@ -518,34 +518,29 @@ namespace OpenRealEstate.Services.RealEstateComAu
             {
                 Bedrooms = bedrooms,
                 Bathrooms = featuresElement.ByteValueOrDefault("bathrooms"),
-                Garages = featuresElement.ByteValueOrDefault("garages"),
-                Carports = featuresElement.ByteValueOrDefault("carports"),
-                Ensuits = featuresElement.ByteValueOrDefault("ensuite"),
-                Toilets = featuresElement.ByteValueOrDefault("toilets"),
-                LivingAreas = featuresElement.ByteValueOrDefault("livingAreas"),
-                OpenSpaces = featuresElement.ByteValueOrDefault("openSpaces")
+                Garages = featuresElement.BoolOrByteValueOrDefault("garages"),
+                Carports = featuresElement.BoolOrByteValueOrDefault("carports"),
+                Ensuits = featuresElement.BoolOrByteValueOrDefault("ensuite"),
+                Toilets = featuresElement.BoolOrByteValueOrDefault("toilets"),
+                LivingAreas = featuresElement.BoolOrByteValueOrDefault("livingAreas"),
+                OpenSpaces = featuresElement.BoolOrByteValueOrDefault("openSpaces"),
+                Tags = tags
             };
 
             return finalFeatures;
         }
 
-        private static void ExtractHeatingOrHotWater(XElement features, 
+        private static void ExtractHeatingOrHotWater(XElement document, 
             string elementName, 
             string[] validValues,
             ISet<string> tags)
         {
-            features.ShouldNotBe(null);
+            document.ShouldNotBe(null);
             elementName.ShouldNotBeNullOrEmpty();
             validValues.ShouldNotBe(null);
             tags.ShouldNotBe(null);
 
-            var element = features.Element(elementName);
-            if (element == null)
-            {
-                return;
-            }
-
-            var type = element.ValueOrDefault(elementName, ("type"));
+            var type = document.ValueOrDefault(elementName, ("type"));
             if (string.IsNullOrWhiteSpace(type))
             {
                 return;
@@ -572,7 +567,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             var parts = value.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries);
             foreach (var part in parts)
             {
-                tags.Add(part);
+                tags.Add(part.Trim());
             }
         }
 
@@ -580,13 +575,39 @@ namespace OpenRealEstate.Services.RealEstateComAu
         {
             var suppliedFeatures = new ConcurrentBag<string>();
 
-            Parallel.ForEach(XmlFeatureHelpers.PossibleBooleanFeatures, possibleFeature =>
+            Parallel.ForEach(XmlFeatureHelpers.PossibleBooleanFeatures.Values, possibleFeature =>
             {
                 var boolean = xElement.BoolValueOrDefault(possibleFeature.XmlField);
                 if (boolean) suppliedFeatures.Add(possibleFeature.XmlField);
             });
 
             return new HashSet<string>(suppliedFeatures);
+        }
+
+        private static ISet<string> ExtractEcoFriendly(XElement document)
+        {
+            document.ShouldNotBe(null);
+
+            var ecoFriendlyElement = document.Element("ecoFriendly");
+            if (ecoFriendlyElement== null)
+            {
+                return null;
+            }
+
+            var tags = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+
+            foreach (var elementName in new[] { "solarPanels", "solarHotWater", "waterTank", "greyWaterSystem" })
+            {
+                var doesExist  = ecoFriendlyElement.BoolValueOrDefault(elementName);
+                if (doesExist)
+                {
+                     tags.Add(XmlFeatureHelpers.PossibleBooleanFeatures[elementName].XmlField);
+                }
+            }
+
+            return tags.Any()
+                ? tags
+                : null;
         }
 
         private static IList<Inspection> ExtractInspectionTimes(XElement document)
@@ -966,6 +987,26 @@ namespace OpenRealEstate.Services.RealEstateComAu
             residentialListing.Pricing = ExtractSalePricing(xElement, cultureInfo);
             residentialListing.AuctionOn = ExtractAuction(xElement);
             residentialListing.Features = ExtractFeatures(xElement);
+
+            var ecoFriendlyTags = ExtractEcoFriendly(xElement);
+            if (ecoFriendlyTags != null &&
+                ecoFriendlyTags.Any())
+            {
+                if (residentialListing.Features == null)
+                {
+                    residentialListing.Features = new Features();
+                }
+
+                if (residentialListing.Features.Tags == null)
+                {
+                    residentialListing.Features.Tags = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+                }
+
+                foreach (var tag in ecoFriendlyTags)
+                {
+                    residentialListing.Features.Tags.Add(tag);
+                }
+            }
         }
 
         #endregion
@@ -986,6 +1027,9 @@ namespace OpenRealEstate.Services.RealEstateComAu
             rentalListing.PropertyType = ExtractResidentialAndRentalPropertyType(xElement);
             rentalListing.Pricing = ExtractRentalPricing(xElement, cultureInfo);
             rentalListing.Features = ExtractFeatures(xElement);
+
+            var ecoFriendlyTags = ExtractEcoFriendly(xElement);
+            //var allowanceTags = ExtractAllowances(xElement);
         }
 
         // REF: http://reaxml.realestate.com.au/docs/reaxml1-xml-format.html#rent

@@ -92,5 +92,11 @@
             <floorplan id="2" modTime="2009-01-01-12:30:00" url="http://www.realestate.com.au/tmp/floorplan2.gif"
                        format="gif" />
         </objects>
+        <ecoFriendly>
+            <solarPanels>1</solarPanels>
+            <solarHotWater>0</solarHotWater>
+            <waterTank>1</waterTank>
+            <greyWaterSystem>0</greyWaterSystem>
+        </ecoFriendly>
     </residential>
 </propertyList>

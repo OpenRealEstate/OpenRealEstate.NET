@@ -213,20 +213,8 @@ namespace OpenRealEstate.Services
 
         public static byte ByteValueOrDefault(this XElement xElement, string elementName = null)
         {
-            byte number = 0;
             var value = xElement.ValueOrDefault(elementName);
-            if (string.IsNullOrEmpty(value))
-            {
-                return number;
-            }
-            
-            if (byte.TryParse(value, out number))
-            {
-                return number;
-            }
-
-            var errorMessage = string.Format("Failed to parse the value '{0}' into a byte.", value);
-            throw new Exception(errorMessage);
+            return value.ParseByteValueOrDefault();
         }
 
         public static bool BoolValueOrDefault(this XElement xElement, string elementName = null)
@@ -242,6 +230,22 @@ namespace OpenRealEstate.Services
             return bool.TryParse(value, out boolValue)
                 ? boolValue
                 : value.ParseOneYesZeroNoToBool();
+        }
+
+        public static byte BoolOrByteValueOrDefault(this XElement xElement, string elementName = null)
+        {
+            var value = xElement.ValueOrDefault(elementName);
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return 0;
+            }
+
+            // We're checking to see if the value is YES/NO -before- we do our number check.
+            // So the assumption here is that if it's not a YES/NO, then it's a number.
+            bool boolValue;
+            return value.TryParseYesOrNoToBool(out boolValue)
+                ? Convert.ToByte(boolValue)
+                : value.ParseByteValueOrDefault();
         }
 
         public static XElement StripNameSpaces(this XElement root)

@@ -36,7 +36,8 @@ namespace OpenRealEstate.Tests
                 result.ShouldNotBe(null);
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
-                AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing);
+                AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
+                    tags: new[] { "solarPanels", "waterTank", "hotWaterService-gas", "heating-other", "balcony", "shed", "courtyard" });
             }
 
             [Fact]
@@ -196,7 +197,8 @@ namespace OpenRealEstate.Tests
 
             private static void AssertResidentialCurrentListing(ResidentialListing listing,
                 PropertyType expectedPropertyType = PropertyType.House,
-                int expectedBedroomsCount = 4)
+                int expectedBedroomsCount = 4,
+                string [] tags = null)
             {
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Residential-Current-ABCD1234");
@@ -238,7 +240,12 @@ namespace OpenRealEstate.Tests
                 listing.Features.Toilets.ShouldBe(0);
                 listing.Features.LivingAreas.ShouldBe(0);
                 listing.Features.OpenSpaces.ShouldBe(0);
-                listing.Features.Tags.ShouldBe(null);
+                if (tags != null)
+                {
+                    listing.Features.Tags.Count.ShouldBeGreaterThan(0);
+                    tags.All(x => listing.Features.Tags.Contains(x)).ShouldBe(true);
+                }
+                
 
                 listing.Images.Count.ShouldBe(2);
                 listing.Images[0].Order.ShouldBe(1);
