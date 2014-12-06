@@ -53,21 +53,33 @@ namespace OpenRealEstate.Services.RealEstateComAu
             }
 
             // Finally, we convert each segment into a listing.
-            var listings = new ConcurrentBag<ListingResult>();
+            var successfullyParsedListings = new ConcurrentBag<ListingResult>();
+            var invalidData = new ConcurrentBag<ParsedError>();
+
             Parallel.ForEach(elements.KnownXmlData, element =>
-                listings.Add(new ListingResult
+            {
+                try
                 {
-                    Listing = ConvertFromReaXml(element, DefaultCultureInfo),
-                    SourceData = element.ToString()
-                }));
+                    successfullyParsedListings.Add(new ListingResult
+                    {
+                        Listing = ConvertFromReaXml(element, DefaultCultureInfo),
+                        SourceData = element.ToString()
+                    });
+                }
+                catch (Exception exception)
+                {
+                    invalidData.Add(new ParsedError(exception.Message, element.ToString()));
+                }
+            });
 
             return new ConvertToResult
             {
-                Listings = listings.ToList(),
+                Listings = successfullyParsedListings.ToList(),
                 UnhandledData = elements.UnknownXmlData != null &&
                                 elements.UnknownXmlData.Any()
                     ? elements.UnknownXmlData.Select(x => x.ToString()).ToList()
-                    : null
+                    : null,
+                InvalidData = invalidData.ToList()
             };
         }
 

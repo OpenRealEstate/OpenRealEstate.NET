@@ -145,19 +145,21 @@ namespace OpenRealEstate.Tests
             }
 
             [Fact]
-            public void GivenTheFileREAResidentialCurrentBadInspectionTime_Convert_ThrowsAnException()
+            public void GivenTheFileREAResidentialCurrentBadInspectionTime_Convert_ReturnsAnInvalidException()
             {
                 // Arrange.
                 var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-CurrentBadInspectionTime.xml");
                 var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
 
                 // Act.
-                 var result = Should.Throw<AggregateException>( () => reaXmlTransmorgrifier.ConvertTo(reaXml));
+                 var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
                 result.ShouldNotBe(null);
-                result.Message.ShouldBe("One or more errors occurred.");
-                result.InnerException.Message.ShouldBe("Inspection element has an invald Date/Time value. Element: <inspection> 12:00AM to 12:00AM</inspection>");
+                result.Listings.Count.ShouldBe(0);
+                result.InvalidData.Count.ShouldBe(1);
+                result.InvalidData[0].ExceptionMessage.ShouldBe("Inspection element has an invald Date/Time value. Element: <inspection> 12:00AM to 12:00AM</inspection>");
+                result.InvalidData[0].InvalidData.ShouldNotBeNullOrEmpty();
             }
 
             [Fact]
