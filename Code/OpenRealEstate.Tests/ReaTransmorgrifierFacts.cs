@@ -170,12 +170,12 @@ namespace OpenRealEstate.Tests
                 var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
 
                 // Act.
-                var result = Should.Throw<AggregateException>(() => reaXmlTransmorgrifier.ConvertTo(reaXml));
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                result.ShouldNotBe(null);
-                result.Message.ShouldBe("One or more errors occurred.");
-                result.InnerException.Message.ShouldBe("Failed to parse the value '550000600000550000600000550000600000' into a decimal.");
+                result.Listings.Count.ShouldBe(0);
+                result.InvalidData[0].ExceptionMessage.ShouldBe("Failed to parse the value '550000600000550000600000550000600000' into a decimal.");
+                result.InvalidData[0].InvalidData.ShouldNotBeNullOrEmpty();
             }
 
             [Fact]
