@@ -33,7 +33,7 @@
             "poolAboveGround",
             "poolInGround",
             "remoteGarage",
-            "reverseCycleAircon",
+            "reverseCycleAirCon",
             "rumpusRoom",
             "secureParking",
             "shed",

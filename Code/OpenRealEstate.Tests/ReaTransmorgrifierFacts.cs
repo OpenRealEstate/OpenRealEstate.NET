@@ -265,8 +265,7 @@ namespace OpenRealEstate.Tests
                 if (tags != null)
                 {
                     listing.Features.Tags.Count.ShouldBeGreaterThan(0);
-                    //var allTagsExist = tags.All(x => listing.Features.Tags.Contains(x));
-                    var missingTags = tags.Except(listing.Features.Tags).ToList();
+                    var missingTags = tags.Except(listing.Features.Tags, StringComparer.OrdinalIgnoreCase).ToList();
                     if (missingTags.Any())
                     {
                         var errorMessage = string.Format("Failed to parse - the following tags haven't been handled: {0}.",

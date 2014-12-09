@@ -507,21 +507,33 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 }
             }
             
-            ExtractHeatingOrHotWater(featuresElement,
+            ExtractFeatureWithTextValues(featuresElement,
                 "heating",
                 new[] {"gas", "electric", "GDH", "solid", "other"},
                 tags);
 
-            ExtractHeatingOrHotWater(featuresElement,
+            ExtractFeatureWithTextValues(featuresElement,
                 "hotWaterService",
                 new[] {"gas", "electric", "solar"},
                 tags);
+
+            ExtractFeatureWithTextValues(featuresElement,
+                "pool",
+                new[] { "inground", "aboveground" },
+                tags,
+                null);
+
+            ExtractFeatureWithTextValues(featuresElement,
+                "spa",
+                new[] { "inground", "aboveground" },
+                tags,
+                null);
 
             ExtractOtherFeatures(featuresElement, tags);
 
             // Now for the final, tricky part - extracting all the boolean stuff into tags.
             foreach (var feature in new[] {"features", "allowances", "ecoFriendly"}
-                .Select(node => featuresElement.Element(node))
+                .Select(node => document.Element(node))
                 .Where(element => element != null).Select(ExtractBooleanFeatures)
                 .Where(features => features.Any()).SelectMany(features => features))
             {
@@ -544,10 +556,11 @@ namespace OpenRealEstate.Services.RealEstateComAu
             return finalFeatures;
         }
 
-        private static void ExtractHeatingOrHotWater(XElement document, 
+        private static void ExtractFeatureWithTextValues(XElement document, 
             string elementName, 
             string[] validValues,
-            ISet<string> tags)
+            ISet<string> tags,
+            string delimeter = "-")
         {
             document.ShouldNotBe(null);
             elementName.ShouldNotBeNullOrEmpty();
@@ -562,7 +575,12 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
             if (validValues.Contains(type, StringComparer.InvariantCultureIgnoreCase))
             {
-                tags.Add(string.Format("{0}-{1}", elementName, type));
+                tags.Add(string.Format("{0}{1}{2}",
+                    elementName,
+                    string.IsNullOrWhiteSpace(delimeter)
+                        ? string.Empty
+                        : delimeter,
+                    type));
             }
         }
 

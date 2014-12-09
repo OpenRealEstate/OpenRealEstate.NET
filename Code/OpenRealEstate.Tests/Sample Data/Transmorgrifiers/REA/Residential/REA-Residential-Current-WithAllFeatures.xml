@@ -42,6 +42,12 @@
             <ensuite>2</ensuite>
             <garages>3</garages>
             <carports>2</carports>
+            <livingAreas>0</livingAreas>
+            <toilets>0</toilets>
+            <openSpaces>0</openSpaces>
+            <!-- Features above are (generally) numbers -->
+            
+            <!-- Features below are 1/0/yes/no -->
             <remoteGarage>yes</remoteGarage>
             <secureParking>yes</secureParking>
             <airConditioning>1</airConditioning>
@@ -49,7 +55,11 @@
             <vacuumSystem>1</vacuumSystem>
             <intercom>1</intercom>
             <pool type="inground">yes</pool>
+            <poolInGround>1</poolInGround>
+            <poolAboveGround>1</poolAboveGround>
             <spa type="inground">1</spa>
+            <insideSpa>1</insideSpa>
+            <outsideSpa>yes</outsideSpa>
             <tennisCourt>yes</tennisCourt>
             <balcony>yes</balcony>
             <deck>yes</deck>
@@ -60,7 +70,25 @@
             <openFirePlace>1</openFirePlace>
             <heating type="other" />
             <hotWaterService type="gas" />
-            <otherFeatures>balcony, courtyard, shed</otherFeatures>
+            <broadband>1</broadband>
+            <builtInRobes>yes</builtInRobes>
+            <dishwasher>1</dishwasher>
+            <ductedCooling>yes</ductedCooling>
+            <ductedHeating>1</ductedHeating>
+            <evaporativeCooling>yes</evaporativeCooling>
+            <floorboards>1</floorboards>
+            <gasHeating>yes</gasHeating>
+            <gym>1</gym>
+            <hydronicHeating>yes</hydronicHeating>
+            <payTV>1</payTV>
+            <reverseCycleAirCon>yes</reverseCycleAirCon>
+            <rumpusRoom>1</rumpusRoom>
+            <splitSystemAirCon>yes</splitSystemAirCon>
+            <splitSystemHeating>1</splitSystemHeating>
+            <study>yes</study>
+            <workshop>1</workshop>
+            <!-- Testing duplicate tags, which should be unique in the final result -->
+            <otherFeatures>gym, gym, gym, gym, otherfeature1, otherfeature2</otherFeatures>
         </features>
         <landDetails>
             <area unit="square">80</area>
@@ -98,5 +126,10 @@
             <waterTank>1</waterTank>
             <greyWaterSystem>1</greyWaterSystem>
         </ecoFriendly>
+        <allowances>
+            <petFriendly>1</petFriendly>
+            <furnished>yes</furnished>
+            <smokers>1</smokers>
+        </allowances>
     </residential>
 </propertyList>
