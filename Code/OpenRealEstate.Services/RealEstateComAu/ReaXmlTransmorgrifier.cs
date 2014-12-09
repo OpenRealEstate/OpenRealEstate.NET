@@ -511,10 +511,12 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 "heating",
                 new[] {"gas", "electric", "GDH", "solid", "other"},
                 tags);
+
             ExtractHeatingOrHotWater(featuresElement,
                 "hotWaterService",
                 new[] {"gas", "electric", "solar"},
                 tags);
+
             ExtractOtherFeatures(featuresElement, tags);
 
             // Now for the final, tricky part - extracting all the boolean stuff into tags.
@@ -587,10 +589,12 @@ namespace OpenRealEstate.Services.RealEstateComAu
         {
             var suppliedFeatures = new ConcurrentBag<string>();
 
-            Parallel.ForEach(XmlFeatureHelpers.PossibleBooleanFeatures.Values, possibleFeature =>
+            Parallel.ForEach(XmlFeatureHelpers.OtherFeatureNames, possibleFeature =>
             {
-                var boolean = xElement.BoolValueOrDefault(possibleFeature.XmlField);
-                if (boolean) suppliedFeatures.Add(possibleFeature.XmlField);
+                if (xElement.BoolValueOrDefault(possibleFeature))
+                {
+                    suppliedFeatures.Add(possibleFeature);
+                }
             });
 
             return new HashSet<string>(suppliedFeatures);
@@ -613,7 +617,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 var doesExist  = ecoFriendlyElement.BoolValueOrDefault(elementName);
                 if (doesExist)
                 {
-                     tags.Add(XmlFeatureHelpers.PossibleBooleanFeatures[elementName].XmlField);
+                     tags.Add(XmlFeatureHelpers.OtherFeatureNames.Single(x => x == elementName));
                 }
             }
 

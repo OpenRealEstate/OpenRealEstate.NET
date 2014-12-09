@@ -197,10 +197,30 @@ namespace OpenRealEstate.Tests
                     0);
             }
 
+            [Fact]
+            public void GivenTheFileREAResidentialCurrentWithAllFeatures_Convert_ReturnsAResidentialCurrentListing()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current-WithAllFeatures.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.ShouldNotBe(null);
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
+                AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
+                    PropertyType.House,
+                    4,
+                    XmlFeatureHelpers.OtherFeatureNames);
+            }
+
             private static void AssertResidentialCurrentListing(ResidentialListing listing,
                 PropertyType expectedPropertyType = PropertyType.House,
                 int expectedBedroomsCount = 4,
-                string [] tags = null)
+                IEnumerable<string> tags = null)
             {
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Residential-Current-ABCD1234");
@@ -245,7 +265,14 @@ namespace OpenRealEstate.Tests
                 if (tags != null)
                 {
                     listing.Features.Tags.Count.ShouldBeGreaterThan(0);
-                    tags.All(x => listing.Features.Tags.Contains(x)).ShouldBe(true);
+                    //var allTagsExist = tags.All(x => listing.Features.Tags.Contains(x));
+                    var missingTags = tags.Except(listing.Features.Tags).ToList();
+                    if (missingTags.Any())
+                    {
+                        var errorMessage = string.Format("Failed to parse - the following tags haven't been handled: {0}.",
+                            string.Join(", ", missingTags));
+                        throw new Exception(errorMessage);
+                    }
                 }
                 
 
