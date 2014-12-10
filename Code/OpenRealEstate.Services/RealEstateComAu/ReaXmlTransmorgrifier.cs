@@ -985,15 +985,20 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         #region Residential Listing methods
 
-        private static void ExtractResidentialData(ResidentialListing residentialListing, XElement xElement, CultureInfo cultureInfo)
+        private static void ExtractResidentialData(ResidentialListing residentialListing, 
+            XElement document, 
+            CultureInfo cultureInfo)
         {
             residentialListing.ShouldNotBe(null);
-            xElement.ShouldNotBe(null);
+            document.ShouldNotBe(null);
 
-            residentialListing.PropertyType = ExtractResidentialAndRentalPropertyType(xElement);
-            residentialListing.Pricing = ExtractSalePricing(xElement, cultureInfo);
-            residentialListing.AuctionOn = ExtractAuction(xElement);
-            residentialListing.Features = ExtractFeatures(xElement);
+            residentialListing.PropertyType = ExtractResidentialAndRentalPropertyType(document);
+            residentialListing.Pricing = ExtractSalePricing(document, cultureInfo);
+            residentialListing.AuctionOn = ExtractAuction(document);
+            residentialListing.Features = ExtractFeatures(document);
+
+            // NOTE: ReaXml doesn't have the following (for residential's):
+            //       - Council rates.
         }
 
         #endregion
@@ -1094,6 +1099,9 @@ namespace OpenRealEstate.Services.RealEstateComAu
             landListing.AuctionOn = ExtractAuction(xElement);
             landListing.Estate = ExtractLandEstate(xElement);
             landListing.AuctionOn = ExtractAuction(xElement);
+
+            // NOTE: ReaXml doesn't have the following (for land's):
+            //       - Council rates.
         }
 
         private static Core.Models.Land.CategoryType ExtractLandCategoryType(XElement xElement)
@@ -1133,6 +1141,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             listing.Pricing = ExtractSalePricing(document, cultureInfo);
             listing.AuctionOn = ExtractAuction(document);
             listing.RuralFeatures = ExtractRuralFeatures(document);
+            listing.CouncilRates = ExtractRuralCouncilRates(document);
         }
 
         private static Core.Models.Rural.CategoryType ExtractRuralCategoryType(XElement document)
@@ -1170,6 +1179,15 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 Services = ruralFeaturesElement.ValueOrDefault("services"),
                 SoilTypes = ruralFeaturesElement.ValueOrDefault("soilTypes")
             };
+        }
+
+        private static string ExtractRuralCouncilRates(XElement document)
+        {
+            document.ShouldNotBe(null);
+            var ruralFeaturesElement = document.Element("ruralFeatures");
+            return ruralFeaturesElement == null
+                ? null
+                : ruralFeaturesElement.ValueOrDefault("councilRates");
         }
 
         #endregion

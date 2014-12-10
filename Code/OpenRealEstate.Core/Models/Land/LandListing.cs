@@ -8,6 +8,7 @@ namespace OpenRealEstate.Core.Models.Land
         public SalePricing Pricing { get; set; }
         public DateTime? AuctionOn { get; set; }
         public LandEstate Estate { get; set; }
+        public string CouncilRates { get; set; }
 
         public override string ToString()
         {

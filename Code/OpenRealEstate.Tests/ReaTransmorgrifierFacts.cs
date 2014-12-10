@@ -753,6 +753,7 @@ namespace OpenRealEstate.Tests
                 listing.StatusType.ShouldBe(StatusType.Current);
                 listing.CategoryType.ShouldBe(CategoryType.Cropping);
                 listing.AuctionOn.ShouldBe(new DateTime(2009, 01, 24, 14, 30, 00));
+                listing.CouncilRates.ShouldBe("$2,200 per annum");
 
                 listing.Agents.Count.ShouldBe(1);
                 listing.Agents[0].Name.ShouldBe("Mr. John Doe");

@@ -8,6 +8,7 @@ namespace OpenRealEstate.Core.Models.Rural
         public SalePricing Pricing { get; set; }
         public DateTime? AuctionOn { get; set; }
         public RuralFeatures RuralFeatures { get; set; }
+        public string CouncilRates { get; set; }
 
         public override string ToString()
         {
