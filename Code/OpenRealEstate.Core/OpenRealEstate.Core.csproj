@@ -42,6 +42,7 @@
     <Compile Include="Models\Agency.cs" />
     <Compile Include="Models\Agent.cs" />
     <Compile Include="Models\AggregateRoot.cs" />
+    <Compile Include="Models\BuildingDetails.cs" />
     <Compile Include="Models\CommunicationType.cs" />
     <Compile Include="Models\Features.cs" />
     <Compile Include="Models\Franchise.cs" />

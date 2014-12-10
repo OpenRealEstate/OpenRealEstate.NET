@@ -42,6 +42,7 @@
     <Compile Include="AgentValidator.cs" />
     <Compile Include="AggregateRootValidator.cs" />
     <Compile Include="CommunicationValidator.cs" />
+    <Compile Include="BuildingDetailsValidator.cs" />
     <Compile Include="FeaturesValidator.cs" />
     <Compile Include="FranchiseValidator.cs" />
     <Compile Include="InspectionValidator.cs" />

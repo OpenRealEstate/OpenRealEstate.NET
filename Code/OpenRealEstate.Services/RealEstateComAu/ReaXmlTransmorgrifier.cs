@@ -337,6 +337,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             listing.Inspections = ExtractInspectionTimes(document);
             listing.Images = ExtractImages(document);
             listing.FloorPlans = ExtractFloorPlans(document);
+            listing.BuildingDetails = ExtractBuildingDetails(document);
             listing.LandDetails = ExtractLandDetails(document);
         }
 
@@ -887,6 +888,23 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 : null;
         }
 
+        private static BuildingDetails ExtractBuildingDetails(XElement document)
+        {
+            document.ShouldNotBe(null);
+
+            var buildingDetailsElement = document.Element("buildingDetails");
+            if (buildingDetailsElement == null)
+            {
+                return null;
+            }
+
+            return new BuildingDetails
+            {
+                Area = buildingDetailsElement.UnitOfMeasureOrDefault("area", "unit"),
+                EnergyRating = buildingDetailsElement.DecimalValueOrDefault("energyRating"),
+            };
+        }
+
         private static LandDetails ExtractLandDetails(XElement document)
         {
             document.ShouldNotBe(null);
@@ -897,40 +915,16 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 return null;
             }
 
-            var areaValue = landDetailsElement.DecimalValueOrDefault("area");
-            var areaType = landDetailsElement.ValueOrDefault("area", "unit");
-            var frontageValue = landDetailsElement.DecimalValueOrDefault("frontage");
-            var frontageType = landDetailsElement.ValueOrDefault("frontage", "unit");
-            var depthValue = landDetailsElement.DecimalValueOrDefault("depth");
-            var depthType = landDetailsElement.ValueOrDefault("depth", "unit");
-            var depthSide = landDetailsElement.ValueOrDefault("depth", "side");
-
             var details = new LandDetails
             {
+                Area = landDetailsElement.UnitOfMeasureOrDefault("area", "unit"),
+                Frontage = landDetailsElement.UnitOfMeasureOrDefault("frontage", "unit"),
                 CrossOver = landDetailsElement.ValueOrDefault("crossOver", "value")
             };
 
-            if (areaValue > 0)
-            {
-                details.Area = new UnitOfMeasure
-                {
-                    Value = areaValue,
-                    Type = string.IsNullOrWhiteSpace(areaType)
-                        ? "Total"
-                        : areaType
-                };
-            }
-
-            if (frontageValue > 0)
-            {
-                details.Frontage = new UnitOfMeasure
-                {
-                    Value = frontageValue,
-                    Type = string.IsNullOrWhiteSpace(frontageType)
-                        ? "Total"
-                        : frontageType
-                };
-            }
+            var depthValue = landDetailsElement.DecimalValueOrDefault("depth");
+            var depthType = landDetailsElement.ValueOrDefault("depth", "unit");
+            var depthSide = landDetailsElement.ValueOrDefault("depth", "side");
 
             if (depthValue > 0)
             {

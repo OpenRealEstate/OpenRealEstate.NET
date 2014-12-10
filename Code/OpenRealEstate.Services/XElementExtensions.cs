@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Xml.Linq;
 using NUnit.Framework.Constraints;
+using OpenRealEstate.Core.Models;
 
 namespace OpenRealEstate.Services
 {
@@ -246,6 +247,27 @@ namespace OpenRealEstate.Services
             return value.TryParseYesOrNoToBool(out boolValue)
                 ? Convert.ToByte(boolValue)
                 : value.ParseByteValueOrDefault();
+        }
+
+        public static UnitOfMeasure UnitOfMeasureOrDefault(this XElement xElement, string elementName, string attributeName)
+        {
+            var value = xElement.DecimalValueOrDefault(elementName);
+
+            UnitOfMeasure unitOfMeasure = null;
+            var type = xElement.ValueOrDefault(elementName, attributeName);
+
+            if (value > 0)
+            {
+                unitOfMeasure = new UnitOfMeasure
+                {
+                    Value = value,
+                    Type = string.IsNullOrWhiteSpace(type)
+                        ? "Total"
+                        : type
+                };
+            }
+
+            return unitOfMeasure;
         }
 
         public static XElement StripNameSpaces(this XElement root)

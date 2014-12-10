@@ -17,6 +17,7 @@ namespace OpenRealEstate.Core.Models
         public IList<Media> FloorPlans { get; set; }
         public IList<Media> Videos { get; set; }
         public IList<Inspection> Inspections { get; set; }
+        public BuildingDetails BuildingDetails { get; set; }
         public LandDetails LandDetails { get; set; }
         public Features Features { get; set; }
 

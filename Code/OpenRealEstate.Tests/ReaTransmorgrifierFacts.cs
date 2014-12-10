@@ -288,6 +288,11 @@ namespace OpenRealEstate.Tests
 
                 listing.AuctionOn.ShouldBe(new DateTime(2009, 02, 04, 18, 30, 00));
 
+                listing.BuildingDetails.Area.Value.ShouldBe(40);
+                listing.BuildingDetails.Area.Type.ShouldBe("square");
+                listing.BuildingDetails.EnergyRating.HasValue.ShouldBe(true);
+                listing.BuildingDetails.EnergyRating.ShouldBe(4.5m);
+
                 listing.LandDetails.Area.Value.ShouldBe(80M);
                 listing.LandDetails.Area.Type.ShouldBe("square");
                 listing.LandDetails.Frontage.Value.ShouldBe(20M);
