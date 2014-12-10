@@ -338,6 +338,12 @@ namespace OpenRealEstate.Services.RealEstateComAu
             listing.Images = ExtractImages(document);
             listing.FloorPlans = ExtractFloorPlans(document);
             listing.LandDetails = ExtractLandDetails(document);
+
+            var externalLink = document.ValueOrDefault("externalLink", "href");
+            if (!string.IsNullOrWhiteSpace(externalLink))
+            {
+                listing.Links = new List<string> {externalLink.Trim()};
+            }
         }
 
         private static Address ExtractAddress(XElement document)

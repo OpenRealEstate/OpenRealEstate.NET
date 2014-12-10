@@ -116,13 +116,17 @@ namespace OpenRealEstate.Tests.Validators.Rural
             [Fact]
             public void GivenACategoryType_Validate_ShouldNotHaveAValidationError()
             {
-                _validator.ShouldNotHaveValidationErrorFor(listing => listing.CategoryType, CategoryType.Cropping);
+                _validator.ShouldNotHaveValidationErrorFor(listing => listing.CategoryType, 
+                    CategoryType.Cropping,
+                    RuralListingValidator.MinimumRuleSet);
             }
 
-            [Fact(Skip = "TODO. Still errors until I can figure out how to do rulesets in the test extension method.")]
+            [Fact]
             public void GivenAnUnknownCategoryType_Validate_ShouldHaveAValidationError()
             {
-                _validator.ShouldHaveValidationErrorFor(listing => listing.CategoryType, CategoryType.Unknown);
+                _validator.ShouldHaveValidationErrorFor(listing => listing.CategoryType,
+                    CategoryType.Unknown,
+                    RuralListingValidator.MinimumRuleSet);
             }
 
             [Fact]

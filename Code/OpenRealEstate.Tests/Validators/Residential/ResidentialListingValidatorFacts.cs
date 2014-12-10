@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using FluentValidation;
@@ -6,6 +7,7 @@ using FluentValidation.TestHelper;
 using OpenRealEstate.Core.Models;
 using OpenRealEstate.Core.Models.Residential;
 using OpenRealEstate.Services.RealEstateComAu;
+using OpenRealEstate.Validation;
 using OpenRealEstate.Validation.Residential;
 using Shouldly;
 using Xunit;
@@ -200,50 +202,81 @@ namespace OpenRealEstate.Tests.Validators.Residential
                 return transmogrifier.ConvertTo(xml).Listings.First().Listing as ResidentialListing;
             }
 
-            [Fact(Skip = "Need to figure out how to use the RuleSet in this extension method.")]
+            [Fact]
             public void GivenAPropertyType_Validate_ShouldNotHaveAValidationError()
             {
-                _validator.ShouldNotHaveValidationErrorFor(listing => listing.PropertyType, PropertyType.Townhouse);
+                _validator.ShouldNotHaveValidationErrorFor(listing => listing.PropertyType, 
+                    PropertyType.Townhouse, 
+                    ResidentialListingValidator.MinimumRuleSet);
             }
 
             [Fact]
             public void GivenAnUnknownPropertyType_Validate_ShouldHaveAValidationError()
             {
-                // Arrange.
-                var listing = CreateListing();
-                listing.PropertyType = PropertyType.Unknown;
-
-                // Act.
-                var result = _validator.Validate(listing, ruleSet: ResidentialListingValidator.MinimumRuleSet);
-
-                // Assert.
-                result.Errors.ShouldContain(x => x.PropertyName == "PropertyType");
+                _validator.ShouldHaveValidationErrorFor(x => x.PropertyType, 
+                    PropertyType.Unknown, 
+                    ResidentialListingValidator.MinimumRuleSet);
             }
 
-            [Fact(Skip = "Need to figure out how to use the RuleSet in this extension method.")]
+            [Fact]
             public void GivenAnAuctionOn_Validate_ShouldNotHaveAValidationError()
             {
-                _validator.ShouldNotHaveValidationErrorFor(listing => listing.AuctionOn, DateTime.UtcNow);
+                _validator.ShouldNotHaveValidationErrorFor(listing => listing.AuctionOn, 
+                    DateTime.UtcNow,
+                    ResidentialListingValidator.MinimumRuleSet);
             }
 
             [Fact]
             public void GivenAnInvalidAuctionOn_Validate_ShouldHaveAValidationError()
             {
-                // Arrange.
-                var listing = CreateListing();
-                listing.AuctionOn = DateTime.MinValue;
-
-                // Act.
-                var result = _validator.Validate(listing, ruleSet: ResidentialListingValidator.MinimumRuleSet);
-
-                // Assert.
-                result.Errors.ShouldContain(x => x.PropertyName == "AuctionOn");
+                _validator.ShouldHaveValidationErrorFor(listing => listing.AuctionOn, 
+                    DateTime.MinValue,
+                    ResidentialListingValidator.MinimumRuleSet);
             }
 
-            [Fact(Skip = "Need to figure out how to use the RuleSet in this extension method.")]
+            [Fact]
             public void GivenANullAuctionOn_Validate_ShouldNotHaveAValidationError()
             {
-                _validator.ShouldNotHaveValidationErrorFor(listing => listing.AuctionOn, (DateTime?) null);
+                _validator.ShouldNotHaveValidationErrorFor(listing => listing.AuctionOn, 
+                    (DateTime?) null,
+                    ResidentialListingValidator.MinimumRuleSet);
+            }
+
+            [Fact]
+            public void GivenAFewLinksThatAreUrisAndTheMinimumRuleSet_Validate_ShouldNotHaveValidationErrors()
+            {
+                // Arrange.
+                var validator = new ResidentialListingValidator();
+                var links = new List<string>
+                {
+                    "http://www.google.com",
+                    "https://www.microsoft.com",
+                    "https://www.github.com"
+                };
+
+                // Act & Assert.
+                validator.ShouldNotHaveValidationErrorFor(listing => listing.Links,
+                    links,
+                    ResidentialListingValidator.MinimumRuleSet);
+            }
+
+            [Fact]
+            public void GivenAFewLinksThatAreUrisButOneIsInvalidAndTheMinimumRuleSet_Validate_ShouldNotHaveValidationErrors()
+            {
+                // Arrange.
+                var validator = new ResidentialListingValidator();
+                var links = new List<string>
+                {
+                    "http://www.google.com",
+                    "https://www.microsoft.com",
+                    "https://www.github.com",
+                    "aaaaa"
+                };
+
+                // Act & Assert.
+                validator.ShouldHaveValidationErrorFor(listing => listing.Links,
+                    links,
+                    ResidentialListingValidator.MinimumRuleSet);
             }
         }
     }

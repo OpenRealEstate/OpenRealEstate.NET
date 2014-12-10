@@ -19,6 +19,7 @@ namespace OpenRealEstate.Core.Models
         public IList<Inspection> Inspections { get; set; }
         public LandDetails LandDetails { get; set; }
         public Features Features { get; set; }
+        public IList<string> Links { get; set; }
 
         public override string ToString()
         {

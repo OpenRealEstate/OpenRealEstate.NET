@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using FluentValidation;
 using OpenRealEstate.Core.Models;
 
@@ -11,6 +14,8 @@ namespace OpenRealEstate.Validation
 
         public ListingValidator()
         {
+            ValidatorOptions.CascadeMode = CascadeMode.StopOnFirstFailure;
+
             // Required.
             RuleFor(listing => listing.AgencyId).NotEmpty()
                 .WithMessage("Every listing needs at least one 'AgencyId'. eg. FancyPants-1234a or 456123, etc.");
@@ -19,7 +24,7 @@ namespace OpenRealEstate.Validation
             RuleFor(listing => listing.CreatedOn).NotEqual(DateTime.MinValue)
                 .WithMessage(
                     "A valid 'UpdatedOn' is required. Please use a date/time value that is in this decade or so.");
-            
+
             // Minimum data required to have a listing.
             RuleSet(MinimumRuleSetKey, () =>
             {
@@ -36,7 +41,28 @@ namespace OpenRealEstate.Validation
                 RuleFor(listing => listing.Inspections).SetCollectionValidator(new InspectionValidator());
                 RuleFor(listing => listing.LandDetails).SetValidator(new LandDetailsValidator());
                 RuleFor(listing => listing.Features).SetValidator(new FeaturesValidator());
+                RuleFor(listing => listing.Links)
+                .Must(AllLinksMustBeAUri)
+                .When(listing => listing.Links != null &&
+                                 listing.Links.Any());
             });
+        }
+
+        private static bool AllLinksMustBeAUri(IEnumerable<string> links)
+        {
+            foreach (var link in links)
+            {
+                try
+                {
+                    new Uri(link);
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }
