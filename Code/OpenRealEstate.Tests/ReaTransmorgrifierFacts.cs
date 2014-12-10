@@ -752,6 +752,7 @@ namespace OpenRealEstate.Tests
                 listing.Id.ShouldBe("Rural-Current-ABCD1234");
                 listing.StatusType.ShouldBe(StatusType.Current);
                 listing.CategoryType.ShouldBe(CategoryType.Cropping);
+                listing.AuctionOn.ShouldBe(new DateTime(2009, 01, 24, 14, 30, 00));
 
                 listing.Agents.Count.ShouldBe(1);
                 listing.Agents[0].Name.ShouldBe("Mr. John Doe");
@@ -782,7 +783,13 @@ namespace OpenRealEstate.Tests
                 listing.Images.Count.ShouldBe(2);
                 listing.FloorPlans.Count.ShouldBe(2);
 
-                listing.AuctionOn.ShouldBe(new DateTime(2009, 01, 24, 14, 30, 00));
+                listing.RuralFeatures.AnnualRainfall.ShouldBe("250 mm per annum");
+                listing.RuralFeatures.CarryingCapacity.ShouldBe("400 Deer or 100 head of breeding Cattle");
+                listing.RuralFeatures.Fencing.ShouldBe("Boundary and internal fencing all in good condition");
+                listing.RuralFeatures.Improvements.ShouldBe("Shearing shed, barn and machinery shed.");
+                listing.RuralFeatures.Irrigation.ShouldBe("Electric pump from dam and bore.");
+                listing.RuralFeatures.Services.ShouldBe("Power, telephone, airstrip, school bus, mail.");
+                listing.RuralFeatures.SoilTypes.ShouldBe("red basalt");
             }
 
             private static void AssertRuralSoldListing(RuralListing listing, bool isSoldPriceVisibile = true)

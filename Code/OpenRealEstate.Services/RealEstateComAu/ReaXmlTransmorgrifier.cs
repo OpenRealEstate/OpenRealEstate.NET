@@ -1181,6 +1181,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             listing.CategoryType = ExtractRuralCategoryType(document);
             listing.Pricing = ExtractSalePricing(document, cultureInfo);
             listing.AuctionOn = ExtractAuction(document);
+            listing.RuralFeatures = ExtractRuralFeatures(document);
         }
 
         private static Core.Models.Rural.CategoryType ExtractRuralCategoryType(XElement document)
@@ -1197,6 +1198,27 @@ namespace OpenRealEstate.Services.RealEstateComAu
             return string.IsNullOrWhiteSpace(categoryValue)
                 ? Core.Models.Rural.CategoryType.Unknown
                 : Core.Models.Rural.CategoryTypeHelpers.ToCategoryType(categoryValue);
+        }
+
+        private static RuralFeatures ExtractRuralFeatures(XElement document)
+        {
+            document.ShouldNotBe(null);
+            var ruralFeaturesElement = document.Element("ruralFeatures");
+            if (ruralFeaturesElement == null)
+            {
+                return null;
+            }
+
+            return new RuralFeatures
+            {
+                AnnualRainfall = ruralFeaturesElement.ValueOrDefault("annualRainfall"),
+                CarryingCapacity = ruralFeaturesElement.ValueOrDefault("carryingCapacity"),
+                Fencing = ruralFeaturesElement.ValueOrDefault("fencing"),
+                Improvements = ruralFeaturesElement.ValueOrDefault("improvements"),
+                Irrigation = ruralFeaturesElement.ValueOrDefault("irrigation"),
+                Services = ruralFeaturesElement.ValueOrDefault("services"),
+                SoilTypes = ruralFeaturesElement.ValueOrDefault("soilTypes")
+            };
         }
 
         #endregion

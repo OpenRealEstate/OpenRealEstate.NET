@@ -68,5 +68,11 @@ namespace OpenRealEstate.Tests.Validators
         {
             _buildingDetailsValidator.ShouldHaveValidationErrorFor(a => a.EnergyRating, (decimal?)10.1);
         }
+
+        [Fact]
+        public void GivenAnErergyRatingGreaterHasANullValue_Validate_ShouldNotHaveAValidationError()
+        {
+            _buildingDetailsValidator.ShouldNotHaveValidationErrorFor(a => a.EnergyRating, (decimal?)null);
+        }
     }
 }

@@ -52,6 +52,7 @@
     <Compile Include="Models\LandDetails.cs" />
     <Compile Include="Models\Land\LandEstate.cs" />
     <Compile Include="Models\Land\LandListing.cs" />
+    <Compile Include="Models\Rural\RuralFeatures.cs" />
     <Compile Include="Models\Rural\RuralListing.cs" />
     <Compile Include="Models\Rural\CategoryType.cs" />
     <Compile Include="Models\UnitOfMeasure.cs" />
