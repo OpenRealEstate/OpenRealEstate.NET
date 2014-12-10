@@ -11,7 +11,7 @@ namespace OpenRealEstate.Validation
             RuleFor(feature => feature.Bathrooms).GreaterThanOrEqualTo(0);
             RuleFor(feature => feature.Garages).GreaterThanOrEqualTo(0);
             RuleFor(feature => feature.Carports).GreaterThanOrEqualTo(0);
-            RuleFor(feature => feature.Ensuits).GreaterThanOrEqualTo(0);
+            RuleFor(feature => feature.Ensuites).GreaterThanOrEqualTo(0);
             RuleFor(feature => feature.Toilets).GreaterThanOrEqualTo(0);
             RuleFor(feature => feature.LivingAreas).GreaterThanOrEqualTo(0);
             RuleFor(feature => feature.OpenSpaces).GreaterThanOrEqualTo(0);

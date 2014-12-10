@@ -552,7 +552,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 Bathrooms = featuresElement.ByteValueOrDefault("bathrooms"),
                 Garages = featuresElement.BoolOrByteValueOrDefault("garages"),
                 Carports = featuresElement.BoolOrByteValueOrDefault("carports"),
-                Ensuits = featuresElement.BoolOrByteValueOrDefault("ensuite"),
+                Ensuites = featuresElement.BoolOrByteValueOrDefault("ensuite"),
                 Toilets = featuresElement.BoolOrByteValueOrDefault("toilets"),
                 LivingAreas = featuresElement.BoolOrByteValueOrDefault("livingAreas"),
                 OpenSpaces = featuresElement.BoolOrByteValueOrDefault("openSpaces"),

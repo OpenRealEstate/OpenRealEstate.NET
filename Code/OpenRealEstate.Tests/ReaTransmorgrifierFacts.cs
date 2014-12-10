@@ -259,7 +259,7 @@ namespace OpenRealEstate.Tests
                 listing.Features.Bathrooms.ShouldBe(2);
                 listing.Features.Garages.ShouldBe(3);
                 listing.Features.Carports.ShouldBe(2);
-                listing.Features.Ensuits.ShouldBe(2);
+                listing.Features.Ensuites.ShouldBe(2);
                 listing.Features.Toilets.ShouldBe(0);
                 listing.Features.LivingAreas.ShouldBe(0);
                 listing.Features.OpenSpaces.ShouldBe(0);
@@ -446,7 +446,7 @@ namespace OpenRealEstate.Tests
                 listing.Features.Bathrooms.ShouldBe(2);
                 listing.Features.Garages.ShouldBe(3);
                 listing.Features.Carports.ShouldBe(2);
-                listing.Features.Ensuits.ShouldBe(2);
+                listing.Features.Ensuites.ShouldBe(2);
                 listing.Features.Toilets.ShouldBe(0);
                 listing.Features.LivingAreas.ShouldBe(0);
                 listing.Features.OpenSpaces.ShouldBe(0);

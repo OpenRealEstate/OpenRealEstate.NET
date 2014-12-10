@@ -7,7 +7,7 @@ namespace OpenRealEstate.Core.Models
         public int Bedrooms { get; set; }
         public int Bathrooms { get; set; }
         public int Toilets { get; set; }
-        public int Ensuits { get; set; }
+        public int Ensuites { get; set; }
         public int Garages { get; set; }
         public int Carports { get; set; }
         public int LivingAreas { get; set; }
