@@ -391,6 +391,11 @@ namespace OpenRealEstate.Services.RealEstateComAu
             address.IsStreetDisplayed = string.IsNullOrWhiteSpace(isStreetDisplayedText) ||
                                         addressElement.AttributeBoolValueOrDefault("display");
 
+
+            // Technically, the <municipality/> element is not a child of the <address/> element.
+            // But I feel that it's sensible to still parse for it, in here.
+            address.Municipality = document.ValueOrDefault("municipality");
+
             return address;
         }
 

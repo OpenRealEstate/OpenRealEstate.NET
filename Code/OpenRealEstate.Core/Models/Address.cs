@@ -8,6 +8,7 @@ namespace OpenRealEstate.Core.Models
         public string StreetNumber { get; set; }
         public string Street { get; set; }
         public string Suburb { get; set; }
+        public string Municipality { get; set; }
         public string State { get; set; }
 
         /// <remarks>More Info: http://en.wikipedia.org/wiki/ISO_3166-1</remarks>

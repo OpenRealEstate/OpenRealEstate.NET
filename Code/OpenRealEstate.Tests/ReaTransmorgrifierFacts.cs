@@ -231,6 +231,7 @@ namespace OpenRealEstate.Tests
                 listing.Address.StreetNumber.ShouldBe("2/39");
                 listing.Address.Street.ShouldBe("Main Road");
                 listing.Address.Suburb.ShouldBe("RICHMOND");
+                listing.Address.Municipality.ShouldBe("Yarra");
                 listing.Address.State.ShouldBe("vic");
                 listing.Address.CountryIsoCode.ShouldBe("AU");
                 listing.Address.Postcode.ShouldBe("3121");
