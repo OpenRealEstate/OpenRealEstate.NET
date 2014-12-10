@@ -1002,10 +1002,8 @@ namespace OpenRealEstate.Services.RealEstateComAu
             residentialListing.AuctionOn = ExtractAuction(document);
             residentialListing.Features = ExtractFeatures(document);
             residentialListing.BuildingDetails = ExtractBuildingDetails(document);
+            residentialListing.CouncilRates = document.ValueOrDefault("councilRates");
             ExtractHomeAndLandPackage(document, residentialListing);
-
-            // NOTE: ReaXml doesn't have the following (for residential's):
-            //       - Council rates.
         }
 
         private static void ExtractHomeAndLandPackage(XElement document, ResidentialListing residentialListing)
@@ -1124,19 +1122,17 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         #region Land Listing Methods
 
-        private static void ExtractLandData(LandListing landListing, XElement xElement, CultureInfo cultureInfo)
+        private static void ExtractLandData(LandListing landListing, XElement document, CultureInfo cultureInfo)
         {
             landListing.ShouldNotBe(null);
-            xElement.ShouldNotBe(null);
+            document.ShouldNotBe(null);
 
-            landListing.CategoryType = ExtractLandCategoryType(xElement);
-            landListing.Pricing = ExtractSalePricing(xElement, cultureInfo);
-            landListing.AuctionOn = ExtractAuction(xElement);
-            landListing.Estate = ExtractLandEstate(xElement);
-            landListing.AuctionOn = ExtractAuction(xElement);
-
-            // NOTE: ReaXml doesn't have the following (for land's):
-            //       - Council rates.
+            landListing.CategoryType = ExtractLandCategoryType(document);
+            landListing.Pricing = ExtractSalePricing(document, cultureInfo);
+            landListing.AuctionOn = ExtractAuction(document);
+            landListing.Estate = ExtractLandEstate(document);
+            landListing.AuctionOn = ExtractAuction(document);
+            landListing.CouncilRates = document.ValueOrDefault("councilRates");
         }
 
         private static Core.Models.Land.CategoryType ExtractLandCategoryType(XElement xElement)

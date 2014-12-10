@@ -8,6 +8,7 @@
         <uniqueID>Residential-Current-ABCD1234</uniqueID>
         <authority value="auction" />
         <auction>2009-02-04T18:30</auction>
+        <councilRates>$2000 per month</councilRates>
         <underOffer value="no" />
         <newConstruction>1</newConstruction>
         <listingAgent>
