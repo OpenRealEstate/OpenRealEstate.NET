@@ -6,6 +6,7 @@ namespace OpenRealEstate.Core.Models
     {
         public UnitOfMeasure Area { get; set; }
         public decimal? EnergyRating { get; set; }
+        public bool IsNewConstruction { get; set; }
         public ISet<string> Tags { get; set; }
     }
 }

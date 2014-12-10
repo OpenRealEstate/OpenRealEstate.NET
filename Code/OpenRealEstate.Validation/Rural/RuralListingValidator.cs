@@ -11,6 +11,7 @@ namespace OpenRealEstate.Validation.Rural
             // Optional.
             RuleFor(listing => listing.AuctionOn).NotEqual(DateTime.MinValue);
             RuleFor(listing => listing.Pricing).SetValidator(new SalePricingValidator());
+            RuleFor(listing => listing.BuildingDetails).SetValidator(new BuildingDetailsValidator());
 
             RuleSet(MinimumRuleSetKey, () => 
                 RuleFor(listing => listing.CategoryType).NotEqual(CategoryType.Unknown));

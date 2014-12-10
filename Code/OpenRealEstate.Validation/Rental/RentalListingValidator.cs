@@ -11,6 +11,7 @@ namespace OpenRealEstate.Validation.Rental
         {
             // Optional.
             RuleFor(listing => listing.AvailableOn).NotEqual(DateTime.MinValue);
+            RuleFor(listing => listing.BuildingDetails).SetValidator(new BuildingDetailsValidator());
 
             RuleSet(MinimumRuleSetKey, () =>
             {

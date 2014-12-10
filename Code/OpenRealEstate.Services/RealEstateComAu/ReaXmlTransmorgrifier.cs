@@ -337,7 +337,6 @@ namespace OpenRealEstate.Services.RealEstateComAu
             listing.Inspections = ExtractInspectionTimes(document);
             listing.Images = ExtractImages(document);
             listing.FloorPlans = ExtractFloorPlans(document);
-            listing.BuildingDetails = ExtractBuildingDetails(document);
             listing.LandDetails = ExtractLandDetails(document);
         }
 
@@ -996,29 +995,59 @@ namespace OpenRealEstate.Services.RealEstateComAu
             residentialListing.Pricing = ExtractSalePricing(document, cultureInfo);
             residentialListing.AuctionOn = ExtractAuction(document);
             residentialListing.Features = ExtractFeatures(document);
+            residentialListing.BuildingDetails = ExtractBuildingDetails(document);
+            ExtractHomeAndLandPackage(document, residentialListing);
 
             // NOTE: ReaXml doesn't have the following (for residential's):
             //       - Council rates.
         }
 
+        private static void ExtractHomeAndLandPackage(XElement document, ResidentialListing residentialListing)
+        {
+            document.ShouldNotBe(null);
+            residentialListing.ShouldNotBe(null);
+
+            var homeAndLandPackageElement = document.Element("isHomeLandPackage");
+            if (homeAndLandPackageElement == null)
+            {
+                return;
+            }
+
+            if (homeAndLandPackageElement.AttributeBoolValueOrDefault("value"))
+            {
+                if (residentialListing.Features == null)
+                {
+                    residentialListing.Features = new Features();
+                }
+
+                if (residentialListing.Features.Tags == null)
+                {
+                    residentialListing.Features.Tags = new HashSet<string>();
+                }
+
+                residentialListing.Features.Tags.Add("houseAndLandPackage");
+            };
+
+        }
         #endregion
 
         #region Rental Listing Methods
 
-        private static void ExtractRentalData(RentalListing rentalListing, XElement xElement, CultureInfo cultureInfo)
+        private static void ExtractRentalData(RentalListing rentalListing, XElement document, CultureInfo cultureInfo)
         {
             rentalListing.ShouldNotBe(null);
-            xElement.ShouldNotBe(null);
+            document.ShouldNotBe(null);
 
-            var dateAvailble = xElement.ValueOrDefault("dateAvailable");
+            var dateAvailble = document.ValueOrDefault("dateAvailable");
             if (!string.IsNullOrWhiteSpace(dateAvailble))
             {
                 rentalListing.AvailableOn = ToDateTime(dateAvailble);
             }
 
-            rentalListing.PropertyType = ExtractResidentialAndRentalPropertyType(xElement);
-            rentalListing.Pricing = ExtractRentalPricing(xElement, cultureInfo);
-            rentalListing.Features = ExtractFeatures(xElement);
+            rentalListing.PropertyType = ExtractResidentialAndRentalPropertyType(document);
+            rentalListing.Pricing = ExtractRentalPricing(document, cultureInfo);
+            rentalListing.Features = ExtractFeatures(document);
+            rentalListing.BuildingDetails = ExtractBuildingDetails(document);
         }
 
         // REF: http://reaxml.realestate.com.au/docs/reaxml1-xml-format.html#rent
@@ -1133,15 +1162,16 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         #region Rural Listing Methods
 
-        private static void ExtractRuralData(RuralListing listing, XElement document, CultureInfo cultureInfo)
+        private static void ExtractRuralData(RuralListing ruralListing, XElement document, CultureInfo cultureInfo)
         {
             document.ShouldNotBe(null);
 
-            listing.CategoryType = ExtractRuralCategoryType(document);
-            listing.Pricing = ExtractSalePricing(document, cultureInfo);
-            listing.AuctionOn = ExtractAuction(document);
-            listing.RuralFeatures = ExtractRuralFeatures(document);
-            listing.CouncilRates = ExtractRuralCouncilRates(document);
+            ruralListing.CategoryType = ExtractRuralCategoryType(document);
+            ruralListing.Pricing = ExtractSalePricing(document, cultureInfo);
+            ruralListing.AuctionOn = ExtractAuction(document);
+            ruralListing.RuralFeatures = ExtractRuralFeatures(document);
+            ruralListing.CouncilRates = ExtractRuralCouncilRates(document);
+            ruralListing.BuildingDetails = ExtractBuildingDetails(document);
         }
 
         private static Core.Models.Rural.CategoryType ExtractRuralCategoryType(XElement document)

@@ -9,6 +9,7 @@
         <authority value="auction" />
         <auction>2009-02-04T18:30</auction>
         <underOffer value="no" />
+        <isHomeLandPackage value="yes"></isHomeLandPackage>
         <newConstruction>1</newConstruction>
         <listingAgent>
             <name>Mr. John Doe</name>

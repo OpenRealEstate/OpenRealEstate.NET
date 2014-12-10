@@ -15,10 +15,12 @@ namespace OpenRealEstate.Validation.Residential
                 RuleFor(listing => listing.PropertyType).NotEqual(PropertyType.Unknown)
                     .WithMessage("Invalid 'PropertyType'. Please choose any property except Unknown.");
                 
-                // Optional.
-                RuleFor(listing => listing.Pricing).SetValidator(new SalePricingValidator());
-                RuleFor(listing => listing.AuctionOn).NotEqual(DateTime.MinValue);
+                RuleFor(listing => listing.Pricing).SetValidator(new SalePricingValidator());    
             });
+
+            // Optional.
+            RuleFor(listing => listing.AuctionOn).NotEqual(DateTime.MinValue);
+            RuleFor(listing => listing.BuildingDetails).SetValidator(new BuildingDetailsValidator());
         }
     }
 }

@@ -4,7 +4,7 @@
     <uniqueID>ABCDE</uniqueID>
     <authority value="auction"></authority>
     <underOffer value="no"></underOffer>
-    <isHomeLandPackage value="no"></isHomeLandPackage>
+    <isHomeLandPackage value="yes"></isHomeLandPackage>
     <listingAgent id="1">
         <name>Tony Lucas</name>
         <telephone type="mobile">0418 264 035</telephone>
