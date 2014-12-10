@@ -624,32 +624,6 @@ namespace OpenRealEstate.Services.RealEstateComAu
             return new HashSet<string>(suppliedFeatures);
         }
 
-        private static ISet<string> ExtractEcoFriendly(XElement document)
-        {
-            document.ShouldNotBe(null);
-
-            var ecoFriendlyElement = document.Element("ecoFriendly");
-            if (ecoFriendlyElement== null)
-            {
-                return null;
-            }
-
-            var tags = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
-
-            foreach (var elementName in new[] { "solarPanels", "solarHotWater", "waterTank", "greyWaterSystem" })
-            {
-                var doesExist  = ecoFriendlyElement.BoolValueOrDefault(elementName);
-                if (doesExist)
-                {
-                     tags.Add(XmlFeatureHelpers.OtherFeatureNames.Single(x => x == elementName));
-                }
-            }
-
-            return tags.Any()
-                ? tags
-                : null;
-        }
-
         private static IList<Inspection> ExtractInspectionTimes(XElement document)
         {
             document.ShouldNotBe(null);
@@ -1020,26 +994,6 @@ namespace OpenRealEstate.Services.RealEstateComAu
             residentialListing.Pricing = ExtractSalePricing(xElement, cultureInfo);
             residentialListing.AuctionOn = ExtractAuction(xElement);
             residentialListing.Features = ExtractFeatures(xElement);
-
-            var ecoFriendlyTags = ExtractEcoFriendly(xElement);
-            if (ecoFriendlyTags != null &&
-                ecoFriendlyTags.Any())
-            {
-                if (residentialListing.Features == null)
-                {
-                    residentialListing.Features = new Features();
-                }
-
-                if (residentialListing.Features.Tags == null)
-                {
-                    residentialListing.Features.Tags = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
-                }
-
-                foreach (var tag in ecoFriendlyTags)
-                {
-                    residentialListing.Features.Tags.Add(tag);
-                }
-            }
         }
 
         #endregion
@@ -1060,9 +1014,6 @@ namespace OpenRealEstate.Services.RealEstateComAu
             rentalListing.PropertyType = ExtractResidentialAndRentalPropertyType(xElement);
             rentalListing.Pricing = ExtractRentalPricing(xElement, cultureInfo);
             rentalListing.Features = ExtractFeatures(xElement);
-
-            var ecoFriendlyTags = ExtractEcoFriendly(xElement);
-            //var allowanceTags = ExtractAllowances(xElement);
         }
 
         // REF: http://reaxml.realestate.com.au/docs/reaxml1-xml-format.html#rent
