@@ -38,7 +38,7 @@ namespace OpenRealEstate.Tests
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
                 AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
-                    tags: new[] { "houseAndLandPackage", "solarPanels", "waterTank", "hotWaterService-gas", "heating-other", "balcony", "shed", "courtyard" });
+                    tags: new[] { "houseAndLandPackage", "solarPanels", "waterTank", "hotWaterService-gas", "heating-other", "balcony", "shed", "courtyard", "isANewConstruction" });
             }
 
             [Fact]

@@ -1020,6 +1020,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             residentialListing.BuildingDetails = ExtractBuildingDetails(document);
             residentialListing.CouncilRates = document.ValueOrDefault("councilRates");
             ExtractHomeAndLandPackage(document, residentialListing);
+            ExtractResidentialNewConstruction(document, residentialListing);
         }
 
         private static void ExtractHomeAndLandPackage(XElement document, ResidentialListing residentialListing)
@@ -1049,6 +1050,30 @@ namespace OpenRealEstate.Services.RealEstateComAu
             };
 
         }
+
+        private static void ExtractResidentialNewConstruction(XElement document, ResidentialListing listing)
+        {
+            document.ShouldNotBe(null);
+            listing.ShouldNotBe(null);
+
+            if (!document.BoolValueOrDefault("newConstruction"))
+            {
+                return;
+            }
+
+            if (listing.Features == null)
+            {
+                listing.Features= new Features();
+            }
+
+            if (listing.Features.Tags == null)
+            {
+                listing.Features.Tags = new HashSet<string>();
+            }
+
+            listing.Features.Tags.Add("isANewConstruction");
+        }
+
         #endregion
 
         #region Rental Listing Methods
@@ -1068,6 +1093,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             rentalListing.Pricing = ExtractRentalPricing(document, cultureInfo);
             rentalListing.Features = ExtractFeatures(document);
             rentalListing.BuildingDetails = ExtractBuildingDetails(document);
+            ExtractRentalNewConstruction(document, rentalListing);
         }
 
         // REF: http://reaxml.realestate.com.au/docs/reaxml1-xml-format.html#rent
@@ -1134,6 +1160,29 @@ namespace OpenRealEstate.Services.RealEstateComAu
             return rentalPricing;
         }
 
+        private static void ExtractRentalNewConstruction(XElement document, RentalListing listing)
+        {
+            document.ShouldNotBe(null);
+            listing.ShouldNotBe(null);
+
+            if (!document.BoolValueOrDefault("newConstruction"))
+            {
+                return;
+            }
+
+            if (listing.Features == null)
+            {
+                listing.Features = new Features();
+            }
+
+            if (listing.Features.Tags == null)
+            {
+                listing.Features.Tags = new HashSet<string>();
+            }
+
+            listing.Features.Tags.Add("isANewConstruction");
+        }
+
         #endregion
 
         #region Land Listing Methods
@@ -1190,6 +1239,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             ruralListing.RuralFeatures = ExtractRuralFeatures(document);
             ruralListing.CouncilRates = ExtractRuralCouncilRates(document);
             ruralListing.BuildingDetails = ExtractBuildingDetails(document);
+            ExtractRuralNewConstruction(document, ruralListing);
         }
 
         private static Core.Models.Rural.CategoryType ExtractRuralCategoryType(XElement document)
@@ -1236,6 +1286,29 @@ namespace OpenRealEstate.Services.RealEstateComAu
             return ruralFeaturesElement == null
                 ? null
                 : ruralFeaturesElement.ValueOrDefault("councilRates");
+        }
+
+        private static void ExtractRuralNewConstruction(XElement document, RuralListing listing)
+        {
+            document.ShouldNotBe(null);
+            listing.ShouldNotBe(null);
+
+            if (!document.BoolValueOrDefault("newConstruction"))
+            {
+                return;
+            }
+
+            if (listing.Features == null)
+            {
+                listing.Features = new Features();
+            }
+
+            if (listing.Features.Tags == null)
+            {
+                listing.Features.Tags = new HashSet<string>();
+            }
+
+            listing.Features.Tags.Add("isANewConstruction");
         }
 
         #endregion
