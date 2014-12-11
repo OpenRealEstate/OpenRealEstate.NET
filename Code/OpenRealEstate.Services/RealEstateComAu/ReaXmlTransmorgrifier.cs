@@ -900,22 +900,36 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 CrossOver = landDetailsElement.ValueOrDefault("crossOver", "value")
             };
 
-            var depthValue = landDetailsElement.DecimalValueOrDefault("depth");
-            var depthType = landDetailsElement.ValueOrDefault("depth", "unit");
-            var depthSide = landDetailsElement.ValueOrDefault("depth", "side");
-
-            if (depthValue > 0)
+            var depthElements = landDetailsElement.Elements("depth").ToArray();
+            if (depthElements.Any())
             {
-                details.Depth = new Depth
+                foreach (var depthElement in depthElements)
                 {
-                    Value = depthValue,
-                    Type = string.IsNullOrWhiteSpace(depthType)
-                        ? "Total"
-                        : depthType,
-                    Side = depthSide
-                };
-            }
+                    var depthValue = depthElement.DecimalValueOrDefault();
+                    var depthType = depthElement.AttributeValueOrDefault("unit");
+                    var depthSide = depthElement.AttributeValueOrDefault("side");
 
+                    if (depthValue > 0)
+                    {
+                        var depth = new Depth
+                        {
+                            Value = depthValue,
+                            Type = string.IsNullOrWhiteSpace(depthType)
+                                ? "Total"
+                                : depthType,
+                            Side = depthSide
+                        };
+
+                        if (details.Depths == null)
+                        {
+                            details.Depths = new List<Depth>();
+                        }
+
+                        details.Depths.Add(depth);
+                    }
+                }
+            }
+            
             return details;
         }
 

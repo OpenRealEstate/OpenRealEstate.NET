@@ -65,6 +65,8 @@
         <area unit="square">80</area>
         <frontage unit="meter">20</frontage>
         <depth unit="meter" side="rear">40</depth>
+        <depth unit="meter" side="left">60</depth>
+        <depth unit="meter" side="right">20</depth>
         <crossOver value="left" />
     </landDetails>
     <buildingDetails>

@@ -9,7 +9,7 @@ namespace OpenRealEstate.Validation
         {
             RuleFor(land => land.Area).SetValidator(new UnitOfMeasureValidator());
             RuleFor(land => land.Frontage).SetValidator(new UnitOfMeasureValidator());
-            RuleFor(land => land.Depth).SetValidator(new UnitOfMeasureValidator());
+            RuleFor(land => land.Depths).SetCollectionValidator(new UnitOfMeasureValidator());
         }
     }
 }

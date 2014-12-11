@@ -301,9 +301,15 @@ namespace OpenRealEstate.Tests
                 listing.LandDetails.Area.Type.ShouldBe("square");
                 listing.LandDetails.Frontage.Value.ShouldBe(20M);
                 listing.LandDetails.Frontage.Type.ShouldBe("meter");
-                listing.LandDetails.Depth.Value.ShouldBe(40M);
-                listing.LandDetails.Depth.Type.ShouldBe("meter");
-                listing.LandDetails.Depth.Side.ShouldBe("rear");
+                listing.LandDetails.Depths[0].Value.ShouldBe(40M);
+                listing.LandDetails.Depths[0].Type.ShouldBe("meter");
+                listing.LandDetails.Depths[0].Side.ShouldBe("rear");
+                listing.LandDetails.Depths[1].Value.ShouldBe(60M);
+                listing.LandDetails.Depths[1].Type.ShouldBe("meter");
+                listing.LandDetails.Depths[1].Side.ShouldBe("left");
+                listing.LandDetails.Depths[2].Value.ShouldBe(20M);
+                listing.LandDetails.Depths[2].Type.ShouldBe("meter");
+                listing.LandDetails.Depths[2].Side.ShouldBe("right");
             }
 
             private static void AssertResidentialSoldListing(ResidentialListing listing,
@@ -463,9 +469,9 @@ namespace OpenRealEstate.Tests
                 listing.LandDetails.Area.Type.ShouldBe("square");
                 listing.LandDetails.Frontage.Value.ShouldBe(15M);
                 listing.LandDetails.Frontage.Type.ShouldBe("meter");
-                listing.LandDetails.Depth.Value.ShouldBe(40M);
-                listing.LandDetails.Depth.Type.ShouldBe("meter");
-                listing.LandDetails.Depth.Side.ShouldBe("rear");
+                listing.LandDetails.Depths[0].Value.ShouldBe(40M);
+                listing.LandDetails.Depths[0].Type.ShouldBe("meter");
+                listing.LandDetails.Depths[0].Side.ShouldBe("rear");
 
                 listing.FloorPlans.Count.ShouldBe(2);
             }
@@ -507,7 +513,7 @@ namespace OpenRealEstate.Tests
                 var listing = result.Listings.First().Listing;
                 listing.LandDetails.Area.ShouldBe(null);
                 listing.LandDetails.Frontage.ShouldBe(null);
-                listing.LandDetails.Depth.ShouldBe(null);
+                listing.LandDetails.Depths.ShouldBe(null);
                 listing.LandDetails.CrossOver.ShouldBeNullOrEmpty();
             }
 
@@ -627,9 +633,9 @@ namespace OpenRealEstate.Tests
                 listing.LandDetails.Area.Value.ShouldBe(60m);
                 listing.LandDetails.Frontage.Type.ShouldBe("meter");
                 listing.LandDetails.Frontage.Value.ShouldBe(20m);
-                listing.LandDetails.Depth.Type.ShouldBe("meter");
-                listing.LandDetails.Depth.Value.ShouldBe(30m);
-                listing.LandDetails.Depth.Side.ShouldBe("rear");
+                listing.LandDetails.Depths[0].Type.ShouldBe("meter");
+                listing.LandDetails.Depths[0].Value.ShouldBe(30m);
+                listing.LandDetails.Depths[0].Side.ShouldBe("rear");
                 listing.LandDetails.CrossOver.ShouldBe("left");
 
                 listing.Images.Count.ShouldBe(2);
@@ -779,9 +785,9 @@ namespace OpenRealEstate.Tests
                 listing.LandDetails.Area.Type.ShouldBe("acre");
                 listing.LandDetails.Frontage.Value.ShouldBe(500);
                 listing.LandDetails.Frontage.Type.ShouldBe("meter");
-                listing.LandDetails.Depth.Value.ShouldBe(400);
-                listing.LandDetails.Depth.Type.ShouldBe("meter");
-                listing.LandDetails.Depth.Side.ShouldBe("rear");
+                listing.LandDetails.Depths[0].Value.ShouldBe(400);
+                listing.LandDetails.Depths[0].Type.ShouldBe("meter");
+                listing.LandDetails.Depths[0].Side.ShouldBe("rear");
 
                 listing.Inspections.Count.ShouldBe(2);
 
