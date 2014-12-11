@@ -9,6 +9,7 @@ using OpenRealEstate.Core.Models.Rental;
 using OpenRealEstate.Core.Models.Residential;
 using OpenRealEstate.Core.Models.Rural;
 using OpenRealEstate.Services.RealEstateComAu;
+using OpenRealEstate.Validation.Residential;
 using Shouldly;
 using Xunit;
 using CategoryType = OpenRealEstate.Core.Models.Rural.CategoryType;

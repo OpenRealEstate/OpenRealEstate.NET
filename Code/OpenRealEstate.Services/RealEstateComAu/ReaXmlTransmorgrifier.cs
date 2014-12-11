@@ -872,10 +872,14 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 return null;
             }
 
+            var energyRating = buildingDetailsElement.DecimalValueOrDefault("energyRating");
+
             return new BuildingDetails
             {
                 Area = buildingDetailsElement.UnitOfMeasureOrDefault("area", "unit"),
-                EnergyRating = buildingDetailsElement.DecimalValueOrDefault("energyRating"),
+                EnergyRating = energyRating <= 0
+                    ? (decimal?) null
+                    : energyRating,
             };
         }
 
