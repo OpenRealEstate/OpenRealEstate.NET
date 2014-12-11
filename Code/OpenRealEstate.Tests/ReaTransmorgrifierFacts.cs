@@ -221,7 +221,7 @@ namespace OpenRealEstate.Tests
             private static void AssertResidentialCurrentListing(ResidentialListing listing,
                 PropertyType expectedPropertyType = PropertyType.House,
                 int expectedBedroomsCount = 4,
-                IEnumerable<string> tags = null)
+                IList<string> tags = null)
             {
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Residential-Current-ABCD1234");
@@ -269,14 +269,7 @@ namespace OpenRealEstate.Tests
                 listing.Features.OpenSpaces.ShouldBe(0);
                 if (tags != null)
                 {
-                    listing.Features.Tags.Count.ShouldBeGreaterThan(0);
-                    var missingTags = tags.Except(listing.Features.Tags, StringComparer.OrdinalIgnoreCase).ToList();
-                    if (missingTags.Any())
-                    {
-                        var errorMessage = string.Format("Failed to parse - the following tags haven't been handled: {0}.",
-                            string.Join(", ", missingTags));
-                        throw new Exception(errorMessage);
-                    }
+                    AssertFeatures(listing.Features, tags);
                 }
                 
 
@@ -343,7 +336,8 @@ namespace OpenRealEstate.Tests
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
-                AssertRentalCurrentListing(result.Listings.First().Listing as RentalListing);
+                AssertRentalCurrentListing(result.Listings.First().Listing as RentalListing,
+                    new[] { "hotWaterService-gas", "heating-other", "balcony", "shed", "courtyard", "isANewConstruction", "fullyFenced", "outdoorEnt", "courtyard", "deck", "tennisCourt" });
             }
 
             [Fact]
@@ -419,7 +413,8 @@ namespace OpenRealEstate.Tests
                 AssertRentalCurrentListing(result.Listings.First().Listing as RentalListing);
             }
 
-            private static void AssertRentalCurrentListing(RentalListing listing)
+            private static void AssertRentalCurrentListing(RentalListing listing,
+                IList<string> tags = null)
             {
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Rental-Current-ABCD1234");
@@ -460,6 +455,10 @@ namespace OpenRealEstate.Tests
                 listing.Features.Toilets.ShouldBe(0);
                 listing.Features.LivingAreas.ShouldBe(0);
                 listing.Features.OpenSpaces.ShouldBe(0);
+                if (tags != null)
+                {
+                    AssertFeatures(listing.Features, tags);
+                }
 
                 listing.Images.Count.ShouldBe(2);
                 listing.Images[0].Order.ShouldBe(1);
@@ -493,7 +492,8 @@ namespace OpenRealEstate.Tests
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
-                AssertLandCurrentListing(result.Listings.First().Listing as LandListing);
+                AssertLandCurrentListing(result.Listings.First().Listing as LandListing,
+                    tags: new[] { "fullyFenced" });
             }
 
             [Fact]
@@ -606,7 +606,8 @@ namespace OpenRealEstate.Tests
             }
 
             private static void AssertLandCurrentListing(LandListing listing,
-                LandCategoryType landCategoryType = LandCategoryType.Residential)
+                LandCategoryType landCategoryType = LandCategoryType.Residential,
+                IList<string> tags = null)
             {
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Land-Current-ABCD1234");
@@ -647,6 +648,11 @@ namespace OpenRealEstate.Tests
                 listing.FloorPlans[0].Url.ShouldBe("http://www.realestate.com.au/tmp/floorplan1.gif");
 
                 listing.AuctionOn.ShouldBe(new DateTime(2009, 1, 24, 12, 30, 00));
+
+                if (tags != null)
+                {
+                    AssertFeatures(listing.Features, tags);
+                }
             }
 
             private static void AssertLandSoldListing(LandListing listing,
@@ -681,7 +687,8 @@ namespace OpenRealEstate.Tests
                 result.ShouldNotBe(null);
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
-                AssertRuralCurrentListing(result.Listings.First().Listing as RuralListing);
+                AssertRuralCurrentListing(result.Listings.First().Listing as RuralListing,
+                    new[] { "hotWaterService-gas", "heating-other", "balcony", "shed", "courtyard", "fullyFenced", "outdoorEnt", "courtyard", "deck", "tennisCourt" });
             }
 
             [Fact]
@@ -756,7 +763,8 @@ namespace OpenRealEstate.Tests
                 listing.StatusType.ShouldBe(StatusType.OffMarket);
             }
 
-            private static void AssertRuralCurrentListing(RuralListing listing)
+            private static void AssertRuralCurrentListing(RuralListing listing,
+                IList<string> tags = null)
             {
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Rural-Current-ABCD1234");
@@ -801,6 +809,11 @@ namespace OpenRealEstate.Tests
                 listing.RuralFeatures.Irrigation.ShouldBe("Electric pump from dam and bore.");
                 listing.RuralFeatures.Services.ShouldBe("Power, telephone, airstrip, school bus, mail.");
                 listing.RuralFeatures.SoilTypes.ShouldBe("red basalt");
+
+                if (tags != null)
+                {
+                    AssertFeatures(listing.Features, tags);
+                }
             }
 
             private static void AssertRuralSoldListing(RuralListing listing, bool isSoldPriceVisibile = true)
@@ -943,6 +956,21 @@ namespace OpenRealEstate.Tests
                     .OfType<ResidentialListing>()
                     .SingleOrDefault();
                 residentialCurrentListing.ShouldNotBe(null);
+            }
+
+            private static void AssertFeatures(Features features, IList<string> tags)
+            {
+                features.ShouldNotBe(null);
+                tags.ShouldNotBe(null);
+                    
+                features.Tags.Count.ShouldBeGreaterThan(0);
+                var missingTags = tags.Except(features.Tags, StringComparer.OrdinalIgnoreCase).ToList();
+                if (missingTags.Any())
+                {
+                    var errorMessage = string.Format("Failed to parse - the following tags haven't been handled: {0}.",
+                        string.Join(", ", missingTags));
+                    throw new Exception(errorMessage);
+                }
             }
         }
     }
