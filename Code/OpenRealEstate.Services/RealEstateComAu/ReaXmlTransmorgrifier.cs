@@ -337,6 +337,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             listing.Inspections = ExtractInspectionTimes(document);
             listing.Images = ExtractImages(document);
             listing.FloorPlans = ExtractFloorPlans(document);
+            listing.Features = ExtractFeatures(document);
             listing.LandDetails = ExtractLandDetails(document);
             listing.Links = ExtractExternalLinks(document);
         }
@@ -1030,7 +1031,6 @@ namespace OpenRealEstate.Services.RealEstateComAu
             residentialListing.PropertyType = ExtractResidentialAndRentalPropertyType(document);
             residentialListing.Pricing = ExtractSalePricing(document, cultureInfo);
             residentialListing.AuctionOn = ExtractAuction(document);
-            residentialListing.Features = ExtractFeatures(document);
             residentialListing.BuildingDetails = ExtractBuildingDetails(document);
             residentialListing.CouncilRates = document.ValueOrDefault("councilRates");
             ExtractHomeAndLandPackage(document, residentialListing);
