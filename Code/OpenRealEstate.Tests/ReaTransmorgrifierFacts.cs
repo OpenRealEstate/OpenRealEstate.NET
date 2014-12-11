@@ -227,6 +227,8 @@ namespace OpenRealEstate.Tests
                 listing.StatusType.ShouldBe(StatusType.Current);
                 listing.PropertyType.ShouldBe(expectedPropertyType);
                 listing.CouncilRates.ShouldBe("$2000 per month");
+                listing.Links[0].ShouldBe("http://www.au.open2view.com/properties/314244/tour#floorplan");
+                listing.Links[1].ShouldBe("http://www.google.com/hello");
 
                 listing.Address.IsStreetDisplayed.ShouldBe(true);
                 listing.Address.StreetNumber.ShouldBe("2/39");

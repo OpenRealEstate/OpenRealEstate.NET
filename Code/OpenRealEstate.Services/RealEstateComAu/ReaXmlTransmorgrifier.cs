@@ -338,12 +338,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             listing.Images = ExtractImages(document);
             listing.FloorPlans = ExtractFloorPlans(document);
             listing.LandDetails = ExtractLandDetails(document);
-
-            var externalLink = document.ValueOrDefault("externalLink", "href");
-            if (!string.IsNullOrWhiteSpace(externalLink))
-            {
-                listing.Links = new List<string> {externalLink.Trim()};
-            }
+            listing.Links = ExtractExternalLinks(document);
         }
 
         private static Address ExtractAddress(XElement document)
@@ -918,6 +913,23 @@ namespace OpenRealEstate.Services.RealEstateComAu
             }
 
             return details;
+        }
+
+        private static IList<string> ExtractExternalLinks(XElement document)
+        {
+            document.ShouldNotBe(null);
+
+            var elements = document.Elements("externalLink").ToArray();
+            if (!elements.Any())
+            {
+                return null;
+            }
+
+            return (from e in elements
+                let externalLink = e.AttributeValueOrDefault("href")
+                where !string.IsNullOrWhiteSpace(externalLink)
+                select Uri.UnescapeDataString(externalLink.Trim()))
+                .ToList();
         }
 
         /// <summary>

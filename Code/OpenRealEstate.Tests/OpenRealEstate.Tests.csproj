@@ -180,6 +180,7 @@
   <ItemGroup>
     <None Include="Sample Data\Transmorgrifiers\REA\REA-InvalidCharacter.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
