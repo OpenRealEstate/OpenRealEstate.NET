@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
@@ -31,6 +32,10 @@ namespace OpenRealEstate.Services.RealEstateComAu
         public ConvertToResult ConvertTo(string data, bool areBadCharactersRemoved = false)
         {
             data.ShouldNotBeNullOrEmpty();
+
+            // Remove any BOM if one exists.
+            // REF: http://stackoverflow.com/questions/5098757/how-to-tell-asciiencoding-class-not-to-decode-the-byte-order-mark
+            data = RemoveByteOrderMark(data);
 
             var validationErrorMessage = ValidateXmlString(data);
             if (!string.IsNullOrWhiteSpace(validationErrorMessage))
@@ -91,6 +96,22 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 if (value == null) throw new ArgumentNullException("value");
                 _defaultCultureInfo = value;
             }
+        }
+
+        private static string RemoveByteOrderMark(string text)
+        {
+            var byteOrderMark = Encoding.UTF8.GetString(Encoding.UTF8.GetPreamble()).ToCharArray();
+
+            var startOfTextChars = text.Substring(0, byteOrderMark.Length).ToCharArray();
+            for (int i = byteOrderMark.Length - 1; i >= 0; i--)
+            {
+                if (startOfTextChars[i] == byteOrderMark[i])
+                {
+                    text = text.Remove(i, 1);
+                }
+            }
+
+            return text;
         }
 
         private static string ValidateXmlString(string text)

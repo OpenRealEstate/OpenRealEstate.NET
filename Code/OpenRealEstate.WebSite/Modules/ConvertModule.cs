@@ -46,7 +46,7 @@ namespace OpenRealEstate.WebSite.Modules
             {
                 var memoryStream = new MemoryStream();
                 file.Value.CopyTo(memoryStream);
-                reaXmls.Add(file.Name, Encoding.ASCII.GetString(memoryStream.ToArray()));
+                reaXmls.Add(file.Name, Encoding.UTF8.GetString(memoryStream.ToArray()));
             }
 
             return ConvertReaXmlToJson(reaXmls);
