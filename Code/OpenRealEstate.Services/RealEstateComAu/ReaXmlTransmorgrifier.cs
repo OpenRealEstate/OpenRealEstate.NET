@@ -419,7 +419,31 @@ namespace OpenRealEstate.Services.RealEstateComAu
             // But I feel that it's sensible to still parse for it, in here.
             address.Municipality = document.ValueOrDefault("municipality");
 
+            // Finally - Lat/Longs. These are -not- part of the REA XML standard.
+            // ~BUT~ some multi-loaders are sticking this data into some xml!
+            ExtractLatitudeLongitudes(document, address);
+
             return address;
+        }
+
+        private static void ExtractLatitudeLongitudes(XElement document, Address address)
+        {
+            document.ShouldNotBe(null);
+            address.ShouldNotBe(null);
+
+            var latitudeElement = document.Descendants("Latitude").FirstOrDefault() ??
+                                  document.Descendants("latitude").FirstOrDefault();
+            if (latitudeElement != null)
+            {
+                address.Latitude = latitudeElement.DecimalValueOrDefault();
+            }
+
+            var longitudeElement = document.Descendants("Longitude").FirstOrDefault() ??
+                                   document.Descendants("longitude").FirstOrDefault();
+            if (latitudeElement != null)
+            {
+                address.Longitude = longitudeElement.DecimalValueOrDefault();
+            }
         }
 
         private static IList<ListingAgent> ExtractAgent(XElement document)

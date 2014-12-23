@@ -413,8 +413,48 @@ namespace OpenRealEstate.Tests
                 AssertRentalCurrentListing(result.Listings.First().Listing as RentalListing);
             }
 
+            [Fact]
+            public void GivenTheFileREARentalCurrentWithAnAddressLatLong_Convert_ReturnsARentalCurrentListing()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Rental\\REA-Rental-Current-AddressLatLong.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
+                AssertRentalCurrentListing(result.Listings.First().Listing as RentalListing,
+                    new[] { "hotWaterService-gas", "heating-other", "balcony", "shed", "courtyard", "isANewConstruction", "fullyFenced", "outdoorEnt", "courtyard", "deck", "tennisCourt" },
+                    12.345m,
+                    -54.678m);
+            }
+
+            [Fact]
+            public void GivenTheFileREARentalCurrentWithARayWhiteLatLong_Convert_ReturnsARentalCurrentListing()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Rental\\REA-Rental-Current-RayWhiteLatLong.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
+                AssertRentalCurrentListing(result.Listings.First().Listing as RentalListing,
+                    new[] { "hotWaterService-gas", "heating-other", "balcony", "shed", "courtyard", "isANewConstruction", "fullyFenced", "outdoorEnt", "courtyard", "deck", "tennisCourt" },
+                    -12.422818m,
+                    130.867747m);
+            }
+
             private static void AssertRentalCurrentListing(RentalListing listing,
-                IList<string> tags = null)
+                IList<string> tags = null,
+                decimal? latitude = null,
+                decimal? longitude = null)
             {
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Rental-Current-ABCD1234");
@@ -428,6 +468,17 @@ namespace OpenRealEstate.Tests
                 listing.Address.State.ShouldBe("vic");
                 listing.Address.CountryIsoCode.ShouldBe("AU");
                 listing.Address.Postcode.ShouldBe("3121");
+                listing.Address.Latitude.ShouldBe(latitude.HasValue ? latitude.Value : (decimal?)null);
+                listing.Address.Longitude.ShouldBe(longitude.HasValue ? longitude.Value : (decimal?)null);
+
+                if (latitude.HasValue)
+                {
+                    
+                }
+                if (longitude.HasValue)
+                {
+                    
+                }
 
                 listing.AvailableOn.ShouldBe(new DateTime(2009, 01, 26, 12, 30, 00));
 

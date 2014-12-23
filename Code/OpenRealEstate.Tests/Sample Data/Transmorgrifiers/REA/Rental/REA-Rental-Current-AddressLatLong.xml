@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE propertyList SYSTEM "http://reaxml.realestate.com.au/propertyList.dtd">
+<propertyList date="2009-01-01-12:30:00" username="xmluser" password="xmlpassword">
+    <!-- Current listing -->
+    <rental modTime="2009-01-01-12:30:00" status="current">
+        <agentID>XNWXNW</agentID>
+        <uniqueID>Rental-Current-ABCD1234</uniqueID>
+        <listingAgent>
+            <name>Mr. John Doe</name>
+            <telephone type="BH">05 1234 5678</telephone>
+            <email>jdoe@somedomain.com.au</email>
+            <twitterURL>http://www.twitter.com/#!/JoeAtSomeDomain</twitterURL>
+            <facebookURL>http://www.facebook.com/pages/SomeDomain</facebookURL>
+            <linkedInURL> http://au.linkedin.com/pub/john-doe/37/599/39a</linkedInURL>
+        </listingAgent>
+        <dateAvailable>2009-01-26-12:30:00</dateAvailable>
+        <rent period="week">350</rent>
+        <newConstruction>true</newConstruction>
+        <bond>$999</bond>
+        <address display="yes">
+            <streetNumber>39</streetNumber>
+            <street>Main Road</street>
+            <suburb display="yes">RICHMOND</suburb>
+            <state>vic</state>
+            <postcode>3121</postcode>
+            <country>AUS</country>
+            <latitude>12.345</latitude>
+            <longitude>-54.678</longitude>
+        </address>
+        <municipality>Yarra</municipality>
+        <streetDirectory type="melways">
+            <page>44</page>
+            <reference>G7</reference>
+        </streetDirectory>
+        <category name="House" />
+        <headline>SHOW STOPPER!!!</headline>
+        <description>Don't pass up an opportunity like this! First to inspect will buy! Close to local amenities and schools. Features lavishly appointed bathrooms, modern kitchen, rustic outhouse.Don't pass up an opportunity like this! First to inspect will buy! Close to local amenities and schools. Features lavishly appointed bathrooms, modern kitchen, rustic outhouse.</description>
+        <allowances>
+            <petFriendly>1</petFriendly>
+            <smoker>1</smoker>
+            <furnished>1</furnished>
+        </allowances>
+        <features>
+            <bedrooms>4</bedrooms>
+            <bathrooms>2</bathrooms>
+            <ensuite>2</ensuite>
+            <garages>3</garages>
+            <carports>2</carports>
+            <remoteGarage>yes</remoteGarage>
+            <secureParking>yes</secureParking>
+            <airConditioning>1</airConditioning>
+            <alarmSystem>1</alarmSystem>
+            <vacuumSystem>no</vacuumSystem>
+            <intercom>no</intercom>
+            <pool type="inground">yes</pool>
+            <spa type="inground">no</spa>
+            <tennisCourt>yes</tennisCourt>
+            <balcony>yes</balcony>
+            <deck>yes</deck>
+            <courtyard>yes</courtyard>
+            <outdoorEnt>yes</outdoorEnt>
+            <shed>yes</shed>
+            <fullyFenced>yes</fullyFenced>
+            <openFirePlace>1</openFirePlace>
+            <heating type="other" />
+            <hotWaterService type="gas" />
+            <otherFeatures>balcony, courtyard</otherFeatures>
+        </features>
+        <landDetails>
+            <area unit="square">60</area>
+            <frontage unit="meter">15</frontage>
+            <depth unit="meter" side="rear">40</depth>
+            <crossOver value="left" />
+        </landDetails>
+        <buildingDetails>
+            <area unit="square">25</area>
+            <newlyBuilt value="yes" />
+            <energyRating>4.5</energyRating>
+        </buildingDetails>
+        <inspectionTimes>
+            <inspection>21-Jan-2009 11:00am to 1:00pm</inspection>
+            <inspection>22-Jan-2009 11:00am to 1:00pm</inspection>
+        </inspectionTimes>
+        <externalLink href="http%3A%2F%2Fwww%2Eau%2Eopen2view%2Ecom%2Fproperties%2F314244%2Ftour%23floorplan" />
+        <images>
+            <img id="m" modTime="2009-01-01-12:30:00" url="http://www.realestate.com.au/tmp/imageM.jpg" format="jpg" />
+            <img id="a" modTime="2009-01-01-12:30:00" url="http://www.realestate.com.au/tmp/imageA.jpg" format="jpg" />
+        </images>
+        <objects>
+            <floorplan id="1" modTime="2009-01-01-12:30:00" url="http://www.realestate.com.au/tmp/floorplan1.gif"
+                       format="gif" />
+            <floorplan id="2" modTime="2009-01-01-12:30:00" url="http://www.realestate.com.au/tmp/floorplan2.gif"
+                       format="gif" />
+        </objects>
+    </rental>
+</propertyList>
