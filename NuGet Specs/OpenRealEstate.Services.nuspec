@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
         <id>OpenRealEstate.Services</id>
-        <version>1.0.0-rc2</version>
+        <version>1.0.0-rc3</version>
         <title>OpenRealEstate - Services</title>
         <authors>Justin Adler</authors>
         <owners>Justin Adler</owners>
@@ -16,7 +16,7 @@
         <language>en-AU</language>
         <tags>realestate openrealestate worlddomination worldomination unicorn magicalunicorn magical-unicorn</tags>
         <dependencies>
-            <dependency id="OpenRealEstate.Core" version="[1.0.0-rc2, 2.0.0)" />
+            <dependency id="OpenRealEstate.Core" version="[1.0.0-rc3, 2.0.0)" />
         </dependencies>
     </metadata>
     <files>
