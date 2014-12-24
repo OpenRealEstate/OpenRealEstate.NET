@@ -108,6 +108,8 @@ namespace OpenRealEstate.WebSite.Modules
             var errors = new List<ValidationError>();
 
             var listings = convertToResultKeyValuePair.Value.Listings.Select(x => x.Listing).ToList();
+            var invalidData = convertToResultKeyValuePair.Value.InvalidData .Select(x => x.ExceptionMessage).ToList();
+            var unhandledData = convertToResultKeyValuePair.Value.UnhandledData.Select(x => x).ToList();
 
             if (listings.Any())
             {
@@ -133,18 +135,37 @@ namespace OpenRealEstate.WebSite.Modules
                 viewModel.Listings.AddRange(listings);
             }
 
+            if (viewModel.ValidationErrors == null)
+            {
+                viewModel.ValidationErrors = new Dictionary<string, string>();
+            }
+
+            if (invalidData.Any())
+            {
+                CreateError(viewModel.ValidationErrors, convertToResultKeyValuePair.Key, invalidData);
+            }
+
+            if (unhandledData.Any())
+            {
+                CreateError(viewModel.ValidationErrors, convertToResultKeyValuePair.Key, unhandledData);
+            }
+
             if (errors.Any())
             {
-                if (viewModel.ValidationErrors == null)
-                {
-                    viewModel.ValidationErrors = new Dictionary<string, string>();
-                }
-
                 var convertedErrors = ConvertErrorsToDictionary(convertToResultKeyValuePair.Key, errors);
                 foreach (var convertedError in convertedErrors)
                 {
                     viewModel.ValidationErrors.Add(convertedError);
                 }
+            }
+        }
+
+        private static void CreateError(IDictionary<string, string> validationErrors, string key, IEnumerable<string> values)
+        {
+            var uniqueKey = string.Format("{0}_{1}", key, Guid.NewGuid());
+            foreach (var value in values)
+            {
+                validationErrors.Add(uniqueKey, value);
             }
         }
 
