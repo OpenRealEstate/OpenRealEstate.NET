@@ -79,12 +79,16 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
             return new ConvertToResult
             {
-                Listings = successfullyParsedListings.ToList(),
+                Listings = successfullyParsedListings.Any()
+                    ? successfullyParsedListings.ToList()
+                    : null,
                 UnhandledData = elements.UnknownXmlData != null &&
                                 elements.UnknownXmlData.Any()
                     ? elements.UnknownXmlData.Select(x => x.ToString()).ToList()
                     : null,
-                InvalidData = invalidData.ToList()
+                InvalidData = invalidData.Any()
+                    ? invalidData.ToList()
+                    : null
             };
         }
 
@@ -868,7 +872,10 @@ namespace OpenRealEstate.Services.RealEstateComAu
             salePricing.SoldPrice = element.DecimalValueOrDefault();
 
             var soldDisplayAttribute = element.ValueOrDefault(null, "display");
-            // NOTE: no display price assumes a 'YES' and that the price -is- to be displayed.
+            // NOTE 1: no display price assumes a 'YES' and that the price -is- to be displayed.
+            // NOTE 2: A _display attribute_ value of 'range' can only valid for commerical properties ...
+            //         and .. we don't handle commerical. So it will end up throwing an exception
+            //         which is legit in this case.
             salePricing.SoldPriceText = string.IsNullOrWhiteSpace(soldDisplayAttribute) ||
                                         soldDisplayAttribute.ParseOneYesZeroNoToBool()
                 ? null
