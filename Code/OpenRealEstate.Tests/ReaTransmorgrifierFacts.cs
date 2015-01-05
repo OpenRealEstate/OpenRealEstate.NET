@@ -146,7 +146,7 @@ namespace OpenRealEstate.Tests
             }
 
             [Fact]
-            public void GivenTheFileREAResidentialCurrentBadInspectionTime_Convert_ReturnsAnInvalidException()
+            public void GivenTheFileREAResidentialCurrentBadInspectionTime_Convert_ReturnsAnInvalidData()
             {
                 // Arrange.
                 var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-CurrentBadInspectionTime.xml");
@@ -216,6 +216,25 @@ namespace OpenRealEstate.Tests
                     PropertyType.House,
                     4,
                     XmlFeatureHelpers.OtherFeatureNames);
+            }
+
+            [Fact]
+            public void GivenTheFileREAResidentialSold_DisplayAttributeIsRange_Convert_ReturnsAnInvalidListing()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Sold-DisplayAttributeIsRange.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.ShouldNotBe(null);
+                result.Listings.ShouldBe(null);
+                result.UnhandledData.ShouldBe(null);
+                result.InvalidData.Count.ShouldBe(1);
+                result.InvalidData.First().ExceptionMessage.ShouldBe("Value 'range' is out of range. It should only be 0/1/yes/no.\r\nParameter name: value");
+                result.InvalidData.First().InvalidData.ShouldStartWith("<residential modTime=\"2009-01-01-12:30:00\" status=\"sold\">");
             }
 
             private static void AssertResidentialCurrentListing(ResidentialListing listing,
