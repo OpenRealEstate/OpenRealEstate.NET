@@ -58,7 +58,11 @@ namespace OpenRealEstate.Services
                 return false;
             }
 
-            throw new ArgumentOutOfRangeException("value");
+            throw new ArgumentOutOfRangeException("value",
+                string.Format("Value '{0}' is out of range. It should only be 0/1/yes/no.",
+                    string.IsNullOrWhiteSpace(value)
+                        ? "-null-"
+                        : value));
         }
 
         public static byte ParseByteValueOrDefault(this string value)
