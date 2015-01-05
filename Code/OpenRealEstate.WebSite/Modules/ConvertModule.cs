@@ -107,11 +107,18 @@ namespace OpenRealEstate.WebSite.Modules
 
             var errors = new List<ValidationError>();
 
-            var listings = convertToResultKeyValuePair.Value.Listings.Select(x => x.Listing).ToList();
-            var invalidData = convertToResultKeyValuePair.Value.InvalidData .Select(x => x.ExceptionMessage).ToList();
-            var unhandledData = convertToResultKeyValuePair.Value.UnhandledData.Select(x => x).ToList();
+            var listings = convertToResultKeyValuePair.Value.Listings != null
+                ? convertToResultKeyValuePair.Value.Listings.Select(x => x.Listing).ToList()
+                : null;
+            var invalidData = convertToResultKeyValuePair.Value.InvalidData != null
+                ? convertToResultKeyValuePair.Value.InvalidData.Select(x => x.ExceptionMessage).ToList()
+                : null;
+            var unhandledData = convertToResultKeyValuePair.Value.UnhandledData != null
+                ? convertToResultKeyValuePair.Value.UnhandledData.Select(x => x).ToList()
+                : null;
 
-            if (listings.Any())
+            if (listings != null &&
+                listings.Any())
             {
                 foreach (var listing in listings)
                 {
@@ -140,12 +147,14 @@ namespace OpenRealEstate.WebSite.Modules
                 viewModel.ValidationErrors = new Dictionary<string, string>();
             }
 
-            if (invalidData.Any())
+            if (invalidData != null &&
+                invalidData.Any())
             {
                 CreateError(viewModel.ValidationErrors, convertToResultKeyValuePair.Key, invalidData);
             }
 
-            if (unhandledData.Any())
+            if (unhandledData != null && 
+                unhandledData.Any())
             {
                 CreateError(viewModel.ValidationErrors, convertToResultKeyValuePair.Key, unhandledData);
             }
@@ -162,9 +171,9 @@ namespace OpenRealEstate.WebSite.Modules
 
         private static void CreateError(IDictionary<string, string> validationErrors, string key, IEnumerable<string> values)
         {
-            var uniqueKey = string.Format("{0}_{1}", key, Guid.NewGuid());
             foreach (var value in values)
             {
+                var uniqueKey = string.Format("{0}_{1}", key, Guid.NewGuid());
                 validationErrors.Add(uniqueKey, value);
             }
         }
