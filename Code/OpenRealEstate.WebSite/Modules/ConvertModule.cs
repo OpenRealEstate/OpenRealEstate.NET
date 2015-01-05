@@ -156,7 +156,9 @@ namespace OpenRealEstate.WebSite.Modules
             if (unhandledData != null && 
                 unhandledData.Any())
             {
-                CreateError(viewModel.ValidationErrors, convertToResultKeyValuePair.Key, unhandledData);
+                var errorList = new [] {string.Format("Found: {0} unhandled data segments", unhandledData.Count)};
+                CreateError(viewModel.ValidationErrors, convertToResultKeyValuePair.Key,
+                    errorList);
             }
 
             if (errors.Any())
