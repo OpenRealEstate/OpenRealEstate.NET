@@ -146,7 +146,7 @@ namespace OpenRealEstate.Tests
             }
 
             [Fact]
-            public void GivenTheFileREAResidentialCurrentBadInspectionTime_Convert_ReturnsAnInvalidData()
+            public void GivenTheFileREAResidentialCurrentBadInspectionTime_Convert_ReturnsSomeInvalidData()
             {
                 // Arrange.
                 var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-CurrentBadInspectionTime.xml");
@@ -157,14 +157,15 @@ namespace OpenRealEstate.Tests
 
                 // Assert.
                 result.ShouldNotBe(null);
-                result.Listings.Count.ShouldBe(0);
+                result.Listings.ShouldBe(null);
+                result.UnhandledData.ShouldBe(null);
                 result.InvalidData.Count.ShouldBe(1);
                 result.InvalidData[0].ExceptionMessage.ShouldBe("Inspection element has an invald Date/Time value. Element: <inspection> 12:00AM to 12:00AM</inspection>");
                 result.InvalidData[0].InvalidData.ShouldNotBeNullOrEmpty();
             }
 
             [Fact]
-            public void GivenTheFileReaResidentialCurrentBadSalePrice_Convert_ThrowsAnException()
+            public void GivenTheFileReaResidentialCurrentBadSalePrice_Convert_ReturnsSomeInvalidData()
             {
                 // Arrange.
                 var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current-BadSalePrice.xml");
@@ -174,7 +175,8 @@ namespace OpenRealEstate.Tests
                 var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                result.Listings.Count.ShouldBe(0);
+                result.Listings.ShouldBe(null);
+                result.UnhandledData.ShouldBe(null);
                 result.InvalidData[0].ExceptionMessage.ShouldBe("Failed to parse the value '550000600000550000600000550000600000' into a decimal.");
                 result.InvalidData[0].InvalidData.ShouldNotBeNullOrEmpty();
             }
