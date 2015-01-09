@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using FluentValidation.Results;
 using OpenRealEstate.Core.Filters;
 using OpenRealEstate.Core.Models;
 using OpenRealEstate.Core.Models.Land;
@@ -37,6 +38,7 @@ namespace OpenRealEstate.Tests
                 result.ShouldNotBe(null);
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
+                result.InvalidData.ShouldBe(null);
                 AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
                     tags: new[] { "houseAndLandPackage", "solarPanels", "waterTank", "hotWaterService-gas", "heating-other", "balcony", "shed", "courtyard", "isANewConstruction" });
             }
@@ -239,10 +241,71 @@ namespace OpenRealEstate.Tests
                 result.InvalidData.First().InvalidData.ShouldStartWith("<residential modTime=\"2009-01-01-12:30:00\" status=\"sold\">");
             }
 
+            [Fact]
+            public void GivenTheFileREAResidentialCurrentWithPriceAndDisplayYesButNoPriceView_Convert_ReturnsAListing()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current-WithPriceAndDisplayYesButNoPriceView.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.ShouldNotBe(null);
+                result.UnhandledData.ShouldBe(null);
+                result.InvalidData.ShouldBe(null);
+
+                AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
+                    tags: new[] { "houseAndLandPackage", "solarPanels", "waterTank", "hotWaterService-gas", "heating-other", "balcony", "shed", "courtyard", "isANewConstruction" },
+                    salePriceText: "$500,000");
+            }
+
+            [Fact]
+            public void GivenTheFileREAResidentialCurrentWithPriceAndDisplayNoAndNoPriceView_Convert_ReturnsAListing()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current-WithPriceAndDisplayNoAndNoPriceView.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.ShouldNotBe(null);
+                result.UnhandledData.ShouldBe(null);
+                result.InvalidData.ShouldBe(null);
+
+                AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
+                    tags: new[] { "houseAndLandPackage", "solarPanels", "waterTank", "hotWaterService-gas", "heating-other", "balcony", "shed", "courtyard", "isANewConstruction" },
+                    salePriceText: null);
+            }
+
+            [Fact]
+            public void GivenTheFileREAResidentialCurrentWithPriceAndDisplayNoAndAPriceView_Convert_ReturnsAListing()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current-WithPriceAndDisplayNoAndAPriceView.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.ShouldNotBe(null);
+                result.UnhandledData.ShouldBe(null);
+                result.InvalidData.ShouldBe(null);
+
+                AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
+                    tags: new[] { "houseAndLandPackage", "solarPanels", "waterTank", "hotWaterService-gas", "heating-other", "balcony", "shed", "courtyard", "isANewConstruction" },
+                    salePriceText: null);
+            }
+
             private static void AssertResidentialCurrentListing(ResidentialListing listing,
                 PropertyType expectedPropertyType = PropertyType.House,
                 int expectedBedroomsCount = 4,
-                IList<string> tags = null)
+                IList<string> tags = null,
+                string salePriceText = "Between $400,000 and $600,000")
             {
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Residential-Current-ABCD1234");
@@ -262,7 +325,7 @@ namespace OpenRealEstate.Tests
                 listing.Address.Postcode.ShouldBe("3121");
 
                 listing.Pricing.SalePrice.ShouldBe(500000m);
-                listing.Pricing.SalePriceText.ShouldBe("Between $400,000 and $600,000");
+                listing.Pricing.SalePriceText.ShouldBe(salePriceText);
                 listing.Pricing.IsUnderOffer.ShouldBe(false);
 
                 listing.Inspections.Count.ShouldBe(2);
@@ -333,10 +396,11 @@ namespace OpenRealEstate.Tests
                 listing.Id.ShouldBe("Residential-Sold-ABCD1234");
                 listing.StatusType.ShouldBe(StatusType.Sold);
 
-                listing.Pricing.SoldPrice.ShouldBe(580000m);
+                decimal? soldPrice = 580000m;
+                listing.Pricing.SoldPrice.ShouldBe(soldPrice);
                 listing.Pricing.SoldPriceText.ShouldBe(isSoldPriceVisibile
-                    ? null
-                    : "Sold Price Witheld");
+                    ? soldPrice.Value.ToString("C0")
+                    : null);
                 listing.Pricing.SoldOn.ShouldBe(new DateTime(2009, 01, 10, 12, 30, 00));
             }
 
@@ -727,17 +791,18 @@ namespace OpenRealEstate.Tests
                 }
             }
 
-            private static void AssertLandSoldListing(LandListing listing,
+            private static void  AssertLandSoldListing(LandListing listing,
                 bool isSoldPriceVisibile = true)
             {
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Land-Sold-ABCD1234");
                 listing.StatusType.ShouldBe(StatusType.Sold);
 
-                listing.Pricing.SoldPrice.ShouldBe(85000m);
+                decimal? soldPrice = 85000m;
+                listing.Pricing.SoldPrice.ShouldBe(soldPrice);
                 listing.Pricing.SoldPriceText.ShouldBe(isSoldPriceVisibile
-                    ? null
-                    : "Sold Price Witheld");
+                    ? soldPrice.Value.ToString("C0")
+                    : null);
                 listing.Pricing.SoldOn.ShouldBe(new DateTime(2009, 01, 10, 12, 30, 00));
             }
 
@@ -859,7 +924,7 @@ namespace OpenRealEstate.Tests
 
                 listing.Pricing.IsUnderOffer.ShouldBe(false);
                 listing.Pricing.SalePrice.ShouldBe(400000);
-                listing.Pricing.SalePriceText.ShouldBe("To suit buyers 300K+");
+                listing.Pricing.SalePriceText.ShouldBe(null);
 
                 listing.LandDetails.Area.Value.ShouldBe(50);
                 listing.LandDetails.Area.Type.ShouldBe("acre");
@@ -894,10 +959,11 @@ namespace OpenRealEstate.Tests
                 listing.Id.ShouldBe("Rural-Sold-ABCD1234");
                 listing.StatusType.ShouldBe(StatusType.Sold);
 
-                listing.Pricing.SoldPrice.ShouldBe(85000m);
+                decimal? soldPrice = 85000m;
+                listing.Pricing.SoldPrice.ShouldBe(soldPrice);
                 listing.Pricing.SoldPriceText.ShouldBe(isSoldPriceVisibile
-                    ? null
-                    : "Sold Price Witheld");
+                    ? soldPrice.Value.ToString("C0")
+                    : null);
                 listing.Pricing.SoldOn.ShouldBe(new DateTime(2009, 01, 10, 12, 30, 00));
             }
 

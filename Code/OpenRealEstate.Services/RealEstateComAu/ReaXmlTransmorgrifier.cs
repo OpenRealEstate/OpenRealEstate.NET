@@ -828,14 +828,17 @@ namespace OpenRealEstate.Services.RealEstateComAu
             // Selling data.
 
             var salePriceText = document.ValueOrDefault("priceView");
-            var displayAttributeValue = document.ValueOrDefault("priceView", "display");
+            var displayAttributeValue = document.ValueOrDefault("price", "display");
             var isDisplay = string.IsNullOrWhiteSpace(displayAttributeValue) ||
                             displayAttributeValue.ParseOneYesZeroNoToBool();
+            
+            // NOTE: If Display="no" then we do not display anything for the price, regardless
+            //       of any other data provided. Otherwise, make a decision.
             salePricing.SalePriceText = isDisplay
-                ? salePriceText
-                : string.IsNullOrWhiteSpace(salePriceText)
-                    ? "Price Witheld"
-                    : salePriceText;
+                ? string.IsNullOrWhiteSpace(salePriceText)
+                    ? salePricing.SalePrice.ToString("C0")
+                    : salePriceText
+                : null;
 
             var isUnderOffer = document.ValueOrDefault("underOffer", "value");
             salePricing.IsUnderOffer = !string.IsNullOrWhiteSpace(isUnderOffer) &&
@@ -872,14 +875,18 @@ namespace OpenRealEstate.Services.RealEstateComAu
             salePricing.SoldPrice = element.DecimalValueOrDefault();
 
             var soldDisplayAttribute = element.ValueOrDefault(null, "display");
+           
+
             // NOTE 1: no display price assumes a 'YES' and that the price -is- to be displayed.
             // NOTE 2: A _display attribute_ value of 'range' can only valid for commerical properties ...
             //         and .. we don't handle commerical. So it will end up throwing an exception
             //         which is legit in this case.
-            salePricing.SoldPriceText = string.IsNullOrWhiteSpace(soldDisplayAttribute) ||
-                                        soldDisplayAttribute.ParseOneYesZeroNoToBool()
-                ? null
-                : "Sold Price Witheld";
+            var isDisplay = string.IsNullOrWhiteSpace(soldDisplayAttribute) ||
+                            soldDisplayAttribute.ParseOneYesZeroNoToBool();
+
+            salePricing.SoldPriceText = isDisplay
+                ? salePricing.SoldPrice.Value.ToString("C0")
+                : null;
         }
 
         private static void ExtractSoldOn(XElement element, SalePricing salePricing)
