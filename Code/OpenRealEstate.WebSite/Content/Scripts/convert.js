@@ -1,12 +1,17 @@
 ﻿
+function cleanUpUI() {
+    $('#jsonCode').text('');
+    $('#errorMessage').html('');
+    $('#message').text('');
+}
+
+
 function processText(isConvertingReaXmlToJson) {
+
+    cleanUpUI();
 
     var reaXml;
     var json;
-
-    $('#jsonCode').text('');
-    $('#errorMessage').text('');
-    $('#message').text('');
 
     if (isConvertingReaXmlToJson) {
         reaXml = $('#reaxmltext').val();
@@ -32,7 +37,7 @@ function processText(isConvertingReaXmlToJson) {
 function displayListingResult(isConvertingReaXmlToJson, data) {
     if (isConvertingReaXmlToJson) {
 
-        if (data.validationErrors) {
+        if (!jQuery.isEmptyObject(data.validationErrors)) {
             
             var errors = jQuery.map(data.validationErrors, function (value, key) {
                 return {
@@ -77,6 +82,8 @@ function getSampleReaXml(fileName) {
 }
 
 function uploadFiles() {
+
+    cleanUpUI();
 
     var files = $('#upload')[0].files;
 
