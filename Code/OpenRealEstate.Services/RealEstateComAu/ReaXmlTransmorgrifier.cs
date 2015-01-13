@@ -760,18 +760,29 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 return null;
             }
 
+            // Note: Image 'urls' can either be via a Uri (yay!) or
+            //       a file name because the xml was provided in a zip file with
+            //       the images (booooo! hiss!!!)
             var images = (from x in imagesElements
                 let url = x.AttributeValueOrDefault("url")
+                let file = x.AttributeValueOrDefault("file")
                 let order = x.AttributeValueOrDefault("id")
-                where !string.IsNullOrWhiteSpace(url) &&
-                    !string.IsNullOrWhiteSpace(order)
+                where (!string.IsNullOrWhiteSpace(url) ||
+                       !string.IsNullOrWhiteSpace(file)) &&
+                      !string.IsNullOrWhiteSpace(order)
                 select new Media
                 {
-                    Url = url,
+                    Url = string.IsNullOrWhiteSpace(url)
+                        ? string.IsNullOrWhiteSpace(file)
+                            ? null
+                            : file
+                        : url,
                     Order = ConvertImageOrderToNumber(order)
                 }).ToList();
 
-            return images.Any() ? images : null;
+            return images.Any()
+                ? images
+                : null;
         }
 
         private static IList<Media> ExtractFloorPlans(XElement document)
@@ -792,11 +803,17 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
             var floorPlans = (from x in floorPlanElements
                 let url = x.AttributeValueOrDefault("url")
+                let file = x.AttributeValueOrDefault("file")
                 let order = x.AttributeValueOrDefault("id")
-                where !string.IsNullOrWhiteSpace(url)
+                where !string.IsNullOrWhiteSpace(url) ||
+                      !string.IsNullOrWhiteSpace(file)
                 select new Media
                 {
-                    Url = url,
+                    Url = string.IsNullOrWhiteSpace(url)
+                        ? string.IsNullOrWhiteSpace(file)
+                            ? null
+                            : file
+                        : url,
                     Order = Convert.ToInt32(order)
                 }).ToList();
 

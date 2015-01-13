@@ -301,11 +301,34 @@ namespace OpenRealEstate.Tests
                     salePriceText: null);
             }
 
+            [Fact]
+            public void GivenTheFileREAResidentialCurrentWithLocalFilesForImages_Convert_ReturnsAListing()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current-WithLocalFilesForImages.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.ShouldNotBe(null);
+                result.UnhandledData.ShouldBe(null);
+                result.InvalidData.ShouldBe(null);
+
+                AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
+                    tags: new[] { "houseAndLandPackage", "solarPanels", "waterTank", "hotWaterService-gas", "heating-other", "balcony", "shed", "courtyard", "isANewConstruction" },
+                    images: new[] { "imageM.jpg", "imageA.jpg" },
+                    floorplans: new[] { "floorplan1.gif", "floorplan2.gif" });
+            }
+
             private static void AssertResidentialCurrentListing(ResidentialListing listing,
                 PropertyType expectedPropertyType = PropertyType.House,
                 int expectedBedroomsCount = 4,
                 IList<string> tags = null,
-                string salePriceText = "Between $400,000 and $600,000")
+                string salePriceText = "Between $400,000 and $600,000",
+                IList<string> images = null,
+                IList<string> floorplans = null)
             {
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Residential-Current-ABCD1234");
@@ -359,12 +382,22 @@ namespace OpenRealEstate.Tests
 
                 listing.Images.Count.ShouldBe(2);
                 listing.Images[0].Order.ShouldBe(1);
-                listing.Images[0].Url.ShouldBe("http://www.realestate.com.au/tmp/imageM.jpg");
+                listing.Images[0].Url.ShouldBe(images == null
+                    ? "http://www.realestate.com.au/tmp/imageM.jpg"
+                    : images[0]);
+                listing.Images[1].Order.ShouldBe(2);
+                listing.Images[1].Url.ShouldBe(images == null
+                    ? "http://www.realestate.com.au/tmp/imageA.jpg"
+                    : images[1]);
 
                 listing.FloorPlans.Count.ShouldBe(2);
-                listing.FloorPlans[0].Url.ShouldBe("http://www.realestate.com.au/tmp/floorplan1.gif");
+                listing.FloorPlans[0].Url.ShouldBe(floorplans == null
+                    ? "http://www.realestate.com.au/tmp/floorplan1.gif"
+                    : floorplans[0]);
                 listing.FloorPlans[0].Order.ShouldBe(1);
-                listing.FloorPlans[1].Url.ShouldBe("http://www.realestate.com.au/tmp/floorplan2.gif");
+                listing.FloorPlans[1].Url.ShouldBe(floorplans == null
+                    ? "http://www.realestate.com.au/tmp/floorplan2.gif"
+                    : floorplans[1]);
                 listing.FloorPlans[0].Order.ShouldBe(1);
 
                 listing.AuctionOn.ShouldBe(new DateTime(2009, 02, 04, 18, 30, 00));
