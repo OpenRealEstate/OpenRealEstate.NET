@@ -19,7 +19,13 @@ namespace OpenRealEstate.Core.Models
         public decimal? Longitude { get; set; }
         public bool IsStreetDisplayed { get; set; }
 
+
         public override string ToString()
+        {
+            return ToString(true);
+        }
+
+        public string ToString(bool isLatLongIncluded)
         {
             var address = new StringBuilder();
             if (!IsStreetDisplayed)
@@ -27,7 +33,7 @@ namespace OpenRealEstate.Core.Models
                 address.Append("(*Hidden*)");
             }
             address.Append(StreetNumber);
-            AppendDelimeter(address, "/");
+            AppendDelimeter(address, " ");
             address.Append(Street);
             AppendDelimeter(address);
             address.Append(Suburb);
@@ -35,13 +41,17 @@ namespace OpenRealEstate.Core.Models
             address.Append(State);
             AppendDelimeter(address);
             address.Append(CountryIsoCode);
-            address.AppendFormat("; Lat: {0} Long: {1}",
-                Latitude.HasValue
-                    ? Latitude.Value.ToString("n3")
-                    : "-",
-                Longitude.HasValue
-                    ? Longitude.Value.ToString("n3")
-                    : "-");
+
+            if (isLatLongIncluded)
+            {
+                address.AppendFormat("; Lat: {0} Long: {1}",
+                    Latitude.HasValue
+                        ? Latitude.Value.ToString("n3")
+                        : "-",
+                    Longitude.HasValue
+                        ? Longitude.Value.ToString("n3")
+                        : "-");
+            }
 
             return address.ToString();
         }

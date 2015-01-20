@@ -322,13 +322,96 @@ namespace OpenRealEstate.Tests
                     floorplans: new[] { "floorplan1.gif", "floorplan2.gif" });
             }
 
+            [Fact]
+            public void GivenTheFileREAResidentialCurrentWithNoStreetNumberButASubNumber_Convert_ReturnsAResidentialCurrentListing()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current-WithNoStreetNumberButASubNumber.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.ShouldNotBe(null);
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
+                result.InvalidData.ShouldBe(null);
+                AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
+                    tags: new[] { "houseAndLandPackage", "solarPanels", "waterTank", "hotWaterService-gas", "heating-other", "balcony", "shed", "courtyard", "isANewConstruction" },
+                    streetNumber: "2/77a");
+            }
+
+            [Fact]
+            public void GivenTheFileREAResidentialCurrentWithAStreetNumberAndASubNumber_Convert_ReturnsAResidentialCurrentListing()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current-WithAStreetNumberAndASubNumber.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.ShouldNotBe(null);
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
+                result.InvalidData.ShouldBe(null);
+                AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
+                    tags: new[] { "houseAndLandPackage", "solarPanels", "waterTank", "hotWaterService-gas", "heating-other", "balcony", "shed", "courtyard", "isANewConstruction" },
+                    streetNumber: "2/77a 39");
+            }
+
+            [Fact]
+            public void GivenTheFileREAResidentialCurrentWithAStreetNumberAndASingleSubNumber_Convert_ReturnsAResidentialCurrentListing()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current-WithAStreetNumberAndASingleSubNumber.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.ShouldNotBe(null);
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
+                result.InvalidData.ShouldBe(null);
+                AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
+                    tags: new[] { "houseAndLandPackage", "solarPanels", "waterTank", "hotWaterService-gas", "heating-other", "balcony", "shed", "courtyard", "isANewConstruction" });
+            }
+
+            [Fact]
+            public void GivenTheFileREAResidentialCurrentWithAStreetNumberAndASingleSubNumberWithACustomDelimeter_Convert_ReturnsAResidentialCurrentListing()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current-WithAStreetNumberAndASingleSubNumber.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier
+                {
+                    AddressDelimeter = "-"
+                };
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.ShouldNotBe(null);
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
+                result.InvalidData.ShouldBe(null);
+                AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
+                    tags: new[] { "houseAndLandPackage", "solarPanels", "waterTank", "hotWaterService-gas", "heating-other", "balcony", "shed", "courtyard", "isANewConstruction" },
+                    streetNumber: "2-39");
+            }
+
             private static void AssertResidentialCurrentListing(ResidentialListing listing,
                 PropertyType expectedPropertyType = PropertyType.House,
                 int expectedBedroomsCount = 4,
                 IList<string> tags = null,
                 string salePriceText = "Between $400,000 and $600,000",
                 IList<string> images = null,
-                IList<string> floorplans = null)
+                IList<string> floorplans = null,
+                string streetNumber = "2/39")
             {
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Residential-Current-ABCD1234");
@@ -339,7 +422,7 @@ namespace OpenRealEstate.Tests
                 listing.Links[1].ShouldBe("http://www.google.com/hello");
 
                 listing.Address.IsStreetDisplayed.ShouldBe(true);
-                listing.Address.StreetNumber.ShouldBe("2/39");
+                listing.Address.StreetNumber.ShouldBe(streetNumber);
                 listing.Address.Street.ShouldBe("Main Road");
                 listing.Address.Suburb.ShouldBe("RICHMOND");
                 listing.Address.Municipality.ShouldBe("Yarra");

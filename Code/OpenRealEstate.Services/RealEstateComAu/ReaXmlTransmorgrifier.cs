@@ -22,6 +22,11 @@ namespace OpenRealEstate.Services.RealEstateComAu
         private static readonly IList<string> ValidRootNodes = new List<string> { "propertyList", "residential", "rental", "rural", "land" };
         private CultureInfo _defaultCultureInfo;
 
+        public ReaXmlTransmorgrifier()
+        {
+            AddressDelimeter = "/";
+        }
+
         /// <summary>
         /// Converts some REA Xml data into a collection of parsed listings.
         /// </summary>
@@ -67,7 +72,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 {
                     successfullyParsedListings.Add(new ListingResult
                     {
-                        Listing = ConvertFromReaXml(element, DefaultCultureInfo),
+                        Listing = ConvertFromReaXml(element, DefaultCultureInfo, AddressDelimeter),
                         SourceData = element.ToString()
                     });
                 }
@@ -101,6 +106,8 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 _defaultCultureInfo = value;
             }
         }
+
+        public string AddressDelimeter { get; set; }
 
         private static string RemoveByteOrderMark(string text)
         {
@@ -214,7 +221,9 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 };
         }
 
-        private static Listing ConvertFromReaXml(XElement document, CultureInfo cultureInfo)
+        private static Listing ConvertFromReaXml(XElement document, 
+            CultureInfo cultureInfo,
+            string addressDelimeter)
         {
             document.ShouldNotBe(null);
 
@@ -230,7 +239,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             }
 
             // Extract common data.
-            ExtractCommonData(listing, document);
+            ExtractCommonData(listing, document, addressDelimeter);
 
             // Extract specific data.
             if (listing is ResidentialListing)
@@ -335,7 +344,9 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         #region Common listing methods
 
-        private static void ExtractCommonData(Listing listing, XElement document)
+        private static void ExtractCommonData(Listing listing, 
+            XElement document, 
+            string addressDelimeter)
         {
             listing.ShouldNotBe(null);
             document.ShouldNotBe(null);
@@ -357,7 +368,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             listing.Title = document.ValueOrDefault("headline");
             listing.Description = document.ValueOrDefault("description");
 
-            listing.Address = ExtractAddress(document);
+            listing.Address = ExtractAddress(document, addressDelimeter);
             listing.Agents = ExtractAgent(document);
             listing.Inspections = ExtractInspectionTimes(document);
             listing.Images = ExtractImages(document);
@@ -367,7 +378,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             listing.Links = ExtractExternalLinks(document);
         }
 
-        private static Address ExtractAddress(XElement document)
+        private static Address ExtractAddress(XElement document, string addressDelimeter)
         {
             document.ShouldNotBe(null);
 
@@ -382,24 +393,55 @@ namespace OpenRealEstate.Services.RealEstateComAu
             // Land and CommericalLand should only provide lot numbers. 
             var lotNumber = addressElement.ValueOrDefault("lotNumber");
             var subNumber = addressElement.ValueOrDefault("subNumber");
-            address.StreetNumber = string.Format("{0}{1}{2}{3}{4}",
-                string.IsNullOrWhiteSpace(lotNumber)
-                    ? string.Empty
-                    : lotNumber.IndexOf("lot", StringComparison.InvariantCultureIgnoreCase) > 0
-                        ? lotNumber
-                        : string.Format("LOT {0}", lotNumber),
-                !string.IsNullOrWhiteSpace(lotNumber) &&
-                !string.IsNullOrWhiteSpace(subNumber)
+            var streetNumber = addressElement.ValueOrDefault("streetNumber");
+
+            // LOGIC:
+            // So, we're trying to create a streetnumber value that contains the rea values
+            //     Sub Number
+            //     Lot Number
+            //     Street Number
+            // into a single value. URGH.
+            // This is because REA have over fricking complicated shiz (again). So lets just
+            // keep this simple, eh? :)
+            
+            // FORMAT: subnumber lotnumber streetnumber
+            // eg. 23a/135 smith street
+            //     6/23a 135 smith street
+            //     23a lot 33 smith street
+            //     23a lot 33/135 smith street
+
+            // Lot number logic: If the value contains the word LOT in it, then we don't
+            // need to do anything. Otherwise, we should have a value the starts with 'LOT'.
+            // eg. LOT 123abc
+            var lotNumberResult = string.IsNullOrWhiteSpace(lotNumber)
+                ? string.Empty
+                : lotNumber.IndexOf("lot", StringComparison.InvariantCultureIgnoreCase) > 0
+                    ? lotNumber
+                    : string.Format("LOT {0}", lotNumber);
+
+            // Sub number and Street number logic: A sub number can exist -before- the street number.
+            // A street number might NOT exist, so a sub number is all by itself.
+            // When we want to show a sub number, we probably want to show it, like this:
+            //    'subNumber`delimeter`streetNumber`
+            //   eg. 12a/432
+            // But .. sometimes, the sub number -already- contains a delimeter! so then we want this:
+            //   eg. 45f/231 15
+            // So we don't put a delimeter in there, but a space. Urgh! confusing, so sowwy.
+
+            var subNumberLotNumber = string.Format("{0} {1}",
+                subNumber,
+                lotNumberResult).Trim();
+
+            var delimeter = string.IsNullOrWhiteSpace(subNumberLotNumber)
+                ? string.Empty
+                : subNumberLotNumber.IndexOfAny(new[] { '/', '\\', '-' }) > 0
                     ? " "
-                    : string.Empty,
-                string.IsNullOrWhiteSpace(subNumber)
-                    ? string.Empty
-                    : subNumber,
-                string.IsNullOrEmpty(lotNumber) &&
-                string.IsNullOrEmpty(subNumber)
-                    ? string.Empty
-                    : "/",
-                addressElement.ValueOrDefault("streetNumber"));
+                    : addressDelimeter;
+
+            address.StreetNumber = string.Format("{0}{1}{2}",
+                subNumberLotNumber,
+                delimeter,
+                streetNumber).Trim();
 
             address.Street = addressElement.ValueOrDefault("street");
             address.Suburb = addressElement.ValueOrDefault("suburb");
