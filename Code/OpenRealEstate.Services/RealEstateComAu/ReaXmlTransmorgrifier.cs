@@ -432,11 +432,17 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 subNumber,
                 lotNumberResult).Trim();
 
+            // We only have a delimeter if we have a sub-or-lot number **and**
+            // a street number.
+            // Also, we use the default delimeter if we don't have one already in the
+            // sub-or-lot number.
             var delimeter = string.IsNullOrWhiteSpace(subNumberLotNumber)
                 ? string.Empty
-                : subNumberLotNumber.IndexOfAny(new[] { '/', '\\', '-' }) > 0
+                : subNumberLotNumber.IndexOfAny(new[] {'/', '\\', '-'}) > 0
                     ? " "
-                    : addressDelimeter;
+                    : string.IsNullOrWhiteSpace(streetNumber)
+                        ? string.Empty
+                        : addressDelimeter;
 
             address.StreetNumber = string.Format("{0}{1}{2}",
                 subNumberLotNumber,

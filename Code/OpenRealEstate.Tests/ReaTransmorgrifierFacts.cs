@@ -857,9 +857,28 @@ namespace OpenRealEstate.Tests
                 AssertLandCurrentListing(result.Listings.First().Listing as LandListing, LandCategoryType.Unknown);
             }
 
+            [Fact]
+            public void GivenTheFileREALandCurrentWithASubNumberButNoStreetNumber_Convert_ReturnsALandCurrentListing()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Land\\REA-Land-Current-WithASubNumberButNoStreetNumber.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
+                AssertLandCurrentListing(result.Listings.First().Listing as LandListing,
+                    tags: new[] { "fullyFenced" },
+                    streetNumber: "12");
+            }
+
             private static void AssertLandCurrentListing(LandListing listing,
                 LandCategoryType landCategoryType = LandCategoryType.Residential,
-                IList<string> tags = null)
+                IList<string> tags = null,
+                string streetNumber = "LOT 12/39")
             {
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Land-Current-ABCD1234");
@@ -870,7 +889,7 @@ namespace OpenRealEstate.Tests
                 listing.Agents[0].Name.ShouldBe("Mr. John Doe");
                 listing.Agents[0].Communications.Count.ShouldBe(3);
 
-                listing.Address.StreetNumber.ShouldBe("LOT 12/39");
+                listing.Address.StreetNumber.ShouldBe(streetNumber);
                 listing.Address.Street.ShouldBe("Main Road");
                 listing.Address.Suburb.ShouldBe("RICHMOND");
                 listing.Address.IsStreetDisplayed.ShouldBe(true);
