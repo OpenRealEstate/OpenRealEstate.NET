@@ -16,7 +16,7 @@
         <language>en-AU</language>
         <tags>realestate openrealestate worlddomination worldomination unicorn magicalunicorn magical-unicorn</tags>
         <dependencies>
-            <dependency id="OpenRealEstate.Core" version="[1.0.0-rc5, 2.0.0)" />
+            <dependency id="OpenRealEstate.Core" version="[1.0.0-rc6, 2.0.0)" />
         </dependencies>
     </metadata>
     <files>
