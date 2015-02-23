@@ -38,7 +38,7 @@ namespace OpenRealEstate.Tests
                 result.ShouldNotBe(null);
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
-                result.InvalidData.ShouldBe(null);
+                result.Errors.ShouldBe(null);
                 AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
                     tags: new[] { "houseAndLandPackage", "solarPanels", "waterTank", "hotWaterService-gas", "heating-other", "balcony", "shed", "courtyard", "isANewConstruction" });
             }
@@ -161,9 +161,9 @@ namespace OpenRealEstate.Tests
                 result.ShouldNotBe(null);
                 result.Listings.ShouldBe(null);
                 result.UnhandledData.ShouldBe(null);
-                result.InvalidData.Count.ShouldBe(1);
-                result.InvalidData[0].ExceptionMessage.ShouldBe("Inspection element has an invald Date/Time value. Element: <inspection> 12:00AM to 12:00AM</inspection>");
-                result.InvalidData[0].InvalidData.ShouldNotBeNullOrEmpty();
+                result.Errors.Count.ShouldBe(1);
+                result.Errors[0].ExceptionMessage.ShouldBe("Inspection element has an invald Date/Time value. Element: <inspection> 12:00AM to 12:00AM</inspection>");
+                result.Errors[0].InvalidData.ShouldNotBeNullOrEmpty();
             }
 
             [Fact]
@@ -179,8 +179,8 @@ namespace OpenRealEstate.Tests
                 // Assert.
                 result.Listings.ShouldBe(null);
                 result.UnhandledData.ShouldBe(null);
-                result.InvalidData[0].ExceptionMessage.ShouldBe("Failed to parse the value '550000600000550000600000550000600000' into a decimal.");
-                result.InvalidData[0].InvalidData.ShouldNotBeNullOrEmpty();
+                result.Errors[0].ExceptionMessage.ShouldBe("Failed to parse the value '550000600000550000600000550000600000' into a decimal.");
+                result.Errors[0].InvalidData.ShouldNotBeNullOrEmpty();
             }
 
             [Fact]
@@ -236,9 +236,9 @@ namespace OpenRealEstate.Tests
                 result.ShouldNotBe(null);
                 result.Listings.ShouldBe(null);
                 result.UnhandledData.ShouldBe(null);
-                result.InvalidData.Count.ShouldBe(1);
-                result.InvalidData.First().ExceptionMessage.ShouldBe("Value 'range' is out of range. It should only be 0/1/yes/no.\r\nParameter name: value");
-                result.InvalidData.First().InvalidData.ShouldStartWith("<residential modTime=\"2009-01-01-12:30:00\" status=\"sold\">");
+                result.Errors.Count.ShouldBe(1);
+                result.Errors.First().ExceptionMessage.ShouldBe("Value 'range' is out of range. It should only be 0/1/yes/no.\r\nParameter name: value");
+                result.Errors.First().InvalidData.ShouldStartWith("<residential modTime=\"2009-01-01-12:30:00\" status=\"sold\">");
             }
 
             [Fact]
@@ -254,7 +254,7 @@ namespace OpenRealEstate.Tests
                 // Assert.
                 result.ShouldNotBe(null);
                 result.UnhandledData.ShouldBe(null);
-                result.InvalidData.ShouldBe(null);
+                result.Errors.ShouldBe(null);
 
                 AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
                     tags: new[] { "houseAndLandPackage", "solarPanels", "waterTank", "hotWaterService-gas", "heating-other", "balcony", "shed", "courtyard", "isANewConstruction" },
@@ -274,7 +274,7 @@ namespace OpenRealEstate.Tests
                 // Assert.
                 result.ShouldNotBe(null);
                 result.UnhandledData.ShouldBe(null);
-                result.InvalidData.ShouldBe(null);
+                result.Errors.ShouldBe(null);
 
                 AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
                     tags: new[] { "houseAndLandPackage", "solarPanels", "waterTank", "hotWaterService-gas", "heating-other", "balcony", "shed", "courtyard", "isANewConstruction" },
@@ -294,7 +294,7 @@ namespace OpenRealEstate.Tests
                 // Assert.
                 result.ShouldNotBe(null);
                 result.UnhandledData.ShouldBe(null);
-                result.InvalidData.ShouldBe(null);
+                result.Errors.ShouldBe(null);
 
                 AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
                     tags: new[] { "houseAndLandPackage", "solarPanels", "waterTank", "hotWaterService-gas", "heating-other", "balcony", "shed", "courtyard", "isANewConstruction" },
@@ -314,7 +314,7 @@ namespace OpenRealEstate.Tests
                 // Assert.
                 result.ShouldNotBe(null);
                 result.UnhandledData.ShouldBe(null);
-                result.InvalidData.ShouldBe(null);
+                result.Errors.ShouldBe(null);
 
                 AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
                     tags: new[] { "houseAndLandPackage", "solarPanels", "waterTank", "hotWaterService-gas", "heating-other", "balcony", "shed", "courtyard", "isANewConstruction" },
@@ -336,7 +336,7 @@ namespace OpenRealEstate.Tests
                 result.ShouldNotBe(null);
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
-                result.InvalidData.ShouldBe(null);
+                result.Errors.ShouldBe(null);
                 AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
                     tags: new[] { "houseAndLandPackage", "solarPanels", "waterTank", "hotWaterService-gas", "heating-other", "balcony", "shed", "courtyard", "isANewConstruction" },
                     streetNumber: "2/77a");
@@ -356,7 +356,7 @@ namespace OpenRealEstate.Tests
                 result.ShouldNotBe(null);
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
-                result.InvalidData.ShouldBe(null);
+                result.Errors.ShouldBe(null);
                 AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
                     tags: new[] { "houseAndLandPackage", "solarPanels", "waterTank", "hotWaterService-gas", "heating-other", "balcony", "shed", "courtyard", "isANewConstruction" },
                     streetNumber: "2/77a 39");
@@ -376,7 +376,7 @@ namespace OpenRealEstate.Tests
                 result.ShouldNotBe(null);
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
-                result.InvalidData.ShouldBe(null);
+                result.Errors.ShouldBe(null);
                 AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
                     tags: new[] { "houseAndLandPackage", "solarPanels", "waterTank", "hotWaterService-gas", "heating-other", "balcony", "shed", "courtyard", "isANewConstruction" });
             }
@@ -398,7 +398,7 @@ namespace OpenRealEstate.Tests
                 result.ShouldNotBe(null);
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
-                result.InvalidData.ShouldBe(null);
+                result.Errors.ShouldBe(null);
                 AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
                     tags: new[] { "houseAndLandPackage", "solarPanels", "waterTank", "hotWaterService-gas", "heating-other", "balcony", "shed", "courtyard", "isANewConstruction" },
                     streetNumber: "2-39");
@@ -1170,11 +1170,14 @@ namespace OpenRealEstate.Tests
                 var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
 
                 // Act.
-                var exception = Should.Throw<Exception>(() => reaXmlTransmorgrifier.ConvertTo(reaXml));
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                exception.ShouldNotBe(null);
-                exception.Message.ShouldBe("Unable to parse the xml data provided. Currently, only a <propertyList/> or listing segments <residential/> / <rental/> / <land/> / <rural/>. Root node found: 'badContent'.");
+                result.Listings.ShouldBe(null);
+                result.UnhandledData.ShouldBe(null);
+                result.Errors.Count.ShouldBe(1);
+                result.Errors.First().ExceptionMessage.ShouldBe("Unable to parse the xml data provided. Currently, only a <propertyList/> or listing segments <residential/> / <rental/> / <land/> / <rural/>. Root node found: 'badContent'.");
+                result.Errors.First().InvalidData.ShouldBe("Failed to parse the provided xml ata because it contains some invalid data. Pro Tip: This is usually because a character is not encoded. Like an ampersand.");
             }
 
             [Fact]
@@ -1202,12 +1205,14 @@ namespace OpenRealEstate.Tests
                 var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
 
                 // Act.
-                var exception = Should.Throw<Exception>(() => reaXmlTransmorgrifier.ConvertTo(reaXml));
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                exception.ShouldNotBe(null);
-                exception.Message.ShouldBe(
-                    "The REA Xml data provided contains some invalid characters. Line: 0, Position: 1661. Error: '\x16', hexadecimal value 0x16, is an invalid character. Suggested Solution: Either set the 'areBadCharactersRemoved' parameter to 'true' so invalid characters are removed automatically OR manually remove the errors from the file OR manually handle the error (eg. notify the people who sent you this data, that it contains bad data and they should clean it up.)");
+                result.Listings.ShouldBe(null);
+                result.UnhandledData.ShouldBe(null);
+                result.Errors.Count.ShouldBe(1);
+                result.Errors.First().ExceptionMessage.ShouldBe("The REA Xml data provided contains some invalid characters. Line: 0, Position: 1661. Error: '\x16', hexadecimal value 0x16, is an invalid character. Suggested Solution: Either set the 'areBadCharactersRemoved' parameter to 'true' so invalid characters are removed automatically OR manually remove the errors from the file OR manually handle the error (eg. notify the people who sent you this data, that it contains bad data and they should clean it up.)");
+                result.Errors.First().InvalidData.ShouldBe("The entire data source.");
             }
 
             [Fact]

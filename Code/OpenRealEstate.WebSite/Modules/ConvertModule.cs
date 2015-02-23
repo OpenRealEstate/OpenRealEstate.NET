@@ -110,8 +110,8 @@ namespace OpenRealEstate.WebSite.Modules
             var listings = convertToResultKeyValuePair.Value.Listings != null
                 ? convertToResultKeyValuePair.Value.Listings.Select(x => x.Listing).ToList()
                 : null;
-            var invalidData = convertToResultKeyValuePair.Value.InvalidData != null
-                ? convertToResultKeyValuePair.Value.InvalidData.Select(x => x.ExceptionMessage).ToList()
+            var invalidData = convertToResultKeyValuePair.Value.Errors != null
+                ? convertToResultKeyValuePair.Value.Errors.Select(x => x.ExceptionMessage).ToList()
                 : null;
             var unhandledData = convertToResultKeyValuePair.Value.UnhandledData != null
                 ? convertToResultKeyValuePair.Value.UnhandledData.Select(x => x).ToList()

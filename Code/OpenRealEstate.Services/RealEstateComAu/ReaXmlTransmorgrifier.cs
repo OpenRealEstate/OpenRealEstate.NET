@@ -47,7 +47,12 @@ namespace OpenRealEstate.Services.RealEstateComAu
             {
                 if (!areBadCharactersRemoved)
                 {
-                    throw new Exception(validationErrorMessage);
+                    return new ConvertToResult
+                    {
+                        Errors = new List<ParsedError>
+                    {
+                        new ParsedError(validationErrorMessage, "The entire data source.")}
+                    };
                 }
 
                 // Some bad data occurs, so lets clean any bad data out.
@@ -55,7 +60,24 @@ namespace OpenRealEstate.Services.RealEstateComAu
             }
 
             // Now split it up into the known listing types.
-            var elements = SplitReaXmlIntoElements(data);
+            SplitElementResult elements;
+
+            try
+            {
+                elements = SplitReaXmlIntoElements(data);
+            }
+            catch (Exception exception)
+            {
+                return new ConvertToResult
+                {
+                    Errors = new List<ParsedError>
+                    {
+                        new ParsedError(exception.Message, 
+                            "Failed to parse the provided xml ata because it contains some invalid data. Pro Tip: This is usually because a character is not encoded. Like an ampersand.")
+                    }
+                };
+            }
+            
             if (!elements.KnownXmlData.Any() &&
                 !elements.UnknownXmlData.Any())
             {
@@ -91,7 +113,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                                 elements.UnknownXmlData.Any()
                     ? elements.UnknownXmlData.Select(x => x.ToString()).ToList()
                     : null,
-                InvalidData = invalidData.Any()
+                Errors = invalidData.Any()
                     ? invalidData.ToList()
                     : null
             };
@@ -187,6 +209,8 @@ namespace OpenRealEstate.Services.RealEstateComAu
         {
             xml.ShouldNotBeNullOrEmpty();
 
+            // If there are bad elements in the XML, then this throw an exception.
+            // Eg. & (ampersands) in video links that are not properly encoded, etc.
             var document = XDocument.Parse(xml);
 
             // Prepare the xml data we're given.

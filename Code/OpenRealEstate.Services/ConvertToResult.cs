@@ -17,6 +17,6 @@ namespace OpenRealEstate.Services
         /// <summary>
         /// Xml elements that failed to be parsed / contained bad data / etc.
         /// </summary>
-        public IList<ParsedError> InvalidData { get; set; }
+        public IList<ParsedError> Errors { get; set; }
     }
 }
