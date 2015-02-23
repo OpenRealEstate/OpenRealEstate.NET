@@ -1,5 +1,4 @@
 ﻿
-
 ############################################################################
 ###                                                                      ###
 ###                    NUGET  PACKAGE and PUBLISH                        ###
@@ -14,7 +13,8 @@ param (
   [string]$source = $PSScriptRoot,
   [string]$destination = $PSScriptRoot,
   [string]$pushSource = "https://nuget.org",
-  [string]$nuget = ""
+  [string]$nuget = "",
+  [bool]$clean = $false
 )
 
 
@@ -26,6 +26,7 @@ function DisplayCommandLineArgs()
     "    => destination: $destination"
     "    => nuget: $nuget"
     "    => api key: $apiKey"
+    "    => clean: $clean"
 
     ""
     "eg. NuGetPackageAndPublish.ps1 -version 0.1-alpha"
@@ -98,11 +99,16 @@ function DisplayCommandLineArgs()
 
 function CleanUp()
 {
+    if ($clean -eq $false)
+    {
+        return;
+    }
+
     $nupkgFiles = @(Get-ChildItem $destination -Filter *.nupkg)
 
-    if ($nupkgFiles.Length -gt 0)
+    if ($nupkgFiles.Count -gt 0)
     {
-        "Found " + $nupkgFiles.Length + " *.nupkg files. Lets delete these first..."
+        "Found " + $nupkgFiles.Count + " *.nupkg files. Lets delete these first..."
 
         foreach($nupkgFile in $nupkgFiles)
         {
@@ -131,7 +137,7 @@ function PackageTheSpecifications()
         throw;
     }
 
-    "Found: " + $files.Length + " files :)"
+    "Found: " + $files.Count + " files :)"
 
     foreach($file in $files)
     {
@@ -164,7 +170,7 @@ function PushThePackagesToNuGet()
         throw;
     }
 
-    "Found: " + $files.Length + " files :)"
+    "Found: " + $files.Count + " files :)"
 
     foreach($file in $files)
     {
@@ -186,7 +192,7 @@ cls
 " ---------------------- start script ----------------------"
 ""
 ""
-"  Starting NuGet packing/publishing script -  (╯°□°）╯︵ ┻━┻"
+"  Starting NuGet packing/publishing script -  (â•¯Â°â–¡Â°ï¼‰â•¯ï¸µ â”»â”â”»"
 ""
 "  This script will look for -all- *.nuspec files in a source directory,"
 "  then paackage them up to *.nupack files. Finally, it can publish"
