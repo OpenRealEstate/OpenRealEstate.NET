@@ -192,7 +192,7 @@ cls
 " ---------------------- start script ----------------------"
 ""
 ""
-"  Starting NuGet packing/publishing script -  (â•¯Â°â–¡Â°ï¼‰â•¯ï¸µ â”»â”â”»"
+"  Starting NuGet packing/publishing script -  (╯°□°）╯︵ ┻━┻"
 ""
 "  This script will look for -all- *.nuspec files in a source directory,"
 "  then paackage them up to *.nupack files. Finally, it can publish"
