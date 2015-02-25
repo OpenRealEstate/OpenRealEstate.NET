@@ -1177,7 +1177,7 @@ namespace OpenRealEstate.Tests
                 result.UnhandledData.ShouldBe(null);
                 result.Errors.Count.ShouldBe(1);
                 result.Errors.First().ExceptionMessage.ShouldBe("Unable to parse the xml data provided. Currently, only a <propertyList/> or listing segments <residential/> / <rental/> / <land/> / <rural/>. Root node found: 'badContent'.");
-                result.Errors.First().InvalidData.ShouldBe("Failed to parse the provided xml ata because it contains some invalid data. Pro Tip: This is usually because a character is not encoded. Like an ampersand.");
+                result.Errors.First().InvalidData.ShouldBe("Failed to parse the provided xml data because it contains some invalid data. Pro Tip: This is usually because a character is not encoded. Like an ampersand.");
             }
 
             [Fact]

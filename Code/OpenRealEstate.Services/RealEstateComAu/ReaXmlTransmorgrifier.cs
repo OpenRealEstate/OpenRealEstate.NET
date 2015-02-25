@@ -73,7 +73,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                     Errors = new List<ParsedError>
                     {
                         new ParsedError(exception.Message, 
-                            "Failed to parse the provided xml ata because it contains some invalid data. Pro Tip: This is usually because a character is not encoded. Like an ampersand.")
+                            "Failed to parse the provided xml data because it contains some invalid data. Pro Tip: This is usually because a character is not encoded. Like an ampersand.")
                     }
                 };
             }
