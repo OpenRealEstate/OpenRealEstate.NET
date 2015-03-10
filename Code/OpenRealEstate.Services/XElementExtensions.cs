@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
 using System.Xml.Linq;
-using NUnit.Framework.Constraints;
 using OpenRealEstate.Core.Models;
 
 namespace OpenRealEstate.Services

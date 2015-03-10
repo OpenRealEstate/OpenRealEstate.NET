@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace OpenRealEstate.Services
+﻿namespace OpenRealEstate.Services
 {
     public interface ITransmorgrifier
     {
