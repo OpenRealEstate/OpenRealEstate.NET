@@ -53,6 +53,7 @@
     <Compile Include="AgencyFacts.cs" />
     <Compile Include="AgentFacts.cs" />
     <Compile Include="FranchiseFacts.cs" />
+    <Compile Include="ListingHelpersFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReaTransmorgrifierFacts.cs" />
     <Compile Include="Validators\BuildingDetailsValidatorFacts.cs" />

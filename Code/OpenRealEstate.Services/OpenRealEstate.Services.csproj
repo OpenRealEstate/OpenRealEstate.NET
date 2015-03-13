@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="ConvertToResult.cs" />
     <Compile Include="ITransmorgrifier.cs" />
+    <Compile Include="ListingHelpers.cs" />
     <Compile Include="ListingResult.cs" />
     <Compile Include="ParsedError.cs" />
     <Compile Include="RealEstateComAu\CategoryType.cs" />
