@@ -669,8 +669,8 @@ namespace OpenRealEstate.Tests
                 listing.Address.State.ShouldBe("vic");
                 listing.Address.CountryIsoCode.ShouldBe("AU");
                 listing.Address.Postcode.ShouldBe("3121");
-                listing.Address.Latitude.ShouldBe(latitude.HasValue ? latitude.Value : (decimal?)null);
-                listing.Address.Longitude.ShouldBe(longitude.HasValue ? longitude.Value : (decimal?)null);
+                listing.Address.Latitude.ShouldBe(latitude);
+                listing.Address.Longitude.ShouldBe(longitude);
 
                 if (latitude.HasValue)
                 {
@@ -684,7 +684,7 @@ namespace OpenRealEstate.Tests
                 listing.AvailableOn.ShouldBe(new DateTime(2009, 01, 26, 12, 30, 00));
 
                 listing.Pricing.RentalPrice.ShouldBe(350);
-                listing.Pricing.RentalPriceText.ShouldBe("350");
+                listing.Pricing.RentalPriceText.ShouldBe("$350");
                 listing.Pricing.PaymentFrequencyType.ShouldBe(PaymentFrequencyType.Weekly);
                 listing.Pricing.Bond.ShouldBe(999);
 

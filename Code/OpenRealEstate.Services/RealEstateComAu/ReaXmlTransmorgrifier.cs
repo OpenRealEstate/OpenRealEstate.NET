@@ -1301,7 +1301,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 var isDisplay = string.IsNullOrWhiteSpace(displayAttributeValue) ||
                                 displayAttributeValue.ParseOneYesZeroNoToBool();
                 rentalPricing.RentalPriceText = isDisplay
-                    ? rentalPricing.RentalPrice.ToString()
+                    ? rentalPricing.RentalPrice.ToString("C0")
                     : null;
 
                 // NOTE: We only parse the first one. You have more than one? Pffftttt!!! Die!
