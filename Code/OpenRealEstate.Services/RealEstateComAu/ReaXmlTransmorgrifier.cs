@@ -397,6 +397,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             listing.Inspections = ExtractInspectionTimes(document);
             listing.Images = ExtractImages(document);
             listing.FloorPlans = ExtractFloorPlans(document);
+            listing.Videos = ExtractVideos(document);
             listing.Features = ExtractFeatures(document);
             listing.LandDetails = ExtractLandDetails(document);
             listing.Links = ExtractExternalLinks(document);
@@ -890,6 +891,23 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 }).ToList();
 
             return floorPlans.Any() ? floorPlans : null;
+        }
+
+        private static IList<Media> ExtractVideos(XElement document)
+        {
+            document.ShouldNotBe(null);
+
+            var videoUrl = document.ValueOrDefault("videoLink", "href");
+            return string.IsNullOrWhiteSpace(videoUrl)
+                ? null
+                : new List<Media>
+                {
+                    new Media
+                    {
+                        Order = 1,
+                        Url = videoUrl
+                    }
+                };
         }
 
         private static PropertyType ExtractResidentialAndRentalPropertyType(XElement document)

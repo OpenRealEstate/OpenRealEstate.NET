@@ -40,7 +40,8 @@ namespace OpenRealEstate.Tests
                 result.UnhandledData.ShouldBe(null);
                 result.Errors.ShouldBe(null);
                 AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
-                    tags: new[] { "houseAndLandPackage", "solarPanels", "waterTank", "hotWaterService-gas", "heating-other", "balcony", "shed", "courtyard", "isANewConstruction" });
+                    tags: new[] { "houseAndLandPackage", "solarPanels", "waterTank", "hotWaterService-gas", "heating-other", "balcony", "shed", "courtyard", "isANewConstruction" },
+                    videos: new[] { "http://www.foo.tv/abcd.html" });
             }
 
             [Fact]
@@ -411,6 +412,7 @@ namespace OpenRealEstate.Tests
                 string salePriceText = "Between $400,000 and $600,000",
                 IList<string> images = null,
                 IList<string> floorplans = null,
+                IList<string> videos = null, 
                 string streetNumber = "2/39")
             {
                 listing.AgencyId.ShouldBe("XNWXNW");
@@ -482,6 +484,14 @@ namespace OpenRealEstate.Tests
                     ? "http://www.realestate.com.au/tmp/floorplan2.gif"
                     : floorplans[1]);
                 listing.FloorPlans[0].Order.ShouldBe(1);
+
+                if (videos != null)
+                {
+                    for(var i = 0; i < listing.Videos.Count; i++)
+                    {
+                        listing.Videos[i].Url.ShouldBe(videos[i]);
+                    }
+                }
 
                 listing.AuctionOn.ShouldBe(new DateTime(2009, 02, 04, 18, 30, 00));
 
