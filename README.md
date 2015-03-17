@@ -1,6 +1,7 @@
 #OpenRealEstate.NET 
-[![Build status](https://ci.appveyor.com/api/projects/status/hdaer866pn98ly6k)](https://ci.appveyor.com/project/PureKrome/openrealestate-net) [![](http://img.shields.io/nuget/v/OpenRealEstate.Core.svg?style=flat-square)](http://www.nuget.org/packages/WorldDomination.HttpClient.Helpers/) ![](http://img.shields.io/nuget/dt/OpenRealEstate.Core.svg?style=flat-square)
-
+[![Build status](https://ci.appveyor.com/api/projects/status/hdaer866pn98ly6k)](https://ci.appveyor.com/project/PureKrome/openrealestate-net)
+- Core[![](http://img.shields.io/nuget/v/OpenRealEstate.Core.svg?style=flat-square)](https://www.nuget.org/packages/OpenRealEstate.Core) ![](http://img.shields.io/nuget/dt/OpenRealEstate.Core.svg?style=flat-square) 
+- Services [![](http://img.shields.io/nuget/v/OpenRealEstate.Services.svg?style=flat-square)](https://www.nuget.org/packages/OpenRealEstate.Services) ![](http://img.shields.io/nuget/dt/OpenRealEstate.Services.svg?style=flat-square)
 ---
 
 This library is an easy to use .NET Client api to help parse OpenRealEstate schema/data.
