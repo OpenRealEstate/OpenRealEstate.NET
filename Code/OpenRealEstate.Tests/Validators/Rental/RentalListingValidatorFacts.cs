@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using FluentValidation;
 using FluentValidation.TestHelper;
+using OpenRealEstate.Core.Models;
 using OpenRealEstate.Core.Models.Rental;
 using OpenRealEstate.Services.RealEstateComAu;
 using OpenRealEstate.Validation.Rental;
@@ -76,7 +77,7 @@ namespace OpenRealEstate.Tests.Validators.Rental
                     ruleSet: RentalListingValidator.MinimumRuleSet);
 
                 // Assert.
-                result.Errors.Count.ShouldBe(9);
+                result.Errors.Count.ShouldBe(10);
                 result.Errors.ShouldContain(x => x.PropertyName == "AgencyId");
                 result.Errors.ShouldContain(x => x.PropertyName == "StatusType");
                 result.Errors.ShouldContain(x => x.PropertyName == "CreatedOn");
@@ -86,6 +87,7 @@ namespace OpenRealEstate.Tests.Validators.Rental
                 result.Errors.ShouldContain(x => x.PropertyName == "Description");
                 result.Errors.ShouldContain(x => x.PropertyName == "Address");
                 result.Errors.ShouldContain(x => x.PropertyName == "PropertyType");
+                result.Errors.ShouldContain(x => x.PropertyName == "Pricing");
             }
         }
     }

@@ -17,6 +17,7 @@ namespace OpenRealEstate.Validation.Rental
             {
                 // Required.
                 RuleFor(listing => listing.PropertyType).NotEqual(PropertyType.Unknown);
+                RuleFor(listing => listing.Pricing).NotNull().SetValidator(new RentalPricingValidator());
             });
         }
     }
