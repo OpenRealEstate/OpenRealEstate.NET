@@ -14,7 +14,7 @@
         <summary>Core base class libraries for the OpenRealEstate library.</summary>
         <copyright>2014</copyright>
         <language>en-AU</language>
-        <tags>realestate openrealestate worlddomination worldomination unicorn magicalunicorn magical-unicorn</tags>
+        <tags>ore ore.net realestate openrealestate worlddomination worldomination unicorn magicalunicorn magical-unicorn</tags>
     </metadata>
     <files>
         <file src="..\Code\OpenRealEstate.Core\bin\Release\OpenRealEstate.Core.dll" target="lib\net45\OpenRealEstate.Core.dll" />

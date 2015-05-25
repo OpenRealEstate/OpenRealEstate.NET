@@ -1,25 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
-        <id>OpenRealEstate.Services</id>
+        <id>OpenRealEstate.Validation</id>
         <version>0.0.0</version>
-        <title>OpenRealEstate - Services</title>
+        <title>OpenRealEstate - Validation</title>
         <authors>Justin Adler</authors>
         <owners>Justin Adler</owners>
         <licenseUrl>https://raw.githubusercontent.com/OpenRealEstate/OpenRealEstate/master/LICENSE</licenseUrl>
         <projectUrl>https://github.com/OpenRealEstate/OpenRealEstate</projectUrl>
         <iconUrl>http://i.imgur.com/bR4Yf.jpg</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>These are the services which encapsulate the main business logic of the OpenRealEstate library. This pacakge is where all the magic happens :)</description>
-        <summary>Services for the OpenRealEstate library.</summary>
+        <description>A mediator to validation OpenRealEstate instances.</description>
+        <summary>Validation for the OpenRealEstate library.</summary>
         <copyright>2014</copyright>
         <language>en-AU</language>
         <tags>ore ore.net realestate openrealestate worlddomination worldomination unicorn magicalunicorn magical-unicorn</tags>
         <dependencies>
             <dependency id="OpenRealEstate.Core" version="[1.0.0-s05, 2.0.0)" />
+            <dependency id="FluentValidation" version="[5.5.0.0, 6.0.0)" />
         </dependencies>
     </metadata>
     <files>
-        <file src="..\Code\OpenRealEstate.Services\bin\Release\OpenRealEstate.Services.dll" target="lib\net45\OpenRealEstate.Services.dll" />
+        <file src="..\Code\OpenRealEstate.Validation\bin\Release\OpenRealEstate.Validation.dll" target="lib\net45\OpenRealEstate.Validation.dll" />
     </files>
 </package>
