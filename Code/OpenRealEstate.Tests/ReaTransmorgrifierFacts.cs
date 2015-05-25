@@ -405,6 +405,43 @@ namespace OpenRealEstate.Tests
                     streetNumber: "2-39");
             }
 
+            [Fact]
+            public void GivenTheFileREAResidentialCurrentWithA4PointZeroZeroBedroomNumber_Convert_ReturnsAListing()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current-WithA4PointZeroZeroBedroomNumber.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.ShouldNotBe(null);
+                result.UnhandledData.ShouldBe(null);
+                result.Errors.ShouldBe(null);
+
+                AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
+                    tags: new[] { "houseAndLandPackage", "solarPanels", "waterTank", "hotWaterService-gas", "heating-other", "balcony", "shed", "courtyard", "isANewConstruction" },
+                    videos: new[] { "http://www.foo.tv/abcd.html" });
+            }
+
+            [Fact]
+            public void GivenTheFileREAResidentialCurrentWithABadBedroomNumber_Convert_ReturnsAnError()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current-WithABadBedroomNumber.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.ShouldNotBe(null);
+                result.UnhandledData.ShouldBe(null);
+                result.Errors.Count.ShouldBe(1);
+                result.Errors.First().ExceptionMessage.ShouldBe("Failed to parse the value '4.5' into an int. Is it a valid number? Does it contain decimal point values?");
+            }
+
             private static void AssertResidentialCurrentListing(ResidentialListing listing,
                 PropertyType expectedPropertyType = PropertyType.House,
                 int expectedBedroomsCount = 4,
