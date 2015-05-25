@@ -64,7 +64,7 @@ namespace OpenRealEstate.Services
                         ? "-null-"
                         : value));
         }
-
+        
         public static byte ParseByteValueOrDefault(this string value)
         {
             byte number = 0;
@@ -73,12 +73,37 @@ namespace OpenRealEstate.Services
                 return number;
             }
 
-            if (byte.TryParse(value, out number))
+            var tempNumber = ParseNumberToIntOrDefault(value);
+            if (byte.TryParse(tempNumber.ToString(), out number))
             {
                 return number;
             }
 
             var errorMessage = string.Format("Failed to parse the value '{0}' into a byte.", value);
+            throw new Exception(errorMessage);
+        }
+
+        private static int ParseNumberToIntOrDefault(this string value)
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                return 0;
+            }
+
+            // NOTE: We first convert to a float. This is because 
+            //    a) a decimal value with ZERO's for the decimal place == ok.
+            //    b) a decimal value with numbers for the decimal place == bad.
+            float number;
+
+            // REF: http://stackoverflow.com/questions/6598179/the-right-way-to-compare-a-system-double-to-0-a-number-int
+            //      
+            if (float.TryParse(value, out number) &&
+                Math.Abs((number % 1)) < 0.01)
+            {
+                return (int)number;
+            }
+
+            var errorMessage = string.Format("Failed to parse the value '{0}' into an int. Is it a valid number? Does it contain decimal point values?", value);
             throw new Exception(errorMessage);
         }
     }
