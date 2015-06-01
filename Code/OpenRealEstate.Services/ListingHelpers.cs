@@ -48,18 +48,36 @@ namespace OpenRealEstate.Services
             {
                 if (newListing is ResidentialListing)
                 {
-                    CopyOverSoldPricingData(((ResidentialListing) newListing).Pricing,
-                        ((ResidentialListing) existingListing).Pricing);
+                    var newListingTemp = (ResidentialListing) newListing;
+                    var existingListingTemp = (ResidentialListing) existingListing;
+                    if (newListingTemp.Pricing != null &&
+                        existingListingTemp.Pricing != null)
+                    {
+                        CopyOverSoldPricingData(newListingTemp.Pricing,
+                            existingListingTemp.Pricing);
+                    }
                 }
                 else if (newListing is LandListing)
                 {
-                    CopyOverSoldPricingData(((LandListing)newListing).Pricing,
-                        ((LandListing)existingListing).Pricing);
+                    var newListingTemp = (LandListing) newListing;
+                    var existingListingTemp = (LandListing) existingListing;
+                    if (newListingTemp.Pricing != null &&
+                        existingListingTemp.Pricing != null)
+                    {
+                        CopyOverSoldPricingData(newListingTemp.Pricing,
+                            existingListingTemp.Pricing);
+                    }
                 }
                 else if (newListing is RuralListing)
                 {
-                    CopyOverSoldPricingData(((RuralListing)newListing).Pricing,
-                        ((RuralListing)existingListing).Pricing);
+                    var newListingTemp = (RuralListing) newListing;
+                    var existingListingTemp = (RuralListing) existingListing;
+                    if (newListingTemp.Pricing != null &&
+                        existingListingTemp.Pricing != null)
+                    {
+                        CopyOverSoldPricingData(newListingTemp.Pricing,
+                            existingListingTemp.Pricing);
+                    }
                 }
                 else
                 {
