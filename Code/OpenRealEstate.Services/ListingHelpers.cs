@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json;
 using OpenRealEstate.Core.Models;
 using OpenRealEstate.Core.Models.Land;
 using OpenRealEstate.Core.Models.Rental;
@@ -24,14 +25,16 @@ namespace OpenRealEstate.Services
             if (newListing.StatusType == StatusType.Current)
             {
                 // We don't need anything from the existing listing - so turf it.
-                return newListing;
+                return MapExistingListingToNewInstance(newListing);
             }
 
+            var returnListing = MapExistingListingToNewInstance(existingListing);
+
             // The all important 'new' status for this existing listing :)
-            existingListing.StatusType = newListing.StatusType;
+            returnListing.StatusType = newListing.StatusType;
 
             // Assumption: the date the new listing changed status, is the UpdateOn value.
-            existingListing.UpdatedOn = newListing.UpdatedOn;
+            returnListing.UpdatedOn = newListing.UpdatedOn;
 
             if ((newListing.StatusType == StatusType.Leased &&
                  newListing is RentalListing &&
@@ -40,43 +43,43 @@ namespace OpenRealEstate.Services
                 newListing.StatusType == StatusType.Withdrawn)
             {
                 // There is no extra data for these statuses.
-                return existingListing;
+                return returnListing;
             }
 
-            if (existingListing.StatusType == StatusType.Sold &&
-                CanListingBeSold(newListing, existingListing))
+            if (returnListing.StatusType == StatusType.Sold &&
+                CanListingBeSold(newListing, returnListing))
             {
                 if (newListing is ResidentialListing)
                 {
                     var newListingTemp = (ResidentialListing) newListing;
-                    var existingListingTemp = (ResidentialListing) existingListing;
+                    var returnListingTemp = (ResidentialListing)returnListing;
                     if (newListingTemp.Pricing != null &&
-                        existingListingTemp.Pricing != null)
+                        returnListingTemp.Pricing != null)
                     {
                         CopyOverSoldPricingData(newListingTemp.Pricing,
-                            existingListingTemp.Pricing);
+                            returnListingTemp.Pricing);
                     }
                 }
                 else if (newListing is LandListing)
                 {
                     var newListingTemp = (LandListing) newListing;
-                    var existingListingTemp = (LandListing) existingListing;
+                    var returnListingTemp = (LandListing)returnListing;
                     if (newListingTemp.Pricing != null &&
-                        existingListingTemp.Pricing != null)
+                        returnListingTemp.Pricing != null)
                     {
                         CopyOverSoldPricingData(newListingTemp.Pricing,
-                            existingListingTemp.Pricing);
+                            returnListingTemp.Pricing);
                     }
                 }
                 else if (newListing is RuralListing)
                 {
                     var newListingTemp = (RuralListing) newListing;
-                    var existingListingTemp = (RuralListing) existingListing;
+                    var returnListingTemp = (RuralListing)returnListing;
                     if (newListingTemp.Pricing != null &&
-                        existingListingTemp.Pricing != null)
+                        returnListingTemp.Pricing != null)
                     {
                         CopyOverSoldPricingData(newListingTemp.Pricing,
-                            existingListingTemp.Pricing);
+                            returnListingTemp.Pricing);
                     }
                 }
                 else
@@ -85,7 +88,7 @@ namespace OpenRealEstate.Services
                     throw new Exception(unhandledErrorMessage);
                 }
 
-                return existingListing;
+                return returnListing;
             }
 
             var errorMessage =
@@ -123,6 +126,37 @@ namespace OpenRealEstate.Services
                      existingListing is LandListing) ||
                     (newListing is RuralListing &&
                      existingListing is RuralListing));
+        }
+
+        private static Listing MapExistingListingToNewInstance(Listing existingListing)
+        {
+            if (existingListing == null)
+            {
+                throw new Exception();
+            }
+
+            var json = JsonConvert.SerializeObject(existingListing);
+            if (existingListing is ResidentialListing)
+            {
+                return JsonConvert.DeserializeObject<ResidentialListing>(json);
+            }
+
+            if (existingListing is RentalListing)
+            {
+                return JsonConvert.DeserializeObject<RentalListing>(json);
+            }
+
+            if (existingListing is LandListing)
+            {
+                return JsonConvert.DeserializeObject<LandListing>(json);
+            }
+
+            if (existingListing is RuralListing)
+            {
+                return JsonConvert.DeserializeObject<RuralListing>(json);
+            }
+
+            throw new Exception(string.Format("Unhandled existing listing type => '{0}'.", existingListing.GetType()));
         }
     }
 }

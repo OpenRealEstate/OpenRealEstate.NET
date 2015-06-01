@@ -249,7 +249,7 @@ namespace OpenRealEstate.Tests
                 var exception = Should.Throw<Exception>(() => ListingHelpers.CopyOverListingData(newListing, existingListing));
 
                 // Assert.
-                exception.Message.ShouldBe("Unhandled status type -or- incompatible status type with the listing type (ie. a residential listing cannot be leased ... only rental listings can be leased. New listing: 'Residential >> Agency: XNWXNW; Id: Residential-Current-ABCD1234' - 'Leased'. Existing listing: 'Residential >> Agency: XNWXNW; Id: Residential-Current-ABCD1234' - 'Leased'");
+                exception.Message.ShouldBe("Unhandled status type -or- incompatible status type with the listing type (ie. a residential listing cannot be leased ... only rental listings can be leased. New listing: 'Residential >> Agency: XNWXNW; Id: Residential-Current-ABCD1234' - 'Leased'. Existing listing: 'Residential >> Agency: XNWXNW; Id: Residential-Current-ABCD1234' - 'Current'");
             }
 
             #endregion
