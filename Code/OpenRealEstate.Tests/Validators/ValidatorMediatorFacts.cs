@@ -46,26 +46,33 @@ namespace OpenRealEstate.Tests.Validators
                     throw new Exception("No valid type provided. Must be a 'Listing' type.");
                 }
 
+                return GetListing(fileName);
+            }
+
+            private static Listing GetListing(string fileName)
+            {
+                fileName.ShouldNotBeNullOrEmpty();
+
                 var reaXml = File.ReadAllText(fileName);
                 var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
                 return reaXmlTransmorgrifier.ConvertTo(reaXml).Listings.First().Listing;
             }
 
             [Fact]
-            public void GivenAResidentialListing_Validate_ValidatesTheListingWithNoErrors()
+            public void GivenACurrentResidentialListing_Validate_ValidatesTheListingWithNoErrors()
             {
                 // Arrange.
                 var listing = GetListing(typeof (ResidentialListing));
                 
                 // Arrange.
-                var result = ValidatorMediator.Validate(listing);
+                var result = ValidatorMediator.Validate(listing, false);
 
                 // Assert.
                 result.Errors.Count.ShouldBe(0);
             }
 
             [Fact]
-            public void GivenAResidentialListingWithSomeRequiredMissingData_Validate_ValidatesTheListingWithSomeErrors()
+            public void GivenACurrentResidentialListingWithSomeRequiredMissingData_Validate_ValidatesTheListingWithSomeErrors()
             {
                 // Arrange.
                 var listing = (ResidentialListing)GetListing(typeof(ResidentialListing));
@@ -74,10 +81,36 @@ namespace OpenRealEstate.Tests.Validators
                 listing.Pricing.SalePrice = -1;
 
                 // Arrange.
-                var result = ValidatorMediator.Validate(listing, ValidatorMediator.MinimumRuleSet);
+                var result = ValidatorMediator.Validate(listing, true);
 
                 // Assert.
                 result.Errors.Count.ShouldBe(3);
+            }
+
+            [Fact]
+            public void GivenAWithdrawnResidentialListingWithStrictValidation_Validate_ValidatesTheListingWithNoErrors()
+            {
+                // Arrange.
+                var listing = GetListing("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Withdrawn.xml");
+
+                // Arrange.
+                var result = ValidatorMediator.Validate(listing);
+
+                // Assert.
+                result.Errors.Count.ShouldBe(4);
+            }
+
+            [Fact]
+            public void GivenAWithdrawnResidentialListing_Validate_ValidatesTheListingWithNoErrors()
+            {
+                // Arrange.
+                var listing = GetListing("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Withdrawn.xml");
+
+                // Arrange.
+                var result = ValidatorMediator.Validate(listing, false);
+
+                // Assert.
+                result.Errors.Count.ShouldBe(0);
             }
 
             [Fact]
@@ -87,7 +120,7 @@ namespace OpenRealEstate.Tests.Validators
                 var listing = GetListing(typeof(RentalListing));
 
                 // Arrange.
-                var result = ValidatorMediator.Validate(listing);
+                var result = ValidatorMediator.Validate(listing, false);
 
                 // Assert.
                 result.Errors.Count.ShouldBe(0);
@@ -103,7 +136,7 @@ namespace OpenRealEstate.Tests.Validators
                 listing.PropertyType = PropertyType.Unknown;
 
                 // Arrange.
-                var result = ValidatorMediator.Validate(listing, ValidatorMediator.MinimumRuleSet);
+                var result = ValidatorMediator.Validate(listing, true);
 
                 // Assert.
                 result.Errors.Count.ShouldBe(3);
@@ -116,7 +149,7 @@ namespace OpenRealEstate.Tests.Validators
                 var listing = GetListing(typeof(RuralListing));
 
                 // Arrange.
-                var result = ValidatorMediator.Validate(listing);
+                var result = ValidatorMediator.Validate(listing, false);
 
                 // Assert.
                 result.Errors.Count.ShouldBe(0);
@@ -132,7 +165,7 @@ namespace OpenRealEstate.Tests.Validators
                 listing.Pricing.SalePrice = -1;
 
                 // Arrange.
-                var result = ValidatorMediator.Validate(listing);
+                var result = ValidatorMediator.Validate(listing, false);
 
                 // Assert.
                 result.Errors.Count.ShouldBe(3);
@@ -145,7 +178,7 @@ namespace OpenRealEstate.Tests.Validators
                 var listing = GetListing(typeof(LandListing));
 
                 // Arrange.
-                var result = ValidatorMediator.Validate(listing);
+                var result = ValidatorMediator.Validate(listing, false);
 
                 // Assert.
                 result.Errors.Count.ShouldBe(0);
@@ -161,7 +194,7 @@ namespace OpenRealEstate.Tests.Validators
                 listing.CategoryType = CategoryType.Unknown; // That's allowed, now :(
 
                 // Arrange.
-                var result = ValidatorMediator.Validate(listing, ValidatorMediator.MinimumRuleSet);
+                var result = ValidatorMediator.Validate(listing, true);
 
                 // Assert.
                 result.Errors.Count.ShouldBe(2);

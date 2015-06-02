@@ -9,6 +9,12 @@ namespace OpenRealEstate.Validation.Residential
     {
         public ResidentialListingValidator()
         {
+            // Can have a NULL Auction date. Just can't have a MinValue one.
+            RuleFor(listing => listing.AuctionOn).NotEqual(DateTime.MinValue);
+
+            // Can have NULL building details. But if it's not NULL, then check it.
+            RuleFor(listing => listing.BuildingDetails).SetValidator(new BuildingDetailsValidator());
+
             RuleSet(MinimumRuleSetKey, () =>
             {
                 // Required.
@@ -17,10 +23,6 @@ namespace OpenRealEstate.Validation.Residential
                 
                 RuleFor(listing => listing.Pricing).SetValidator(new SalePricingValidator());    
             });
-
-            // Optional.
-            RuleFor(listing => listing.AuctionOn).NotEqual(DateTime.MinValue);
-            RuleFor(listing => listing.BuildingDetails).SetValidator(new BuildingDetailsValidator());
         }
     }
 }

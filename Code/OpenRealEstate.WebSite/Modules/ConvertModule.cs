@@ -122,10 +122,8 @@ namespace OpenRealEstate.WebSite.Modules
             {
                 foreach (var listing in listings)
                 {
-                    var ruleSet = listing.StatusType == StatusType.Current
-                        ? ValidatorMediator.MinimumRuleSet
-                        : null;
-                    var validationResults = ValidatorMediator.Validate(listing, ruleSet);
+                    // We only do strict validation (the bare minimum needed to store a listing) if this is current.
+                    var validationResults = ValidatorMediator.Validate(listing, listing.StatusType == StatusType.Current);
                     if (validationResults.Errors != null &&
                         validationResults.Errors.Any())
                     {

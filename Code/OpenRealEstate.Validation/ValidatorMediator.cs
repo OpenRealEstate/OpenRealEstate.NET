@@ -15,40 +15,38 @@ namespace OpenRealEstate.Validation
 {
     public static class ValidatorMediator
     {
-        public const string MinimumRuleSet = ListingValidator<ResidentialListing>.MinimumRuleSet;
-
-        public static ValidationResult Validate(Listing listing, string ruleSet = null)
+        public static ValidationResult Validate(Listing listing, bool isTheMinimumDataToStoreAListing = true)
         {
             if (listing is ResidentialListing)
             {
                 var validator = new ResidentialListingValidator();
-                return string.IsNullOrWhiteSpace(ruleSet)
-                    ? validator.Validate(listing as ResidentialListing)
-                    : validator.Validate(listing as ResidentialListing, ruleSet: RentalListingValidator.MinimumRuleSet);
+                return isTheMinimumDataToStoreAListing
+                    ? validator.Validate(listing as ResidentialListing, ruleSet: ResidentialListingValidator.MinimumRuleSet)
+                    : validator.Validate(listing as ResidentialListing);
             }
 
             if (listing is RentalListing)
             {
                 var validator = new RentalListingValidator();
-                return string.IsNullOrWhiteSpace(ruleSet)
-                    ? validator.Validate(listing as RentalListing)
-                    : validator.Validate(listing as RentalListing, ruleSet: RentalListingValidator.MinimumRuleSet);
+                return isTheMinimumDataToStoreAListing
+                    ? validator.Validate(listing as RentalListing, ruleSet: RentalListingValidator.MinimumRuleSet)
+                    : validator.Validate(listing as RentalListing);
             }
 
             if (listing is RuralListing)
             {
                 var validator = new RuralListingValidator();
-                return string.IsNullOrWhiteSpace(ruleSet)
-                    ? validator.Validate(listing as RuralListing)
-                    : validator.Validate(listing as RuralListing, ruleSet: RentalListingValidator.MinimumRuleSet);;
+                return isTheMinimumDataToStoreAListing
+                    ? validator.Validate(listing as RuralListing, ruleSet: RuralListingValidator.MinimumRuleSet)
+                    : validator.Validate(listing as RuralListing);;
             }
 
             if (listing is LandListing)
             {
                 var validator = new LandListingValidator();
-                return string.IsNullOrWhiteSpace(ruleSet)
-                    ? validator.Validate(listing as LandListing)
-                    : validator.Validate(listing as LandListing, ruleSet: RentalListingValidator.MinimumRuleSet);
+                return isTheMinimumDataToStoreAListing
+                    ? validator.Validate(listing as LandListing, ruleSet: LandListingValidator.MinimumRuleSet)
+                    : validator.Validate(listing as LandListing);
             }
 
             var errorMessage =
