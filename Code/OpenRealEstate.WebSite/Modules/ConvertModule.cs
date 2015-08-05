@@ -63,7 +63,7 @@ namespace OpenRealEstate.WebSite.Modules
                 foreach (var content in contents)
                 {
                     lastFile = content.Key;
-                    var convertToResult = _reaXmlTransmorgrifier.ConvertTo(content.Value);
+                    var convertToResult = _reaXmlTransmorgrifier.ConvertTo(content.Value, true);
                     if (convertToResult != null)
                     {
                         results.Add(content.Key, convertToResult);

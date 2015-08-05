@@ -1270,7 +1270,7 @@ namespace OpenRealEstate.Tests
                 var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
 
                 // Act.
-                var result = reaXmlTransmorgrifier.ConvertTo(reaXml, true);
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml, areBadCharactersRemoved: true);
 
                 // Assert.
                 result.Listings.Count.ShouldBe(1);

@@ -1,11 +1,83 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace OpenRealEstate.Core.Models
 {
     public class BuildingDetails
     {
-        public UnitOfMeasure Area { get; set; }
-        public decimal? EnergyRating { get; set; }
-        public ISet<string> Tags { get; set; }
+        private UnitOfMeasure _area;
+        private decimal? _energyRating;
+        private ISet<string> _tags;
+
+        public UnitOfMeasure Area
+        {
+            get { return _area; }
+            set
+            {
+                _area = value;
+                IsAreaModified = true;
+            }
+        }
+
+        public bool IsAreaModified { get; private set; }
+
+        public decimal? EnergyRating
+        {
+            get { return _energyRating; }
+            set
+            {
+                _energyRating = value;
+                IsEnergyRatingModified = true;
+            }
+        }
+
+        public bool IsEnergyRatingModified { get; private set; }
+
+        public ISet<string> Tags
+        {
+            get { return _tags; }
+            set
+            {
+                _tags = value;
+                IsTagsModified = true;
+            }
+        }
+
+        public bool IsTagsModified { get; private set; }
+
+        public void CopyOverNewData(BuildingDetails newBuildingDetails)
+        {
+            if (newBuildingDetails == null)
+            {
+                throw new ArgumentNullException("newBuildingDetails");
+            }
+
+            if (newBuildingDetails.IsAreaModified)
+            {
+                Area = newBuildingDetails.Area;
+            }
+
+            if (newBuildingDetails.IsEnergyRatingModified)
+            {
+                EnergyRating = newBuildingDetails.EnergyRating;
+            }
+
+            if (newBuildingDetails.IsTagsModified)
+            {
+                Tags = newBuildingDetails.Tags;
+            }
+        }
+
+        public void ClearAllIsModified()
+        {
+            if (Area != null)
+            {
+                Area.ClearAllIsModified();
+            }
+
+            IsAreaModified = false;
+            IsEnergyRatingModified = false;
+            IsTagsModified = false;
+        }
     }
 }

@@ -59,8 +59,16 @@
     <Compile Include="AgentFacts.cs" />
     <Compile Include="FranchiseFacts.cs" />
     <Compile Include="ListingHelpersFacts.cs" />
+    <Compile Include="Models\AggregateRootFacts.cs" />
+    <Compile Include="Models\HelperUtilities.cs" />
+    <Compile Include="Models\LandListingFacts.cs" />
+    <Compile Include="Models\ListingFacts.cs" />
+    <Compile Include="Models\RentalListingFacts.cs" />
+    <Compile Include="Models\ResidentialListingFacts.cs" />
+    <Compile Include="Models\RuralListingFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReaTransmorgrifierFacts.cs" />
+    <Compile Include="ResidentialListingFacts.cs" />
     <Compile Include="Validators\BuildingDetailsValidatorFacts.cs" />
     <Compile Include="Validators\AddressValidatorFacts.cs" />
     <Compile Include="Validators\AgencyValidatorFacts.cs" />

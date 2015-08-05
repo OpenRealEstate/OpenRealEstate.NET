@@ -28,13 +28,15 @@ namespace OpenRealEstate.Services.RealEstateComAu
         }
 
         /// <summary>
-        /// Converts some REA Xml data into a collection of parsed listings.
+        /// Converts some given data into a listing instance.
         /// </summary>
-        /// <param name="data">Xml data to parse.</param>
-        /// <param name="areBadCharactersRemoved">Option to remove/strip out bad characters.</param>
-        /// <returns>Collection of listings.</returns>
-        /// <remarks>The Xml data can either be a full REA Xml document (ie. &lt;propertyList/&gt; or a listing segment (ie. &lt;rental/&gt; / &lt;residential/&gt;.</remarks>
-        public ConvertToResult ConvertTo(string data, bool areBadCharactersRemoved = false)
+        /// <param name="data">some data source, like Xml data or json data.</param>
+        /// <param name="isClearAllIsModified">After the data is loaded, do we clear all IsModified fields so it looks like the listing(s) are all ready to be used and/or compared against other listings.</param>
+        /// <param name="areBadCharactersRemoved">Help clean up the data.</param>
+        /// <returns>List of listings and any unhandled data.</returns>
+        public ConvertToResult ConvertTo(string data, 
+            bool isClearAllIsModified = false,
+            bool areBadCharactersRemoved = false)
         {
             data.ShouldNotBeNullOrEmpty();
 
@@ -94,7 +96,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 {
                     successfullyParsedListings.Add(new ListingResult
                     {
-                        Listing = ConvertFromReaXml(element, DefaultCultureInfo, AddressDelimeter),
+                        Listing = ConvertFromReaXml(element, DefaultCultureInfo, AddressDelimeter, isClearAllIsModified),
                         SourceData = element.ToString()
                     });
                 }
@@ -247,7 +249,8 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         private static Listing ConvertFromReaXml(XElement document, 
             CultureInfo cultureInfo,
-            string addressDelimeter)
+            string addressDelimeter,
+            bool isClearAllIsModified)
         {
             document.ShouldNotBe(null);
 
@@ -286,6 +289,10 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 ExtractRuralData(listing as RuralListing, document, cultureInfo);
             }
 
+            if (isClearAllIsModified)
+            {
+                listing.ClearAllIsModified();
+            }
             return listing;
         }
 
