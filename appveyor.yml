@@ -1,2 +1,30 @@
+version: '1.0.0-s0{build}'
+configuration: Release
+
+
+branches:
+  except:
+    - master
+
+
 before_build:
   - nuget restore
+
+
+build:
+  parallel: true
+  verbosity: minimal
+  publish_nuget: true
+
+
+artifacts:
+  - path: '**\*.nupkg'
+
+
+assembly_info:
+  patch: true
+  file: AssemblyInfo.*
+  assembly_version: "{version}"
+  assembly_file_version: "{version}"
+  assembly_informational_version: "{version}"
+
