@@ -318,18 +318,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Sample Data\Transmorgrifiers\REA\Rental\REA-Rental-Current-RayWhiteLatLong.xml">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Sample Data\Transmorgrifiers\REA\Rental\REA-Rental-Current-AddressLatLong.xml">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Sold-DisplayAttributeIsRange.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
