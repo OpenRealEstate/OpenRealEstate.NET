@@ -31,7 +31,7 @@ namespace OpenRealEstate.Core.Models
 
         public bool IsUpdatedOnModified { get; private set; }
 
-        public virtual void CopyOverNewData(AggregateRoot newAggregateRoot)
+        public virtual void Copy(AggregateRoot newAggregateRoot)
         {
             if (newAggregateRoot == null)
             {

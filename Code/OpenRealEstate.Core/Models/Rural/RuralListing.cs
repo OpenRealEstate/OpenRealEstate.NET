@@ -88,14 +88,14 @@ namespace OpenRealEstate.Core.Models.Rural
             return string.Format("Rural >> {0}", base.ToString());
         }
 
-        public void CopyOverNewData(RuralListing newRuralListing)
+        public void Copy(RuralListing newRuralListing)
         {
             if (newRuralListing == null)
             {
                 throw new ArgumentNullException("newRuralListing");
             }
 
-            base.CopyOverNewData(newRuralListing);
+            base.Copy(newRuralListing);
 
             if (newRuralListing.IsCategoryTypeModified)
             {
@@ -114,7 +114,7 @@ namespace OpenRealEstate.Core.Models.Rural
                     {
                         Pricing = new SalePricing();
                     }
-                    Pricing.CopyOverNewData(newRuralListing.Pricing);
+                    Pricing.Copy(newRuralListing.Pricing);
                     IsPricingModified = true;
                 }
             }
@@ -136,7 +136,7 @@ namespace OpenRealEstate.Core.Models.Rural
                     {
                         RuralFeatures = new RuralFeatures();
                     }
-                    RuralFeatures.CopyOverNewData(newRuralListing.RuralFeatures);
+                    RuralFeatures.Copy(newRuralListing.RuralFeatures);
                     IsRuralFeaturesModified = true;
                 }
             }
@@ -158,7 +158,7 @@ namespace OpenRealEstate.Core.Models.Rural
                     {
                         BuildingDetails = new BuildingDetails();
                     }
-                    BuildingDetails.CopyOverNewData(newRuralListing.BuildingDetails);
+                    BuildingDetails.Copy(newRuralListing.BuildingDetails);
                     IsBuildingDetailsModified = true;
                 }
             }

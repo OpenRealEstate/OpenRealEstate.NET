@@ -62,14 +62,14 @@ namespace OpenRealEstate.Core.Models.Rental
             return string.Format("Rental >> {0}", base.ToString());
         }
 
-        public void CopyOverNewData(RentalListing newRentalListing)
+        public void Copy(RentalListing newRentalListing)
         {
             if (newRentalListing == null)
             {
                 throw new ArgumentNullException("newRentalListing");
             }
 
-            base.CopyOverNewData(newRentalListing);
+            base.Copy(newRentalListing);
 
             if (newRentalListing.IsPropertyTypeModified)
             {
@@ -93,7 +93,7 @@ namespace OpenRealEstate.Core.Models.Rental
                     {
                         Pricing = new RentalPricing();
                     }
-                    Pricing.CopyOverNewData(newRentalListing.Pricing);
+                    Pricing.Copy(newRentalListing.Pricing);
                     IsPricingModified = true;
                 }
             }
@@ -110,7 +110,7 @@ namespace OpenRealEstate.Core.Models.Rental
                     {
                         BuildingDetails = new BuildingDetails();
                     }
-                    BuildingDetails.CopyOverNewData(newRentalListing.BuildingDetails);
+                    BuildingDetails.Copy(newRentalListing.BuildingDetails);
                     IsBuildingDetailsModified = true;
                 }
             }

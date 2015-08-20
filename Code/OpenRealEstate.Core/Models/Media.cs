@@ -64,7 +64,7 @@ namespace OpenRealEstate.Core.Models
             }
         }
 
-        public void CopyOverNewData(Media newMedia)
+        public void Copy(Media newMedia)
         {
             if (newMedia == null)
             {

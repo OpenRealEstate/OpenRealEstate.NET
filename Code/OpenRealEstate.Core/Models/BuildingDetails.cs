@@ -33,7 +33,7 @@ namespace OpenRealEstate.Core.Models
 
         public bool IsEnergyRatingModified { get; private set; }
 
-        public void CopyOverNewData(BuildingDetails newBuildingDetails)
+        public void Copy(BuildingDetails newBuildingDetails)
         {
             if (newBuildingDetails == null)
             {

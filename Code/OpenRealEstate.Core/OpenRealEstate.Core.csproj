@@ -36,7 +36,7 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Filters\ListingFilters.cs" />
+    <Compile Include="Filters\AggregateRootFilters.cs" />
     <Compile Include="IValidate.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Agency.cs" />

@@ -5,17 +5,17 @@ namespace OpenRealEstate.Tests.Models
 {
     public class RentalListingFacts
     {
-        public class CopyOverNewDataFacts
+        public class CopyFacts
         {
             [Fact]
-            public void GivenAnExistingListingAndANewListingWithEverythingModified_CopyOverNewData_CopiesOverTheData()
+            public void GivenAnExistingListingAndANewListingWithEverythingModified_Copy_CopiesOverTheData()
             {
                 // Arrange.
                 var sourceListing = HelperUtilities.RentalListingFromFile(false);
                 var destinationListing = HelperUtilities.RentalListing();
 
                 // Act.
-                destinationListing.CopyOverNewData(sourceListing);
+                destinationListing.Copy(sourceListing);
 
                 // Assert.
                 destinationListing.PropertyType.ShouldBe(sourceListing.PropertyType);
@@ -44,7 +44,7 @@ namespace OpenRealEstate.Tests.Models
             }
 
             [Fact]
-            public void GivenAnExistingListingAndANewListingWithANullValues_CopyOverNewData_CopiesOverTheData()
+            public void GivenAnExistingListingAndANewListingWithANullValues_Copy_CopiesOverTheData()
             {
                 // Arrange.
                 var sourceListing = HelperUtilities.RentalListingFromFile();
@@ -54,7 +54,7 @@ namespace OpenRealEstate.Tests.Models
                 var destinationListing = HelperUtilities.RentalListing();
 
                 // Act.
-                destinationListing.CopyOverNewData(sourceListing);
+                destinationListing.Copy(sourceListing);
 
                 // Assert.
                 destinationListing.BuildingDetails.ShouldBe(null);

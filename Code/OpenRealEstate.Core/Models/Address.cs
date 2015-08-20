@@ -173,7 +173,7 @@ namespace OpenRealEstate.Core.Models
             return address.ToString();
         }
 
-        public void CopyOverNewData(Address newAddress)
+        public void Copy(Address newAddress)
         {
             if (newAddress == null)
             {

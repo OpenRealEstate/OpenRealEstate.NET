@@ -31,7 +31,7 @@ namespace OpenRealEstate.Core.Models
 
         public bool IsCommunicationTypeModified { get; private set; }
 
-        public void CopyOverNewData(Communication newCommunication)
+        public void Copy(Communication newCommunication)
         {
             if (newCommunication == null)
             {

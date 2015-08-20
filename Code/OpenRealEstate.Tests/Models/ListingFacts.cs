@@ -8,10 +8,10 @@ namespace OpenRealEstate.Tests.Models
 {
     public class ListingFacts
     {
-        public class CopyOverNewDataFacts
+        public class CopyFacts
         {
             [Fact]
-            public void GivenAnExistingListingAndANewListingWithEverythingModified_CopyOverNewData_CopiesOverTheData()
+            public void GivenAnExistingListingAndANewListingWithEverythingModified_Copy_CopiesOverTheData()
             {
                 // Arrange.
                 var sourceListing = HelperUtilities.ResidentialListingFromFile(false) as Listing;
@@ -19,7 +19,7 @@ namespace OpenRealEstate.Tests.Models
                 var destinationListing = HelperUtilities.ResidentialListing() as Listing;
 
                 // Act.
-                destinationListing.CopyOverNewData(sourceListing);
+                destinationListing.Copy(sourceListing);
 
                 // Assert.
                 destinationListing.AgencyId.ShouldBe(sourceListing.AgencyId);
@@ -144,7 +144,7 @@ namespace OpenRealEstate.Tests.Models
             }
 
             [Fact]
-            public void GivenAnExistingListingAndANewListingWithANullValues_CopyOverNewData_CopiesOverTheData()
+            public void GivenAnExistingListingAndANewListingWithANullValues_Copy_CopiesOverTheData()
             {
                 // Arrange.
                 var sourceListing = HelperUtilities.ResidentialListingFromFile();
@@ -161,7 +161,7 @@ namespace OpenRealEstate.Tests.Models
                 var destinationListing = HelperUtilities.ResidentialListingFromFile();
 
                 // Act.
-                destinationListing.CopyOverNewData(sourceListing);
+                destinationListing.Copy(sourceListing);
 
                 // Assert.
                 destinationListing.Agents.ShouldBe(null);
@@ -185,7 +185,7 @@ namespace OpenRealEstate.Tests.Models
             }
 
             [Fact]
-            public void GivenAnExistingListingAndChangingAnImage_CopyOverNewData_CopiesOverTheData()
+            public void GivenAnExistingListingAndChangingAnImage_Copy_CopiesOverTheData()
             {
                 // Arrange.
                 var sourceListing = HelperUtilities.ResidentialListingFromFile();
@@ -203,7 +203,7 @@ namespace OpenRealEstate.Tests.Models
 
                 // Act.
                 // NOTE: this will just copy over the 1 media item.
-                destinationListing.CopyOverNewData(sourceListing);
+                destinationListing.Copy(sourceListing);
 
                 // Assert.
                 destinationListing.Images.First().Url.ShouldBe(sourceListing.Images.First().Url);
@@ -215,14 +215,14 @@ namespace OpenRealEstate.Tests.Models
             }
 
             [Fact]
-            public void GivenAnExistingListingAndChangingAnAgentAfterwards_CopyOverNewData_TheAgentsAreNotBothUpdated()
+            public void GivenAnExistingListingAndChangingAnAgentAfterwards_Copy_TheAgentsAreNotBothUpdated()
             {
                 // Arrange.
                 var sourceListing = HelperUtilities.ResidentialListing(false);
                 var destinationListing = HelperUtilities.ResidentialListingFromFile();
 
                 // Act.
-                destinationListing.CopyOverNewData(sourceListing);
+                destinationListing.Copy(sourceListing);
                 destinationListing.Agents.First().Name = "I'm a Princess";
 
                 // Assert.

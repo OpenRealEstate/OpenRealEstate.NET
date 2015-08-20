@@ -199,14 +199,14 @@ namespace OpenRealEstate.Core.Models
                     : Id);
         }
 
-        public void CopyOverNewData(Listing newListing)
+        public void Copy(Listing newListing)
         {
             if (newListing == null)
             {
                 throw new ArgumentNullException("newListing");
             }
 
-            base.CopyOverNewData(newListing);
+            base.Copy(newListing);
 
             if (newListing.IsAgencyIdModified)
             {
@@ -244,7 +244,7 @@ namespace OpenRealEstate.Core.Models
                     {
                         Address = new Address();
                     }
-                    Address.CopyOverNewData(newListing.Address);
+                    Address.Copy(newListing.Address);
                     IsAddressModified = true;
                 }
             }
@@ -261,7 +261,7 @@ namespace OpenRealEstate.Core.Models
                     foreach (var newAgent in newListing.Agents)
                     {
                         var agent = new ListingAgent();
-                        agent.CopyOverNewData(newAgent);
+                        agent.Copy(newAgent);
                         Agents.Add(agent);
                     }
                 }
@@ -279,7 +279,7 @@ namespace OpenRealEstate.Core.Models
                     foreach (var newImage in newListing.Images)
                     {
                         var image = new Media();
-                        image.CopyOverNewData(newImage);
+                        image.Copy(newImage);
                         Images.Add(image);
                     }
                 }
@@ -297,7 +297,7 @@ namespace OpenRealEstate.Core.Models
                     foreach (var newFloorPlan in newListing.FloorPlans)
                     {
                         var floorPlan = new Media();
-                        floorPlan.CopyOverNewData(newFloorPlan);
+                        floorPlan.Copy(newFloorPlan);
                         FloorPlans.Add(floorPlan);
                     }
                 }
@@ -315,7 +315,7 @@ namespace OpenRealEstate.Core.Models
                     foreach (var newVideo in newListing.Videos)
                     {
                         var video = new Media();
-                        video.CopyOverNewData(newVideo);
+                        video.Copy(newVideo);
                         Videos.Add(video);
                     }
                 }
@@ -334,7 +334,7 @@ namespace OpenRealEstate.Core.Models
                     foreach (var newInspection in newListing.Inspections)
                     {
                         var inspection = new Inspection();
-                        inspection.CopyOverNewData(newInspection);
+                        inspection.Copy(newInspection);
                         Inspections.Add(inspection);
                     }
 
@@ -353,7 +353,7 @@ namespace OpenRealEstate.Core.Models
                     {
                         LandDetails = new LandDetails();
                     }
-                    LandDetails.CopyOverNewData(newListing.LandDetails);
+                    LandDetails.Copy(newListing.LandDetails);
                     IsLandDetailsModified = true;
                 }
             }
@@ -370,7 +370,7 @@ namespace OpenRealEstate.Core.Models
                     {
                         Features = new Features();
                     }
-                    Features.CopyOverNewData(newListing.Features);
+                    Features.Copy(newListing.Features);
                     IsFeaturesModified = true;
                 }
             }

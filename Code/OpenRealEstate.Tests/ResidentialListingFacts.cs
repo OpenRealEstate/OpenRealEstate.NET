@@ -8,10 +8,10 @@ namespace OpenRealEstate.Tests
 {
     public class ResidentialListingFacts
     {
-        public class CopyOverNewDataFacts
+        public class CopyFacts
         {
             [Fact]
-            public void GivenAnExistingAndNewListing_CopyOverNewData_OnlyCopiesOverTheModifiedData()
+            public void GivenAnExistingAndNewListing_Copy_OnlyCopiesOverTheModifiedData()
             {
                 // Arrange.
                 var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
@@ -32,7 +32,7 @@ namespace OpenRealEstate.Tests
                 newListing.Description = newValueText;
                 
                 // Act.
-                existingListing.CopyOverNewData(newListing);
+                existingListing.Copy(newListing);
 
                 // Assert.
                 existingListing.AgencyId.ShouldBe(newValueText);

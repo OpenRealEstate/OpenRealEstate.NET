@@ -58,7 +58,7 @@ namespace OpenRealEstate.Core.Models
 
         public bool IsCrossOverModified { get; private set; }
 
-        public void CopyOverNewData(LandDetails newLandDetails)
+        public void Copy(LandDetails newLandDetails)
         {
             if (newLandDetails == null)
             {
@@ -77,7 +77,7 @@ namespace OpenRealEstate.Core.Models
                     {
                         Area = new UnitOfMeasure();
                     }
-                    Area.CopyOverNewData(newLandDetails.Area);
+                    Area.Copy(newLandDetails.Area);
                 }
             }
 

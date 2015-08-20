@@ -45,7 +45,7 @@ namespace OpenRealEstate.Core.Models
 
         public bool IsOrderModified { get; private set; }
 
-        public void CopyOverNewData(ListingAgent newListingAgent)
+        public void Copy(ListingAgent newListingAgent)
         {
             if (newListingAgent == null)
             {
@@ -69,7 +69,7 @@ namespace OpenRealEstate.Core.Models
                     foreach (var newCommunication in newListingAgent.Communications)
                     {
                         var communication = new Communication();
-                        communication.CopyOverNewData(newCommunication);
+                        communication.Copy(newCommunication);
                         Communications.Add(communication);
                     }
                 }

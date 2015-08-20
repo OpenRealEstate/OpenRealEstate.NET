@@ -96,7 +96,7 @@ namespace OpenRealEstate.Core.Models
             }
         }
 
-        public void CopyOverNewData(SalePricing newSalePricing)
+        public void Copy(SalePricing newSalePricing)
         {
             if (newSalePricing == null)
             {

@@ -31,7 +31,7 @@ namespace OpenRealEstate.Core.Models
 
         public bool IsClosesOnModified { get; private set; }
 
-        public void CopyOverNewData(Inspection inspection)
+        public void Copy(Inspection inspection)
         {
             if (inspection == null)
             {

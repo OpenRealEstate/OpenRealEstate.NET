@@ -75,14 +75,14 @@ namespace OpenRealEstate.Core.Models.Residential
             return string.Format("Residential >> {0}", base.ToString());
         }
 
-        public void CopyOverNewData(ResidentialListing newResidentialListing)
+        public void Copy(ResidentialListing newResidentialListing)
         {
             if (newResidentialListing == null)
             {
                 throw new ArgumentNullException("newResidentialListing");
             }
 
-            base.CopyOverNewData(newResidentialListing);
+            base.Copy(newResidentialListing);
 
             if (newResidentialListing.IsPropertyTypeModified)
             {
@@ -101,7 +101,7 @@ namespace OpenRealEstate.Core.Models.Residential
                     {
                         Pricing = new SalePricing();
                     }
-                    Pricing.CopyOverNewData(newResidentialListing.Pricing);
+                    Pricing.Copy(newResidentialListing.Pricing);
                     IsPricingModified = true;
                 }
             }
@@ -128,7 +128,7 @@ namespace OpenRealEstate.Core.Models.Residential
                     {
                         BuildingDetails = new BuildingDetails();
                     }
-                    BuildingDetails.CopyOverNewData(newResidentialListing.BuildingDetails);
+                    BuildingDetails.Copy(newResidentialListing.BuildingDetails);
                     IsBuildingDetailsModified = true;
                 }
             }

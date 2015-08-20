@@ -7,10 +7,10 @@ namespace OpenRealEstate.Tests.Models
 {
     public class AggregateRootFacts
     {
-        public class CopyOverNewDataFacts
+        public class CopyFacts
         {
             [Fact]
-            public void GivenAnExistingListing_CopyOverNewData_CopiesOverTheData()
+            public void GivenAnExistingListing_Copy_CopiesOverTheData()
             {
                 // Arrange.
                 var sourceListing = HelperUtilities.ResidentialListingFromFile(false) as AggregateRoot;
@@ -20,7 +20,7 @@ namespace OpenRealEstate.Tests.Models
                 var destinationListing = HelperUtilities.ResidentialListingFromFile() as AggregateRoot;
 
                 // Act.
-                destinationListing.CopyOverNewData(sourceListing);
+                destinationListing.Copy(sourceListing);
 
                 // Assert.
                 destinationListing.Id.ShouldBe(sourceListing.Id);

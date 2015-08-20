@@ -123,7 +123,7 @@ namespace OpenRealEstate.Core.Models
 
         public bool IsTagsModified { get; private set; }
 
-        public void CopyOverNewData(Features newFeatures)
+        public void Copy(Features newFeatures)
         {
             if (newFeatures == null)
             {

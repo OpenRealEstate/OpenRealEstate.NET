@@ -57,7 +57,7 @@ namespace OpenRealEstate.Core.Models.Rental
 
         public bool IsBondModified { get; set; }
 
-        public void CopyOverNewData(RentalPricing newRentalPricing)
+        public void Copy(RentalPricing newRentalPricing)
         {
             if (newRentalPricing == null)
             {

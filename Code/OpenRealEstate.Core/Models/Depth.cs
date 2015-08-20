@@ -18,7 +18,7 @@ namespace OpenRealEstate.Core.Models
 
         public bool IsSideModified { get; private set; }
 
-        public void CopyOverNewData(Depth newDepth)
+        public void Copy(Depth newDepth)
         {
             if (newDepth == null)
             {
@@ -30,7 +30,7 @@ namespace OpenRealEstate.Core.Models
                 Side = newDepth.Side;
             }
 
-            base.CopyOverNewData(newDepth);
+            base.Copy(newDepth);
         }
 
         public override void ClearAllIsModified()

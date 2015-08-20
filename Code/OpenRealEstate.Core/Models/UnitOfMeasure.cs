@@ -40,7 +40,7 @@ namespace OpenRealEstate.Core.Models
                     : Type);
         }
 
-        public void CopyOverNewData(UnitOfMeasure newUnitOfMeasure)
+        public void Copy(UnitOfMeasure newUnitOfMeasure)
         {
             if (newUnitOfMeasure == null)
             {

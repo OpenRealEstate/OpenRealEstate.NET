@@ -96,7 +96,7 @@ namespace OpenRealEstate.Core.Models.Rural
 
         public bool IsServicesModified { get; set; }
 
-        public void CopyOverNewData(RuralFeatures newRuralFeatures)
+        public void Copy(RuralFeatures newRuralFeatures)
         {
             if (newRuralFeatures == null)
             {

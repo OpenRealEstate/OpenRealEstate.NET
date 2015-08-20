@@ -31,7 +31,7 @@ namespace OpenRealEstate.Core.Models.Land
 
         public bool IsStageModified { get; set; }
 
-        public void CopyOverNewData(LandEstate newLandEstate)
+        public void Copy(LandEstate newLandEstate)
         {
             if (newLandEstate == null)
             {
