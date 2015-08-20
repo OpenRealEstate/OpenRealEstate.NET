@@ -33,18 +33,6 @@ namespace OpenRealEstate.Core.Models
 
         public bool IsEnergyRatingModified { get; private set; }
 
-        public ISet<string> Tags
-        {
-            get { return _tags; }
-            set
-            {
-                _tags = value;
-                IsTagsModified = true;
-            }
-        }
-
-        public bool IsTagsModified { get; private set; }
-
         public void CopyOverNewData(BuildingDetails newBuildingDetails)
         {
             if (newBuildingDetails == null)
@@ -61,11 +49,6 @@ namespace OpenRealEstate.Core.Models
             {
                 EnergyRating = newBuildingDetails.EnergyRating;
             }
-
-            if (newBuildingDetails.IsTagsModified)
-            {
-                Tags = newBuildingDetails.Tags;
-            }
         }
 
         public void ClearAllIsModified()
@@ -77,7 +60,6 @@ namespace OpenRealEstate.Core.Models
 
             IsAreaModified = false;
             IsEnergyRatingModified = false;
-            IsTagsModified = false;
         }
     }
 }

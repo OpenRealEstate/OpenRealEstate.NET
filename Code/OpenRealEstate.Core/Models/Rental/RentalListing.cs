@@ -94,6 +94,7 @@ namespace OpenRealEstate.Core.Models.Rental
                         Pricing = new RentalPricing();
                     }
                     Pricing.CopyOverNewData(newRentalListing.Pricing);
+                    IsPricingModified = true;
                 }
             }
 
@@ -110,11 +111,9 @@ namespace OpenRealEstate.Core.Models.Rental
                         BuildingDetails = new BuildingDetails();
                     }
                     BuildingDetails.CopyOverNewData(newRentalListing.BuildingDetails);
+                    IsBuildingDetailsModified = true;
                 }
             }
-
-            // Now that all the fields have been set, lets reset the IsModified flags.
-            ClearAllIsModified();
         }
 
         public override void ClearAllIsModified()

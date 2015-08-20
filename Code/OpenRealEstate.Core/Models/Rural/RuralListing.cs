@@ -110,8 +110,12 @@ namespace OpenRealEstate.Core.Models.Rural
                 }
                 else
                 {
-                    Pricing = new SalePricing();
+                    if (Pricing == null)
+                    {
+                        Pricing = new SalePricing();
+                    }
                     Pricing.CopyOverNewData(newRuralListing.Pricing);
+                    IsPricingModified = true;
                 }
             }
 
@@ -128,8 +132,12 @@ namespace OpenRealEstate.Core.Models.Rural
                 }
                 else
                 {
-                    RuralFeatures = new RuralFeatures();
+                    if (RuralFeatures == null)
+                    {
+                        RuralFeatures = new RuralFeatures();
+                    }
                     RuralFeatures.CopyOverNewData(newRuralListing.RuralFeatures);
+                    IsRuralFeaturesModified = true;
                 }
             }
 
@@ -146,13 +154,14 @@ namespace OpenRealEstate.Core.Models.Rural
                 }
                 else
                 {
-                    BuildingDetails = new BuildingDetails();
+                    if (BuildingDetails == null)
+                    {
+                        BuildingDetails = new BuildingDetails();
+                    }
                     BuildingDetails.CopyOverNewData(newRuralListing.BuildingDetails);
+                    IsBuildingDetailsModified = true;
                 }
             }
-
-            // Now that all the fields have been set, lets reset the IsModified flags.
-            ClearAllIsModified();
         }
 
         public override void ClearAllIsModified()

@@ -240,7 +240,12 @@ namespace OpenRealEstate.Core.Models
                 }
                 else
                 {
+                    if (Address == null)
+                    {
+                        Address = new Address();
+                    }
                     Address.CopyOverNewData(newListing.Address);
+                    IsAddressModified = true;
                 }
             }
 
@@ -344,7 +349,12 @@ namespace OpenRealEstate.Core.Models
                 }
                 else
                 {
+                    if (LandDetails == null)
+                    {
+                        LandDetails = new LandDetails();
+                    }
                     LandDetails.CopyOverNewData(newListing.LandDetails);
+                    IsLandDetailsModified = true;
                 }
             }
 
@@ -356,7 +366,12 @@ namespace OpenRealEstate.Core.Models
                 }
                 else
                 {
+                    if (Features == null)
+                    {
+                        Features = new Features();
+                    }
                     Features.CopyOverNewData(newListing.Features);
+                    IsFeaturesModified = true;
                 }
             }
 
@@ -366,8 +381,6 @@ namespace OpenRealEstate.Core.Models
                     ? null
                     : new List<string>(newListing.Links);
             }
-
-            ClearAllIsModified();
         }
 
         public override void ClearAllIsModified()

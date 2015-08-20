@@ -47,8 +47,6 @@ namespace OpenRealEstate.Core.Models
             {
                 UpdatedOn = newAggregateRoot.UpdatedOn;
             }
-
-            ClearAllIsModified();
         }
 
         public virtual void ClearAllIsModified()

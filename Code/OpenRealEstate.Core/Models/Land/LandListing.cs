@@ -97,8 +97,12 @@ namespace OpenRealEstate.Core.Models.Land
                 }
                 else
                 {
-                    Pricing = new SalePricing();
+                    if (Pricing == null)
+                    {
+                        Pricing = new SalePricing();
+                    }
                     Pricing.CopyOverNewData(newLandListing.Pricing);
+                    IsPricingModified = true;
                 }
             }
 
@@ -115,8 +119,12 @@ namespace OpenRealEstate.Core.Models.Land
                 }
                 else
                 {
-                    Estate = new LandEstate();
+                    if (Estate == null)
+                    {
+                        Estate = new LandEstate();
+                    }
                     Estate.CopyOverNewData(newLandListing.Estate);
+                    IsEstateModified = true;
                 }
             }
 
@@ -124,9 +132,6 @@ namespace OpenRealEstate.Core.Models.Land
             {
                 CouncilRates = newLandListing.CouncilRates;
             }
-
-            // Now that all the fields have been set, lets reset the IsModified flags.
-            ClearAllIsModified();
         }
 
         public override void ClearAllIsModified()

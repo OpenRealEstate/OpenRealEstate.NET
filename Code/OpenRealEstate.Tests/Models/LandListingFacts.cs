@@ -9,55 +9,55 @@ namespace OpenRealEstate.Tests.Models
         public void GivenAnExistingListingAndANewListingWithEverythingModified_CopyOverNewData_CopiesOverTheData()
         {
             // Arrange.
-            var sourceListing = HelperUtilities.LandListing;
-            var destinationListing = HelperUtilities.LandListingFromFile;
+            var sourceListing = HelperUtilities.LandListing(false);
+            var destinationListing = HelperUtilities.LandListingFromFile();
 
             // Act.
             destinationListing.CopyOverNewData(sourceListing);
 
             // Assert.
             destinationListing.CategoryType.ShouldBe(sourceListing.CategoryType);
-            destinationListing.IsCategoryTypeModified.ShouldBe(false);
+            destinationListing.IsCategoryTypeModified.ShouldBe(true);
             destinationListing.AuctionOn.ShouldBe(sourceListing.AuctionOn);
-            destinationListing.IsAuctionOnModified.ShouldBe(false);
+            destinationListing.IsAuctionOnModified.ShouldBe(true);
             destinationListing.CouncilRates.ShouldBe(sourceListing.CouncilRates);
-            destinationListing.IsCouncilRatesModified.ShouldBe(false);
+            destinationListing.IsCouncilRatesModified.ShouldBe(true);
 
             destinationListing.Pricing.SalePrice.ShouldBe(sourceListing.Pricing.SalePrice);
             destinationListing.Pricing.SalePriceText.ShouldBe(sourceListing.Pricing.SalePriceText);
             destinationListing.Pricing.IsUnderOffer.ShouldBe(sourceListing.Pricing.IsUnderOffer);
             destinationListing.Pricing.SoldOn.ShouldBe(sourceListing.Pricing.SoldOn);
-            destinationListing.Pricing.IsSoldOnModified.ShouldBe(false);
+            destinationListing.Pricing.IsSoldOnModified.ShouldBe(true);
             destinationListing.Pricing.SoldPrice.ShouldBe(sourceListing.Pricing.SoldPrice);
-            destinationListing.Pricing.IsSoldPriceModified.ShouldBe(false);
+            destinationListing.Pricing.IsSoldPriceModified.ShouldBe(true);
             destinationListing.Pricing.SoldPriceText.ShouldBe(sourceListing.Pricing.SoldPriceText);
-            destinationListing.Pricing.IsSoldPriceTextModified.ShouldBe(false);
-            destinationListing.IsPricingModified.ShouldBe(false);
+            destinationListing.Pricing.IsSoldPriceTextModified.ShouldBe(true);
+            destinationListing.IsPricingModified.ShouldBe(true);
 
             destinationListing.Estate.Name.ShouldBe(sourceListing.Estate.Name);
-            destinationListing.Estate.IsNameModified.ShouldBe(false);
+            destinationListing.Estate.IsNameModified.ShouldBe(true);
             destinationListing.Estate.Stage.ShouldBe(sourceListing.Estate.Stage);
-            destinationListing.IsEstateModified.ShouldBe(false);
+            destinationListing.IsEstateModified.ShouldBe(true);
         }
 
         [Fact]
         public void GivenAnExistingListingAndANewListingWithANullValues_CopyOverNewData_CopiesOverTheData()
         {
             // Arrange.
-            var sourceListing = HelperUtilities.LandListingFromFile;
+            var sourceListing = HelperUtilities.LandListingFromFile();
             sourceListing.Estate = null;
             sourceListing.Pricing = null;
 
-            var destinationListing = HelperUtilities.LandListing;
+            var destinationListing = HelperUtilities.LandListing();
 
             // Act.
             destinationListing.CopyOverNewData(sourceListing);
 
             // Assert.
             destinationListing.Estate.ShouldBe(null);
-            destinationListing.IsEstateModified.ShouldBe(false);
+            destinationListing.IsEstateModified.ShouldBe(true);
             destinationListing.Pricing.ShouldBe(null);
-            destinationListing.IsPricingModified.ShouldBe(false);
+            destinationListing.IsPricingModified.ShouldBe(true);
         }
     }
 }

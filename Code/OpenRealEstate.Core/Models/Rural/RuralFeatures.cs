@@ -137,9 +137,6 @@ namespace OpenRealEstate.Core.Models.Rural
             {
                 Services = newRuralFeatures.Services;
             }
-
-            // Now that all the fields have been set, lets reset the IsModified flags.
-            ClearAllIsModified();
         }
 
         public void ClearAllIsModified()

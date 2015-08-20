@@ -19,9 +19,11 @@ namespace OpenRealEstate.Tests
                 var reaXml =
                     File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current.xml");
                 var existingListing = reaXmlTransmorgrifier.ConvertTo(reaXml).Listings.First().Listing;
+                existingListing.ClearAllIsModified();
 
                 reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Sold.xml");
                 var newListing = reaXmlTransmorgrifier.ConvertTo(reaXml).Listings.First().Listing;
+                newListing.ClearAllIsModified();
 
                 // Now lets add some new data.
                 const string newValueText = "a";

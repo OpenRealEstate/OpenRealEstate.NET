@@ -16,77 +16,128 @@ namespace OpenRealEstate.Tests.Models
 {
     public static class HelperUtilities
     {
-        public static ResidentialListing ResidentialListingFromFile
+        public static ResidentialListing ResidentialListingFromFile(bool isClearAllIsModified = true,
+            bool includeDataForCustomDataFields = true)
         {
-            get
-            {
-                var reaXml =
-                    File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current.xml");
-                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+            var reaXml =
+                File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current.xml");
+            var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
 
-                return (ResidentialListing) reaXmlTransmorgrifier
-                    .ConvertTo(reaXml)
-                    .Listings
-                    .First()
-                    .Listing;
+            var listing = (ResidentialListing)reaXmlTransmorgrifier
+                .ConvertTo(reaXml)
+                .Listings
+                .First()
+                .Listing;
+
+            if (includeDataForCustomDataFields)
+            {
+                listing.Address.Latitude = 1m;
+                listing.Address.Longitude = 2.4m;
+                for (int i = 0; i < listing.FloorPlans.Count; i++)
+                {
+                    listing.FloorPlans[i].Tag = "Tag_" + i + 1;
+                }
+
+                for (int i = 0; i < listing.Images.Count; i++)
+                {
+                    listing.Images[i].Tag = "Tag_" + i + 1;
+                }
+
+                for (int i = 0; i < listing.Videos.Count; i++)
+                {
+                    listing.Videos[i].Tag = "Tag_" + i + 1;
+                }
             }
+
+            if (isClearAllIsModified)
+            {
+                listing.ClearAllIsModified();
+            }
+
+            return listing;
         }
 
-        public static RentalListing RentalListingFromFile
+        public static RentalListing RentalListingFromFile(bool isClearAllIsModified = true)
         {
-            get
-            {
-                var reaXml =
-                    File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Rental\\REA-Rental-Current.xml");
-                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+            var reaXml =
+                File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Rental\\REA-Rental-Current.xml");
+            var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
 
-                return (RentalListing)reaXmlTransmorgrifier
-                    .ConvertTo(reaXml)
-                    .Listings
-                    .First()
-                    .Listing;
+            var listing = (RentalListing)reaXmlTransmorgrifier
+                .ConvertTo(reaXml)
+                .Listings
+                .First()
+                .Listing;
+
+            if (isClearAllIsModified)
+            {
+                listing.ClearAllIsModified();
             }
+
+            return listing;
         }
 
-        public static LandListing LandListingFromFile
+        public static LandListing LandListingFromFile(bool isClearAllIsModified = true)
         {
-            get
-            {
-                var reaXml =
-                    File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Land\\REA-Land-Current.xml");
-                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+            var reaXml =
+                File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Land\\REA-Land-Current.xml");
+            var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
 
-                return (LandListing)reaXmlTransmorgrifier
-                    .ConvertTo(reaXml)
-                    .Listings
-                    .First()
-                    .Listing;
+            var listing = (LandListing)reaXmlTransmorgrifier
+                .ConvertTo(reaXml)
+                .Listings
+                .First()
+                .Listing;
+
+            if (isClearAllIsModified)
+            {
+                listing.ClearAllIsModified();
             }
+
+            return listing;
         }
 
-        public static RuralListing RuralListingFromFile
+        public static RuralListing RuralListingFromFile(bool isClearAllIsModified = true)
         {
-            get
-            {
-                var reaXml =
-                    File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Rural\\REA-Rural-Current.xml");
-                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+            var reaXml =
+                File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Rural\\REA-Rural-Current.xml");
+            var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
 
-                return (RuralListing)reaXmlTransmorgrifier
-                    .ConvertTo(reaXml)
-                    .Listings
-                    .First()
-                    .Listing;
+            var listing = (RuralListing)reaXmlTransmorgrifier
+                .ConvertTo(reaXml)
+                .Listings
+                .First()
+                .Listing;
+
+            if (isClearAllIsModified)
+            {
+                listing.ClearAllIsModified();
             }
+
+            return listing;
         }
 
-        public static ResidentialListing ResidentialListing
+        public static ResidentialListing ResidentialListing(bool isClearAllIsModified = true)
         {
-            get
-            {
-                var listing = new ResidentialListing
+            var listing = new ResidentialListing
                 {
                     AuctionOn = new DateTime(2015, 5, 23),
+                    Agents = new List<ListingAgent>
+                    {
+                        new ListingAgent
+                        {
+                            Name = "Princess Leia",
+                            Order = 1,
+                            Communications = new List<Communication>
+                            {
+                                new Communication
+                                {
+                                    CommunicationType = CommunicationType.Email,
+                                    Details = "a@b.c.d.e"
+                                }
+                            }
+                        }
+                    },
                     BuildingDetails = new BuildingDetails
                     {
                         Area = new UnitOfMeasure
@@ -95,7 +146,6 @@ namespace OpenRealEstate.Tests.Models
                             Value = 1.2345m
                         },
                         EnergyRating = 111.222m,
-                        Tags = new HashSet<string>(new[] {"aaa", "bbb", "ccc"})
                     },
                     CouncilRates = "some council rates",
                     PropertyType = PropertyType.Townhouse,
@@ -110,16 +160,16 @@ namespace OpenRealEstate.Tests.Models
                     }
                 };
 
-                UpdateListingWithFakeData(listing);
-
-                return listing;
+            if (isClearAllIsModified)
+            {
+                listing.ClearAllIsModified();
             }
+
+            return listing;
         }
 
-        public static RentalListing RentalListing
+        public static RentalListing RentalListing(bool isClearAllIsModified = true)
         {
-            get
-            {
                 var listing = new RentalListing
                 {
                     AvailableOn = new DateTime(2015, 5, 23),
@@ -131,7 +181,6 @@ namespace OpenRealEstate.Tests.Models
                             Value = 1.2345m
                         },
                         EnergyRating = 111.222m,
-                        Tags = new HashSet<string>(new[] { "aaa", "bbb", "ccc" })
                     },
                     PropertyType = PropertyType.Townhouse,
                     Pricing = new RentalPricing
@@ -143,87 +192,87 @@ namespace OpenRealEstate.Tests.Models
                     }
                 };
 
-                UpdateListingWithFakeData(listing);
-
-                return listing;
+            if (isClearAllIsModified)
+            {
+                listing.ClearAllIsModified();
             }
+
+            return listing;
         }
 
-        public static LandListing LandListing 
+        public static LandListing LandListing(bool isClearAllIsModified = true)
         {
-            get
+            var listing = new LandListing
             {
-                var listing = new LandListing
+                CategoryType = LandListingCategoryType.Residential,
+                AuctionOn = new DateTime(2015, 5, 23),
+                CouncilRates = "some council rates",
+                Estate = new LandEstate
                 {
-                    CategoryType = LandListingCategoryType.Residential,
-                    AuctionOn = new DateTime(2015, 5, 23),
-                    CouncilRates = "some council rates",
-                    Estate = new LandEstate
-                    {
-                        Name = "some land estate",
-                        Stage = "1st stage"
-                    },
-                    Pricing = new SalePricing
-                    {
-                        IsUnderOffer = true,
-                        SalePrice = 12345.66m,
-                        SalePriceText = "house for sale",
-                        SoldOn = new DateTime(2015, 6, 1),
-                        SoldPrice = 45432.99m,
-                        SoldPriceText = "just sold woot!"
-                    }
-                };
+                    Name = "some land estate",
+                    Stage = "1st stage"
+                },
+                Pricing = new SalePricing
+                {
+                    IsUnderOffer = true,
+                    SalePrice = 12345.66m,
+                    SalePriceText = "house for sale",
+                    SoldOn = new DateTime(2015, 6, 1),
+                    SoldPrice = 45432.99m,
+                    SoldPriceText = "just sold woot!"
+                }
+            };
 
-                UpdateListingWithFakeData(listing);
-
-                return listing;
+            if (isClearAllIsModified)
+            {
+                listing.ClearAllIsModified();
             }
+
+            return listing;
         }
 
-        public static RuralListing RuralListing
+        public static RuralListing RuralListing(bool isClearAllIsModified = true)
         {
-            get
+            var listing = new RuralListing
             {
-                var listing = new RuralListing
+                CategoryType = RuralListingCategoryType.Horticulture,
+                AuctionOn = new DateTime(2015, 5, 23),
+                CouncilRates = "some council rates",
+                RuralFeatures = new RuralFeatures
                 {
-                    CategoryType = RuralListingCategoryType.Horticulture,
-                    AuctionOn = new DateTime(2015, 5, 23),
-                    CouncilRates = "some council rates",
-                    RuralFeatures = new RuralFeatures
+                    AnnualRainfall = "some rain",
+                    CarryingCapacity = "some carrying capacity",
+                    Fencing = "some fencing",
+                    Improvements = "lots of improvements",
+                    Irrigation = "some irrigation",
+                    Services = "a number of services",
+                    SoilTypes = "dirty soil"
+                },
+                Pricing = new SalePricing
+                {
+                    IsUnderOffer = true,
+                    SalePrice = 12345.66m,
+                    SalePriceText = "house for sale",
+                    SoldOn = new DateTime(2015, 6, 1),
+                    SoldPrice = 45432.99m,
+                    SoldPriceText = "just sold woot!"
+                },
+                BuildingDetails = new BuildingDetails
+                {
+                    Area = new UnitOfMeasure
                     {
-                        AnnualRainfall = "some rain",
-                        CarryingCapacity = "some carrying capacity",
-                        Fencing = "some fencing",
-                        Improvements = "lots of improvements",
-                        Irrigation = "some irrigation",
-                        Services = "a number of services",
-                        SoilTypes = "dirty soil"
+                        Type = "Some type",
+                        Value = 1.2345m
                     },
-                    Pricing = new SalePricing
-                    {
-                        IsUnderOffer = true,
-                        SalePrice = 12345.66m,
-                        SalePriceText = "house for sale",
-                        SoldOn = new DateTime(2015, 6, 1),
-                        SoldPrice = 45432.99m,
-                        SoldPriceText = "just sold woot!"
-                    },
-                    BuildingDetails = new BuildingDetails
-                    {
-                        Area = new UnitOfMeasure
-                        {
-                            Type = "Some type",
-                            Value = 1.2345m
-                        },
-                        EnergyRating = 111.222m,
-                        Tags = new HashSet<string>(new[] { "aaa", "bbb", "ccc" })
-                    }
-                };
-
-                UpdateListingWithFakeData(listing);
-
-                return listing;
+                    EnergyRating = 111.222m,
+                }
+            };
+         
+            if (isClearAllIsModified)
+            {
+                listing.ClearAllIsModified();
             }
+            return listing;
         }
 
         private static void UpdateListingWithFakeData(Listing listing)
@@ -422,11 +471,11 @@ namespace OpenRealEstate.Tests.Models
             for (int i = 0; i < destinationMedia.Count; i++)
             {
                 destinationMedia[i].Url.ShouldBe(sourceMedia[i].Url);
-                destinationMedia[i].IsUrlModified.ShouldBe(false);
+                destinationMedia[i].IsUrlModified.ShouldBe(true);
                 destinationMedia[i].Order.ShouldBe(sourceMedia[i].Order);
-                destinationMedia[i].IsOrderModified.ShouldBe(false);
+                destinationMedia[i].IsOrderModified.ShouldBe(true);
                 destinationMedia[i].Tag.ShouldBe(sourceMedia[i].Tag);
-                destinationMedia[i].IsTagModified.ShouldBe(false);
+                destinationMedia[i].IsTagModified.ShouldBe(true);
             }
         }
     }
