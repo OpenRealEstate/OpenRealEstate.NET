@@ -59,7 +59,6 @@
     <Compile Include="AgencyFacts.cs" />
     <Compile Include="AgentFacts.cs" />
     <Compile Include="FranchiseFacts.cs" />
-    <Compile Include="ListingHelpersFacts.cs" />
     <Compile Include="Models\AggregateRootFacts.cs" />
     <Compile Include="Models\HelperUtilities.cs" />
     <Compile Include="Models\LandListingFacts.cs" />
