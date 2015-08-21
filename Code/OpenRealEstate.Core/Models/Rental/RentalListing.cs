@@ -6,7 +6,9 @@ namespace OpenRealEstate.Core.Models.Rental
     {
         private DateTime? _availableOn;
         private BuildingDetails _buildingDetails;
+        private bool _isBuildingDetailsModified;
         private RentalPricing _pricing;
+        private bool _isPricingModified;
         private PropertyType _propertyType;
 
         public PropertyType PropertyType
@@ -43,7 +45,16 @@ namespace OpenRealEstate.Core.Models.Rental
             }
         }
 
-        public bool IsPricingModified { get; set; }
+        public bool IsPricingModified
+        {
+            get
+            {
+                return _isPricingModified ||
+                       (Pricing != null &&
+                        Pricing.IsModified);
+            }
+            set { _isPricingModified = value; }
+        }
 
         public BuildingDetails BuildingDetails
         {
@@ -55,7 +66,28 @@ namespace OpenRealEstate.Core.Models.Rental
             }
         }
 
-        public bool IsBuildingDetailsModified { get; set; }
+        public bool IsBuildingDetailsModified
+        {
+            get
+            {
+                return _isBuildingDetailsModified ||
+                       (BuildingDetails != null &&
+                        BuildingDetails.IsModified);
+            }
+            set { _isBuildingDetailsModified = value; }
+        }
+
+        public override bool IsModified
+        {
+            get
+            {
+                return base.IsModified ||
+                       IsPropertyTypeModified ||
+                       IsAvailableOnModified ||
+                       IsPricingModified ||
+                       IsBuildingDetailsModified;
+            }
+        }
 
         public override string ToString()
         {
@@ -93,7 +125,12 @@ namespace OpenRealEstate.Core.Models.Rental
                     {
                         Pricing = new RentalPricing();
                     }
-                    Pricing.Copy(newRentalListing.Pricing);
+
+                    if (newRentalListing.Pricing.IsModified)
+                    {
+                        Pricing.Copy(newRentalListing.Pricing);
+                    }
+
                     IsPricingModified = true;
                 }
             }
@@ -110,7 +147,12 @@ namespace OpenRealEstate.Core.Models.Rental
                     {
                         BuildingDetails = new BuildingDetails();
                     }
-                    BuildingDetails.Copy(newRentalListing.BuildingDetails);
+
+                    if (newRentalListing.BuildingDetails.IsModified)
+                    {
+                        BuildingDetails.Copy(newRentalListing.BuildingDetails);
+                    }
+
                     IsBuildingDetailsModified = true;
                 }
             }

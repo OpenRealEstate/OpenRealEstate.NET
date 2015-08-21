@@ -6,9 +6,11 @@ namespace OpenRealEstate.Core.Models.Residential
     {
         private DateTime? _auctionOn;
         private BuildingDetails _buildingDetails;
+        private bool _isBuildingDetailsModified;
         private string _councilRates;
         private PropertyType _propertyType;
         private SalePricing _salePricing;
+        private bool _isPricingModified;
 
         public PropertyType PropertyType
         {
@@ -32,7 +34,15 @@ namespace OpenRealEstate.Core.Models.Residential
             }
         }
 
-        public bool IsPricingModified { get; private set; }
+        public bool IsPricingModified {
+            get
+            {
+                return _isPricingModified ||
+                       (Pricing != null &&
+                        Pricing.IsModified);
+            }
+            set { _isPricingModified = value; }
+        }
 
         public DateTime? AuctionOn
         {
@@ -68,7 +78,29 @@ namespace OpenRealEstate.Core.Models.Residential
             }
         }
 
-        public bool IsBuildingDetailsModified { get; private set; }
+        public bool IsBuildingDetailsModified
+        {
+            get
+            {
+                return _isBuildingDetailsModified ||
+                       (BuildingDetails != null &&
+                        BuildingDetails.IsModified);
+            }
+            set { _isBuildingDetailsModified = value; }
+        }
+
+        public override bool IsModified
+        {
+            get
+            {
+                return base.IsModified ||
+                       IsPropertyTypeModified ||
+                       IsPricingModified ||
+                       IsAuctionOnModified ||
+                       IsCouncilRatesModified ||
+                       IsBuildingDetailsModified;
+            }
+        }
 
         public override string ToString()
         {
@@ -80,6 +112,11 @@ namespace OpenRealEstate.Core.Models.Residential
             if (newResidentialListing == null)
             {
                 throw new ArgumentNullException("newResidentialListing");
+            }
+
+            if (!newResidentialListing.IsModified)
+            {
+                return;
             }
 
             base.Copy(newResidentialListing);
@@ -101,7 +138,12 @@ namespace OpenRealEstate.Core.Models.Residential
                     {
                         Pricing = new SalePricing();
                     }
-                    Pricing.Copy(newResidentialListing.Pricing);
+
+                    if (newResidentialListing.Pricing.IsModified)
+                    {
+                        Pricing.Copy(newResidentialListing.Pricing);
+                    }
+
                     IsPricingModified = true;
                 }
             }
@@ -128,7 +170,12 @@ namespace OpenRealEstate.Core.Models.Residential
                     {
                         BuildingDetails = new BuildingDetails();
                     }
-                    BuildingDetails.Copy(newResidentialListing.BuildingDetails);
+
+                    if (newResidentialListing.BuildingDetails.IsModified)
+                    {
+                        BuildingDetails.Copy(newResidentialListing.BuildingDetails);
+                    }
+
                     IsBuildingDetailsModified = true;
                 }
             }

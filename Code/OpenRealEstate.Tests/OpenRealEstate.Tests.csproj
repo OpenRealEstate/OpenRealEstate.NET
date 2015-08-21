@@ -61,6 +61,7 @@
     <Compile Include="FranchiseFacts.cs" />
     <Compile Include="ListingHelpersFacts.cs" />
     <Compile Include="Models\AggregateRootFacts.cs" />
+    <Compile Include="Models\BuildingDetailsFacts.cs" />
     <Compile Include="TestHelperUtilities.cs" />
     <Compile Include="Models\LandListingFacts.cs" />
     <Compile Include="Models\ListingFacts.cs" />

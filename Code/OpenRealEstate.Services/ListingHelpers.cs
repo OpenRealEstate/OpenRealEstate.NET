@@ -9,7 +9,31 @@ namespace OpenRealEstate.Services
 {
     public class ListingHelpers
     {
-        private static void Copy(Listing existingListing,
+        public static void Copy(ResidentialListing existingListing,
+            ResidentialListing updatedListing)
+        {
+            CopyListings(existingListing, updatedListing);    
+        }
+
+        public static void Copy(RentalListing existingListing,
+            RentalListing updatedListing)
+        {
+            CopyListings(existingListing, updatedListing);
+        }
+
+        public static void Copy(RuralListing existingListing,
+            RuralListing updatedListing)
+        {
+            CopyListings(existingListing, updatedListing);
+        }
+
+        public static void Copy(LandListing existingListing,
+            LandListing updatedListing)
+        {
+            CopyListings(existingListing, updatedListing);
+        }
+
+        private static void CopyListings(Listing existingListing,
             Listing updatedListing)
         {
             if (existingListing == null)
@@ -23,37 +47,46 @@ namespace OpenRealEstate.Services
             }
 
             var residentialListing = existingListing as ResidentialListing;
-            if (residentialListing != null)
+            var updatedResidentialListing = updatedListing as ResidentialListing;
+            if (residentialListing != null &&
+                updatedResidentialListing != null)
             {
-                residentialListing.Copy(updatedListing);
+                residentialListing.Copy(updatedResidentialListing);
                 return;
             }
 
             var rentalListing = existingListing as RentalListing;
-            if (rentalListing != null)
+            var updatedRentalListing = updatedListing as RentalListing;
+            if (rentalListing != null &&
+                updatedRentalListing != null)
             {
-                rentalListing.Copy(updatedListing);
+                rentalListing.Copy(updatedRentalListing);
                 return;
             }
 
             var ruralListing = existingListing as RuralListing;
-            if (ruralListing != null)
+            var updatedRuralListig = updatedListing as RuralListing;
+            if (ruralListing != null &&
+                updatedRuralListig != null)
             {
-                ruralListing.Copy(updatedListing);
+                ruralListing.Copy(updatedRuralListig);
                 return;
             }
 
             var landListing = existingListing as LandListing;
-            if (landListing != null)
+            var updatedLandListing = updatedListing as LandListing;
+            if (landListing != null &&
+                updatedLandListing != null)
             {
-                landListing.Copy(updatedListing);
+                landListing.Copy(updatedLandListing);
                 return;
             }
 
             var errorMessage =
                 string.Format(
-                    "Failed to determine the type of listing [{0}] when trying to Copy data from one listing to another.",
-                    existingListing.GetType().FullName);
+                    "Both listings have to be of the same type when trying to Copy data from one listing to another. Desintation listing [{0}] ; Source listing [{1}].",
+                    existingListing.GetType().FullName,
+                    updatedListing.GetType().FullName);
             throw new Exception(errorMessage);
         }
     }

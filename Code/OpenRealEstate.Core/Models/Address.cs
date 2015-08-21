@@ -173,6 +173,23 @@ namespace OpenRealEstate.Core.Models
             return address.ToString();
         }
 
+        public bool IsModified
+        {
+            get
+            {
+                return IsStreetNumberModified ||
+                       IsStreetModified ||
+                       IsSuburbModified ||
+                       IsMunicipalityModified ||
+                       IsStateModified ||
+                       IsCountryIsoCodeModified ||
+                       IsPostcodeModified ||
+                       IsLatitudeModified ||
+                       IsLongitudeModified ||
+                       IsIsStreetDisplayedModified;
+            }
+        }
+
         public void Copy(Address newAddress)
         {
             if (newAddress == null)

@@ -229,5 +229,81 @@ namespace OpenRealEstate.Tests.Models
                 destinationListing.Agents.First().Name.ShouldNotBe(sourceListing.Agents.First().Name);
             }
         }
+
+        public class IsAddressIsModifiedFacts
+        {
+            [Fact]
+            public void GivenAListingWithAnExistingAddressAndAStreetUpdated_IsAddressIsModified_ReturnsTrue()
+            {
+                // Arrange.
+                var listing = TestHelperUtilities.ResidentialListingFromFile();
+                listing.IsAddressModified.ShouldBe(false);
+                const string street = "pewpew";
+
+                // Act.
+                listing.Address.Street = street;
+
+                // Arrange.
+                listing.Address.Street.ShouldBe(street);
+                listing.IsAddressModified.ShouldBe(true);
+            }
+        }
+
+        public class IsFeaturesIsModifiedFacts
+        {
+            [Fact]
+            public void GivenAListingWithAnExistingFeaturesAndABathroomsUpdated_IsFeaturesIsModified_ReturnsTrue()
+            {
+                // Arrange.
+                var listing = TestHelperUtilities.ResidentialListingFromFile();
+                listing.IsFeaturesModified.ShouldBe(false);
+                const int bathrooms = 33;
+
+                // Act.
+                listing.Features.Bathrooms = bathrooms;
+
+                // Arrange.
+                listing.Features.Bathrooms.ShouldBe(bathrooms);
+                listing.IsFeaturesModified.ShouldBe(true);
+            }
+        }
+
+        public class IsLandDetailsIsModifiedFacts
+        {
+            [Fact]
+            public void GivenAListingWithAnExistingFeaturesAndABathroomsUpdated_IsFeaturesIsModified_ReturnsTrue()
+            {
+                // Arrange.
+                var listing = TestHelperUtilities.ResidentialListingFromFile();
+                listing.IsLandDetailsModified.ShouldBe(false);
+                const string crossOver = "pewpew";
+
+                // Act.
+                listing.LandDetails.CrossOver = crossOver;
+
+                // Arrange.
+                listing.LandDetails.CrossOver.ShouldBe(crossOver);
+                listing.IsLandDetailsModified.ShouldBe(true);
+            }
+        }
+
+        public class IsModifiedFacts
+        {
+            [Fact]
+            public void GivenAListingAndAnIdUpdated_IsModified_ReturnsTrue()
+            {
+                // Arrange.
+                var listing = TestHelperUtilities.ResidentialListingFromFile();
+                listing.IsModified.ShouldBe(false);
+                const string id= "1111";
+
+                // Act.
+                listing.Id = id;
+
+                // Arrange.
+                listing.Id.ShouldBe(id);
+                listing.IsModified.ShouldBe(true);
+            }
+        }
     }
 }

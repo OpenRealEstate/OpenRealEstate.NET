@@ -31,6 +31,15 @@ namespace OpenRealEstate.Core.Models
 
         public bool IsValueModified { get; private set; }
 
+        public bool IsModified
+        {
+            get
+            {
+                return IsTypeModified ||
+                       IsValueModified;
+            }
+        }
+
         public override string ToString()
         {
             return string.Format("{0} {1}",

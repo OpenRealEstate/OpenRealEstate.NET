@@ -31,11 +31,25 @@ namespace OpenRealEstate.Core.Models
 
         public bool IsUpdatedOnModified { get; private set; }
 
+        public virtual bool IsModified
+        {
+            get
+            {
+                return IsIdModified ||
+                       IsUpdatedOnModified;
+            }
+        }
+
         public virtual void Copy(AggregateRoot newAggregateRoot)
         {
             if (newAggregateRoot == null)
             {
                 throw new ArgumentNullException("newAggregateRoot");
+            }
+
+            if (!newAggregateRoot.IsModified)
+            {
+                return;
             }
 
             if (newAggregateRoot.IsIdModified)

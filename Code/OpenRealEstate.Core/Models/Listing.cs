@@ -6,15 +6,18 @@ namespace OpenRealEstate.Core.Models
     public abstract class Listing : AggregateRoot
     {
         private Address _address;
+        private bool _isAddressModified;
         private string _agencyId;
         private IList<ListingAgent> _agents;
         private DateTime _createdOn;
         private string _description;
         private Features _features;
+        private bool _isFeaturesModified;
         private IList<Media> _floorPlans;
         private IList<Media> _images;
         private IList<Inspection> _inspections;
         private LandDetails _landDetails;
+        private bool _isLandDetailsModified;
         private IList<string> _links;
         private StatusType _statusType;
         private string _title;
@@ -90,7 +93,16 @@ namespace OpenRealEstate.Core.Models
             }
         }
 
-        public bool IsAddressModified { get; private set; }
+        public bool IsAddressModified
+        {
+            get
+            {
+                return _isAddressModified ||
+                       (Address != null &&
+                        Address.IsModified);
+            }
+            set { _isAddressModified = value; }
+        }
 
         public IList<ListingAgent> Agents
         {
@@ -162,7 +174,16 @@ namespace OpenRealEstate.Core.Models
             }
         }
 
-        public bool IsLandDetailsModified { get; private set; }
+        public bool IsLandDetailsModified
+        {
+            get
+            {
+                return _isLandDetailsModified ||
+                       (LandDetails != null &&
+                        LandDetails.IsModified);
+            }
+            set { _isLandDetailsModified = value; }
+        }
 
         public Features Features
         {
@@ -174,7 +195,16 @@ namespace OpenRealEstate.Core.Models
             }
         }
 
-        public bool IsFeaturesModified { get; private set; }
+        public bool IsFeaturesModified
+        {
+            get
+            {
+                return _isFeaturesModified ||
+                       (Features != null &&
+                        Features.IsModified);
+            }
+            set { _isFeaturesModified = value; }
+        }
 
         public IList<string> Links
         {
@@ -187,6 +217,30 @@ namespace OpenRealEstate.Core.Models
         }
 
         public bool IsLinksModified { get; private set; }
+
+        public override bool IsModified {
+            get
+            {
+                return base.IsModified ||
+                       IsAgencyIdModified ||
+                       IsStatusTypeModified ||
+                       IsCreatedOnModified ||
+                       IsTitleModified ||
+                       IsDescriptionModified ||
+                       IsAddressModified ||
+                       (Address != null && Address.IsModified) ||
+                       IsAgentsModified ||
+                       IsImagesModified ||
+                       IsFloorPlansModified ||
+                       IsVideosModified ||
+                       IsInspectionsModified ||
+                       IsLandDetailsModified ||
+                       (LandDetails != null && LandDetails.IsModified) ||
+                       IsFeaturesModified ||
+                       (Features != null && Features.IsModified) ||
+                       IsLinksModified;
+            }
+        }
 
         public override string ToString()
         {
@@ -204,6 +258,11 @@ namespace OpenRealEstate.Core.Models
             if (newListing == null)
             {
                 throw new ArgumentNullException("newListing");
+            }
+
+            if (!newListing.IsModified)
+            {
+                return;
             }
 
             base.Copy(newListing);
@@ -353,7 +412,12 @@ namespace OpenRealEstate.Core.Models
                     {
                         LandDetails = new LandDetails();
                     }
-                    LandDetails.Copy(newListing.LandDetails);
+
+                    if (newListing.LandDetails.IsModified)
+                    {
+                        LandDetails.Copy(newListing.LandDetails);
+                    }
+
                     IsLandDetailsModified = true;
                 }
             }
@@ -370,7 +434,12 @@ namespace OpenRealEstate.Core.Models
                     {
                         Features = new Features();
                     }
-                    Features.Copy(newListing.Features);
+
+                    if (newListing.Features.IsModified)
+                    {
+                        Features.Copy(newListing.Features);
+                    }
+
                     IsFeaturesModified = true;
                 }
             }

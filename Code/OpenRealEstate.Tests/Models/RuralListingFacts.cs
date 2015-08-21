@@ -90,5 +90,73 @@ namespace OpenRealEstate.Tests.Models
                 destinationListing.IsRuralFeaturesModified.ShouldBe(true);
             }
         }
+
+        public class IsModifiedFacts
+        {
+            [Fact]
+            public void GivenAnExistingListingAndIdUpdated_IsModified_ReturnsTrue()
+            {
+                // Arrange.
+                var listing = TestHelperUtilities.RuralListingFromFile();
+                listing.IsModified.ShouldBe(false);
+
+                // Act.
+                listing.Id = "pewpew";
+
+                // Assert.
+                listing.IsModified.ShouldBe(true);
+            }
+        }
+
+        public class IsBuildingDetailsModifiedFacts
+        {
+            [Fact]
+            public void GivenAnExistingListingAndBuildingDetailsEnergyRatingIdUpdated_IsBuildingDetailsModified_ReturnsTrue()
+            {
+                // Arrange.
+                var listing = TestHelperUtilities.RuralListingFromFile();
+                listing.IsBuildingDetailsModified.ShouldBe(false);
+
+                // Act.
+                listing.BuildingDetails.EnergyRating = 3;
+
+                // Assert.
+                listing.IsBuildingDetailsModified.ShouldBe(true);
+            }
+        }
+
+        public class IsPricingModifiedFacts
+        {
+            [Fact]
+            public void GivenAnExistingListingAndPricingSalePriceIdUpdated_IsPricingModified_ReturnsTrue()
+            {
+                // Arrange.
+                var listing = TestHelperUtilities.RuralListingFromFile();
+                listing.IsPricingModified.ShouldBe(false);
+
+                // Act.
+                listing.Pricing.SalePrice = 1000;
+
+                // Assert.
+                listing.IsPricingModified.ShouldBe(true);
+            }
+        }
+
+        public class IsRuralFeaturesModifiedFacts
+        {
+            [Fact]
+            public void GivenAnExistingListingAndRuralFeaturesIdUpdated_IsRuralFeaturesModified_ReturnsTrue()
+            {
+                // Arrange.
+                var listing = TestHelperUtilities.RuralListingFromFile();
+                listing.IsRuralFeaturesModified.ShouldBe(false);
+
+                // Act.
+                listing.RuralFeatures.AnnualRainfall = "yeah. some";
+
+                // Assert.
+                listing.IsRuralFeaturesModified.ShouldBe(true);
+            }
+        }
     }
 }

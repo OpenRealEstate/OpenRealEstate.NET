@@ -96,6 +96,20 @@ namespace OpenRealEstate.Core.Models.Rural
 
         public bool IsServicesModified { get; set; }
 
+        public bool IsModified
+        {
+            get
+            {
+                return IsFencingModified ||
+                       IsAnnualRainfallModified ||
+                       IsSoilTypesModified ||
+                       IsImprovementsModified ||
+                       IsIrrigationModified ||
+                       IsCarryingCapacityModified ||
+                       IsServicesModified;
+            }
+        }
+
         public void Copy(RuralFeatures newRuralFeatures)
         {
             if (newRuralFeatures == null)

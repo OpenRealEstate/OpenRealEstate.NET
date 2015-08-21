@@ -6,10 +6,13 @@ namespace OpenRealEstate.Core.Models.Rural
     {
         private DateTime? _auctionOn;
         private BuildingDetails _buildingDetails;
+        private bool _isBuildingDetailsModified;
         private CategoryType _categoryType;
         private string _councilRates;
         private SalePricing _pricing;
+        private bool _isPricingModified;
         private RuralFeatures _ruralFeatures;
+        private bool _isRuralFeaturesModified;
 
         public CategoryType CategoryType
         {
@@ -33,7 +36,16 @@ namespace OpenRealEstate.Core.Models.Rural
             }
         }
 
-        public bool IsPricingModified { get; set; }
+        public bool IsPricingModified
+        {
+            get
+            {
+                return _isPricingModified ||
+                       (Pricing != null &&
+                        Pricing.IsModified);
+            }
+            set { _isPricingModified = value; }
+        }
 
         public DateTime? AuctionOn
         {
@@ -57,7 +69,16 @@ namespace OpenRealEstate.Core.Models.Rural
             }
         }
 
-        public bool IsRuralFeaturesModified { get; set; }
+        public bool IsRuralFeaturesModified
+        {
+            get
+            {
+                return _isRuralFeaturesModified ||
+                       (RuralFeatures != null &&
+                        RuralFeatures.IsModified);
+            }
+            set { _isRuralFeaturesModified = value; }
+        }
 
         public string CouncilRates
         {
@@ -81,7 +102,30 @@ namespace OpenRealEstate.Core.Models.Rural
             }
         }
 
-        public bool IsBuildingDetailsModified { get; set; }
+        public bool IsBuildingDetailsModified
+        {
+            get
+            {
+                return _isBuildingDetailsModified ||
+                       (BuildingDetails != null &&
+                        BuildingDetails.IsModified);
+            }
+            set { _isBuildingDetailsModified = value; }
+        }
+
+        public override bool IsModified
+        {
+            get
+            {
+                return base.IsModified ||
+                       IsCategoryTypeModified ||
+                       IsPricingModified ||
+                       IsAuctionOnModified ||
+                       IsRuralFeaturesModified ||
+                       IsCouncilRatesModified ||
+                       IsBuildingDetailsModified;
+            }
+        }
 
         public override string ToString()
         {
@@ -114,7 +158,12 @@ namespace OpenRealEstate.Core.Models.Rural
                     {
                         Pricing = new SalePricing();
                     }
-                    Pricing.Copy(newRuralListing.Pricing);
+
+                    if (newRuralListing.Pricing.IsModified)
+                    {
+                        Pricing.Copy(newRuralListing.Pricing);
+                    }
+
                     IsPricingModified = true;
                 }
             }
@@ -136,7 +185,12 @@ namespace OpenRealEstate.Core.Models.Rural
                     {
                         RuralFeatures = new RuralFeatures();
                     }
-                    RuralFeatures.Copy(newRuralListing.RuralFeatures);
+
+                    if (newRuralListing.RuralFeatures.IsModified)
+                    {
+                        RuralFeatures.Copy(newRuralListing.RuralFeatures);
+                    }
+
                     IsRuralFeaturesModified = true;
                 }
             }
@@ -158,7 +212,12 @@ namespace OpenRealEstate.Core.Models.Rural
                     {
                         BuildingDetails = new BuildingDetails();
                     }
-                    BuildingDetails.Copy(newRuralListing.BuildingDetails);
+
+                    if (newRuralListing.BuildingDetails.IsModified)
+                    {
+                        BuildingDetails.Copy(newRuralListing.BuildingDetails);
+                    }
+
                     IsBuildingDetailsModified = true;
                 }
             }

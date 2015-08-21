@@ -58,6 +58,18 @@ namespace OpenRealEstate.Core.Models
 
         public bool IsCrossOverModified { get; private set; }
 
+        public bool IsModified {
+            get
+            {
+                return IsAreaModified ||
+                       (Area != null && Area.IsModified) ||
+                       IsFrontageModified ||
+                       (Frontage != null && Frontage.IsModified) ||
+                       IsDepthsModified ||
+                       IsCrossOverModified;
+            }
+        }
+
         public void Copy(LandDetails newLandDetails)
         {
             if (newLandDetails == null)

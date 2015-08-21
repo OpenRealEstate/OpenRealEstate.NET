@@ -48,7 +48,7 @@ namespace OpenRealEstate.Tests.Models
             sourceListing.Estate = null;
             sourceListing.Pricing = null;
 
-            var destinationListing =TestHelperUtilities.LandListing();
+            var destinationListing = TestHelperUtilities.LandListing();
 
             // Act.
             destinationListing.Copy(sourceListing);
@@ -58,6 +58,60 @@ namespace OpenRealEstate.Tests.Models
             destinationListing.IsEstateModified.ShouldBe(true);
             destinationListing.Pricing.ShouldBe(null);
             destinationListing.IsPricingModified.ShouldBe(true);
+        }
+    }
+
+    public class IsModifiedFacts
+    {
+        [Fact]
+        public void GivenAnExistingListingAndTheIdIsUpdated_IsModified_ReturnsTrue()
+        {
+            // Arrange.
+            var listing = TestHelperUtilities.LandListingFromFile();
+            listing.IsModified.ShouldBe(false);
+            const string id = "pewpew";
+
+            // Act.
+            listing.Id = id;
+
+            // Arrange.
+            listing.IsModified.ShouldBe(true);
+        }
+    }
+
+    public class IsEstateIsModifiedFacts
+    {
+        [Fact]
+        public void GivenAnExistingListingAndEstateNameUpdated_IsLandEstateIsModified_ReturnsTrue()
+        {
+            // Arrange.
+            var listing = TestHelperUtilities.LandListingFromFile();
+            listing.IsEstateModified.ShouldBe(false);
+            const string name = "pewpew";
+
+            // Act.
+            listing.Estate.Name = name;
+
+            // Arrange.
+            listing.IsEstateModified.ShouldBe(true);
+        }
+    }
+
+    public class IsPricingIsModifiedFacts
+    {
+        [Fact]
+        public void GivenAnExistingListingAndPricingSalePriceUdated_IsPricingIsModified_ReturnsTrue()
+        {
+            // Arrange.
+            var listing = TestHelperUtilities.LandListingFromFile();
+            listing.IsPricingModified.ShouldBe(false);
+            const decimal salePrice = 1000;
+
+            // Act.
+            listing.Pricing.SalePrice = salePrice;
+
+            // Arrange.
+            listing.IsPricingModified.ShouldBe(true);
         }
     }
 }

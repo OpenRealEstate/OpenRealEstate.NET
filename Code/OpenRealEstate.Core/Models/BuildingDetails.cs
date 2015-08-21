@@ -6,8 +6,8 @@ namespace OpenRealEstate.Core.Models
     public class BuildingDetails
     {
         private UnitOfMeasure _area;
+        private bool _isAreaModified;
         private decimal? _energyRating;
-        private ISet<string> _tags;
 
         public UnitOfMeasure Area
         {
@@ -19,7 +19,16 @@ namespace OpenRealEstate.Core.Models
             }
         }
 
-        public bool IsAreaModified { get; private set; }
+        public bool IsAreaModified
+        {
+            get
+            {
+                return _isAreaModified ||
+                       (Area != null &&
+                        Area.IsModified);
+            }
+            set { _isAreaModified = value; }
+        }
 
         public decimal? EnergyRating
         {
@@ -33,6 +42,15 @@ namespace OpenRealEstate.Core.Models
 
         public bool IsEnergyRatingModified { get; private set; }
 
+        public bool IsModified
+        {
+            get
+            {
+                return IsAreaModified ||
+                       IsEnergyRatingModified;
+            }
+        }
+
         public void Copy(BuildingDetails newBuildingDetails)
         {
             if (newBuildingDetails == null)
@@ -42,7 +60,24 @@ namespace OpenRealEstate.Core.Models
 
             if (newBuildingDetails.IsAreaModified)
             {
-                Area = newBuildingDetails.Area;
+                if (newBuildingDetails.Area == null)
+                {
+                    Area = null;
+                }
+                else
+                {
+                    if (Area== null)
+                    {
+                        Area = new UnitOfMeasure();
+                    }
+
+                    if (newBuildingDetails.Area.IsModified)
+                    {
+                        Area = newBuildingDetails.Area;
+                    }
+
+                    IsAreaModified = true;
+                }
             }
 
             if (newBuildingDetails.IsEnergyRatingModified)

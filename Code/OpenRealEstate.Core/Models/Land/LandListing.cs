@@ -8,7 +8,9 @@ namespace OpenRealEstate.Core.Models.Land
         private CategoryType _categoryType;
         private string _councilRates;
         private LandEstate _estate;
+        private bool _isEstateModified;
         private SalePricing _pricing;
+        private bool _isPricingModified;
 
         public CategoryType CategoryType
         {
@@ -32,7 +34,16 @@ namespace OpenRealEstate.Core.Models.Land
             }
         }
 
-        public bool IsPricingModified { get; set; }
+        public bool IsPricingModified
+        {
+            get
+            {
+                return _isPricingModified ||
+                       (Pricing != null &&
+                        Pricing.IsModified);
+            }
+            set { _isPricingModified = value; }
+        }
 
         public DateTime? AuctionOn
         {
@@ -56,7 +67,15 @@ namespace OpenRealEstate.Core.Models.Land
             }
         }
 
-        public bool IsEstateModified { get; set; }
+        public bool IsEstateModified {
+            get
+            {
+                return _isEstateModified ||
+                       (Estate != null &&
+                        Estate.IsModified);
+            }
+            set { _isEstateModified = value; }
+        }
 
         public string CouncilRates
         {
@@ -70,6 +89,18 @@ namespace OpenRealEstate.Core.Models.Land
 
         public bool IsCouncilRatesModified { get; set; }
 
+        public override bool IsModified {
+            get
+            {
+                return base.IsModified ||
+                       IsCategoryTypeModified ||
+                       IsPricingModified ||
+                       IsAuctionOnModified ||
+                       IsEstateModified ||
+                       IsCouncilRatesModified;
+            }
+        }
+
         public override string ToString()
         {
             return string.Format("Land >> {0}", base.ToString());
@@ -80,6 +111,11 @@ namespace OpenRealEstate.Core.Models.Land
             if (newLandListing == null)
             {
                 throw new ArgumentNullException("newLandListing");
+            }
+
+            if (!newLandListing.IsModified)
+            {
+                return;
             }
 
             base.Copy(newLandListing);
@@ -101,7 +137,12 @@ namespace OpenRealEstate.Core.Models.Land
                     {
                         Pricing = new SalePricing();
                     }
-                    Pricing.Copy(newLandListing.Pricing);
+
+                    if (newLandListing.IsPricingModified)
+                    {
+                        Pricing.Copy(newLandListing.Pricing);
+                    }
+
                     IsPricingModified = true;
                 }
             }

@@ -123,6 +123,22 @@ namespace OpenRealEstate.Core.Models
 
         public bool IsTagsModified { get; private set; }
 
+        public bool IsModified
+        {
+            get
+            {
+                return IsBedroomsModified ||
+                       IsBathroomsModified ||
+                       IsToiletsModified ||
+                       IsEnsuitesModified ||
+                       IsGaragesModified ||
+                       IsCarportsModified ||
+                       IsLivingAreasModified ||
+                       IsOpenSpacesModified ||
+                       IsTagsModified;
+            }
+        }
+
         public void Copy(Features newFeatures)
         {
             if (newFeatures == null)

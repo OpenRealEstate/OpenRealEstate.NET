@@ -31,6 +31,15 @@ namespace OpenRealEstate.Core.Models.Land
 
         public bool IsStageModified { get; set; }
 
+        public bool IsModified
+        {
+            get
+            {
+                return IsNameModified ||
+                       IsStageModified;
+            }
+        }
+
         public void Copy(LandEstate newLandEstate)
         {
             if (newLandEstate == null)

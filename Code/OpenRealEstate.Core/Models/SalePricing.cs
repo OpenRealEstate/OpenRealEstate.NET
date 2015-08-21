@@ -83,16 +83,16 @@ namespace OpenRealEstate.Core.Models
 
         public bool IsUnderOfferModified { get; private set; }
 
-        public bool IsModifed
+        public bool IsModified
         {
             get
             {
-                return IsUnderOfferModified ||
-                       IsSalePriceModified ||
+                return IsSalePriceModified ||
                        IsSalePriceTextModified ||
-                       IsSoldOnModified ||
                        IsSoldPriceModified ||
-                       IsSoldPriceTextModified;
+                       IsSoldPriceTextModified ||
+                       IsSoldOnModified ||
+                       IsUnderOfferModified;
             }
         }
 

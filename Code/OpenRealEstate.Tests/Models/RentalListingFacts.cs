@@ -63,5 +63,56 @@ namespace OpenRealEstate.Tests.Models
                 destinationListing.IsPricingModified.ShouldBe(true);
             }
         }
+
+        public class IsModifiedFacts
+        {
+            [Fact]
+            public void GivenAnExistingListingAndIdUpdated_IsModified_ReturnsTrue()
+            {
+                // Arrange.
+                var listing = TestHelperUtilities.RentalListingFromFile();
+                listing.IsModified.ShouldBe(false);
+
+                // Act.
+                listing.Id = "pewpew";
+
+                // Assert.
+                listing.IsModified.ShouldBe(true);
+            }
+        }
+
+        public class IsBuildingDetailsModifiedFacts
+        {
+            [Fact]
+            public void GivenAnExistingListingAndBuildingDetailsEnergyRatingUpdated_IsBuildingDetailsModified_ReturnsTrue()
+            {
+                // Arrange.
+                var listing = TestHelperUtilities.RentalListingFromFile();
+                listing.IsBuildingDetailsModified.ShouldBe(false);
+
+                // Act.
+                listing.BuildingDetails.EnergyRating = 3;
+
+                // Assert.
+                listing.IsBuildingDetailsModified.ShouldBe(true);
+            }
+        }
+
+        public class IsPricingModifiedFacts
+        {
+            [Fact]
+            public void GivenAnExistingListingAndPricingRentalPriceUpdated_IsPricingModified_ReturnsTrue()
+            {
+                // Arrange.
+                var listing = TestHelperUtilities.RentalListingFromFile();
+                listing.IsPricingModified.ShouldBe(false);
+
+                // Act.
+                listing.Pricing.RentalPrice = 30;
+
+                // Assert.
+                listing.IsPricingModified.ShouldBe(true);
+            }
+        }
     }
 }
