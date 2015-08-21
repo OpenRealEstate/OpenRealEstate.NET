@@ -12,9 +12,9 @@ using Shouldly;
 using LandListingCategoryType = OpenRealEstate.Core.Models.Land.CategoryType;
 using RuralListingCategoryType = OpenRealEstate.Core.Models.Rural.CategoryType;
 
-namespace OpenRealEstate.Tests.Models
+namespace OpenRealEstate.Tests
 {
-    public static class HelperUtilities
+    public static class TestHelperUtilities
     {
         public static ResidentialListing ResidentialListingFromFile(bool isClearAllIsModified = true,
             bool includeDataForCustomDataFields = true)
@@ -33,17 +33,17 @@ namespace OpenRealEstate.Tests.Models
             {
                 listing.Address.Latitude = 1m;
                 listing.Address.Longitude = 2.4m;
-                for (int i = 0; i < listing.FloorPlans.Count; i++)
+                for (var i = 0; i < listing.FloorPlans.Count; i++)
                 {
                     listing.FloorPlans[i].Tag = "Tag_" + i + 1;
                 }
 
-                for (int i = 0; i < listing.Images.Count; i++)
+                for (var i = 0; i < listing.Images.Count; i++)
                 {
                     listing.Images[i].Tag = "Tag_" + i + 1;
                 }
 
-                for (int i = 0; i < listing.Videos.Count; i++)
+                for (var i = 0; i < listing.Videos.Count; i++)
                 {
                     listing.Videos[i].Tag = "Tag_" + i + 1;
                 }

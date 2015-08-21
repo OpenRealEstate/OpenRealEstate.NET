@@ -75,14 +75,14 @@ namespace OpenRealEstate.Core.Models.Land
             return string.Format("Land >> {0}", base.ToString());
         }
 
-        public void CopyOverNewData(LandListing newLandListing)
+        public void Copy(LandListing newLandListing)
         {
             if (newLandListing == null)
             {
                 throw new ArgumentNullException("newLandListing");
             }
 
-            base.CopyOverNewData(newLandListing);
+            base.Copy(newLandListing);
 
             if (newLandListing.IsCategoryTypeModified)
             {
@@ -101,7 +101,7 @@ namespace OpenRealEstate.Core.Models.Land
                     {
                         Pricing = new SalePricing();
                     }
-                    Pricing.CopyOverNewData(newLandListing.Pricing);
+                    Pricing.Copy(newLandListing.Pricing);
                     IsPricingModified = true;
                 }
             }
@@ -123,7 +123,7 @@ namespace OpenRealEstate.Core.Models.Land
                     {
                         Estate = new LandEstate();
                     }
-                    Estate.CopyOverNewData(newLandListing.Estate);
+                    Estate.Copy(newLandListing.Estate);
                     IsEstateModified = true;
                 }
             }

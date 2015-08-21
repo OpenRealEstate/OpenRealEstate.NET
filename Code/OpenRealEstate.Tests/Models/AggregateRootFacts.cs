@@ -13,11 +13,11 @@ namespace OpenRealEstate.Tests.Models
             public void GivenAnExistingListing_Copy_CopiesOverTheData()
             {
                 // Arrange.
-                var sourceListing = HelperUtilities.ResidentialListingFromFile(false) as AggregateRoot;
+                var sourceListing =TestHelperUtilities.ResidentialListingFromFile(false) as AggregateRoot;
                 sourceListing.Id = "2140F1E6-EF8B-45D4-82FB-90940A3F1D90";
                 sourceListing.UpdatedOn = DateTime.UtcNow;
 
-                var destinationListing = HelperUtilities.ResidentialListingFromFile() as AggregateRoot;
+                var destinationListing =TestHelperUtilities.ResidentialListingFromFile() as AggregateRoot;
 
                 // Act.
                 destinationListing.Copy(sourceListing);

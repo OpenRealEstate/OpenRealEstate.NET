@@ -16,8 +16,8 @@ namespace OpenRealEstate.Tests.Models
             public void GivenAnExistingListingAndANewListingWithEverythingModified_Copy_CopiesOverTheData()
             {
                 // Arrange.
-                var sourceListing = HelperUtilities.RuralListing(false);
-                var destinationListing = HelperUtilities.RuralListingFromFile();
+                var sourceListing =TestHelperUtilities.RuralListing(false);
+                var destinationListing =TestHelperUtilities.RuralListingFromFile();
 
                 // Act.
                 destinationListing.Copy(sourceListing);
@@ -71,12 +71,12 @@ namespace OpenRealEstate.Tests.Models
             public void GivenAnExistingListingAndANewListingWithANullValues_Copy_CopiesOverTheData()
             {
                 // Arrange.
-                var sourceListing = HelperUtilities.RuralListingFromFile();
+                var sourceListing =TestHelperUtilities.RuralListingFromFile();
                 sourceListing.BuildingDetails = null;
                 sourceListing.Pricing = null;
                 sourceListing.RuralFeatures = null;
 
-                var destinationListing = HelperUtilities.RuralListing();
+                var destinationListing =TestHelperUtilities.RuralListing();
 
                 // Act.
                 destinationListing.Copy(sourceListing);

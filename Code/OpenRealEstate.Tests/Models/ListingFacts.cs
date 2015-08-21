@@ -14,9 +14,9 @@ namespace OpenRealEstate.Tests.Models
             public void GivenAnExistingListingAndANewListingWithEverythingModified_Copy_CopiesOverTheData()
             {
                 // Arrange.
-                var sourceListing = HelperUtilities.ResidentialListingFromFile(false) as Listing;
+                var sourceListing =TestHelperUtilities.ResidentialListingFromFile(false) as Listing;
                 
-                var destinationListing = HelperUtilities.ResidentialListing() as Listing;
+                var destinationListing =TestHelperUtilities.ResidentialListing() as Listing;
 
                 // Act.
                 destinationListing.Copy(sourceListing);
@@ -96,10 +96,10 @@ namespace OpenRealEstate.Tests.Models
                 destinationListing.Features.IsToiletsModified.ShouldBe(true);
                 destinationListing.IsFeaturesModified.ShouldBe(true);
 
-                HelperUtilities.AssertMediaItems(destinationListing.FloorPlans, sourceListing.FloorPlans);
+               TestHelperUtilities.AssertMediaItems(destinationListing.FloorPlans, sourceListing.FloorPlans);
                 destinationListing.IsFloorPlansModified.ShouldBe(true);
 
-                HelperUtilities.AssertMediaItems(destinationListing.Images, sourceListing.Images);
+               TestHelperUtilities.AssertMediaItems(destinationListing.Images, sourceListing.Images);
                 destinationListing.IsImagesModified.ShouldBe(true);
 
                 for (int i = 0; i < destinationListing.Inspections.Count; i++)
@@ -139,7 +139,7 @@ namespace OpenRealEstate.Tests.Models
                 }
                 destinationListing.IsLinksModified.ShouldBe(true);
 
-                HelperUtilities.AssertMediaItems(destinationListing.Videos, sourceListing.Videos);
+               TestHelperUtilities.AssertMediaItems(destinationListing.Videos, sourceListing.Videos);
                 destinationListing.IsImagesModified.ShouldBe(true);
             }
 
@@ -147,7 +147,7 @@ namespace OpenRealEstate.Tests.Models
             public void GivenAnExistingListingAndANewListingWithANullValues_Copy_CopiesOverTheData()
             {
                 // Arrange.
-                var sourceListing = HelperUtilities.ResidentialListingFromFile();
+                var sourceListing =TestHelperUtilities.ResidentialListingFromFile();
                 sourceListing.Agents = null;
                 sourceListing.Address = null;
                 sourceListing.Features = null;
@@ -158,7 +158,7 @@ namespace OpenRealEstate.Tests.Models
                 sourceListing.Links = null;
                 sourceListing.Videos = null;
 
-                var destinationListing = HelperUtilities.ResidentialListingFromFile();
+                var destinationListing =TestHelperUtilities.ResidentialListingFromFile();
 
                 // Act.
                 destinationListing.Copy(sourceListing);
@@ -188,8 +188,8 @@ namespace OpenRealEstate.Tests.Models
             public void GivenAnExistingListingAndChangingAnImage_Copy_CopiesOverTheData()
             {
                 // Arrange.
-                var sourceListing = HelperUtilities.ResidentialListingFromFile();
-                var destinationListing = HelperUtilities.ResidentialListingFromFile();
+                var sourceListing =TestHelperUtilities.ResidentialListingFromFile();
+                var destinationListing =TestHelperUtilities.ResidentialListingFromFile();
 
                 sourceListing.Images = new List<Media>
                 {
@@ -218,8 +218,8 @@ namespace OpenRealEstate.Tests.Models
             public void GivenAnExistingListingAndChangingAnAgentAfterwards_Copy_TheAgentsAreNotBothUpdated()
             {
                 // Arrange.
-                var sourceListing = HelperUtilities.ResidentialListing(false);
-                var destinationListing = HelperUtilities.ResidentialListingFromFile();
+                var sourceListing =TestHelperUtilities.ResidentialListing(false);
+                var destinationListing =TestHelperUtilities.ResidentialListingFromFile();
 
                 // Act.
                 destinationListing.Copy(sourceListing);
