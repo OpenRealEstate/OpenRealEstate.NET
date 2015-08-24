@@ -9,32 +9,8 @@ namespace OpenRealEstate.Services
 {
     public class ListingHelpers
     {
-        public static void Copy(ResidentialListing existingListing,
-            ResidentialListing updatedListing)
-        {
-            CopyListings(existingListing, updatedListing);    
-        }
-
-        public static void Copy(RentalListing existingListing,
-            RentalListing updatedListing)
-        {
-            CopyListings(existingListing, updatedListing);
-        }
-
-        public static void Copy(RuralListing existingListing,
-            RuralListing updatedListing)
-        {
-            CopyListings(existingListing, updatedListing);
-        }
-
-        public static void Copy(LandListing existingListing,
-            LandListing updatedListing)
-        {
-            CopyListings(existingListing, updatedListing);
-        }
-
-        private static void CopyListings(Listing existingListing,
-            Listing updatedListing)
+        public static void Copy<T>(T existingListing,
+            T updatedListing) where T : Listing
         {
             if (existingListing == null)
             {
