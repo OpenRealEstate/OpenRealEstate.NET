@@ -4,7 +4,69 @@ namespace OpenRealEstate.Core.Models
 {
     public abstract class AggregateRoot
     {
-        public string Id { get; set; }
-        public DateTime UpdatedOn { get; set; }
+        private string _id;
+        private DateTime _updatedOn;
+
+        public string Id
+        {
+            get { return _id; }
+            set
+            {
+                _id = value;
+                IsIdModified = true;
+            }
+        }
+
+        public bool IsIdModified { get; private set; }
+
+        public DateTime UpdatedOn
+        {
+            get { return _updatedOn; }
+            set
+            {
+                _updatedOn = value;
+                IsUpdatedOnModified = true;
+            }
+        }
+
+        public bool IsUpdatedOnModified { get; private set; }
+
+        public virtual bool IsModified
+        {
+            get
+            {
+                return IsIdModified ||
+                       IsUpdatedOnModified;
+            }
+        }
+
+        public virtual void Copy(AggregateRoot newAggregateRoot)
+        {
+            if (newAggregateRoot == null)
+            {
+                throw new ArgumentNullException("newAggregateRoot");
+            }
+
+            if (!newAggregateRoot.IsModified)
+            {
+                return;
+            }
+
+            if (newAggregateRoot.IsIdModified)
+            {
+                Id = newAggregateRoot.Id;
+            }
+
+            if (newAggregateRoot.IsUpdatedOnModified)
+            {
+                UpdatedOn = newAggregateRoot.UpdatedOn;
+            }
+        }
+
+        public virtual void ClearAllIsModified()
+        {
+            IsIdModified = false;
+            IsUpdatedOnModified = false;
+        }
     }
 }

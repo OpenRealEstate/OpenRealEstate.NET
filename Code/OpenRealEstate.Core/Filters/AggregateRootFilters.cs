@@ -4,9 +4,9 @@ using OpenRealEstate.Core.Models;
 
 namespace OpenRealEstate.Core.Filters
 {
-    public static class ListingFilters
+    public static class AggregateRootFilters
     {
-        public static IQueryable<Listing> WithId(this IQueryable<Listing> value, string id)
+        public static IQueryable<AggregateRoot> WithId(this IQueryable<AggregateRoot> value, string id)
         {
             if (string.IsNullOrWhiteSpace(id))
             {

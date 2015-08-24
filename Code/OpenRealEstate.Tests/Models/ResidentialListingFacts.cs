@@ -1,0 +1,108 @@
+﻿using Shouldly;
+using Xunit;
+
+namespace OpenRealEstate.Tests.Models
+{
+    public class ResidentialListingFacts
+    {
+        public class CopyFacts
+        {
+            [Fact]
+            public void GivenAnExistingListingAndANewListingWithEverythingModified_Copy_CopiesOverTheData()
+            {
+                // Arrange.
+                var sourceListing =TestHelperUtilities.ResidentialListing(false);
+                var destinationListing =TestHelperUtilities.ResidentialListingFromFile();
+
+                // Act.
+                destinationListing.Copy(sourceListing);
+
+                // Assert.
+                destinationListing.AuctionOn.ShouldBe(sourceListing.AuctionOn);
+                destinationListing.IsAuctionOnModified.ShouldBe(true);
+                destinationListing.CouncilRates.ShouldBe(sourceListing.CouncilRates);
+                destinationListing.IsCouncilRatesModified.ShouldBe(true);
+                destinationListing.PropertyType.ShouldBe(sourceListing.PropertyType);
+                destinationListing.IsPropertyTypeModified.ShouldBe(true);
+
+                destinationListing.BuildingDetails.Area.Type.ShouldBe(sourceListing.BuildingDetails.Area.Type);
+                destinationListing.BuildingDetails.Area.IsTypeModified.ShouldBe(true);
+                destinationListing.BuildingDetails.Area.Value.ShouldBe(sourceListing.BuildingDetails.Area.Value);
+                destinationListing.BuildingDetails.Area.IsValueModified.ShouldBe(true);
+                destinationListing.BuildingDetails.IsAreaModified.ShouldBe(true);
+                destinationListing.BuildingDetails.EnergyRating.ShouldBe(sourceListing.BuildingDetails.EnergyRating);
+                destinationListing.BuildingDetails.IsEnergyRatingModified.ShouldBe(true);
+                destinationListing.IsBuildingDetailsModified.ShouldBe(true);
+
+                destinationListing.Pricing.SalePrice.ShouldBe(sourceListing.Pricing.SalePrice);
+                destinationListing.Pricing.SalePriceText.ShouldBe(sourceListing.Pricing.SalePriceText);
+                destinationListing.Pricing.IsUnderOffer.ShouldBe(sourceListing.Pricing.IsUnderOffer);
+                destinationListing.Pricing.SoldOn.ShouldBe(sourceListing.Pricing.SoldOn);
+                destinationListing.Pricing.IsSoldOnModified.ShouldBe(true);
+                destinationListing.Pricing.SoldPrice.ShouldBe(sourceListing.Pricing.SoldPrice);
+                destinationListing.Pricing.IsSoldPriceModified.ShouldBe(true);
+                destinationListing.Pricing.SoldPriceText.ShouldBe(sourceListing.Pricing.SoldPriceText);
+                destinationListing.Pricing.IsSoldPriceTextModified.ShouldBe(true);
+                destinationListing.IsPricingModified.ShouldBe(true);
+            }
+
+            [Fact]
+            public void GivenAnExistingListingAndANewListingWithANullValues_Copy_CopiesOverTheData()
+            {
+                // Arrange.
+                var sourceListing =TestHelperUtilities.ResidentialListingFromFile();
+                sourceListing.BuildingDetails = null;
+                sourceListing.Pricing = null;
+
+                var destinationListing =TestHelperUtilities.ResidentialListingFromFile();
+
+                // Act.
+                destinationListing.Copy(sourceListing);
+
+                // Assert.
+                destinationListing.BuildingDetails.ShouldBe(null);
+                destinationListing.IsBuildingDetailsModified.ShouldBe(true);
+                destinationListing.Pricing.ShouldBe(null);
+                destinationListing.IsPricingModified.ShouldBe(true);
+            }
+        }
+
+        public class IsPricingIsModifiedFacts
+        {
+            [Fact]
+            public void GivenAListingWithAnExistingPricingAndTheSalePriceIsUpdated_IsPricingIsModified_ReturnsTrue()
+            {
+                // Arrange.
+                var listing = TestHelperUtilities.ResidentialListingFromFile();
+                listing.IsPricingModified.ShouldBe(false);
+                const decimal salePrice = 1;
+
+                // Act.
+                listing.Pricing.SalePrice = salePrice;
+
+                // Assert.
+                listing.Pricing.SalePrice.ShouldBe(salePrice);
+                listing.IsPricingModified.ShouldBe(true);
+            }
+        }
+
+        public class IsBuildingDetailsIsModifiedFacts
+        {
+            [Fact]
+            public void GivenAListingWithAnExistingBuildingDetailsAndTheEnergyRatingIsUpdated_IsBuildingDetailsIsModified_ReturnsTrue()
+            {
+                // Arrange.
+                var listing = TestHelperUtilities.ResidentialListingFromFile();
+                listing.IsBuildingDetailsModified.ShouldBe(false);
+                const decimal energyRating = 1;
+
+                // Act.
+                listing.BuildingDetails.EnergyRating = energyRating;
+
+                // Assert.
+                listing.BuildingDetails.EnergyRating.ShouldBe(energyRating);
+                listing.IsBuildingDetailsModified.ShouldBe(true);
+            }
+        }
+    }
+}

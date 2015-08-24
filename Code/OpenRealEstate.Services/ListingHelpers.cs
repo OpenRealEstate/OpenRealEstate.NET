@@ -1,5 +1,4 @@
 ﻿using System;
-using Newtonsoft.Json;
 using OpenRealEstate.Core.Models;
 using OpenRealEstate.Core.Models.Land;
 using OpenRealEstate.Core.Models.Rental;
@@ -8,155 +7,63 @@ using OpenRealEstate.Core.Models.Rural;
 
 namespace OpenRealEstate.Services
 {
-    public static class ListingHelpers
+    public class ListingHelpers
     {
-        public static Listing CopyOverListingData(Listing newListing, Listing existingListing)
+        public static void Copy<T>(T existingListing,
+            T updatedListing) where T : Listing
         {
             if (existingListing == null)
             {
                 throw new ArgumentNullException("existingListing");
             }
 
-            if (newListing == null)
+            if (updatedListing == null)
             {
-                throw new ArgumentNullException("newListing");
+                throw new ArgumentNullException("updatedListing");
             }
 
-            if (newListing.StatusType == StatusType.Current)
+            var residentialListing = existingListing as ResidentialListing;
+            var updatedResidentialListing = updatedListing as ResidentialListing;
+            if (residentialListing != null &&
+                updatedResidentialListing != null)
             {
-                // We don't need anything from the existing listing - so turf it.
-                return MapExistingListingToNewInstance(newListing);
+                residentialListing.Copy(updatedResidentialListing);
+                return;
             }
 
-            var returnListing = MapExistingListingToNewInstance(existingListing);
-
-            // The all important 'new' status for this existing listing :)
-            returnListing.StatusType = newListing.StatusType;
-
-            // Assumption: the date the new listing changed status, is the UpdateOn value.
-            returnListing.UpdatedOn = newListing.UpdatedOn;
-
-            if ((newListing.StatusType == StatusType.Leased &&
-                 newListing is RentalListing &&
-                 existingListing is RentalListing) ||
-                newListing.StatusType == StatusType.OffMarket ||
-                newListing.StatusType == StatusType.Withdrawn)
+            var rentalListing = existingListing as RentalListing;
+            var updatedRentalListing = updatedListing as RentalListing;
+            if (rentalListing != null &&
+                updatedRentalListing != null)
             {
-                // There is no extra data for these statuses.
-                return returnListing;
+                rentalListing.Copy(updatedRentalListing);
+                return;
             }
 
-            if (returnListing.StatusType == StatusType.Sold &&
-                CanListingBeSold(newListing, returnListing))
+            var ruralListing = existingListing as RuralListing;
+            var updatedRuralListig = updatedListing as RuralListing;
+            if (ruralListing != null &&
+                updatedRuralListig != null)
             {
-                if (newListing is ResidentialListing)
-                {
-                    var newListingTemp = (ResidentialListing) newListing;
-                    var returnListingTemp = (ResidentialListing)returnListing;
-                    if (newListingTemp.Pricing != null &&
-                        returnListingTemp.Pricing != null)
-                    {
-                        CopyOverSoldPricingData(newListingTemp.Pricing,
-                            returnListingTemp.Pricing);
-                    }
-                }
-                else if (newListing is LandListing)
-                {
-                    var newListingTemp = (LandListing) newListing;
-                    var returnListingTemp = (LandListing)returnListing;
-                    if (newListingTemp.Pricing != null &&
-                        returnListingTemp.Pricing != null)
-                    {
-                        CopyOverSoldPricingData(newListingTemp.Pricing,
-                            returnListingTemp.Pricing);
-                    }
-                }
-                else if (newListing is RuralListing)
-                {
-                    var newListingTemp = (RuralListing) newListing;
-                    var returnListingTemp = (RuralListing)returnListing;
-                    if (newListingTemp.Pricing != null &&
-                        returnListingTemp.Pricing != null)
-                    {
-                        CopyOverSoldPricingData(newListingTemp.Pricing,
-                            returnListingTemp.Pricing);
-                    }
-                }
-                else
-                {
-                    var unhandledErrorMessage = string.Format("Unhandled listing type: '{0}'", newListing.GetType());
-                    throw new Exception(unhandledErrorMessage);
-                }
+                ruralListing.Copy(updatedRuralListig);
+                return;
+            }
 
-                return returnListing;
+            var landListing = existingListing as LandListing;
+            var updatedLandListing = updatedListing as LandListing;
+            if (landListing != null &&
+                updatedLandListing != null)
+            {
+                landListing.Copy(updatedLandListing);
+                return;
             }
 
             var errorMessage =
                 string.Format(
-                    "Unhandled status type -or- incompatible status type with the listing type (ie. a residential listing cannot be leased ... only rental listings can be leased. New listing: '{0}' - '{1}'. Existing listing: '{2}' - '{3}'",
-                    newListing,
-                    newListing.StatusType,
-                    existingListing,
-                    existingListing.StatusType);
+                    "Both listings have to be of the same type when trying to Copy data from one listing to another. Desintation listing [{0}] ; Source listing [{1}].",
+                    existingListing.GetType().FullName,
+                    updatedListing.GetType().FullName);
             throw new Exception(errorMessage);
-        }
-
-        private static void CopyOverSoldPricingData(SalePricing newSalePricing, SalePricing existingSalePricing)
-        {
-            if (newSalePricing == null)
-            {
-                throw new ArgumentNullException("newSalePricing");
-            }
-
-            if (existingSalePricing == null)
-            {
-                throw new ArgumentNullException("existingSalePricing");
-            }
-
-            existingSalePricing.SoldPrice = newSalePricing.SoldPrice;
-            existingSalePricing.SoldPriceText = newSalePricing.SoldPriceText;
-            existingSalePricing.SoldOn = newSalePricing.SoldOn;
-        }
-
-        private static bool CanListingBeSold(Listing newListing, Listing existingListing)
-        {
-            return ((newListing is ResidentialListing &&
-                     existingListing is ResidentialListing) ||
-                    (newListing is LandListing &&
-                     existingListing is LandListing) ||
-                    (newListing is RuralListing &&
-                     existingListing is RuralListing));
-        }
-
-        private static Listing MapExistingListingToNewInstance(Listing existingListing)
-        {
-            if (existingListing == null)
-            {
-                throw new Exception();
-            }
-
-            var json = JsonConvert.SerializeObject(existingListing);
-            if (existingListing is ResidentialListing)
-            {
-                return JsonConvert.DeserializeObject<ResidentialListing>(json);
-            }
-
-            if (existingListing is RentalListing)
-            {
-                return JsonConvert.DeserializeObject<RentalListing>(json);
-            }
-
-            if (existingListing is LandListing)
-            {
-                return JsonConvert.DeserializeObject<LandListing>(json);
-            }
-
-            if (existingListing is RuralListing)
-            {
-                return JsonConvert.DeserializeObject<RuralListing>(json);
-            }
-
-            throw new Exception(string.Format("Unhandled existing listing type => '{0}'.", existingListing.GetType()));
         }
     }
 }
