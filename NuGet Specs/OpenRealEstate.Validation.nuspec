@@ -16,7 +16,7 @@
         <language>en-AU</language>
         <tags>ore ore.net realestate openrealestate worlddomination worldomination unicorn magicalunicorn magical-unicorn</tags>
         <dependencies>
-            <dependency id="OpenRealEstate.Core" version="[1.0.0-s05, 2.0.0)" />
+            <dependency id="OpenRealEstate.Core" version="[1.0.0-s10, 2.0.0)" />
             <dependency id="FluentValidation" version="[5.5.0.0, 6.0.0)" />
         </dependencies>
     </metadata>
