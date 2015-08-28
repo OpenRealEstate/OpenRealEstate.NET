@@ -80,21 +80,22 @@ namespace OpenRealEstate.Tests.Models
                 destinationListing.Features.IsBathroomsModified.ShouldBe(true);
                 destinationListing.Features.Bedrooms.ShouldBe(sourceListing.Features.Bedrooms);
                 destinationListing.Features.IsBedroomsModified.ShouldBe(true);
-                destinationListing.Features.Carports.ShouldBe(sourceListing.Features.Carports);
-                destinationListing.Features.IsCarportsModified.ShouldBe(true);
                 destinationListing.Features.Ensuites.ShouldBe(sourceListing.Features.Ensuites);
                 destinationListing.Features.IsEnsuitesModified.ShouldBe(true);
-                destinationListing.Features.Garages.ShouldBe(sourceListing.Features.Garages);
-                destinationListing.Features.IsGaragesModified.ShouldBe(true);
                 destinationListing.Features.LivingAreas.ShouldBe(sourceListing.Features.LivingAreas);
                 destinationListing.Features.IsLivingAreasModified.ShouldBe(true);
-                destinationListing.Features.OpenSpaces.ShouldBe(sourceListing.Features.OpenSpaces);
-                destinationListing.Features.IsOpenSpacesModified.ShouldBe(true);
                 destinationListing.Features.Tags.SetEquals(sourceListing.Features.Tags);
                 destinationListing.Features.IsTagsModified.ShouldBe(true);
                 destinationListing.Features.Toilets.ShouldBe(sourceListing.Features.Toilets);
                 destinationListing.Features.IsToiletsModified.ShouldBe(true);
                 destinationListing.IsFeaturesModified.ShouldBe(true);
+
+                destinationListing.Features.CarParking.Garages.ShouldBe(sourceListing.Features.CarParking.Garages);
+                destinationListing.Features.IsCarParkingModified.ShouldBe(true);
+                destinationListing.Features.CarParking.Carports.ShouldBe(sourceListing.Features.CarParking.Carports);
+                destinationListing.Features.IsCarParkingModified.ShouldBe(true);
+                destinationListing.Features.CarParking.OpenSpaces.ShouldBe(sourceListing.Features.CarParking.OpenSpaces);
+                destinationListing.Features.CarParking.IsOpenSpacesModified.ShouldBe(true);
 
                TestHelperUtilities.AssertMediaItems(destinationListing.FloorPlans, sourceListing.FloorPlans);
                 destinationListing.IsFloorPlansModified.ShouldBe(true);

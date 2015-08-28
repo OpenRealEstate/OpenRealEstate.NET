@@ -333,11 +333,15 @@ namespace OpenRealEstate.Tests
             {
                 Bathrooms = 1,
                 Bedrooms = 2,
-                Carports = 3,
+                CarParking = new CarParking
+                {
+                    Garages = 5,
+                    Carports = 3,
+                    OpenSpaces = 7
+                },
                 Ensuites = 4,
-                Garages = 5,
                 LivingAreas = 6,
-                OpenSpaces = 7,
+
                 Toilets = 8,
                 Tags = new HashSet<string>(new[] {"z", "y", "x", "w"})
             };

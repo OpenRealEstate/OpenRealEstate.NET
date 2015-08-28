@@ -590,8 +590,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
                 // Some listings have this element but no data provided. :(
                 // So we don't add 'emtpy' agents.
-                if (!string.IsNullOrWhiteSpace(agent.Name) &&
-                    agent.Communications.Any())
+                if (!string.IsNullOrWhiteSpace(agent.Name))
                 {
                     agents.Add(agent);
                 }
@@ -680,12 +679,15 @@ namespace OpenRealEstate.Services.RealEstateComAu
             {
                 Bedrooms = bedrooms,
                 Bathrooms = featuresElement.ByteValueOrDefault("bathrooms"),
-                Garages = featuresElement.BoolOrByteValueOrDefault("garages"),
-                Carports = featuresElement.BoolOrByteValueOrDefault("carports"),
+                CarParking = new CarParking
+                {
+                    Garages = featuresElement.BoolOrByteValueOrDefault("garages"),
+                    Carports = featuresElement.BoolOrByteValueOrDefault("carports"),
+                    OpenSpaces = featuresElement.BoolOrByteValueOrDefault("openSpaces")
+                },
                 Ensuites = featuresElement.BoolOrByteValueOrDefault("ensuite"),
                 Toilets = featuresElement.BoolOrByteValueOrDefault("toilets"),
                 LivingAreas = featuresElement.BoolOrByteValueOrDefault("livingAreas"),
-                OpenSpaces = featuresElement.BoolOrByteValueOrDefault("openSpaces"),
                 Tags = tags
             };
 

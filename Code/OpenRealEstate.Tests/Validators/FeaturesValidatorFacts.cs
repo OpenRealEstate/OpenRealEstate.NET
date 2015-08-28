@@ -1,4 +1,5 @@
 ﻿using FluentValidation.TestHelper;
+using OpenRealEstate.Core.Models;
 using OpenRealEstate.Validation;
 using Xunit;
 
@@ -50,27 +51,9 @@ namespace OpenRealEstate.Tests.Validators
         }
 
         [Fact]
-        public void GivenAValidGarage_Validate_ShouldNotHaveAnError()
+        public void GivenAFeature_SetValidator_ShouldHaveACarParkingValidator()
         {
-            _featuresValidator.ShouldNotHaveValidationErrorFor(feature => feature.Garages, 0);
-        }
-
-        [Fact]
-        public void GivenAInvalidGarage_Validate_ShouldHaveAnError()
-        {
-            _featuresValidator.ShouldHaveValidationErrorFor(feature => feature.Garages, -1);
-        }
-
-        [Fact]
-        public void GivenAValidCarport_Validate_ShouldNotHaveAnError()
-        {
-            _featuresValidator.ShouldNotHaveValidationErrorFor(feature => feature.Carports, 0);
-        }
-
-        [Fact]
-        public void GivenAInvalidCarport_Validate_ShouldHaveAnError()
-        {
-            _featuresValidator.ShouldHaveValidationErrorFor(feature => feature.Carports, -1);
+            _featuresValidator.ShouldHaveChildValidator(feature => feature.CarParking, typeof(CarParkingValidator));
         }
 
         [Fact]
@@ -83,18 +66,6 @@ namespace OpenRealEstate.Tests.Validators
         public void GivenAInvalidLivingArea_Validate_ShouldHaveAnError()
         {
             _featuresValidator.ShouldHaveValidationErrorFor(feature => feature.LivingAreas, -1);
-        }
-
-        [Fact]
-        public void GivenAValidOpenSpace_Validate_ShouldNotHaveAnError()
-        {
-            _featuresValidator.ShouldNotHaveValidationErrorFor(feature => feature.OpenSpaces, 0);
-        }
-
-        [Fact]
-        public void GivenAInvalidOpenSpace_Validate_ShouldHaveAnError()
-        {
-            _featuresValidator.ShouldHaveValidationErrorFor(feature => feature.OpenSpaces, -1);
         }
     }
 }

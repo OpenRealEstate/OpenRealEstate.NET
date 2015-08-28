@@ -73,6 +73,7 @@
     <Compile Include="Validators\BuildingDetailsValidatorFacts.cs" />
     <Compile Include="Validators\AddressValidatorFacts.cs" />
     <Compile Include="Validators\AgencyValidatorFacts.cs" />
+    <Compile Include="Validators\CarParkingValidatorFacts.cs" />
     <Compile Include="Validators\FeaturesValidatorFacts.cs" />
     <Compile Include="Validators\CommunicationValidatorFacts.cs" />
     <Compile Include="Validators\AgentValidatorFacts.cs" />
@@ -386,6 +387,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current-WithASingleAgentName.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -7,11 +7,10 @@ namespace OpenRealEstate.Core.Models
     {
         private int _bathrooms;
         private int _bedrooms;
-        private int _carports;
+        private CarParking _carParking;
         private int _ensuites;
-        private int _garages;
+        private bool _isCarParkingModified;
         private int _livingAreas;
-        private int _openSpaces;
         private ISet<string> _tags;
         private int _toilets;
 
@@ -51,6 +50,27 @@ namespace OpenRealEstate.Core.Models
 
         public bool IsToiletsModified { get; private set; }
 
+        public CarParking CarParking
+        {
+            get { return _carParking; }
+            set
+            {
+                _carParking = value;
+                IsCarParkingModified = true;
+            }
+        }
+
+        public bool IsCarParkingModified
+        {
+            get
+            {
+                return _isCarParkingModified ||
+                       (CarParking != null &&
+                        CarParking.IsModified);
+            }
+            set { _isCarParkingModified = value; }
+        }
+
         public int Ensuites
         {
             get { return _ensuites; }
@@ -63,30 +83,6 @@ namespace OpenRealEstate.Core.Models
 
         public bool IsEnsuitesModified { get; private set; }
 
-        public int Garages
-        {
-            get { return _garages; }
-            set
-            {
-                _garages = value;
-                IsGaragesModified = true;
-            }
-        }
-
-        public bool IsGaragesModified { get; private set; }
-
-        public int Carports
-        {
-            get { return _carports; }
-            set
-            {
-                _carports = value;
-                IsCarportsModified = true;
-            }
-        }
-
-        public bool IsCarportsModified { get; private set; }
-
         public int LivingAreas
         {
             get { return _livingAreas; }
@@ -98,18 +94,6 @@ namespace OpenRealEstate.Core.Models
         }
 
         public bool IsLivingAreasModified { get; private set; }
-        
-        public int OpenSpaces
-        {
-            get { return _openSpaces; }
-            set
-            {
-                _openSpaces = value;
-                IsOpenSpacesModified = true;
-            }
-        }
-
-        public bool IsOpenSpacesModified { get; private set; }
 
         public ISet<string> Tags
         {
@@ -130,11 +114,9 @@ namespace OpenRealEstate.Core.Models
                 return IsBedroomsModified ||
                        IsBathroomsModified ||
                        IsToiletsModified ||
+                       IsCarParkingModified ||
                        IsEnsuitesModified ||
-                       IsGaragesModified ||
-                       IsCarportsModified ||
                        IsLivingAreasModified ||
-                       IsOpenSpacesModified ||
                        IsTagsModified;
             }
         }
@@ -161,29 +143,36 @@ namespace OpenRealEstate.Core.Models
                 Toilets = newFeatures.Toilets;
             }
 
+            if (newFeatures.IsCarParkingModified)
+            {
+                if (newFeatures.CarParking == null)
+                {
+                    CarParking = null;
+                }
+                else
+                {
+                    if (CarParking == null)
+                    {
+                        CarParking = new CarParking();
+                    }
+
+                    if (newFeatures.CarParking.IsModified)
+                    {
+                        CarParking.Copy(newFeatures.CarParking);
+                    }
+
+                    IsCarParkingModified = true;
+                }
+            }
+
             if (newFeatures.IsEnsuitesModified)
             {
                 Ensuites = newFeatures.Ensuites;
             }
 
-            if (newFeatures.IsGaragesModified)
-            {
-                Garages = newFeatures.Garages;
-            }
-
-            if (newFeatures.IsCarportsModified)
-            {
-                Carports = newFeatures.Carports;
-            }
-
             if (newFeatures.IsLivingAreasModified)
             {
                 LivingAreas = newFeatures.LivingAreas;
-            }
-
-            if (newFeatures.IsOpenSpacesModified)
-            {
-                OpenSpaces = newFeatures.OpenSpaces;
             }
 
             if (newFeatures.IsTagsModified)
@@ -197,12 +186,15 @@ namespace OpenRealEstate.Core.Models
             IsBedroomsModified = false;
             IsBathroomsModified = false;
             IsToiletsModified = false;
+            IsCarParkingModified = false;
             IsEnsuitesModified = false;
-            IsGaragesModified = false;
-            IsCarportsModified = false;
             IsLivingAreasModified = false;
-            IsOpenSpacesModified = false;
             IsTagsModified = false;
+
+            if (CarParking != null)
+            {
+                CarParking.ClearAllIsModified();
+            }
         }
     }
 }

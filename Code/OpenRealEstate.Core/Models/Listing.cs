@@ -291,6 +291,7 @@ namespace OpenRealEstate.Core.Models
             {
                 Description = newListing.Description;
             }
+
             if (newListing.IsAddressModified)
             {
                 if (newListing.Address == null)
@@ -303,7 +304,12 @@ namespace OpenRealEstate.Core.Models
                     {
                         Address = new Address();
                     }
-                    Address.Copy(newListing.Address);
+
+                    if (newListing.Address.IsModified)
+                    {
+                        Address.Copy(newListing.Address);
+                    }
+
                     IsAddressModified = true;
                 }
             }

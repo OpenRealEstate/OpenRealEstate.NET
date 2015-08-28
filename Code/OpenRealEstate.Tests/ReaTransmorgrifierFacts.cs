@@ -576,6 +576,43 @@ namespace OpenRealEstate.Tests
                     isModified: false);
             }
 
+            [Fact]
+            public void GivenTheFileREAResidentialCurrentWithASingleAgentName_Convert_ReturnsAResidentialCurrentListing()
+            {
+                // Arrange.
+                var reaXml =
+                    File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current-WithASingleAgentName.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.ShouldNotBe(null);
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
+                result.Errors.ShouldBe(null);
+                var listing = (ResidentialListing) result.Listings.First().Listing;
+                Action<IList<ListingAgent>, bool> assertAgents =
+                    delegate(IList<ListingAgent> listingAgents, bool isModified)
+                    {
+                        listingAgents.Count.ShouldBe(1);
+                        listingAgents.First().Name.ShouldBe("Mr. John Doe");
+                        listingAgents.First().IsNameModified.ShouldBe(isModified);
+                        listingAgents.First().Order.ShouldBe(1);
+                        listingAgents.First().IsOrderModified.ShouldBe(isModified);
+                    };
+                AssertResidentialCurrentListing(listing,
+                    tags:
+                        new[]
+                        {
+                            "houseAndLandPackage", "solarPanels", "waterTank", "hotWaterService-gas", "heating-other",
+                            "balcony", "shed", "courtyard", "isANewConstruction"
+                        },
+                    videoUrls: new[] { "http://www.foo.tv/abcd.html" },
+                    assertAgents: assertAgents);
+            }
+
             private static void AssertResidentialCurrentListing(ResidentialListing listing,
                 PropertyType expectedPropertyType = PropertyType.House,
                 int expectedBedroomsCount = 4,
@@ -585,7 +622,8 @@ namespace OpenRealEstate.Tests
                 IList<string> floorplanUrls = null,
                 IList<string> videoUrls = null,
                 string streetNumber = "2/39",
-                bool isModified = true)
+                bool isModified = true,
+                Action<IList<ListingAgent>, bool> assertAgents = null)
             {
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.IsAgencyIdModified.ShouldBe(isModified);
@@ -610,17 +648,22 @@ namespace OpenRealEstate.Tests
                 AssertInspections(listing.Inspections, isModified);
                 listing.IsInspectionsModified.ShouldBe(isModified);
 
-                AssertAgents(listing.Agents, isModified);
+                if (assertAgents != null)
+                {
+                    assertAgents(listing.Agents, isModified);
+                }
+                else
+                {
+                    AssertAgents(listing.Agents, isModified);    
+                }
                 listing.IsAgentsModified.ShouldBe(isModified);
 
                 AssertFeatures(listing.Features, 
                     tags, 
                     isModified,
                     expectedBedroomsCount,
-                    2,
-                    3,
-                    2,
-                    2);
+                    bathroomCount: 2,
+                    ensuitesCount: 2);
                 listing.IsFeaturesModified.ShouldBe(isModified);
 
                 AssertImages(listing.Images, imageUrls, isModified);
@@ -797,25 +840,15 @@ namespace OpenRealEstate.Tests
                 listingAgent.Communications[1].CommunicationType.ShouldBe(CommunicationType.Landline);
                 listingAgent.Communications[1].Details.ShouldBe("05 1234 5678");
 
-                listing.Features.Bedrooms.ShouldBe(bedroomsCount);
-                listing.Features.Bathrooms.ShouldBe(2);
-                listing.Features.Garages.ShouldBe(3);
-                listing.Features.Carports.ShouldBe(2);
-                listing.Features.Ensuites.ShouldBe(2);
-                listing.Features.Toilets.ShouldBe(0);
-                listing.Features.LivingAreas.ShouldBe(0);
-                listing.Features.OpenSpaces.ShouldBe(0);
-                if (tags != null)
-                {
-                    AssertFeatures(listing.Features, 
-                        tags, 
-                        isModified,
-                        bedroomsCount,
-                        2,
-                        3,
-                        2,
-                        2);
-                }
+                AssertFeatures(listing.Features, tags, isModified,
+                    bedroomsCount:bedroomsCount,
+                    bathroomCount: 2,
+                    ensuitesCount: 2,
+                    carParking: new CarParking
+                    {
+                        Garages = 3,
+                        Carports = 2
+                    });
 
                 listing.Images.Count.ShouldBe(2);
                 listing.Images[0].Order.ShouldBe(1);
@@ -850,7 +883,8 @@ namespace OpenRealEstate.Tests
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
                 AssertLandCurrentListing(result.Listings.First().Listing as LandListing,
-                    tags: new[] {"fullyFenced"});
+                    tags: new[] {"fullyFenced"},
+                    carParking: new CarParking());
             }
 
             [Fact]
@@ -964,7 +998,9 @@ namespace OpenRealEstate.Tests
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
-                AssertLandCurrentListing(result.Listings.First().Listing as LandListing, LandCategoryType.Unknown);
+                AssertLandCurrentListing(result.Listings.First().Listing as LandListing, 
+                    LandCategoryType.Unknown,
+                    carParking: new CarParking());
             }
 
             [Fact]
@@ -984,13 +1020,15 @@ namespace OpenRealEstate.Tests
                 result.UnhandledData.ShouldBe(null);
                 AssertLandCurrentListing(result.Listings.First().Listing as LandListing,
                     tags: new[] {"fullyFenced"},
-                    streetNumber: "12");
+                    streetNumber: "12",
+                    carParking: new CarParking());
             }
 
             private static void AssertLandCurrentListing(LandListing listing,
                 LandCategoryType landCategoryType = LandCategoryType.Residential,
                 IList<string> tags = null,
                 string streetNumber = "LOT 12/39",
+                CarParking carParking = null,
                 bool isModified = true)
             {
                 listing.AgencyId.ShouldBe("XNWXNW");
@@ -1033,10 +1071,10 @@ namespace OpenRealEstate.Tests
 
                 listing.AuctionOn.ShouldBe(new DateTime(2009, 1, 24, 12, 30, 00));
 
-                if (tags != null)
-                {
-                    AssertFeatures(listing.Features, tags, isModified);
-                }
+                AssertFeatures(listing.Features, 
+                    tags, 
+                    carParking:carParking,
+                    isModified: isModified);
             }
 
             private static void AssertLandSoldListing(LandListing listing,
@@ -1209,8 +1247,6 @@ namespace OpenRealEstate.Tests
                     tags, 
                     isModified, 
                     bedroomsCount,
-                    2,
-                    3,
                     2,
                     2);
             }
@@ -1442,35 +1478,60 @@ namespace OpenRealEstate.Tests
                 bool isModified,
                 int bedroomsCount = 0,
                 int bathroomCount = 0,
-                int garageCount = 0,
-                int carportsCount = 0,
                 int ensuitesCount = 0,
                 int toiletsCount = 0,
                 int livingAreasCount = 0,
-                int openSpacesCount = 0)
+                CarParking carParking = null)
             {
                 features.Bedrooms.ShouldBe(bedroomsCount);
                 features.IsBedroomsModified.ShouldBe(isModified);
                 features.Bathrooms.ShouldBe(bathroomCount);
                 features.IsBathroomsModified.ShouldBe(isModified);
-                features.Garages.ShouldBe(garageCount);
-                features.IsGaragesModified.ShouldBe(isModified);
-                features.Carports.ShouldBe(carportsCount);
-                features.IsCarportsModified.ShouldBe(isModified);
                 features.Ensuites.ShouldBe(ensuitesCount);
                 features.IsEnsuitesModified.ShouldBe(isModified);
                 features.Toilets.ShouldBe(toiletsCount);
                 features.IsToiletsModified.ShouldBe(isModified);
                 features.LivingAreas.ShouldBe(livingAreasCount);
                 features.IsLivingAreasModified.ShouldBe(isModified);
-                features.OpenSpaces.ShouldBe(openSpacesCount);
-                features.IsOpenSpacesModified.ShouldBe(isModified);
 
                 if (tags != null)
                 {
                     AssertTags(features.Tags, tags);
                 }
+
+                if (features.CarParking != null)
+                {
+                    AssertCarParking(features.CarParking, carParking, isModified);
+                }
+                features.IsCarParkingModified.ShouldBe(isModified);
+
                 features.IsTagsModified.ShouldBe(isModified);
+            }
+
+
+            private static void AssertCarParking(CarParking carParking, 
+                CarParking optionalCarParkingData,
+                bool isModified)
+            {
+                carParking.Garages.ShouldBe(optionalCarParkingData != null
+                    ? optionalCarParkingData.Garages
+                    : 3);
+                carParking.IsGaragesModified.ShouldBe(isModified);
+
+                carParking.Carports.ShouldBe(optionalCarParkingData != null
+                    ? optionalCarParkingData.Carports
+                    : 2);
+                carParking.IsCarportsModified.ShouldBe(isModified);
+
+                carParking.OpenSpaces.ShouldBe(optionalCarParkingData != null
+                    ? optionalCarParkingData.OpenSpaces
+                    : 0);
+                carParking.IsOpenSpacesModified.ShouldBe(optionalCarParkingData != null &&
+                    optionalCarParkingData.OpenSpaces != 0
+                    ? optionalCarParkingData.IsOpenSpacesModified
+                    : isModified);
+
+                carParking.IsModified.ShouldBe(isModified);
             }
 
             private static void AssertTags(ICollection<string> featureTags, IEnumerable<string> tags)
