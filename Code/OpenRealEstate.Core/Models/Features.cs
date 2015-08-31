@@ -183,6 +183,12 @@ namespace OpenRealEstate.Core.Models
 
         public void ClearAllIsModified()
         {
+            if (CarParking != null)
+            {
+                CarParking.ClearAllIsModified();
+            }
+            IsCarParkingModified = false;
+
             IsBedroomsModified = false;
             IsBathroomsModified = false;
             IsToiletsModified = false;
@@ -190,11 +196,6 @@ namespace OpenRealEstate.Core.Models
             IsEnsuitesModified = false;
             IsLivingAreasModified = false;
             IsTagsModified = false;
-
-            if (CarParking != null)
-            {
-                CarParking.ClearAllIsModified();
-            }
         }
     }
 }

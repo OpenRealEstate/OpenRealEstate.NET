@@ -231,23 +231,23 @@ namespace OpenRealEstate.Core.Models.Rural
             {
                 Pricing.ClearAllIsModified();
             }
+            IsPricingModified = false;
 
             if (RuralFeatures != null)
             {
                 RuralFeatures.ClearAllIsModified();
             }
+            IsRuralFeaturesModified = false;
 
             if (BuildingDetails != null)
             {
                 BuildingDetails.ClearAllIsModified();
             }
+            IsBuildingDetailsModified = false;
 
             IsCategoryTypeModified = false;
-            IsPricingModified = false;
             IsAuctionOnModified = false;
             IsCouncilRatesModified = false;
-            IsRuralFeaturesModified = false;
-            IsBuildingDetailsModified = false;
         }
     }
 }

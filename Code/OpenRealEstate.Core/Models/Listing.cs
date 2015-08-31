@@ -466,6 +466,7 @@ namespace OpenRealEstate.Core.Models
             {
                 Address.ClearAllIsModified();
             }
+            IsAddressModified = false;
 
             if (Agents != null)
             {
@@ -474,6 +475,7 @@ namespace OpenRealEstate.Core.Models
                     agent.ClearAllIsModified();
                 }
             }
+            IsAgentsModified = false;
 
             if (Images != null)
             {
@@ -482,6 +484,7 @@ namespace OpenRealEstate.Core.Models
                     image.ClearAllIsModified();
                 }
             }
+            IsImagesModified = false;
 
             if (FloorPlans != null)
             {
@@ -490,6 +493,7 @@ namespace OpenRealEstate.Core.Models
                     floorPlan.ClearAllIsModified();
                 }
             }
+            IsFloorPlansModified = false;
 
             if (Videos != null)
             {
@@ -498,6 +502,7 @@ namespace OpenRealEstate.Core.Models
                     video.ClearAllIsModified();
                 }
             }
+            IsVideosModified = false;
 
             if (Inspections != null)
             {
@@ -511,25 +516,20 @@ namespace OpenRealEstate.Core.Models
             {
                 LandDetails.ClearAllIsModified();
             }
+            IsLandDetailsModified = false;
 
             if (Features != null)
             {
                 Features.ClearAllIsModified();
             }
+            IsFeaturesModified = false;
 
             IsAgencyIdModified = false;
             IsStatusTypeModified = false;
             IsCreatedOnModified = false;
             IsTitleModified = false;
             IsDescriptionModified = false;
-            IsAddressModified = false;
-            IsAgentsModified = false;
-            IsImagesModified = false;
-            IsFloorPlansModified = false;
-            IsVideosModified = false;
             IsInspectionsModified = false;
-            IsLandDetailsModified = false;
-            IsFeaturesModified = false;
             IsLinksModified = false;
         }
     }

@@ -92,8 +92,8 @@ namespace OpenRealEstate.Core.Models
             {
                 Area.ClearAllIsModified();
             }
-
             IsAreaModified = false;
+
             IsEnergyRatingModified = false;
         }
     }

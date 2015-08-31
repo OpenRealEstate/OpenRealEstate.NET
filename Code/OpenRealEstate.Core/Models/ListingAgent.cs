@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OpenRealEstate.Core.Models
 {
@@ -85,7 +86,7 @@ namespace OpenRealEstate.Core.Models
         {
             if (Communications != null)
             {
-                foreach (var communication in Communications)
+                foreach (var communication in Communications.Where(communication => communication.IsModified))
                 {
                     communication.ClearAllIsModified();
                 }

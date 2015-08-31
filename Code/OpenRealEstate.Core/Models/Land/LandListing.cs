@@ -183,17 +183,17 @@ namespace OpenRealEstate.Core.Models.Land
             {
                 Pricing.ClearAllIsModified();
             }
+            IsPricingModified = false;
 
             if (Estate != null)
             {
                 Estate.ClearAllIsModified();
             }
+            IsEstateModified = false;
 
             IsCategoryTypeModified = false;
-            IsPricingModified = false;
             IsAuctionOnModified = false;
             IsCouncilRatesModified = false;
-            IsEstateModified = false;
         }
     }
 }

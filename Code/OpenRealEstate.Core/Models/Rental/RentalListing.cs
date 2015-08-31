@@ -166,16 +166,16 @@ namespace OpenRealEstate.Core.Models.Rental
             {
                 BuildingDetails.ClearAllIsModified();
             }
+            IsBuildingDetailsModified = false; 
 
             if (Pricing != null)
             {
                 Pricing.ClearAllIsModified();
             }
+            IsPricingModified = false;
 
             IsPropertyTypeModified = false;
             IsAvailableOnModified = false;
-            IsPricingModified = false;
-            IsBuildingDetailsModified = false; 
         }
     }
 }

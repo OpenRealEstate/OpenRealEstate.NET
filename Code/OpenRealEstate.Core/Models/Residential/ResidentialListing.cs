@@ -189,17 +189,17 @@ namespace OpenRealEstate.Core.Models.Residential
             {
                 Pricing.ClearAllIsModified();
             }
+            IsPricingModified = false;
 
             if (BuildingDetails != null)
             {
                 BuildingDetails.ClearAllIsModified();
             }
+            IsBuildingDetailsModified = false;
 
             IsPropertyTypeModified = false;
-            IsPricingModified = false;
             IsAuctionOnModified = false;
             IsCouncilRatesModified = false;
-            IsBuildingDetailsModified = false;
         }
     }
 }
