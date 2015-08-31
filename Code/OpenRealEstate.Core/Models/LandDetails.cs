@@ -9,6 +9,8 @@ namespace OpenRealEstate.Core.Models
         private string _crossOver;
         private IList<Depth> _depths;
         private UnitOfMeasure _frontage;
+        private bool _isAreaModified;
+        private bool _isFrontageModified;
 
         public UnitOfMeasure Area
         {
@@ -20,7 +22,16 @@ namespace OpenRealEstate.Core.Models
             }
         }
 
-        public bool IsAreaModified { get; private set; }
+        public bool IsAreaModified
+        {
+            get
+            {
+                return _isAreaModified ||
+                       (Area != null &&
+                        Area.IsModified);
+            }
+            private set { _isAreaModified = value; }
+        }
 
         public UnitOfMeasure Frontage
         {
@@ -32,7 +43,16 @@ namespace OpenRealEstate.Core.Models
             }
         }
 
-        public bool IsFrontageModified { get; private set; }
+        public bool IsFrontageModified
+        {
+            get
+            {
+                return _isFrontageModified ||
+                       (Frontage != null &&
+                        Frontage.IsModified);
+            }
+            private set { _isFrontageModified = value; }
+        }
 
         public IList<Depth> Depths
         {
@@ -58,7 +78,8 @@ namespace OpenRealEstate.Core.Models
 
         public bool IsCrossOverModified { get; private set; }
 
-        public bool IsModified {
+        public bool IsModified
+        {
             get
             {
                 return IsAreaModified ||
@@ -122,21 +143,28 @@ namespace OpenRealEstate.Core.Models
 
         public void ClearAllIsModified()
         {
-            Area.ClearAllIsModified();
+            if (Area != null)
+            {
+                Area.ClearAllIsModified();
+            }
             IsAreaModified = false;
 
-            Frontage.ClearAllIsModified();
+            if (Frontage.IsModified)
+            {
+                Frontage.ClearAllIsModified();
+            }
             IsFrontageModified = false;
 
-            foreach (var depth in Depths)
+            if (Depths != null)
             {
-                depth.ClearAllIsModified();
+                foreach (var depth in Depths)
+                {
+                    depth.ClearAllIsModified();
+                }
             }
             IsDepthsModified = false;
 
             IsCrossOverModified = false;
-
-            
         }
     }
 }
