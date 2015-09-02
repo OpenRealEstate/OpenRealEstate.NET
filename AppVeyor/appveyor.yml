@@ -1,5 +1,5 @@
 
-version: {build}.0.0
+version: '{build}.0.0'
 configuration: Release
 
 branches:
