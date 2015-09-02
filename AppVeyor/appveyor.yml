@@ -2,13 +2,16 @@
 version: {build}.0.0
 configuration: Release
 
-environment:
-  apiKey:
-    secure: AguzfXNvHBkkDebTyWHK7o9OC5YL3eszT6u7PnzGq2G7ozdUypDlGGpcFsTRYHEc
-
 branches:
   except:
     - master
+
+pull_requests:
+  do_not_increment_build_number: true
+
+environment:
+  apiKey:
+    secure: AguzfXNvHBkkDebTyWHK7o9OC5YL3eszT6u7PnzGq2G7ozdUypDlGGpcFsTRYHEc
 
 before_build:
   - nuget restore
