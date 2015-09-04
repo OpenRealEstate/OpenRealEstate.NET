@@ -32,7 +32,7 @@ build:
 
 on_success:
   - ps: Write-Host $env:appveyor_build_version
-  - ps: '& ".\NuGet\NuGet Package and Package.ps1" -Version $env:appveyor_build_version -NuGet "C:\Tools\NuGet\nuget.exe" -feedSource https://www.myget.org/F/openrealestate/api/v2 -apiKey $env:apiKey'
+  - ps: '& ".\NuGet\NuGet Package and Publish.ps1" -Version $env:appveyor_build_version -NuGet "C:\Tools\NuGet\nuget.exe" -feedSource https://www.myget.org/F/openrealestate/api/v2 -apiKey $env:apiKey'
 
 cache:
   - packages -> **\packages.config
