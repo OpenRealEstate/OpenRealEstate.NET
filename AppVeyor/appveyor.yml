@@ -14,7 +14,7 @@ environment:
     secure: AguzfXNvHBkkDebTyWHK7o9OC5YL3eszT6u7PnzGq2G7ozdUypDlGGpcFsTRYHEc
 
 init:
-  - ps: iex ((new-object net.webclient).DownloadString('https://gist.githubusercontent.com/PureKrome/0f79e25693d574807939/raw/fff3b2776dfae3ed9aa69148705a96b698e57e61/appveyor-build-info.ps'))
+  - ps: iex ((new-object net.webclient).DownloadString('https://gist.githubusercontent.com/PureKrome/0f79e25693d574807939/raw/528bd2c95687f7c137d2084d9ec06350297384cd/appveyor-build-info.ps'))
 
 before_build:
   - nuget restore
