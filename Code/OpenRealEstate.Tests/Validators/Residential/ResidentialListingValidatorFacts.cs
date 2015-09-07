@@ -52,7 +52,7 @@ namespace OpenRealEstate.Tests.Validators.Residential
 
                 // Assert.
                 result.ShouldNotBe(null);
-                result.Errors.Count.ShouldBe(9);
+                result.Errors.Count.ShouldBe(8);
             }
 
             [Fact]
@@ -125,7 +125,7 @@ namespace OpenRealEstate.Tests.Validators.Residential
                 var result = validator.Validate(listing, ruleSet: ResidentialListingValidator.MinimumRuleSet);
 
                 // Assert.
-                result.Errors.Count.ShouldBe(4);
+                result.Errors.Count.ShouldBe(3);
             }
 
             [Fact]
@@ -153,7 +153,7 @@ namespace OpenRealEstate.Tests.Validators.Residential
                 var result = validator.Validate(listing, ruleSet: ResidentialListingValidator.MinimumRuleSet);
 
                 // Assert.
-                result.Errors.Count.ShouldBe(4);
+                result.Errors.Count.ShouldBe(3);
             }
 
             [Fact]
@@ -181,7 +181,7 @@ namespace OpenRealEstate.Tests.Validators.Residential
                 var result = validator.Validate(listing, ruleSet: ResidentialListingValidator.MinimumRuleSet);
 
                 // Assert.
-                result.Errors.Count.ShouldBe(4);
+                result.Errors.Count.ShouldBe(3);
             }
         }
 

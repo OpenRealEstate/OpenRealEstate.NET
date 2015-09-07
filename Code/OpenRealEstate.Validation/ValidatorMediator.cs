@@ -21,32 +21,32 @@ namespace OpenRealEstate.Validation
             {
                 var validator = new ResidentialListingValidator();
                 return isTheMinimumDataToStoreAListing
-                    ? validator.Validate(listing as ResidentialListing, ruleSet: ResidentialListingValidator.MinimumRuleSet)
-                    : validator.Validate(listing as ResidentialListing);
+                    ? validator.Validate((ResidentialListing)listing, ruleSet: ResidentialListingValidator.MinimumRuleSet)
+                    : validator.Validate((ResidentialListing)listing);
             }
 
             if (listing is RentalListing)
             {
                 var validator = new RentalListingValidator();
                 return isTheMinimumDataToStoreAListing
-                    ? validator.Validate(listing as RentalListing, ruleSet: RentalListingValidator.MinimumRuleSet)
-                    : validator.Validate(listing as RentalListing);
+                    ? validator.Validate((RentalListing)listing, ruleSet: RentalListingValidator.MinimumRuleSet)
+                    : validator.Validate((RentalListing)listing);
             }
 
             if (listing is RuralListing)
             {
                 var validator = new RuralListingValidator();
                 return isTheMinimumDataToStoreAListing
-                    ? validator.Validate(listing as RuralListing, ruleSet: RuralListingValidator.MinimumRuleSet)
-                    : validator.Validate(listing as RuralListing);;
+                    ? validator.Validate((RuralListing)listing, ruleSet: RuralListingValidator.MinimumRuleSet)
+                    : validator.Validate((RuralListing)listing);;
             }
 
             if (listing is LandListing)
             {
                 var validator = new LandListingValidator();
                 return isTheMinimumDataToStoreAListing
-                    ? validator.Validate(listing as LandListing, ruleSet: LandListingValidator.MinimumRuleSet)
-                    : validator.Validate(listing as LandListing);
+                    ? validator.Validate((LandListing)listing, ruleSet: LandListingValidator.MinimumRuleSet)
+                    : validator.Validate((LandListing)listing);
             }
 
             var errorMessage =

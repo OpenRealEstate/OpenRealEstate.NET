@@ -97,7 +97,7 @@ namespace OpenRealEstate.Tests.Validators
                 var result = ValidatorMediator.Validate(listing);
 
                 // Assert.
-                result.Errors.Count.ShouldBe(4);
+                result.Errors.Count.ShouldBe(3);
             }
 
             [Fact]
