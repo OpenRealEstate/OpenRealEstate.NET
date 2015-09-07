@@ -1,5 +1,5 @@
 
-version: '1.{build}.0'
+version: '1.{build}.0-dev'
 configuration: Release
 
 branches:
