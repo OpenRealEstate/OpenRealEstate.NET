@@ -57,9 +57,9 @@ namespace OpenRealEstate.Core.Models
 
         public ModifiedData ModifiedData { get; private set; }
 
-        public void Copy(CarParking newCarParking)
+        public void Copy(CarParking newCarParking, bool isModifiedPropertiesOnly = true)
         {
-            ModifiedData.Copy(newCarParking, this);
+            ModifiedData.Copy(newCarParking, this, isModifiedPropertiesOnly);
         }
 
         public void ClearAllIsModified()

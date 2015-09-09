@@ -138,9 +138,9 @@ namespace OpenRealEstate.Core.Models
             }
         }
 
-        public void Copy(Features newFeatures)
+        public void Copy(Features newFeatures, bool isModifiedPropertiesOnly = true)
         {
-            ModifiedData.Copy(newFeatures, this);
+            ModifiedData.Copy(newFeatures, this, isModifiedPropertiesOnly);
 
             if (newFeatures.ModifiedData.ModifiedCollections.Contains(TagsName))
             {

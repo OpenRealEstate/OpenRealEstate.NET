@@ -99,14 +99,14 @@ namespace OpenRealEstate.Core.Models
             }
         }
 
-        public void Copy(LandDetails newLandDetails)
+        public void Copy(LandDetails newLandDetails, bool isModifiedPropertiesOnly = true)
         {
             if (newLandDetails == null)
             {
                 throw new ArgumentNullException("newLandDetails");
             }
 
-            ModifiedData.Copy(newLandDetails, this);
+            ModifiedData.Copy(newLandDetails, this, isModifiedPropertiesOnly);
 
             if (newLandDetails.ModifiedData.ModifiedCollections.Contains(DepthsName))
             {
@@ -118,7 +118,7 @@ namespace OpenRealEstate.Core.Models
                     foreach (var depth in newLandDetails.Depths)
                     {
                         var newDepth = new Depth();
-                        newDepth.Copy(depth);
+                        newDepth.Copy(depth, false);
                         depths.Add(newDepth);
                     }
                     AddDepths(depths);

@@ -69,7 +69,63 @@ namespace OpenRealEstate.Core.Primitives
             }
         }
 
-        public void Copy<T>(T source, T target) where T : class
+        public void Copy<T>(T source, T target, bool isModifiedPropertiesOnly = true) where T : class
+        {
+            if (!isModifiedPropertiesOnly)
+            {
+                // Copy all the properties. This is generally for collection deep copying.
+                CopyAllProperties(source, target);
+            }
+            else
+            {
+                CopyModifiedProperties(source, target);
+            }
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0} : P: {1} : C: {2}",
+                IsModified,
+                _modifiedProperties != null
+                    ? _modifiedProperties.Count.ToString()
+                    : "-",
+                _modifiedCollections != null
+                    ? _modifiedCollections.Count.ToString()
+                    : "-");
+        }
+
+        public void ClearModifiedPropertiesAndCollections()
+        {
+            _modifiedProperties.Clear();
+            _modifiedCollections.Clear();
+        }
+
+        private static void CopyAllProperties<T>(T source, T target) where T : class
+        {
+            if (source == null)
+            {
+                throw new ArgumentNullException("source");
+            }
+
+            if (target == null)
+            {
+                throw new ArgumentNullException("target");
+            }
+
+            var properties = source
+                .GetType()
+                .GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.SetProperty)
+                .Where(x => x.PropertyType != typeof (ModifiedData) && x.CanWrite)
+                .ToList();
+
+            foreach (var property in properties)
+            {
+                var sourceValue = source.GetType().GetProperty(property.Name).GetValue(source, null);
+                target.GetType().GetProperty(property.Name).SetValue(target, sourceValue, null);
+            }
+        }
+
+        private void CopyModifiedProperties<T>(T source, T target) where T : class
         {
             if (source == null)
             {
@@ -123,24 +179,6 @@ namespace OpenRealEstate.Core.Primitives
                     target.GetType().GetProperty(property.Name).SetValue(target, sourceValue, null);
                 }
             }
-        }
-
-        public override string ToString()
-        {
-            return string.Format("{0} : P: {1} : C: {2}",
-                IsModified,
-                _modifiedProperties != null
-                    ? _modifiedProperties.Count.ToString()
-                    : "-",
-                _modifiedCollections != null
-                    ? _modifiedCollections.Count.ToString()
-                    : "-");
-        }
-
-        public void ClearModifiedPropertiesAndCollections()
-        {
-            _modifiedProperties.Clear();
-            _modifiedCollections.Clear();
         }
 
         private static ModifiedData GetModifiedData(object source)

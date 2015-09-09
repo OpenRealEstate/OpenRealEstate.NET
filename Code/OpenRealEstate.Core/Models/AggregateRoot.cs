@@ -37,9 +37,9 @@ namespace OpenRealEstate.Core.Models
             set { _updatedOn.Value = value; }
         }
 
-        public void Copy(AggregateRoot newAggregateRoot)
+        public void Copy(AggregateRoot newAggregateRoot, bool isModifiedPropertiesOnly = true)
         {
-            ModifiedData.Copy(newAggregateRoot, this);
+            ModifiedData.Copy(newAggregateRoot, this, isModifiedPropertiesOnly);
         }
 
         public virtual void ClearAllIsModified()

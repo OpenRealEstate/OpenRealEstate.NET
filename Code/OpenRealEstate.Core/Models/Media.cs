@@ -52,9 +52,18 @@ namespace OpenRealEstate.Core.Models
             set { _tag.Value = value; }
         }
 
-        public void Copy(Media newMedia)
+        public override string ToString()
         {
-            ModifiedData.Copy(newMedia, this);
+            return string.Format("{0} : {1}",
+                Order,
+                string.IsNullOrWhiteSpace(Url)
+                    ? "-no url-"
+                    : Url);
+        }
+
+        public void Copy(Media newMedia, bool isModifiedPropertiesOnly = true)
+        {
+            ModifiedData.Copy(newMedia, this, isModifiedPropertiesOnly);
         }
 
         public void ClearAllIsModified()

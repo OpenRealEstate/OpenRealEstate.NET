@@ -80,14 +80,14 @@ namespace OpenRealEstate.Core.Models.Land
             return string.Format("Land >> {0}", base.ToString());
         }
 
-        public void Copy(LandListing newLandListing)
+        public void Copy(LandListing newLandListing, bool isModifiedPropertiesOnly = true)
         {
             if (newLandListing == null)
             {
                 throw new ArgumentNullException("newLandListing");
             }
 
-            ModifiedData.Copy(newLandListing, this);
+            ModifiedData.Copy(newLandListing, this, isModifiedPropertiesOnly);
         }
 
         public override void ClearAllIsModified()

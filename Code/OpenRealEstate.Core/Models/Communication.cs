@@ -39,9 +39,9 @@ namespace OpenRealEstate.Core.Models
             set { _communicationType.Value = value; }
         }
 
-        public void Copy(Communication newCommunication)
+        public void Copy(Communication newCommunication, bool isModifiedPropertiesOnly = true)
         {
-            ModifiedData.Copy(newCommunication, this);
+            ModifiedData.Copy(newCommunication, this, isModifiedPropertiesOnly);
         }
 
         public void ClearAllIsModified()

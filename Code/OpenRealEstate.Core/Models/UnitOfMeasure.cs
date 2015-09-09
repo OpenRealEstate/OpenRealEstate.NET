@@ -49,14 +49,14 @@ namespace OpenRealEstate.Core.Models
                     : Type);
         }
 
-        public void Copy(UnitOfMeasure newUnitOfMeasure)
+        public void Copy(UnitOfMeasure newUnitOfMeasure, bool isModifiedPropertiesOnly = true)
         {
             if (newUnitOfMeasure == null)
             {
                 throw new ArgumentNullException("newUnitOfMeasure");
             }
 
-            ModifiedData.Copy(newUnitOfMeasure, this);
+            ModifiedData.Copy(newUnitOfMeasure, this, isModifiedPropertiesOnly);
         }
 
         public virtual void ClearAllIsModified()

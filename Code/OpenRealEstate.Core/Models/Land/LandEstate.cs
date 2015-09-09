@@ -40,14 +40,14 @@ namespace OpenRealEstate.Core.Models.Land
             set { _stage.Value = value; }
         }
 
-        public void Copy(LandEstate newLandEstate)
+        public void Copy(LandEstate newLandEstate, bool isModifiedPropertiesOnly = true)
         {
             if (newLandEstate == null)
             {
                 throw new ArgumentNullException("newLandEstate");
             }
 
-            ModifiedData.Copy(newLandEstate, this);
+            ModifiedData.Copy(newLandEstate, this, isModifiedPropertiesOnly);
         }
 
         public void ClearAllIsModified()

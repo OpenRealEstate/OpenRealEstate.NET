@@ -182,9 +182,9 @@ namespace OpenRealEstate.Core.Models
             return address.ToString();
         }
 
-        public void Copy(Address newAddress)
+        public void Copy(Address newAddress, bool isModifiedPropertiesOnly = true)
         {
-            ModifiedData.Copy(newAddress, this);
+            ModifiedData.Copy(newAddress, this, isModifiedPropertiesOnly);
         }
 
         private static void AppendDelimeter(StringBuilder stringBuilder, string delimeter = ", ")
