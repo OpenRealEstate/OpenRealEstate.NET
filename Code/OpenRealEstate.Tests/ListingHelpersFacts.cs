@@ -1,5 +1,6 @@
 ﻿using System;
 using OpenRealEstate.Core.Models;
+using OpenRealEstate.Core.Models.Land;
 using OpenRealEstate.Core.Models.Rental;
 using OpenRealEstate.Core.Models.Residential;
 using OpenRealEstate.Services;
@@ -85,6 +86,22 @@ namespace OpenRealEstate.Tests
                 destinationListing.ModifiedData.IsModified.ShouldBe(true);
                 destinationListing.Pricing.RentalPrice.ShouldBe(sourceListing.Pricing.RentalPrice);
                 destinationListing.Pricing.ModifiedData.IsModified.ShouldBe(true);
+            }
+
+            [Fact]
+            public void GivenTwoLandListingWhereOneIsEmptys_Copy_CopiesTheData()
+            {
+                // Arrange.
+                var destinationListing = new LandListing();
+                var sourceListing = TestHelperUtilities.LandListing(false);
+                sourceListing.StatusType = StatusType.Leased;
+                //sourceListing.Pricing.
+
+                // Act.
+                ListingHelpers.Copy(destinationListing, sourceListing);
+
+                // Assert.
+                TestHelperUtilities.AssertLandListing(destinationListing, sourceListing);
             }
 
             [Fact]

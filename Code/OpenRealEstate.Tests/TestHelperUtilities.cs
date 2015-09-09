@@ -755,6 +755,19 @@ namespace OpenRealEstate.Tests
             destination.ModifiedData.IsModified.ShouldBe(true);
         }
 
+        public static void AssertLandEstate(LandEstate destination, LandEstate source)
+        {
+            if (destination == null &&
+                   source == null)
+            {
+                return;
+            }
+
+            destination.Name.ShouldBe(source.Name);
+            destination.Stage.ShouldBe(source.Stage);
+            destination.ModifiedData.IsModified.ShouldBe(true);
+        }
+
         public static void AssertListing(Listing destination, Listing source)
         {
             if (destination == null &&
@@ -808,6 +821,21 @@ namespace OpenRealEstate.Tests
             AssertBuildingDetails(destination.BuildingDetails, source.BuildingDetails);
             destination.PropertyType.ShouldBe(source.PropertyType);
             AssertRentalPricing(destination.Pricing, source.Pricing);
+            destination.ModifiedData.IsModified.ShouldBe(true);
+        }
+
+        public static void AssertLandListing(LandListing destination, LandListing source)
+        {
+            if (destination == null &&
+                    source == null)
+            {
+                return;
+            }
+ 
+            destination.AuctionOn.ShouldBe(source.AuctionOn);
+            destination.CategoryType.ShouldBe(source.CategoryType);
+            AssertLandEstate(destination.Estate, source.Estate);
+            AssertSalePricing(destination.Pricing, source.Pricing);
             destination.ModifiedData.IsModified.ShouldBe(true);
         }
 

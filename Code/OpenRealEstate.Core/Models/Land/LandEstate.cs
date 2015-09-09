@@ -1,43 +1,54 @@
 ﻿using System;
+using System.Diagnostics;
+using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models.Land
 {
     public class LandEstate
     {
-        private string _name;
-        private string _stage;
+        private const string NameName = "Name";
+        private const string StageName = "Stage";
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly StringNotified _name;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly StringNotified _stage;
+
+        public LandEstate()
+        {
+            ModifiedData = new ModifiedData(GetType());
+
+            _name = new StringNotified(NameName);
+            _name.PropertyChanged += ModifiedData.OnPropertyChanged;
+
+            _stage = new StringNotified(StageName);
+            _stage.PropertyChanged += ModifiedData.OnPropertyChanged;
+        }
+
+        public ModifiedData ModifiedData { get; private set; }
 
         public string Name
         {
-            get { return _name; }
-            set
-            {
-                _name = value;
-                IsNameModified = true;
-            }
+            get { return _name.Value; }
+            set { _name.Value = value; }
         }
 
+        [Obsolete]
         public bool IsNameModified { get; set; }
 
         public string Stage
         {
-            get { return _stage; }
-            set
-            {
-                _stage = value;
-                IsStageModified = true;
-            }
+            get { return _stage.Value; }
+            set { _stage.Value = value; }
         }
 
+        [Obsolete]
         public bool IsStageModified { get; set; }
 
         public bool IsModified
         {
-            get
-            {
-                return IsNameModified ||
-                       IsStageModified;
-            }
+            get { return ModifiedData.IsModified; }
         }
 
         public void Copy(LandEstate newLandEstate)
@@ -47,21 +58,12 @@ namespace OpenRealEstate.Core.Models.Land
                 throw new ArgumentNullException("newLandEstate");
             }
 
-            if (newLandEstate.IsNameModified)
-            {
-                Name = newLandEstate.Name;
-            }
-
-            if (newLandEstate.IsStageModified)
-            {
-                Stage = newLandEstate.Stage;
-            }
+            ModifiedData.Copy(newLandEstate, this);
         }
 
         public void ClearAllIsModified()
         {
-            IsNameModified = false;
-            IsStageModified = false;
+            ModifiedData.ClearModifiedProperties(new[] {NameName, StageName});
         }
     }
 }

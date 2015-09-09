@@ -1,39 +1,74 @@
 ﻿using System;
+using System.Diagnostics;
+using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models.Land
 {
     public class LandListing : Listing
     {
-        private DateTime? _auctionOn;
-        private CategoryType _categoryType;
-        private string _councilRates;
-        private LandEstate _estate;
+        private const string AuctionOnName = "AuctionOn";
+        private const string CategoryTypeName = "CategoryType";
+        private const string CouncilRatesName = "CouncilRates";
+        private const string EstateName = "Estate";
+        private const string SalePricingName = "Pricing";
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly DateTimeNullableNotified _auctionOn;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly EnumNotified<CategoryType> _categoryType;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly StringNotified _councilRates;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly InstanceObjectNotified<LandEstate> _estate;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly InstanceObjectNotified<SalePricing> _pricing;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        [Obsolete]
         private bool _isEstateModified;
-        private SalePricing _pricing;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        [Obsolete]
         private bool _isPricingModified;
+
+        public LandListing()
+        {
+            _auctionOn = new DateTimeNullableNotified(AuctionOnName);
+            _auctionOn.PropertyChanged += ModifiedData.OnPropertyChanged;
+
+            _categoryType = new EnumNotified<CategoryType>(CategoryTypeName);
+            _categoryType.PropertyChanged += ModifiedData.OnPropertyChanged;
+
+            _councilRates = new StringNotified(CouncilRatesName);
+            _councilRates.PropertyChanged += ModifiedData.OnPropertyChanged;
+
+            _estate = new InstanceObjectNotified<LandEstate>(EstateName);
+            _estate.PropertyChanged += ModifiedData.OnPropertyChanged;
+
+            _pricing = new InstanceObjectNotified<SalePricing>(SalePricingName);
+            _pricing.PropertyChanged += ModifiedData.OnPropertyChanged;
+        }
 
         public CategoryType CategoryType
         {
-            get { return _categoryType; }
-            set
-            {
-                _categoryType = value;
-                IsCategoryTypeModified = true;
-            }
+            get { return _categoryType.Value; }
+            set { _categoryType.Value = value; }
         }
 
+        [Obsolete]
         public bool IsCategoryTypeModified { get; set; }
 
         public SalePricing Pricing
         {
-            get { return _pricing; }
-            set
-            {
-                _pricing = value;
-                IsPricingModified = true;
-            }
+            get { return _pricing.Value; }
+            set { _pricing.Value = value; }
         }
 
+        [Obsolete]
         public bool IsPricingModified
         {
             get
@@ -47,27 +82,22 @@ namespace OpenRealEstate.Core.Models.Land
 
         public DateTime? AuctionOn
         {
-            get { return _auctionOn; }
-            set
-            {
-                _auctionOn = value;
-                IsAuctionOnModified = true;
-            }
+            get { return _auctionOn.Value; }
+            set { _auctionOn.Value = value; }
         }
 
+        [Obsolete]
         public bool IsAuctionOnModified { get; set; }
 
         public LandEstate Estate
         {
-            get { return _estate; }
-            set
-            {
-                _estate = value;
-                IsEstateModified = true;
-            }
+            get { return _estate.Value; }
+            set { _estate.Value = value; }
         }
 
-        public bool IsEstateModified {
+        [Obsolete]
+        public bool IsEstateModified
+        {
             get
             {
                 return _isEstateModified ||
@@ -79,17 +109,15 @@ namespace OpenRealEstate.Core.Models.Land
 
         public string CouncilRates
         {
-            get { return _councilRates; }
-            set
-            {
-                _councilRates = value;
-                IsCouncilRatesModified = true;
-            }
+            get { return _councilRates.Value; }
+            set { _councilRates.Value = value; }
         }
 
+        [Obsolete]
         public bool IsCouncilRatesModified { get; set; }
 
-        public override bool IsModified {
+        public override bool IsModified
+        {
             get
             {
                 return base.IsModified ||
@@ -113,65 +141,18 @@ namespace OpenRealEstate.Core.Models.Land
                 throw new ArgumentNullException("newLandListing");
             }
 
-            if (!newLandListing.IsModified)
+            ModifiedData.Copy(newLandListing, this);
+
+            if (_estate != null &&
+                _estate.Value.ModifiedData.IsModified)
             {
-                return;
+                _estate.Value.ModifiedData.Copy(newLandListing.Estate, Estate);
             }
 
-            base.Copy(newLandListing);
-
-            if (newLandListing.IsCategoryTypeModified)
+            if (_pricing != null &&
+                _pricing.Value.ModifiedData.IsModified)
             {
-                CategoryType = newLandListing.CategoryType;
-            }
-
-            if (newLandListing.IsPricingModified)
-            {
-                if (newLandListing.Pricing == null)
-                {
-                    Pricing = null;
-                }
-                else
-                {
-                    if (Pricing == null)
-                    {
-                        Pricing = new SalePricing();
-                    }
-
-                    if (newLandListing.IsPricingModified)
-                    {
-                        Pricing.Copy(newLandListing.Pricing);
-                    }
-
-                    IsPricingModified = true;
-                }
-            }
-
-            if (newLandListing.IsAuctionOnModified)
-            {
-                AuctionOn = newLandListing.AuctionOn;
-            }
-
-            if (newLandListing.IsEstateModified)
-            {
-                if (newLandListing.Estate == null)
-                {
-                    Estate = null;
-                }
-                else
-                {
-                    if (Estate == null)
-                    {
-                        Estate = new LandEstate();
-                    }
-                    Estate.Copy(newLandListing.Estate);
-                    IsEstateModified = true;
-                }
-            }
-
-            if (newLandListing.IsCouncilRatesModified)
-            {
-                CouncilRates = newLandListing.CouncilRates;
+                _pricing.Value.ModifiedData.Copy(newLandListing.Pricing, Pricing);
             }
         }
 
@@ -179,21 +160,14 @@ namespace OpenRealEstate.Core.Models.Land
         {
             base.ClearAllIsModified();
 
-            if (Pricing != null)
+            ModifiedData.ClearModifiedProperties(new[]
             {
-                Pricing.ClearAllIsModified();
-            }
-            IsPricingModified = false;
-
-            if (Estate != null)
-            {
-                Estate.ClearAllIsModified();
-            }
-            IsEstateModified = false;
-
-            IsCategoryTypeModified = false;
-            IsAuctionOnModified = false;
-            IsCouncilRatesModified = false;
+                AuctionOnName,
+                CategoryTypeName,
+                CouncilRatesName,
+                EstateName,
+                SalePricingName
+            });
         }
     }
 }
