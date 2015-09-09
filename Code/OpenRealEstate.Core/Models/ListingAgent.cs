@@ -1,100 +1,116 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
 {
     public class ListingAgent
     {
-        private IList<Communication> _communiations;
-        private string _name;
-        private int _order;
+        private readonly ObservableCollection<Communication> _communiations;
+        private readonly StringNotified _name;
+        private readonly Int32Notified _order;
+        private const string CommunicationsName = "Communications";
+        private const string NameName = "Name";
+        private const string OrderName = "Order";
+        public ListingAgent()
+        {
+            ModifiedData = new ModifiedData(GetType());
+
+            _communiations = new ObservableCollection<Communication>();
+            _communiations.CollectionChanged += (sender, args) => { ModifiedData.OnCollectionChanged(CommunicationsName); };
+
+            _name = new StringNotified(NameName);
+            _name.PropertyChanged += ModifiedData.OnPropertyChanged;
+
+            _order = new Int32Notified(OrderName);
+            _order.PropertyChanged += ModifiedData.OnPropertyChanged;
+        }
+
+        public ModifiedData ModifiedData { get; private set; }
 
         public string Name
         {
-            get { return _name; }
-            set
-            {
-                _name = value;
-                IsNameModified = true;
-            }
+            get { return _name.Value; }
+            set { _name.Value = value; }
         }
 
+        [Obsolete]
         public bool IsNameModified { get; private set; }
 
-        public IList<Communication> Communications
+        public ReadOnlyCollection<Communication> Communications
         {
-            get { return _communiations; }
-            set
-            {
-                _communiations = value;
-                IsCommunicationsModified = true;
-            }
+            get { return _communiations.ToList().AsReadOnly(); }
         }
-
+        [Obsolete]
         public bool IsCommunicationsModified { get; private set; }
 
         public int Order
         {
-            get { return _order; }
-            set
+            get { return _order.Value; }
+            set { _order.Value = value; }
+        }
+
+        [Obsolete]
+        public bool IsOrderModified { get; private set; }
+
+        public void AddCommunications(ICollection<Communication> communications)
+        {
+            if (communications == null)
             {
-                _order = value;
-                IsOrderModified = true;
+                throw new ArgumentNullException("communications");
+            }
+
+            if (!communications.Any())
+            {
+                throw new ArgumentOutOfRangeException("agencommunicationsts");
+            }
+
+            foreach (var communication in communications)
+            {
+                _communiations.Add(communication);
             }
         }
 
-        public bool IsOrderModified { get; private set; }
+        public void RemoveCommunication(Communication communication)
+        {
+            if (communication == null)
+            {
+                throw new ArgumentNullException("communication");
+            }
+
+            if (_communiations != null)
+            {
+                _communiations.Remove(communication);
+            }
+        }
 
         public void Copy(ListingAgent newListingAgent)
         {
-            if (newListingAgent == null)
-            {
-                throw new ArgumentNullException("newListingAgent");
-            }
+            ModifiedData.Copy(newListingAgent, this);
 
-            if (newListingAgent.IsNameModified)
+            if (newListingAgent.ModifiedData.ModifiedCollections.Contains(CommunicationsName))
             {
-                Name = newListingAgent.Name;
-            }
-
-            if (newListingAgent.IsCommunicationsModified)
-            {
-                if (newListingAgent.Communications == null)
+                var communications = new List<Communication>();
+                foreach (var communication in newListingAgent.Communications)
                 {
-                    Communications = newListingAgent.Communications;
+                    var newCommunication = new Communication();
+                    newCommunication.Copy(communication);
+                    communications.Add(newCommunication);
                 }
-                else
-                {
-                    Communications = new List<Communication>();
-                    foreach (var newCommunication in newListingAgent.Communications)
-                    {
-                        var communication = new Communication();
-                        communication.Copy(newCommunication);
-                        Communications.Add(communication);
-                    }
-                }
-            }
-
-            if (newListingAgent.IsOrderModified)
-            {
-                Order = newListingAgent.Order;
+                AddCommunications(communications);
             }
         }
 
         public void ClearAllIsModified()
         {
-            if (Communications != null)
+            ModifiedData.ClearModifiedProperties(new[]
             {
-                foreach (var communication in Communications.Where(communication => communication.IsModified))
-                {
-                    communication.ClearAllIsModified();
-                }
-            }
-
-            IsNameModified = false;
-            IsCommunicationsModified = false;
-            IsOrderModified = false;
+                NameName, 
+                OrderName,
+                CommunicationsName
+            });
         }
     }
 }

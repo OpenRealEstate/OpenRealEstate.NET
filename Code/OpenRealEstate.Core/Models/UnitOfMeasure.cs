@@ -1,43 +1,49 @@
 ﻿using System;
+using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
 {
     public class UnitOfMeasure
     {
-        private string _type;
-        private decimal _value;
+        private const string TypeName = "Type";
+        private const string ValueName = "Value";
+        private readonly StringNotified _type;
+        private readonly DecimalNotified _value;
+
+        public UnitOfMeasure()
+        {
+            ModifiedData = new ModifiedData(GetType());
+
+            _type = new StringNotified(TypeName);
+            _type.PropertyChanged += ModifiedData.OnPropertyChanged;
+
+            _value = new DecimalNotified(ValueName);
+            _value.PropertyChanged += ModifiedData.OnPropertyChanged;
+        }
+
+        public ModifiedData ModifiedData { get; private set; }
 
         public string Type
         {
-            get { return _type; }
-            set
-            {
-                _type = value;
-                IsTypeModified = true;
-            }
+            get { return _type.Value; }
+            set { _type.Value = value; }
         }
 
+        [Obsolete]
         public bool IsTypeModified { get; private set; }
 
         public decimal Value
         {
-            get { return _value; }
-            set
-            {
-                _value = value;
-                IsValueModified = true;
-            }
+            get { return _value.Value; }
+            set { _value.Value = value; }
         }
 
+        [Obsolete]
         public bool IsValueModified { get; private set; }
 
         public bool IsModified
         {
-            get
-            {
-                return IsTypeModified ||
-                       IsValueModified;
-            }
+            get { return ModifiedData.IsModified; }
         }
 
         public override string ToString()
@@ -56,21 +62,12 @@ namespace OpenRealEstate.Core.Models
                 throw new ArgumentNullException("newUnitOfMeasure");
             }
 
-            if (newUnitOfMeasure.IsTypeModified)
-            {
-                Type = newUnitOfMeasure.Type;
-            }
-
-            if (newUnitOfMeasure.IsValueModified)
-            {
-                Value = newUnitOfMeasure.Value;
-            }
+            ModifiedData.Copy(newUnitOfMeasure, this);
         }
 
         public virtual void ClearAllIsModified()
         {
-            IsTypeModified = false;
-            IsValueModified = false;
+            ModifiedData.ClearModifiedProperties(new[] {TypeName, ValueName});
         }
     }
 }

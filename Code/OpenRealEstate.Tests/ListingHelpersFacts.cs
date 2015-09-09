@@ -1,4 +1,5 @@
 ﻿using OpenRealEstate.Core.Models;
+using OpenRealEstate.Core.Models.Residential;
 using OpenRealEstate.Services;
 using Shouldly;
 using Xunit;
@@ -9,6 +10,25 @@ namespace OpenRealEstate.Tests
     {
         public class CopyFacts
         {
+            [Fact]
+            public void GivenTwoResidentialListingsWhereOneIsEmpty_Copy_CopiesTheData()
+            {
+                // Arrange.
+                var destinationListing = new ResidentialListing();
+                var sourceListing = TestHelperUtilities.ResidentialListingFromFile(false);
+                sourceListing.StatusType = StatusType.Sold;
+                sourceListing.Pricing.SalePrice = 100;
+                sourceListing.Features.LivingAreas = 111;
+                sourceListing.Features.Toilets = 8;
+                sourceListing.Features.CarParking.OpenSpaces = 111;
+
+                // Act.
+                ListingHelpers.Copy(destinationListing, sourceListing);
+
+                // Assert.
+                TestHelperUtilities.AssertResidentialListing(destinationListing, sourceListing);
+            }
+
             [Fact]
             public void GivenTwoResidentialListings_Copy_CopiesTheData()
             {
@@ -59,6 +79,8 @@ namespace OpenRealEstate.Tests
                 destinationListing.StatusType.ShouldBe(sourceListing.StatusType);
                 destinationListing.Pricing.SalePrice.ShouldBe(sourceListing.Pricing.SalePrice);
             }
+
+            
         }
     }
 }

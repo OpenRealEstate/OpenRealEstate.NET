@@ -400,11 +400,36 @@ namespace OpenRealEstate.Services.RealEstateComAu
             listing.Description = document.ValueOrDefault("description");
 
             listing.Address = ExtractAddress(document, addressDelimeter);
-            listing.Agents = ExtractAgent(document);
-            listing.Inspections = ExtractInspectionTimes(document);
-            listing.Images = ExtractImages(document);
-            listing.FloorPlans = ExtractFloorPlans(document);
-            listing.Videos = ExtractVideos(document);
+            
+            var agents = ExtractAgent(document);
+            if (agents != null &&
+                agents.Any())
+            {
+                listing.AddAgents(agents);
+            }
+
+            var inspections = ExtractInspectionTimes(document);
+            if (inspections != null &&
+                inspections.Any())
+            {
+                listing.AddInspections(inspections);
+            }
+
+            var images = ExtractImages(document);
+            if (images != null &&
+                images.Any())
+            {
+                listing.AddImages(images);
+            }
+            
+            var floorPlans = ExtractFloorPlans(document);
+            listing.AddFloorPlans(floorPlans);
+            
+            var videos = ExtractVideos(document);
+            if (videos != null && videos.Any())
+            {
+                listing.AddVideos(videos);
+            }
             listing.Features = ExtractFeatures(document);
             listing.LandDetails = ExtractLandDetails(document);
             listing.Links = ExtractExternalLinks(document);
@@ -557,21 +582,23 @@ namespace OpenRealEstate.Services.RealEstateComAu
                     agent.Order = order;
                 }
 
+                var communications = new List<Communication>();
+
                 var email = agentElement.ValueOrDefault("email");
-                agent.Communications = new List<Communication>();
                 if (!string.IsNullOrWhiteSpace(email))
                 {
-                    agent.Communications.Add(new Communication
+                    communications.Add(new Communication
                     {
                         CommunicationType = CommunicationType.Email,
                         Details = email
                     });
                 }
+                
 
                 var phoneMobile = agentElement.ValueOrDefault("telephone", "type", "mobile");
                 if (!string.IsNullOrWhiteSpace(phoneMobile))
                 {
-                    agent.Communications.Add(new Communication
+                    communications.Add(new Communication
                     {
                         CommunicationType = CommunicationType.Mobile,
                         Details = phoneMobile
@@ -581,12 +608,14 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 var phoneOffice = agentElement.ValueOrDefault("telephone", "type", "BH");
                 if (!string.IsNullOrWhiteSpace(phoneOffice))
                 {
-                    agent.Communications.Add(new Communication
+                    communications.Add(new Communication
                     {
                         CommunicationType = CommunicationType.Landline,
                         Details = phoneOffice
                     });
                 }
+
+                agent.AddCommunications(communications);
 
                 // Some listings have this element but no data provided. :(
                 // So we don't add 'emtpy' agents.
@@ -597,17 +626,24 @@ namespace OpenRealEstate.Services.RealEstateComAu
             }
 
             var counter = 0;
-            return agents.Any()
-                ? agents
-                    .OrderBy(x => x.Order)
-                    .Select(x => new ListingAgent
+            if (agents.Any())
+            {
+                var orderedAgents = new List<ListingAgent>();
+                foreach (var agent in agents.OrderBy(x => x.Order))
+                {
+                    var orderedAgent = new ListingAgent
                     {
-                        Name = x.Name,
-                        Order = ++counter,
-                        Communications = x.Communications
-                    })
-                    .ToList()
-                : null;
+                        Name = agent.Name,
+                        Order = ++counter
+                    };
+                    orderedAgent.AddCommunications(agent.Communications);
+                    orderedAgents.Add(orderedAgent);
+                }
+
+                return orderedAgents;
+            }
+
+            return null;
         }
 
         private static Features ExtractFeatures(XElement document)
@@ -688,8 +724,8 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 Ensuites = featuresElement.BoolOrByteValueOrDefault("ensuite"),
                 Toilets = featuresElement.BoolOrByteValueOrDefault("toilets"),
                 LivingAreas = featuresElement.BoolOrByteValueOrDefault("livingAreas"),
-                Tags = tags
             };
+            finalFeatures.AddTags(tags);
 
             return finalFeatures;
         }
@@ -1096,12 +1132,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                             Side = depthSide
                         };
 
-                        if (details.Depths == null)
-                        {
-                            details.Depths = new List<Depth>();
-                        }
-
-                        details.Depths.Add(depth);
+                        details.AddDepths(new[] {depth});
                     }
                 }
             }
@@ -1230,12 +1261,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                     residentialListing.Features = new Features();
                 }
 
-                if (residentialListing.Features.Tags == null)
-                {
-                    residentialListing.Features.Tags = new HashSet<string>();
-                }
-
-                residentialListing.Features.Tags.Add("houseAndLandPackage");
+                residentialListing.Features.AddTags(new[] {"houseAndLandPackage"});
             };
 
         }
@@ -1255,12 +1281,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 listing.Features= new Features();
             }
 
-            if (listing.Features.Tags == null)
-            {
-                listing.Features.Tags = new HashSet<string>();
-            }
-
-            listing.Features.Tags.Add("isANewConstruction");
+            listing.Features.AddTags(new[] {"isANewConstruction"});
         }
 
         #endregion
@@ -1364,12 +1385,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 listing.Features = new Features();
             }
 
-            if (listing.Features.Tags == null)
-            {
-                listing.Features.Tags = new HashSet<string>();
-            }
-
-            listing.Features.Tags.Add("isANewConstruction");
+            listing.Features.AddTags(new[] {"isANewConstruction"});
         }
 
         #endregion
@@ -1492,12 +1508,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 listing.Features = new Features();
             }
 
-            if (listing.Features.Tags == null)
-            {
-                listing.Features.Tags = new HashSet<string>();
-            }
-
-            listing.Features.Tags.Add("isANewConstruction");
+            listing.Features.AddTags(new[] {"isANewConstruction"});
         }
 
         #endregion

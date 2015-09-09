@@ -1,43 +1,33 @@
 ﻿using System;
+using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
 {
     public class Depth : UnitOfMeasure
     {
-        private string _side;
+        private const string SideName = "Side";
+        private readonly StringNotified _side;
+
+        public Depth()
+        {
+            _side = new StringNotified(SideName);
+            _side.PropertyChanged += ModifiedData.OnPropertyChanged;
+        }
 
         public string Side
         {
-            get { return _side; }
-            set
-            {
-                _side = value;
-                IsSideModified = true;
-            }
+            get { return _side.Value; }
+            set { _side.Value = value; }
         }
 
+        [Obsolete]
         public bool IsSideModified { get; private set; }
-
-        public void Copy(Depth newDepth)
-        {
-            if (newDepth == null)
-            {
-                throw new ArgumentNullException("newDepth");
-            }
-
-            if (newDepth.IsSideModified)
-            {
-                Side = newDepth.Side;
-            }
-
-            base.Copy(newDepth);
-        }
 
         public override void ClearAllIsModified()
         {
             base.ClearAllIsModified();
 
-            IsSideModified = false;
+            ModifiedData.ClearModifiedProperties(new[] {SideName});
         }
     }
 }

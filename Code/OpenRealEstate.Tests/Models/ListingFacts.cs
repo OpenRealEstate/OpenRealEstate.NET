@@ -84,7 +84,7 @@ namespace OpenRealEstate.Tests.Models
                 destinationListing.Features.IsEnsuitesModified.ShouldBe(true);
                 destinationListing.Features.LivingAreas.ShouldBe(sourceListing.Features.LivingAreas);
                 destinationListing.Features.IsLivingAreasModified.ShouldBe(true);
-                destinationListing.Features.Tags.SetEquals(sourceListing.Features.Tags);
+                destinationListing.Features.Tags.ShouldBe(sourceListing.Features.Tags);
                 destinationListing.Features.IsTagsModified.ShouldBe(true);
                 destinationListing.Features.Toilets.ShouldBe(sourceListing.Features.Toilets);
                 destinationListing.Features.IsToiletsModified.ShouldBe(true);
@@ -148,16 +148,38 @@ namespace OpenRealEstate.Tests.Models
             public void GivenAnExistingListingAndANewListingWithANullValues_Copy_CopiesOverTheData()
             {
                 // Arrange.
-                var sourceListing =TestHelperUtilities.ResidentialListingFromFile();
-                sourceListing.Agents = null;
+                var sourceListing = TestHelperUtilities.ResidentialListingFromFile();
+
+                foreach (var agent in sourceListing.Agents)
+                {
+                    sourceListing.RemoveAgent(agent);
+                }
                 sourceListing.Address = null;
                 sourceListing.Features = null;
-                sourceListing.FloorPlans = null;
-                sourceListing.Images = null;
-                sourceListing.Inspections = null;
+
+                foreach (var floorPlan in sourceListing.FloorPlans)
+                {
+                    sourceListing.RemoveFloorPlan(floorPlan);
+                }
+
+                foreach (var image in sourceListing.Images)
+                {
+                    sourceListing.RemoveImage(image);
+                }
+
+
+                foreach (var inspection in sourceListing.Inspections)
+                {
+                    sourceListing.RemoveInspection(inspection);
+                }
+
                 sourceListing.LandDetails = null;
                 sourceListing.Links = null;
-                sourceListing.Videos = null;
+
+                foreach (var video in sourceListing.Videos)
+                {
+                    sourceListing.RemoveVideo(video);
+                }
 
                 var destinationListing =TestHelperUtilities.ResidentialListingFromFile();
 
@@ -192,7 +214,7 @@ namespace OpenRealEstate.Tests.Models
                 var sourceListing =TestHelperUtilities.ResidentialListingFromFile();
                 var destinationListing =TestHelperUtilities.ResidentialListingFromFile();
 
-                sourceListing.Images = new List<Media>
+                sourceListing.AddImages(new List<Media>
                 {
                     new Media
                     {
@@ -200,7 +222,7 @@ namespace OpenRealEstate.Tests.Models
                         Order = 1,
                         Tag = "hi!"
                     }
-                };
+                });
 
                 // Act.
                 // NOTE: this will just copy over the 1 media item.

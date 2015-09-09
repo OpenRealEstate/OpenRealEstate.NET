@@ -119,46 +119,52 @@ namespace OpenRealEstate.Tests
 
         public static ResidentialListing ResidentialListing(bool isClearAllIsModified = true)
         {
-            var listing = new ResidentialListing
+            var communications = new List<Communication>
+            {
+                new Communication
                 {
-                    AuctionOn = new DateTime(2015, 5, 23),
-                    Agents = new List<ListingAgent>
+                    CommunicationType = CommunicationType.Email,
+                    Details = "a@b.c.d.e"
+                }
+            };
+            var agent = new ListingAgent
+            {
+                Name = "Princess Leia",
+                Order = 1
+            };
+            agent.AddCommunications(communications);
+
+            var agents = new List<ListingAgent>
+            {
+                agent
+            };
+
+            var listing = new ResidentialListing
+            {
+                AuctionOn = new DateTime(2015, 5, 23),
+
+                BuildingDetails = new BuildingDetails
+                {
+                    Area = new UnitOfMeasure
                     {
-                        new ListingAgent
-                        {
-                            Name = "Princess Leia",
-                            Order = 1,
-                            Communications = new List<Communication>
-                            {
-                                new Communication
-                                {
-                                    CommunicationType = CommunicationType.Email,
-                                    Details = "a@b.c.d.e"
-                                }
-                            }
-                        }
+                        Type = "Some type",
+                        Value = 1.2345m
                     },
-                    BuildingDetails = new BuildingDetails
-                    {
-                        Area = new UnitOfMeasure
-                        {
-                            Type = "Some type",
-                            Value = 1.2345m
-                        },
-                        EnergyRating = 111.222m,
-                    },
-                    CouncilRates = "some council rates",
-                    PropertyType = PropertyType.Townhouse,
-                    Pricing = new SalePricing
-                    {
-                        IsUnderOffer = true,
-                        SalePrice = 12345.66m,
-                        SalePriceText = "house for sale",
-                        SoldOn = new DateTime(2015, 6, 1),
-                        SoldPrice = 45432.99m,
-                        SoldPriceText = "just sold woot!"
-                    }
-                };
+                    EnergyRating = 111.222m,
+                },
+                CouncilRates = "some council rates",
+                PropertyType = PropertyType.Townhouse,
+                Pricing = new SalePricing
+                {
+                    IsUnderOffer = true,
+                    SalePrice = 12345.66m,
+                    SalePriceText = "house for sale",
+                    SoldOn = new DateTime(2015, 6, 1),
+                    SoldPrice = 45432.99m,
+                    SoldPriceText = "just sold woot!"
+                }
+            };
+            listing.AddAgents(agents);
 
             if (isClearAllIsModified)
             {
@@ -284,35 +290,40 @@ namespace OpenRealEstate.Tests
 
             UpdateAggregateRootWithFakeData(listing);
 
-            listing.Agents = new List<ListingAgent>
+            var agent1 = new ListingAgent
             {
-                new ListingAgent
-                {
-                    Name = "Princess Leia",
-                    Order = 1,
-                    Communications = new List<Communication>
-                    {
-                        new Communication
-                        {
-                            CommunicationType = CommunicationType.Email,
-                            Details = "i-am-a-princess@rebel-alliance.org"
-                        }
-                    }
-                },
-                new ListingAgent
-                {
-                    Name = "Han Solo",
-                    Order = 1,
-                    Communications = new List<Communication>
-                    {
-                        new Communication
-                        {
-                            CommunicationType = CommunicationType.Email,
-                            Details = "scruffy-nerf-herder@galacticmail.com"
-                        }
-                    }
-                }
+                Name = "Princess Leia",
+                Order = 1
             };
+            agent1.AddCommunications(new List<Communication>
+            {
+                new Communication
+                {
+                    CommunicationType = CommunicationType.Email,
+                    Details = "i-am-a-princess@rebel-alliance.org"
+                }
+            });
+            
+            var agent2 = new ListingAgent
+            {
+                Name = "Han Solo",
+                Order = 1
+            };
+            agent2.AddCommunications(new List<Communication>
+            {
+                new Communication
+                {
+                    CommunicationType = CommunicationType.Email,
+                    Details = "scruffy-nerf-herder@galacticmail.com"
+                }
+            });
+
+            listing.AddAgents(new List<ListingAgent>
+            {
+                agent1,
+                agent2
+            });
+
             listing.Address = new Address
             {
                 CountryIsoCode = "AU",
@@ -343,9 +354,9 @@ namespace OpenRealEstate.Tests
                 LivingAreas = 6,
 
                 Toilets = 8,
-                Tags = new HashSet<string>(new[] {"z", "y", "x", "w"})
             };
-            listing.FloorPlans = new List<Media>
+            listing.Features.AddTags(new HashSet<string>(new[] {"z", "y", "x", "w"}));
+            listing.AddFloorPlans(new List<Media>
             {
                 new Media
                 {
@@ -359,8 +370,8 @@ namespace OpenRealEstate.Tests
                     Order = 2,
                     Tag = "fp2"
                 }
-            };
-            listing.Images = new List<Media>
+            });
+            listing.AddImages(new List<Media>
             {
                 new Media
                 {
@@ -380,8 +391,8 @@ namespace OpenRealEstate.Tests
                     Order = 3,
                     Tag = "img3"
                 }
-            };
-            listing.Inspections = new List<Inspection>
+            });
+            listing.AddInspections(new List<Inspection>
             {
                 new Inspection
                 {
@@ -398,7 +409,7 @@ namespace OpenRealEstate.Tests
                     OpensOn = new DateTime(2015, 5, 7, 11, 55, 00),
                     ClosesOn = new DateTime(2015, 5, 7, 13, 00, 00)
                 }
-            };
+            });
             listing.LandDetails = new LandDetails
             {
                 Area = new Depth
@@ -408,21 +419,6 @@ namespace OpenRealEstate.Tests
                     Side = "some side"
                 },
                 CrossOver = "some cross over",
-                Depths = new List<Depth>
-                {
-                    new Depth
-                    {
-                        Value = 1234.11m,
-                        Type = "some type 1",
-                        Side = "some side 1"
-                    },
-                    new Depth
-                    {
-                        Value = 333.44m,
-                        Type = "some type 2",
-                        Side = "some side 2"
-                    }
-                },
                 Frontage = new Depth
                 {
                     Value = 1234.11m,
@@ -430,10 +426,25 @@ namespace OpenRealEstate.Tests
                     Side = "some side 1"
                 }
             };
+            listing.LandDetails.AddDepths(new List<Depth>
+            {
+                new Depth
+                {
+                    Value = 1234.11m,
+                    Type = "some type 1",
+                    Side = "some side 1"
+                },
+                new Depth
+                {
+                    Value = 333.44m,
+                    Type = "some type 2",
+                    Side = "some side 2"
+                }
+            });
             listing.Links = new List<string>(new[] {"link 1", "link 2"});
             listing.StatusType = StatusType.Current;
             listing.Title = "some title";
-            listing.Videos = new List<Media>
+            listing.AddVideos(new List<Media>
             {
                 new Media
                 {
@@ -447,7 +458,7 @@ namespace OpenRealEstate.Tests
                     Order = 2,
                     Tag = "v2"
                 }
-            };
+            });
         }
 
         public static void UpdateAggregateRootWithFakeData(AggregateRoot aggregateRoot)
@@ -459,6 +470,276 @@ namespace OpenRealEstate.Tests
 
             aggregateRoot.Id = "1234";
             aggregateRoot.UpdatedOn = new DateTime(2015, 5, 2);
+        }
+
+        #region Asserts
+
+        public static void AssertAggregateRoot(AggregateRoot destination, AggregateRoot source)
+        {
+            if (destination == null &&
+                source == null)
+            {
+                return;
+            } 
+            
+            destination.Id.ShouldBe(source.Id);
+            destination.UpdatedOn.ShouldBe(source.UpdatedOn);
+        }
+
+        public static void AssertAddress(Address destination, Address source)
+        {
+            if (destination == null &&
+                source == null)
+            {
+                return;
+            }
+
+            destination.CountryIsoCode.ShouldBe(source.CountryIsoCode);
+            destination.IsStreetDisplayed.ShouldBe(source.IsStreetDisplayed);
+            destination.Latitude.ShouldBe(source.Latitude);
+            destination.Longitude.ShouldBe(source.Longitude);
+            destination.Municipality.ShouldBe(source.Municipality);
+            destination.Postcode.ShouldBe(source.Postcode);
+            destination.State.ShouldBe(destination.State);
+            destination.Street.ShouldBe(source.Street);
+            destination.StreetNumber.ShouldBe(source.StreetNumber);
+            destination.Suburb.ShouldBe(source.Suburb);
+            destination.IsModified.ShouldBe(true);
+        }
+
+        public static void AssertCommunication(Communication destination, Communication source)
+        {
+            if (destination == null &&
+                   source == null)
+            {
+                return;
+            }
+
+            destination.CommunicationType.ShouldBe(source.CommunicationType);
+            destination.Details.ShouldBe(source.Details);
+            destination.ModifiedData.IsModified.ShouldBe(true);
+        }
+
+        public static void AssertListingAgent(ListingAgent destination, ListingAgent source)
+        {
+            if (destination == null &&
+                source == null)
+            {
+                return;
+            }
+
+            if (destination.Communications != null)
+            {
+                for(var i = 0; i < destination.Communications.Count; i++)
+                {
+                    destination.Communications.Count.ShouldBe(source.Communications.Count);
+                    AssertCommunication(destination.Communications[i], source.Communications[i]);
+                }
+            }
+            destination.Name.ShouldBe(source.Name);
+            destination.Order.ShouldBe(source.Order);
+            destination.ModifiedData.IsModified.ShouldBe(true);
+        }
+
+        public static void AssertCarparking(CarParking destination, CarParking source)
+        {
+            if (destination == null &&
+                source == null)
+            {
+                return;
+            }
+
+            destination.Carports.ShouldBe(source.Carports);
+            destination.Garages.ShouldBe(source.Garages);
+            destination.OpenSpaces.ShouldBe(source.OpenSpaces);
+            destination.ModifiedData.IsModified.ShouldBe(true);
+        }
+
+        public static void AssertTags(IList<string> destination, IList<string> source)
+        {
+            if (destination == null &&
+                source == null)
+            {
+                return;
+            }
+
+            destination.Count.ShouldBe(source.Count);
+            for (var i = 0; i < destination.Count; i++)
+            {
+                destination[i].ShouldBe(source[i]);
+            }
+        }
+
+        public static void AssertFeatures(Features destination, Features source)
+        {
+            if (destination == null &&
+                source == null)
+            {
+                return;
+            }
+
+            destination.Bathrooms.ShouldBe(source.Bathrooms);
+            destination.Bedrooms.ShouldBe(source.Bedrooms);
+            AssertCarparking(destination.CarParking, source.CarParking);
+            destination.Ensuites.ShouldBe(source.Ensuites);
+            destination.LivingAreas.ShouldBe(source.LivingAreas);
+            AssertTags(destination.Tags, source.Tags);
+            destination.Toilets.ShouldBe(source.Toilets);
+            destination.ModifiedData.IsModified.ShouldBe(true);
+        }
+
+        public static void AssertMedia(Media destination, Media source)
+        {
+            if (destination == null &&
+                source == null)
+            {
+                return;
+            }
+
+            destination.Order.ShouldBe(source.Order);
+            destination.Tag.ShouldBe(source.Tag);
+            destination.Url.ShouldBe(source.Url);
+            destination.ModifiedData.IsModified.ShouldBe(true);
+        }
+
+        public static void AssertMedias(IList<Media> destination, IList<Media> source)
+        {
+            if (destination != null &&
+                source != null)
+            {
+                destination.Count.ShouldBe(source.Count);
+                for (var i = 0; i < destination.Count; i++)
+                {
+                    AssertMedia(destination[i], source[i]);
+                }
+            }
+        }
+
+        public static void AssertInspection(Inspection destination, Inspection source)
+        {
+            if (destination == null &&
+                source == null)
+            {
+                return;
+            }
+
+            destination.ClosesOn.ShouldBe(source.ClosesOn);
+            destination.OpensOn.ShouldBe(source.OpensOn);
+            destination.ModifiedData.IsModified.ShouldBe(true);
+        }
+
+        public static void AssertInspections(IList<Inspection> destination, IList<Inspection> source)
+        {
+            if (destination == null &&
+                source == null)
+            {
+                return;
+            }
+
+            destination.Count.ShouldBe(source.Count);
+            for (var i = 0; i < destination.Count; i++)
+            {
+                AssertInspection(destination[i], source[i]);
+            }
+        }
+
+        public static void AssertUnitOfMeasure(UnitOfMeasure destination, UnitOfMeasure source)
+        {
+            if (destination == null &&
+                source == null)
+            {
+                return;
+            }
+            
+            destination.Type.ShouldBe(source.Type);
+            destination.Value.ShouldBe(source.Value);
+            destination.ModifiedData.IsModified.ShouldBe(true);
+        }
+
+        public static void AssertDepth(Depth destination, Depth source)
+        {
+            if (destination == null &&
+                source == null)
+            {
+                return;
+            }
+
+            destination.Side.ShouldBe(source.Side);
+            AssertUnitOfMeasure(destination, source);
+        }
+
+        public static void AssertDepths(IList<Depth> destination, IList<Depth> source)
+        {
+            if (destination == null &&
+                source == null)
+            {
+                return;
+            }
+
+            destination.Count.ShouldBe(source.Count);
+            for (var i = 0; i < destination.Count; i++)
+            {
+                AssertDepth(destination[i], source[i]);
+            }
+        }
+
+
+        public static void AssertLandDetails(LandDetails destination, LandDetails source)
+        {
+            if (destination == null &&
+                source == null)
+            {
+                return;
+            }
+
+            AssertUnitOfMeasure(destination.Area, source.Area);
+            AssertDepths(destination.Depths, source.Depths);
+            destination.CrossOver.ShouldBe(source.CrossOver);
+            AssertUnitOfMeasure(destination.Frontage, source.Frontage);
+        }
+
+        public static void AssertListing(Listing destination, Listing source)
+        {
+            if (destination == null &&
+                source == null)
+            {
+                return;
+            }
+
+            AssertAggregateRoot(destination, source);
+            AssertAddress(destination.Address, source.Address);
+            if (destination.Agents != null &&
+                source.Agents != null)
+            {
+                destination.Agents.Count.ShouldBe(source.Agents.Count);
+                for(var i = 0; i < destination.Agents.Count; i++)
+                {
+                    AssertListingAgent(destination.Agents[0], source.Agents[0]);
+                }
+            }
+            destination.AgencyId.ShouldBe(source.AgencyId);
+            destination.CreatedOn.ShouldBe(source.CreatedOn);
+            destination.Description.ShouldBe(source.Description);
+            AssertFeatures(destination.Features, source.Features);
+            AssertMedias(destination.Images, source.Images);
+            AssertMedias(destination.FloorPlans, source.FloorPlans);
+            AssertInspections(destination.Inspections, source.Inspections);
+            destination.StatusType.ShouldBe(source.StatusType);
+            destination.Title.ShouldBe(source.Title);
+            AssertMedias(destination.Videos, source.Videos);
+            destination.IsModified.ShouldBe(true);
+        }
+
+        public static void AssertResidentialListing(ResidentialListing destination, ResidentialListing source)
+        {
+            if (destination == null &&
+                source == null)
+            {
+                return;
+            }
+
+            AssertListing(destination, source);
+            destination.IsModified.ShouldBe(true);
         }
 
         public static void AssertMediaItems(IList<Media> destinationMedia,
@@ -482,5 +763,7 @@ namespace OpenRealEstate.Tests
                 destinationMedia[i].IsTagModified.ShouldBe(true);
             }
         }
+
+        #endregion
     }
 }

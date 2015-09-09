@@ -1,72 +1,61 @@
 ﻿using System;
+using System.Diagnostics;
+using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
 {
     public abstract class AggregateRoot
     {
-        private string _id;
-        private DateTime _updatedOn;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly StringNotified _id;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly DateTimeNotified _updatedOn;
+
+        protected AggregateRoot()
+        {
+            ModifiedData = new ModifiedData(GetType());
+
+            _id = new StringNotified("Id");
+            _id.PropertyChanged += ModifiedData.OnPropertyChanged;
+
+            _updatedOn = new DateTimeNotified("UpdatedOn");
+            _updatedOn.PropertyChanged += ModifiedData.OnPropertyChanged;
+        }
+
+        public ModifiedData ModifiedData { get; private set; }
 
         public string Id
         {
-            get { return _id; }
-            set
-            {
-                _id = value;
-                IsIdModified = true;
-            }
+            get { return _id.Value; }
+            set { _id.Value = value; }
         }
 
+        [Obsolete]
         public bool IsIdModified { get; private set; }
 
         public DateTime UpdatedOn
         {
-            get { return _updatedOn; }
-            set
-            {
-                _updatedOn = value;
-                IsUpdatedOnModified = true;
-            }
+            get { return _updatedOn.Value; }
+            set { _updatedOn.Value = value; }
         }
 
+        [Obsolete]
         public bool IsUpdatedOnModified { get; private set; }
 
         public virtual bool IsModified
         {
-            get
-            {
-                return IsIdModified ||
-                       IsUpdatedOnModified;
-            }
+            get { return ModifiedData.IsModified; }
         }
 
-        public virtual void Copy(AggregateRoot newAggregateRoot)
+        public void Copy(AggregateRoot newAggregateRoot)
         {
-            if (newAggregateRoot == null)
-            {
-                throw new ArgumentNullException("newAggregateRoot");
-            }
-
-            if (!newAggregateRoot.IsModified)
-            {
-                return;
-            }
-
-            if (newAggregateRoot.IsIdModified)
-            {
-                Id = newAggregateRoot.Id;
-            }
-
-            if (newAggregateRoot.IsUpdatedOnModified)
-            {
-                UpdatedOn = newAggregateRoot.UpdatedOn;
-            }
+            ModifiedData.Copy(newAggregateRoot, this);
         }
 
         public virtual void ClearAllIsModified()
         {
-            IsIdModified = false;
-            IsUpdatedOnModified = false;
+            ModifiedData.ClearModifiedProperties(new[] {"Id", "UpdatedOn"});
         }
     }
 }

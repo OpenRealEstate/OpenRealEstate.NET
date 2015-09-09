@@ -1,27 +1,52 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
 {
     public class LandDetails
     {
-        private UnitOfMeasure _area;
-        private string _crossOver;
-        private IList<Depth> _depths;
-        private UnitOfMeasure _frontage;
+        private readonly InstanceObjectNotified<UnitOfMeasure> _area;
+        private readonly StringNotified _crossOver;
+        private readonly ObservableCollection<Depth> _depths;
+        private readonly InstanceObjectNotified<UnitOfMeasure> _frontage;
+        [Obsolete]
         private bool _isAreaModified;
+        [Obsolete]
         private bool _isFrontageModified;
+
+        private const string AreaName = "Area";
+        private const string CrossOverName = "CrossOver";
+        private const string DepthsName = "Depths";
+        private const string FrontageName = "Frontage";
+
+        public LandDetails()
+        {
+            ModifiedData = new ModifiedData(GetType());
+
+            _area = new InstanceObjectNotified<UnitOfMeasure>(AreaName);
+            _area.PropertyChanged += ModifiedData.OnPropertyChanged;
+
+            _crossOver = new StringNotified(CrossOverName);
+            _crossOver.PropertyChanged += ModifiedData.OnPropertyChanged;
+
+            _depths = new ObservableCollection<Depth>();
+            _depths.CollectionChanged += (sender, args) => { ModifiedData.OnCollectionChanged(DepthsName); };
+
+            _frontage = new InstanceObjectNotified<UnitOfMeasure>(FrontageName);
+            _frontage.PropertyChanged += ModifiedData.OnPropertyChanged;
+        }
+
+        public ModifiedData ModifiedData { get; private set; }
 
         public UnitOfMeasure Area
         {
-            get { return _area; }
-            set
-            {
-                _area = value;
-                IsAreaModified = true;
-            }
+            get { return _area.Value; }
+            set { _area.Value = value; }
         }
-
+        [Obsolete]
         public bool IsAreaModified
         {
             get
@@ -35,14 +60,10 @@ namespace OpenRealEstate.Core.Models
 
         public UnitOfMeasure Frontage
         {
-            get { return _frontage; }
-            set
-            {
-                _frontage = value;
-                IsFrontageModified = true;
-            }
+            get { return _frontage.Value; }
+            set { _frontage.Value = value; }
         }
-
+        [Obsolete]
         public bool IsFrontageModified
         {
             get
@@ -54,40 +75,54 @@ namespace OpenRealEstate.Core.Models
             private set { _isFrontageModified = value; }
         }
 
-        public IList<Depth> Depths
+        public ReadOnlyCollection<Depth> Depths
         {
-            get { return _depths; }
-            set
-            {
-                _depths = value;
-                IsDepthsModified = true;
-            }
+            get { return _depths.ToList().AsReadOnly(); }
         }
-
+        [Obsolete]
         public bool IsDepthsModified { get; private set; }
 
         public string CrossOver
         {
-            get { return _crossOver; }
-            set
-            {
-                _crossOver = value;
-                IsCrossOverModified = true;
-            }
+            get { return _crossOver.Value; }
+            set { _crossOver.Value = value; }
         }
-
+        [Obsolete]
         public bool IsCrossOverModified { get; private set; }
 
         public bool IsModified
         {
-            get
+            get { return ModifiedData.IsModified; }
+        }
+
+        public void AddDepths(ICollection<Depth> depths)
+        {
+            if (depths == null)
             {
-                return IsAreaModified ||
-                       (Area != null && Area.IsModified) ||
-                       IsFrontageModified ||
-                       (Frontage != null && Frontage.IsModified) ||
-                       IsDepthsModified ||
-                       IsCrossOverModified;
+                throw new ArgumentNullException("depths");
+            }
+
+            if (!depths.Any())
+            {
+                throw new ArgumentOutOfRangeException("depths");
+            }
+
+            foreach (var depth in depths)
+            {
+                _depths.Add(depth);
+            }
+        }
+
+        public void RemoveDepths(Depth depth)
+        {
+            if (depth == null)
+            {
+                throw new ArgumentNullException("depth");
+            }
+
+            if (_depths != null)
+            {
+                _depths.Remove(depth);
             }
         }
 
@@ -98,73 +133,30 @@ namespace OpenRealEstate.Core.Models
                 throw new ArgumentNullException("newLandDetails");
             }
 
-            if (newLandDetails.IsAreaModified)
-            {
-                if (newLandDetails.Area == null)
-                {
-                    Area = null;
-                }
-                else
-                {
-                    if (Area == null)
-                    {
-                        Area = new UnitOfMeasure();
-                    }
-                    Area.Copy(newLandDetails.Area);
-                }
-            }
+            ModifiedData.Copy(newLandDetails, this);
 
-            if (newLandDetails.IsFrontageModified)
+            if (newLandDetails.ModifiedData.ModifiedCollections.Contains(DepthsName))
             {
-                if (newLandDetails.Frontage == null)
+                var depths = new List<Depth>();
+                foreach (var depth in newLandDetails.Depths)
                 {
-                    Frontage = null;
+                    var newDepth= new Depth();
+                    newDepth.Copy(depth);
+                    depths.Add(newDepth);
                 }
-                else
-                {
-                    if (Frontage == null)
-                    {
-                        Frontage = new UnitOfMeasure();
-                    }
-                    Frontage = newLandDetails.Frontage;
-                }
-            }
-
-            if (newLandDetails.IsDepthsModified)
-            {
-                Depths = newLandDetails.Depths;
-            }
-
-            if (newLandDetails.IsCrossOverModified)
-            {
-                CrossOver = newLandDetails.CrossOver;
+                AddDepths(depths);
             }
         }
 
         public void ClearAllIsModified()
         {
-            if (Area != null)
+            ModifiedData.ClearModifiedProperties(new[]
             {
-                Area.ClearAllIsModified();
-            }
-            IsAreaModified = false;
-
-            if (Frontage.IsModified)
-            {
-                Frontage.ClearAllIsModified();
-            }
-            IsFrontageModified = false;
-
-            if (Depths != null)
-            {
-                foreach (var depth in Depths)
-                {
-                    depth.ClearAllIsModified();
-                }
-            }
-            IsDepthsModified = false;
-
-            IsCrossOverModified = false;
+                AreaName,
+                CrossOverName,
+                DepthsName,
+                FrontageName
+            });
         }
     }
 }

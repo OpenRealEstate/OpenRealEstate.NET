@@ -1,65 +1,88 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
 {
     public class Features
     {
-        private int _bathrooms;
-        private int _bedrooms;
-        private CarParking _carParking;
-        private int _ensuites;
+        private readonly Int32Notified _bathrooms;
+        private readonly Int32Notified _bedrooms;
+        private readonly InstanceObjectNotified<CarParking> _carParking;
+        private readonly Int32Notified _ensuites;
+        [Obsolete]
         private bool _isCarParkingModified;
-        private int _livingAreas;
-        private ISet<string> _tags;
-        private int _toilets;
+        private readonly Int32Notified _livingAreas;
+        private readonly ObservableCollection<string> _tags;
+        private readonly Int32Notified _toilets;
+        private const string BathroomsName = "Bathrooms";
+        private const string BedroomsName = "Bedrooms";
+        private const string CarParkingName = "CarParking";
+        private const string EnsuitesName = "Ensuites";
+        private const string LivingAreasName = "LivingAreas";
+        private const string TagsName = "Tags";
+        private const string ToiletsName = "Toilets";
+
+        public Features()
+        {
+            ModifiedData = new ModifiedData(GetType());
+
+            _bathrooms = new Int32Notified(BathroomsName);
+            _bathrooms.PropertyChanged += ModifiedData.OnPropertyChanged;
+
+            _bedrooms = new Int32Notified(BedroomsName);
+            _bedrooms.PropertyChanged += ModifiedData.OnPropertyChanged;
+
+            _carParking = new InstanceObjectNotified<CarParking>(CarParkingName);
+            _carParking.PropertyChanged += ModifiedData.OnPropertyChanged;
+
+            _ensuites = new Int32Notified(EnsuitesName);
+            _ensuites.PropertyChanged += ModifiedData.OnPropertyChanged;
+
+            _livingAreas = new Int32Notified(LivingAreasName);
+            _livingAreas.PropertyChanged += ModifiedData.OnPropertyChanged;
+
+            _tags = new ObservableCollection<string>();
+            _tags.CollectionChanged += (sender, args) => { ModifiedData.OnCollectionChanged(TagsName); };
+
+            _toilets = new Int32Notified(ToiletsName);
+            _toilets.PropertyChanged += ModifiedData.OnPropertyChanged;
+        }
+        public ModifiedData ModifiedData { get; private set; }
 
         public int Bedrooms
         {
-            get { return _bedrooms; }
-            set
-            {
-                _bedrooms = value;
-                IsBedroomsModified = true;
-            }
+            get { return _bedrooms.Value; }
+            set { _bedrooms.Value = value; }
         }
 
+        [Obsolete]
         public bool IsBedroomsModified { get; private set; }
 
         public int Bathrooms
         {
-            get { return _bathrooms; }
-            set
-            {
-                _bathrooms = value;
-                IsBathroomsModified = true;
-            }
+            get { return _bathrooms.Value; }
+            set { _bathrooms.Value = value; }
         }
-
+        [Obsolete]
         public bool IsBathroomsModified { get; private set; }
 
         public int Toilets
         {
-            get { return _toilets; }
-            set
-            {
-                _toilets = value;
-                IsToiletsModified = true;
-            }
+            get { return _toilets.Value; }
+            set { _toilets.Value = value; }
         }
-
+        [Obsolete]
         public bool IsToiletsModified { get; private set; }
 
         public CarParking CarParking
         {
-            get { return _carParking; }
-            set
-            {
-                _carParking = value;
-                IsCarParkingModified = true;
-            }
+            get { return _carParking.Value; }
+            set { _carParking.Value = value; }
         }
-
+        [Obsolete]
         public bool IsCarParkingModified
         {
             get
@@ -73,129 +96,98 @@ namespace OpenRealEstate.Core.Models
 
         public int Ensuites
         {
-            get { return _ensuites; }
-            set
-            {
-                _ensuites = value;
-                IsEnsuitesModified = true;
-            }
+            get { return _ensuites.Value; }
+            set { _ensuites.Value = value; }
         }
-
+        [Obsolete]
         public bool IsEnsuitesModified { get; private set; }
 
         public int LivingAreas
         {
-            get { return _livingAreas; }
-            set
-            {
-                _livingAreas = value;
-                IsLivingAreasModified = true;
-            }
+            get { return _livingAreas.Value; }
+            set { _livingAreas.Value = value; }
         }
-
+        [Obsolete]
         public bool IsLivingAreasModified { get; private set; }
 
-        public ISet<string> Tags
+        public ReadOnlyCollection<string> Tags
         {
-            get { return _tags; }
-            set
-            {
-                _tags = value;
-                IsTagsModified = true;
-            }
+            get { return _tags.ToList().AsReadOnly(); }
         }
 
+        [Obsolete]
         public bool IsTagsModified { get; private set; }
 
         public bool IsModified
         {
-            get
+            get { return ModifiedData.IsModified; }
+        }
+
+        public void AddTags(ICollection<string> tags)
+        {
+            if (tags == null)
             {
-                return IsBedroomsModified ||
-                       IsBathroomsModified ||
-                       IsToiletsModified ||
-                       IsCarParkingModified ||
-                       IsEnsuitesModified ||
-                       IsLivingAreasModified ||
-                       IsTagsModified;
+                throw new ArgumentNullException("tags");
+            }
+
+            if (!tags.Any())
+            {
+                throw new ArgumentOutOfRangeException("tags");
+            }
+
+            foreach (var tag in tags.Where(tag => !_tags.Contains(tag)))
+            {
+                _tags.Add(tag);
+            }
+        }
+
+        public void RemoveTag(string tag)
+        {
+            if (tag == null)
+            {
+                throw new ArgumentNullException("tag");
+            }
+
+            if (_tags != null)
+            {
+                 _tags.Remove(tag);
             }
         }
 
         public void Copy(Features newFeatures)
         {
-            if (newFeatures == null)
-            {
-                throw new ArgumentNullException("newFeatures");
-            }
+            // NOTE: The main properties should already be copied from reflection
+            //       outside of this.
+            //ModifiedData.Copy(newFeatures, this);
 
-            if (newFeatures.IsBedroomsModified)
+            if (newFeatures.ModifiedData.ModifiedCollections.Contains(TagsName))
             {
-                Bedrooms = newFeatures.Bedrooms;
-            }
-
-            if (newFeatures.IsBathroomsModified)
-            {
-                Bathrooms = newFeatures.Bathrooms;
-            }
-
-            if (newFeatures.IsToiletsModified)
-            {
-                Toilets = newFeatures.Toilets;
-            }
-
-            if (newFeatures.IsCarParkingModified)
-            {
-                if (newFeatures.CarParking == null)
+                var tags = new HashSet<string>();
+                foreach (var tag in newFeatures.Tags)
                 {
-                    CarParking = null;
+                    tags.Add(tag);
                 }
-                else
-                {
-                    if (CarParking == null)
-                    {
-                        CarParking = new CarParking();
-                    }
-
-                    if (newFeatures.CarParking.IsModified)
-                    {
-                        CarParking.Copy(newFeatures.CarParking);
-                    }
-
-                    IsCarParkingModified = true;
-                }
-            }
-
-            if (newFeatures.IsEnsuitesModified)
-            {
-                Ensuites = newFeatures.Ensuites;
-            }
-
-            if (newFeatures.IsLivingAreasModified)
-            {
-                LivingAreas = newFeatures.LivingAreas;
-            }
-
-            if (newFeatures.IsTagsModified)
-            {
-                Tags = newFeatures.Tags;
+                AddTags(tags);
             }
         }
 
         public void ClearAllIsModified()
         {
+            ModifiedData.ClearModifiedProperties(new[]
+            {
+                BathroomsName,
+                BedroomsName,
+                CarParkingName,
+                EnsuitesName,
+                LivingAreasName,
+                TagsName,
+                ToiletsName
+            });
+
             if (CarParking != null)
             {
                 CarParking.ClearAllIsModified();
             }
-            IsCarParkingModified = false;
-
-            IsBedroomsModified = false;
-            IsBathroomsModified = false;
-            IsToiletsModified = false;
-            IsCarParkingModified = false;
-            IsEnsuitesModified = false;
-            IsLivingAreasModified = false;
-            IsTagsModified = false;
         }
     }
 }

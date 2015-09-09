@@ -34,16 +34,16 @@ namespace OpenRealEstate.Tests.Validators
             // Arrange.
             var listingAgent = new ListingAgent
             {
-                Name = "a",
-                Communications = new List<Communication>
-                {
-                    new Communication
-                    {
-                        CommunicationType = CommunicationType.Email,
-                        Details = "a"
-                    }
-                }
+                Name = "a"
             };
+            listingAgent.AddCommunications(new List<Communication>
+            {
+                new Communication
+                {
+                    CommunicationType = CommunicationType.Email,
+                    Details = "a"
+                }
+            });
 
             // Act.
             _validator.ShouldHaveChildValidator(agent => agent.Communications, typeof (CommunicationValidator));
@@ -60,16 +60,16 @@ namespace OpenRealEstate.Tests.Validators
             // Arrange.
             var listingAgent = new ListingAgent
             {
-                Name = "a",
-                Communications = new List<Communication>
-                {
-                    new Communication
-                    {
-                        CommunicationType = CommunicationType.Unknown,
-                        Details = "a"
-                    }
-                }
+                Name = "a"
             };
+            listingAgent.AddCommunications(new List<Communication>
+            {
+                new Communication
+                {
+                    CommunicationType = CommunicationType.Unknown,
+                    Details = "a"
+                }
+            });
 
             // Act.
             _validator.ShouldHaveChildValidator(agent => agent.Communications, typeof(CommunicationValidator));

@@ -1,140 +1,148 @@
 ﻿using System;
 using System.Text;
+using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
 {
     public class Address
     {
-        private string _countryIsoCode;
-        private bool _isStreetDisplayed;
-        private decimal? _latitude;
-        private decimal? _longitude;
-        private string _municipality;
-        private string _postcode;
-        private string _state;
-        private string _street;
-        private string _streetNumber;
-        private string _suburb;
+        private readonly ModifiedData _modifiedData;
+        private readonly StringNotified _countryIsoCode;
+        private readonly BooleanNotified _isStreetDisplayed;
+        private readonly DecimalNullableNotified _latitude;
+        private readonly DecimalNullableNotified _longitude;
+        private readonly StringNotified _municipality;
+        private readonly StringNotified _postcode;
+        private readonly StringNotified _state;
+        private readonly StringNotified _street;
+        private readonly StringNotified _streetNumber;
+        private readonly StringNotified _suburb;
+        private const string CountryIsoCodeName = "CountryIsoCode";
+        private const string IsStreetDisplayedName = "IsStreetDisplayed";
+        private const string LatitudeName = "Latitude";
+        private const string LongitudeName = "Longitude";
+        private const string MunicipalityName = "Municipality";
+        private const string PostcodeName = "Postcode";
+        private const string StateName = "State";
+        private const string StreetName = "Street";
+        private const string StreetNumberName = "StreetNumber";
+        private const string SuburbName = "Suburb";
+
+        public Address()
+        {
+            _modifiedData = new ModifiedData(GetType());
+            
+            _countryIsoCode = new StringNotified(CountryIsoCodeName);
+            _countryIsoCode.PropertyChanged += _modifiedData.OnPropertyChanged;
+
+            _isStreetDisplayed = new BooleanNotified(IsStreetDisplayedName);
+            _isStreetDisplayed.PropertyChanged += _modifiedData.OnPropertyChanged;
+
+            _latitude = new DecimalNullableNotified(LatitudeName);
+            _latitude.PropertyChanged += _modifiedData.OnPropertyChanged;
+
+            _longitude = new DecimalNullableNotified(LongitudeName);
+            _longitude.PropertyChanged += _modifiedData.OnPropertyChanged;
+
+            _municipality = new StringNotified(MunicipalityName);
+            _municipality.PropertyChanged += _modifiedData.OnPropertyChanged;
+
+            _postcode = new StringNotified(PostcodeName);
+            _postcode.PropertyChanged += _modifiedData.OnPropertyChanged;
+
+            _state = new StringNotified(StateName);
+            _state.PropertyChanged += _modifiedData.OnPropertyChanged;
+
+            _street = new StringNotified(StreetName);
+            _street.PropertyChanged += _modifiedData.OnPropertyChanged;
+
+            _streetNumber = new StringNotified(StreetNumberName);
+            _streetNumber.PropertyChanged += _modifiedData.OnPropertyChanged;
+
+            _suburb = new StringNotified(SuburbName);
+            _suburb.PropertyChanged += _modifiedData.OnPropertyChanged;
+        }
 
         public string StreetNumber
         {
-            get { return _streetNumber; }
-            set
-            {
-                _streetNumber = value;
-                IsStreetNumberModified = true;
-            }
+            get { return _streetNumber.Value; }
+            set { _streetNumber.Value = value; }
         }
 
+        [Obsolete]
         public bool IsStreetNumberModified { get; private set; }
 
         public string Street
         {
-            get { return _street; }
-            set
-            {
-                _street = value;
-                IsStreetModified = true;
-            }
+            get { return _street.Value; }
+            set { _street.Value = value; }
         }
-
+        [Obsolete]
         public bool IsStreetModified { get; private set; }
 
         public string Suburb
         {
-            get { return _suburb; }
-            set
-            {
-                _suburb = value;
-                IsSuburbModified = true;
-            }
+            get { return _suburb.Value; }
+            set { _suburb.Value = value; }
         }
-
+        [Obsolete]
         public bool IsSuburbModified { get; private set; }
 
         public string Municipality
         {
-            get { return _municipality; }
-            set
-            {
-                _municipality = value;
-                IsMunicipalityModified = true;
-            }
+            get { return _municipality.Value; }
+            set { _municipality.Value = value; }
         }
-
+        [Obsolete]
         public bool IsMunicipalityModified { get; private set; }
 
         public string State
         {
-            get { return _state; }
-            set
-            {
-                _state = value;
-                IsStateModified = true;
-            }
+            get { return _state.Value; }
+            set { _state.Value = value; }
         }
-
+        [Obsolete]
         public bool IsStateModified { get; private set; }
 
         /// <remarks>More Info: http://en.wikipedia.org/wiki/ISO_3166-1</remarks>
         public string CountryIsoCode
         {
-            get { return _countryIsoCode; }
-            set
-            {
-                _countryIsoCode = value;
-                IsCountryIsoCodeModified = true;
-            }
+            get { return _countryIsoCode.Value; }
+            set { _countryIsoCode.Value = value; }
         }
-
+        [Obsolete]
         public bool IsCountryIsoCodeModified { get; private set; }
 
         public string Postcode
         {
-            get { return _postcode; }
-            set
-            {
-                _postcode = value;
-                IsPostcodeModified = true;
-            }
+            get { return _postcode.Value; }
+            set { _postcode.Value = value; }
         }
-
+        [Obsolete]
         public bool IsPostcodeModified { get; private set; }
 
         public decimal? Latitude
         {
-            get { return _latitude; }
-            set
-            {
-                _latitude = value;
-                IsLatitudeModified = true;
-            }
+            get { return _latitude.Value; }
+            set { _latitude.Value = value; }
         }
-
+        [Obsolete]
         public bool IsLatitudeModified { get; private set; }
 
         public decimal? Longitude
         {
-            get { return _longitude; }
-            set
-            {
-                _longitude = value;
-                IsLongitudeModified = true;
-            }
+            get { return _longitude.Value; }
+            set { _longitude.Value = value; }
         }
-
+        [Obsolete]
         public bool IsLongitudeModified { get; private set; }
 
         public bool IsStreetDisplayed
         {
-            get { return _isStreetDisplayed; }
-            set
-            {
-                _isStreetDisplayed = value;
-                IsIsStreetDisplayedModified = true;
-            }
+            get { return _isStreetDisplayed.Value; }
+            set { _isStreetDisplayed.Value = value; }
         }
-
+        [Obsolete]
         public bool IsIsStreetDisplayedModified { get; private set; }
 
         public override string ToString()
@@ -175,77 +183,12 @@ namespace OpenRealEstate.Core.Models
 
         public bool IsModified
         {
-            get
-            {
-                return IsStreetNumberModified ||
-                       IsStreetModified ||
-                       IsSuburbModified ||
-                       IsMunicipalityModified ||
-                       IsStateModified ||
-                       IsCountryIsoCodeModified ||
-                       IsPostcodeModified ||
-                       IsLatitudeModified ||
-                       IsLongitudeModified ||
-                       IsIsStreetDisplayedModified;
-            }
+            get { return _modifiedData.IsModified; }
         }
 
         public void Copy(Address newAddress)
         {
-            if (newAddress == null)
-            {
-                throw new ArgumentNullException("newAddress");
-            }
-
-            if (newAddress.IsStreetNumberModified)
-            {
-                StreetNumber = newAddress.StreetNumber;
-            }
-
-            if (newAddress.IsStreetModified)
-            {
-                Street = newAddress.Street;
-            }
-
-            if (newAddress.IsSuburbModified)
-            {
-                Suburb = newAddress.Suburb;
-            }
-
-            if (newAddress.IsMunicipalityModified)
-            {
-                Municipality = newAddress.Municipality;
-            }
-
-            if (newAddress.IsStateModified)
-            {
-                State = newAddress.State;
-            }
-
-            if (newAddress.IsCountryIsoCodeModified)
-            {
-                CountryIsoCode = newAddress.CountryIsoCode;
-            }
-
-            if (newAddress.IsPostcodeModified)
-            {
-                Postcode = newAddress.Postcode;
-            }
-
-            if (newAddress.IsLatitudeModified)
-            {
-                Latitude = newAddress.Latitude;
-            }
-
-            if (newAddress.IsLongitudeModified)
-            {
-                Longitude = newAddress.Longitude;
-            }
-
-            if (newAddress.IsIsStreetDisplayedModified)
-            {
-                IsStreetDisplayed = newAddress.IsStreetDisplayed;
-            }
+            _modifiedData.Copy(newAddress, this);
         }
 
         private static void AppendDelimeter(StringBuilder stringBuilder, string delimeter = ", ")
@@ -263,16 +206,19 @@ namespace OpenRealEstate.Core.Models
 
         public void ClearAllIsModified()
         {
-            IsStreetNumberModified = false;
-            IsStreetModified = false;
-            IsSuburbModified = false;
-            IsMunicipalityModified = false;
-            IsStateModified = false;
-            IsCountryIsoCodeModified = false;
-            IsPostcodeModified = false;
-            IsLatitudeModified = false;
-            IsLongitudeModified = false;
-            IsIsStreetDisplayedModified = false;
+            _modifiedData.ClearModifiedProperties(new[]
+            {
+                CountryIsoCodeName,
+                IsStreetDisplayedName,
+                LatitudeName,
+                LongitudeName,
+                MunicipalityName,
+                PostcodeName,
+                StateName,
+                StreetName,
+                StreetNumberName,
+                SuburbName
+            });
         }
     }
 }

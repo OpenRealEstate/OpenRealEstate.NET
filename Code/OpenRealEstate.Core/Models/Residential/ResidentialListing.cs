@@ -1,16 +1,29 @@
 ﻿using System;
+using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models.Residential
 {
     public class ResidentialListing : Listing
     {
-        private DateTime? _auctionOn;
-        private BuildingDetails _buildingDetails;
+        private readonly DateTimeNullableNotified _auctionOn;
+        private readonly InstanceObjectNotified<BuildingDetails> _buildingDetails;
         private bool _isBuildingDetailsModified;
-        private string _councilRates;
+        private readonly StringNotified _councilRates;
         private PropertyType _propertyType;
         private SalePricing _salePricing;
         private bool _isPricingModified;
+
+        public ResidentialListing()
+        {
+            _auctionOn = new DateTimeNullableNotified("AuctionOn");
+            _auctionOn.PropertyChanged += ModifiedData.OnPropertyChanged;
+
+            _councilRates = new StringNotified("CouncilRates");
+            _councilRates.PropertyChanged += ModifiedData.OnPropertyChanged;
+
+            _buildingDetails = new InstanceObjectNotified<BuildingDetails>("BuildingDetails");
+            _buildingDetails.PropertyChanged += ModifiedData.OnPropertyChanged;
+        }
 
         public PropertyType PropertyType
         {
@@ -46,38 +59,31 @@ namespace OpenRealEstate.Core.Models.Residential
 
         public DateTime? AuctionOn
         {
-            get { return _auctionOn; }
+            get { return _auctionOn.Value; }
             set
             {
-                _auctionOn = value;
-                IsAuctionOnModified = true;
+                _auctionOn.Value = value;
             }
         }
 
+        [Obsolete]
         public bool IsAuctionOnModified { get; private set; }
 
         public string CouncilRates
         {
-            get { return _councilRates; }
-            set
-            {
-                _councilRates = value;
-                IsCouncilRatesModified = true;
-            }
+            get { return _councilRates.Value; }
+            set { _councilRates.Value = value; }
         }
 
         public bool IsCouncilRatesModified { get; private set; }
 
         public BuildingDetails BuildingDetails
         {
-            get { return _buildingDetails; }
-            set
-            {
-                _buildingDetails = value;
-                IsBuildingDetailsModified = true;
-            }
+            get { return _buildingDetails.Value; }
+            set { _buildingDetails.Value = value; }
         }
 
+        [Obsolete]
         public bool IsBuildingDetailsModified
         {
             get
@@ -107,99 +113,98 @@ namespace OpenRealEstate.Core.Models.Residential
             return string.Format("Residential >> {0}", base.ToString());
         }
 
-        public void Copy(ResidentialListing newResidentialListing)
+        public void CopyX<T>(T newResidentialListing) where T : class, new()
         {
-            if (newResidentialListing == null)
-            {
-                throw new ArgumentNullException("newResidentialListing");
-            }
+            //if (newResidentialListing == null)
+            //{
+            //    throw new ArgumentNullException("newResidentialListing");
+            //}
 
-            if (!newResidentialListing.IsModified)
-            {
-                return;
-            }
+            //ModifiedData.Copy(newResidentialListing, this);
 
-            base.Copy(newResidentialListing);
+//            base.Copy(newResidentialListing);
+            
 
-            if (newResidentialListing.IsPropertyTypeModified)
-            {
-                PropertyType = newResidentialListing.PropertyType;
-            }
+            //if (!newResidentialListing.IsModified)
+            //{
+            //    return;
+            //}
 
-            if (newResidentialListing.IsPricingModified)
-            {
-                if (newResidentialListing.Pricing == null)
-                {
-                    Pricing = null;
-                }
-                else
-                {
-                    if (Pricing == null)
-                    {
-                        Pricing = new SalePricing();
-                    }
+            //base.Copy(newResidentialListing);
 
-                    if (newResidentialListing.Pricing.IsModified)
-                    {
-                        Pricing.Copy(newResidentialListing.Pricing);
-                    }
+            //if (newResidentialListing.IsPropertyTypeModified)
+            //{
+            //    PropertyType = newResidentialListing.PropertyType;
+            //}
 
-                    IsPricingModified = true;
-                }
-            }
+            //if (newResidentialListing.IsPricingModified)
+            //{
+            //    if (newResidentialListing.Pricing == null)
+            //    {
+            //        Pricing = null;
+            //    }
+            //    else
+            //    {
+            //        if (Pricing == null)
+            //        {
+            //            Pricing = new SalePricing();
+            //        }
 
-            if (newResidentialListing.IsAuctionOnModified)
-            {
-                AuctionOn = newResidentialListing.AuctionOn;
-            }
+            //        if (newResidentialListing.Pricing.IsModified)
+            //        {
+            //            Pricing.Copy(newResidentialListing.Pricing);
+            //        }
 
-            if (newResidentialListing.IsCouncilRatesModified)
-            {
-                CouncilRates = newResidentialListing.CouncilRates;
-            }
+            //        IsPricingModified = true;
+            //    }
+            //}
 
-            if (newResidentialListing.IsBuildingDetailsModified)
-            {
-                if (newResidentialListing.BuildingDetails == null)
-                {
-                    BuildingDetails = null;
-                }
-                else
-                {
-                    if (BuildingDetails == null)
-                    {
-                        BuildingDetails = new BuildingDetails();
-                    }
+            //if (newResidentialListing.IsAuctionOnModified)
+            //{
+            //    AuctionOn = newResidentialListing.AuctionOn;
+            //}
 
-                    if (newResidentialListing.BuildingDetails.IsModified)
-                    {
-                        BuildingDetails.Copy(newResidentialListing.BuildingDetails);
-                    }
+            //if (newResidentialListing.IsCouncilRatesModified)
+            //{
+            //    CouncilRates = newResidentialListing.CouncilRates;
+            //}
 
-                    IsBuildingDetailsModified = true;
-                }
-            }
+            //if (newResidentialListing.IsBuildingDetailsModified)
+            //{
+            //    if (newResidentialListing.BuildingDetails == null)
+            //    {
+            //        BuildingDetails = null;
+            //    }
+            //    else
+            //    {
+            //        if (BuildingDetails == null)
+            //        {
+            //            BuildingDetails = new BuildingDetails();
+            //        }
+
+            //        if (newResidentialListing.BuildingDetails.IsModified)
+            //        {
+            //            BuildingDetails.Copy(newResidentialListing.BuildingDetails);
+            //        }
+
+            //        IsBuildingDetailsModified = true;
+            //    }
+            //}
         }
 
         public override void ClearAllIsModified()
         {
             base.ClearAllIsModified();
-
-            if (Pricing != null)
+            if (_buildingDetails.Value.IsModified)
             {
-                Pricing.ClearAllIsModified();
+                _buildingDetails.Value.ClearAllIsModified();
             }
-            IsPricingModified = false;
 
-            if (BuildingDetails != null)
+            ModifiedData.ClearModifiedProperties(new[]
             {
-                BuildingDetails.ClearAllIsModified();
-            }
-            IsBuildingDetailsModified = false;
-
-            IsPropertyTypeModified = false;
-            IsAuctionOnModified = false;
-            IsCouncilRatesModified = false;
+                "AuctionOn", 
+                "CouncilRates"
+            });
         }
     }
 }

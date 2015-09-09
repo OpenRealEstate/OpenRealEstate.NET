@@ -1,58 +1,54 @@
 ﻿using System;
+using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
 {
     public class Inspection
     {
-        private DateTime? _closesOn;
-        private DateTime _opensOn;
+        private const string ClosesOnName = "ClosesOn";
+        private const string OpensOnName = "OpensOn";
+        private readonly DateTimeNullableNotified _closesOn;
+        private readonly DateTimeNotified _opensOn;
+
+        public Inspection()
+        {
+            ModifiedData = new ModifiedData(GetType());
+
+            _closesOn = new DateTimeNullableNotified(ClosesOnName);
+            _closesOn.PropertyChanged += ModifiedData.OnPropertyChanged;
+
+            _opensOn = new DateTimeNotified(OpensOnName);
+            _opensOn.PropertyChanged += ModifiedData.OnPropertyChanged;
+        }
+
+        public ModifiedData ModifiedData { get; private set; }
 
         public DateTime OpensOn
         {
-            get { return _opensOn; }
-            set
-            {
-                _opensOn = value;
-                IsOpensOnModified = true;
-            }
+            get { return _opensOn.Value; }
+            set { _opensOn.Value = value; }
         }
 
+        [Obsolete]
         public bool IsOpensOnModified { get; private set; }
 
         public DateTime? ClosesOn
         {
-            get { return _closesOn; }
-            set
-            {
-                _closesOn = value;
-                IsClosesOnModified = true;
-            }
+            get { return _closesOn.Value; }
+            set { _closesOn.Value = value; }
         }
 
+        [Obsolete]
         public bool IsClosesOnModified { get; private set; }
 
         public void Copy(Inspection inspection)
         {
-            if (inspection == null)
-            {
-                throw new ArgumentNullException("inspection");
-            }
-
-            if (inspection.IsClosesOnModified)
-            {
-                ClosesOn = inspection.ClosesOn;
-            }
-
-            if (inspection.IsOpensOnModified)
-            {
-                OpensOn = inspection.OpensOn;
-            }
+            ModifiedData.Copy(inspection, this);
         }
 
         public void ClearAllIsModified()
         {
-            IsOpensOnModified = false;
-            IsClosesOnModified = false;
+            ModifiedData.ClearModifiedProperties(new[] {ClosesOnName, OpensOnName});
         }
     }
 }

@@ -1,97 +1,87 @@
 ﻿using System;
-using System.Collections.Generic;
+using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
 {
-    public class Media : IValidate
+    public class Media
     {
-        private int _order;
-        private string _tag;
-        private string _url;
+        private const string OrderName = "Order";
+        private const string TagName = "Tag";
+        private const string UrlName = "Url";
+        private readonly Int32Notified _order;
+        private readonly StringNotified _tag;
+        private readonly StringNotified _url;
+
+        public Media()
+        {
+            ModifiedData = new ModifiedData(GetType());
+
+            _order = new Int32Notified(OrderName);
+            _order.PropertyChanged += ModifiedData.OnPropertyChanged;
+
+            _tag = new StringNotified(TagName);
+            _tag.PropertyChanged += ModifiedData.OnPropertyChanged;
+
+            _url = new StringNotified(UrlName);
+            _url.PropertyChanged += ModifiedData.OnPropertyChanged;
+        }
+
+        public ModifiedData ModifiedData { get; private set; }
 
         public int Order
         {
-            get { return _order; }
-            set
-            {
-                _order = value;
-                IsOrderModified = true;
-            }
+            get { return _order.Value; }
+            set { _order.Value = value; }
         }
 
+        [Obsolete]
         public bool IsOrderModified { get; private set; }
 
         public string Url
         {
-            get { return _url; }
-            set
-            {
-                _url = value;
-                IsUrlModified = true;
-            }
+            get { return _url.Value; }
+            set { _url.Value = value; }
         }
 
+        [Obsolete]
         public bool IsUrlModified { get; private set; }
 
         public string Tag
         {
-            get { return _tag; }
-            set
-            {
-                _tag = value;
-                IsTagModified = true;
-            }
+            get { return _tag.Value; }
+            set { _tag.Value = value; }
         }
 
+        [Obsolete]
         public bool IsTagModified { get; private set; }
 
-        public void Validate(Dictionary<string, string> errors, string keySuffix = null)
-        {
-            if (errors == null)
-            {
-                throw new ArgumentNullException("errors");
-            }
+        //public void Validate(Dictionary<string, string> errors, string keySuffix = null)
+        //{
+        //    if (errors == null)
+        //    {
+        //        throw new ArgumentNullException("errors");
+        //    }
 
-            // We can have a string.Empty keySuffix, which means do have a key to postpend.
-            if (keySuffix == null)
-            {
-                throw new ArgumentNullException("keySuffix");
-            }
+        //    // We can have a string.Empty keySuffix, which means do have a key to postpend.
+        //    if (keySuffix == null)
+        //    {
+        //        throw new ArgumentNullException("keySuffix");
+        //    }
 
-            if (string.IsNullOrWhiteSpace(Url))
-            {
-                errors.Add("Url" + keySuffix, "An url is required.");
-            }
-        }
+        //    if (string.IsNullOrWhiteSpace(Url))
+        //    {
+        //        errors.Add("Url" + keySuffix, "An url is required.");
+        //    }
+        //}
 
         public void Copy(Media newMedia)
         {
-            if (newMedia == null)
-            {
-                throw new ArgumentNullException("newMedia");
-            }
-
-            if (newMedia.IsOrderModified)
-            {
-                Order = newMedia.Order;
-            }
-
-            if (newMedia.IsUrlModified)
-            {
-                Url = newMedia.Url;
-            }
-
-            if (newMedia.IsTagModified)
-            {
-                Tag = newMedia.Tag;
-            }
+            ModifiedData.Copy(newMedia, this);
         }
 
         public void ClearAllIsModified()
         {
-            IsOrderModified = false;
-            IsUrlModified = false;
-            IsTagModified = false;
+            ModifiedData.ClearModifiedProperties(new[] {OrderName, TagName, UrlName});
         }
     }
 }
