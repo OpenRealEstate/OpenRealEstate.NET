@@ -7,7 +7,7 @@ using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
 {
-    public class ListingAgent
+    public class ListingAgent : IModifiedData
     {
         private const string CommunicationsName = "Communications";
         private const string NameName = "Name";

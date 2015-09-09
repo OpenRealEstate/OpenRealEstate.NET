@@ -4,7 +4,7 @@ using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models.Land
 {
-    public class LandEstate
+    public class LandEstate : IModifiedData
     {
         private const string NameName = "Name";
         private const string StageName = "Stage";

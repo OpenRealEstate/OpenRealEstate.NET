@@ -3,7 +3,7 @@ using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
 {
-    public class Media
+    public class Media : IModifiedData
     {
         private const string OrderName = "Order";
         private const string TagName = "Tag";

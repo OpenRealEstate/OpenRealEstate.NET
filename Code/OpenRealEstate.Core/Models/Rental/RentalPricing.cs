@@ -4,7 +4,7 @@ using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models.Rental
 {
-    public class RentalPricing
+    public class RentalPricing : IModifiedData
     {
         private const string BondName = "Bond";
         private const string PaymentFrequencyTypeName = "PaymentFrequencyType";

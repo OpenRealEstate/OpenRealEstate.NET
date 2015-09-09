@@ -7,7 +7,7 @@ using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
 {
-    public class LandDetails
+    public class LandDetails : IModifiedData
     {
         private const string AreaName = "Area";
         private const string CrossOverName = "CrossOver";
@@ -139,6 +139,8 @@ namespace OpenRealEstate.Core.Models
             {
                 _frontage.Value.ClearAllIsModified();
             }
+
+            HelperUtilities.ClearAllObservableCollectionItems(_depths);
 
             ModifiedData.ClearModifiedPropertiesAndCollections();
         }

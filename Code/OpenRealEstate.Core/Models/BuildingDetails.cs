@@ -1,10 +1,9 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
 {
-    public class BuildingDetails
+    public class BuildingDetails : IModifiedData
     {
         private const string AreaName = "Area";
         private const string EnergyRatingName = "EnergyRating";
@@ -26,8 +25,6 @@ namespace OpenRealEstate.Core.Models
             _area.PropertyChanged += ModifiedData.OnPropertyChanged;
         }
 
-        public ModifiedData ModifiedData { get; private set; }
-
         public UnitOfMeasure Area
         {
             get { return _area.Value; }
@@ -39,6 +36,8 @@ namespace OpenRealEstate.Core.Models
             get { return _energyRating.Value; }
             set { _energyRating.Value = value; }
         }
+
+        public ModifiedData ModifiedData { get; private set; }
 
         public void Copy(BuildingDetails newBuildingDetails)
         {

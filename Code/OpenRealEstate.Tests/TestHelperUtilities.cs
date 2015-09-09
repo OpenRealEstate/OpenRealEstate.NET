@@ -877,15 +877,137 @@ namespace OpenRealEstate.Tests
             unitOfMeasure.ModifiedData.IsModified.ShouldBe(isModified);
         }
 
+        public static void AssertDepthIsModified(Depth depth, bool isModified)
+        {
+            depth.ModifiedData.IsModified.ShouldBe(isModified);
+        }
+
+        public static void AssertDepthsAreModified(IList<Depth> depths, bool isModified)
+        {
+            if (depths == null ||
+                !depths.Any())
+            {
+                return;
+            }
+
+            foreach (var depth in depths)
+            {
+                AssertDepthIsModified(depth, isModified);
+            }
+        }
+
         public static void AssertBuildingDetailsIsModified(BuildingDetails buildingDetails, bool isModified)
         {
             AssertUnitOfMeasureIsModified(buildingDetails.Area, isModified);
             buildingDetails.ModifiedData.IsModified.ShouldBe(isModified);
         }
 
-        public static void AssertSalePricing(SalePricing salePricing, bool isModified)
+        public static void AssertSalePricingIsModified(SalePricing salePricing, bool isModified)
         {
             salePricing.ModifiedData.IsModified.ShouldBe(isModified);
+        }
+
+        public static void AssertAddressIsModified(Address address, bool isModified)
+        {
+            address.ModifiedData.IsModified.ShouldBe(isModified);
+        }
+
+        public static void AssertListingAgentIsModified(ListingAgent listingAgent, bool isModified)
+        {
+            listingAgent.ModifiedData.IsModified.ShouldBe(isModified);
+        }
+
+        public static void AssertListingAgentsAreModified(IList<ListingAgent> listingAgents, bool isModified)
+        {
+            if (listingAgents == null ||
+                !listingAgents.Any())
+            {
+                return;
+            }
+
+            foreach (var listingAgent in listingAgents)
+            {
+                AssertListingAgentIsModified(listingAgent, isModified);
+            }
+        }
+
+        public static void AssertCarParkingIsModified(CarParking carParking, bool isModified)
+        {
+            carParking.ModifiedData.IsModified.ShouldBe(isModified);
+        }
+
+        public static void AssertFeaturesIsModified(Features features, bool isModified)
+        {
+            AssertCarParkingIsModified(features.CarParking, isModified);
+            features.ModifiedData.IsModified.ShouldBe(isModified);
+        }
+
+        public static void AssertLandDetailsIsModified(LandDetails landDetails, bool isModified)
+        {
+            AssertUnitOfMeasureIsModified(landDetails.Area, isModified);
+            AssertDepthsAreModified(landDetails.Depths, isModified);
+            AssertUnitOfMeasureIsModified(landDetails.Frontage, isModified);
+            landDetails.ModifiedData.IsModified.ShouldBe(isModified);
+        }
+
+        public static void AssertInspectionIsModified(Inspection inspection, bool isModified)
+        {
+            inspection.ModifiedData.IsModified.ShouldBe(isModified);
+        }
+
+        public static void AssertInspectionsAreModified(IList<Inspection> inspections, bool isModified)
+        {
+            if (inspections == null ||
+                !inspections.Any())
+            {
+                return;
+            }
+
+            foreach (var inspection in inspections)
+            {
+                AssertInspectionIsModified(inspection, isModified);
+            }
+        }
+
+        public static void AssertMediaIsModified(Media media, bool isModified)
+        {
+            media.ModifiedData.IsModified.ShouldBe(isModified);
+        }
+
+        public static void AssertMediasAreModified(IList<Media> medias, bool isModified)
+        {
+            if (medias == null ||
+                !medias.Any())
+            {
+                return;
+            }
+
+            foreach (var media in medias)
+            {
+                AssertMediaIsModified(media, isModified);
+            }
+        }
+
+
+        public static void AssertListingIsModified(Listing listing, bool isModified)
+        {
+            AssertAddressIsModified(listing.Address, isModified);
+            AssertListingAgentsAreModified(listing.Agents, isModified);
+            AssertFeaturesIsModified(listing.Features, isModified);
+            AssertMediasAreModified(listing.FloorPlans, isModified);
+            AssertMediasAreModified(listing.Images, isModified);
+            AssertInspectionsAreModified(listing.Inspections, isModified); 
+            AssertLandDetailsIsModified(listing.LandDetails, isModified);
+            AssertMediasAreModified(listing.Videos, isModified);
+            listing.ModifiedData.IsModified.ShouldBe(isModified);
+        }
+
+        public static void AssertResidentialListingIsModified(ResidentialListing residentialListing, bool isModified)
+        {
+            AssertBuildingDetailsIsModified(residentialListing.BuildingDetails, isModified);
+            AssertSalePricingIsModified(residentialListing.Pricing, isModified);
+            AssertListingIsModified(residentialListing, isModified);
+            residentialListing.ModifiedData.IsModified.ShouldBe(isModified);
         }
 
         #endregion

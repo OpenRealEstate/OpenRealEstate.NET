@@ -3,7 +3,7 @@ using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
 {
-    public class Communication
+    public class Communication : IModifiedData
     {
         private const string DetailsName = "Details";
         private const string CommunicationTypeName = "CommunicationType";

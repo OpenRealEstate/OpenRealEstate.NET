@@ -4,7 +4,7 @@ using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
 {
-    public class Inspection
+    public class Inspection : IModifiedData
     {
         private const string ClosesOnName = "ClosesOn";
         private const string OpensOnName = "OpensOn";

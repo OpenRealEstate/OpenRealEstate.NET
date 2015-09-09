@@ -3,7 +3,7 @@ using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
 {
-    public class CarParking
+    public class CarParking : IModifiedData
     {
         private const string CarportsName = "Carports";
         private const string GaragesName = "Garages";
@@ -32,8 +32,6 @@ namespace OpenRealEstate.Core.Models
             _openspaces.PropertyChanged += ModifiedData.OnPropertyChanged;
         }
 
-        public ModifiedData ModifiedData { get; private set; }
-
         public int Garages
         {
             get { return _garages.Value; }
@@ -56,6 +54,8 @@ namespace OpenRealEstate.Core.Models
         {
             get { return Garages + Carports + OpenSpaces; }
         }
+
+        public ModifiedData ModifiedData { get; private set; }
 
         public void Copy(CarParking newCarParking)
         {

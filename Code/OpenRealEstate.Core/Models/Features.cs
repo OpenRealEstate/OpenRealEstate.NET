@@ -7,7 +7,7 @@ using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
 {
-    public class Features
+    public class Features : IModifiedData
     {
         private const string BathroomsName = "Bathrooms";
         private const string BedroomsName = "Bedrooms";

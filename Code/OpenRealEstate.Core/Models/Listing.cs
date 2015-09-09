@@ -525,7 +525,11 @@ namespace OpenRealEstate.Core.Models
                 _landDetails.Value.ClearAllIsModified();
             }
 
-            ModifiedData.ClearModifiedPropertiesAndCollections();
+            HelperUtilities.ClearAllObservableCollectionItems(_agents);
+            HelperUtilities.ClearAllObservableCollectionItems(_images);
+            HelperUtilities.ClearAllObservableCollectionItems(_floorPlans);
+            HelperUtilities.ClearAllObservableCollectionItems(_inspections);
+            HelperUtilities.ClearAllObservableCollectionItems(_videos);
         }
     }
 }

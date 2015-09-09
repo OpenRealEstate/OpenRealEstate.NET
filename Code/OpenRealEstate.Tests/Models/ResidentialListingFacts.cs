@@ -59,15 +59,13 @@ namespace OpenRealEstate.Tests.Models
             public void GivenAnExistingFullListing_ClearAllIsModified_SetsIsModifiedToFalse()
             {
                 // Arrange.
-                var listing = TestHelperUtilities.ResidentialListing(false);
+                var listing = TestHelperUtilities.ResidentialListingFromFile(false);
 
                 // Act.
                 listing.ClearAllIsModified();
 
                 // Arrange.
-                listing.ModifiedData.IsModified.ShouldBe(false);
-                TestHelperUtilities.AssertBuildingDetailsIsModified(listing.BuildingDetails, false);
-                TestHelperUtilities.AssertSalePricing(listing.Pricing, false);
+                TestHelperUtilities.AssertResidentialListingIsModified(listing, false);
             }
         }
     }

@@ -4,7 +4,7 @@ using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
 {
-    public class UnitOfMeasure
+    public class UnitOfMeasure : IModifiedData
     {
         private const string TypeName = "Type";
         private const string ValueName = "Value";

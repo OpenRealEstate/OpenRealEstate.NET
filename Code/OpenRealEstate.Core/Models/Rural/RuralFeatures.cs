@@ -4,7 +4,7 @@ using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models.Rural
 {
-    public class RuralFeatures
+    public class RuralFeatures : IModifiedData
     {
         private const string AnnualRainfallName = "AnnualRainfall";
         private const string CarryingCapacityName = "CarryingCapacity";

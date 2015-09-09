@@ -4,7 +4,7 @@ using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
 {
-    public class SalePricing
+    public class SalePricing : IModifiedData
     {
         private const string IsUnderOfferName = "IsUnderOffer";
         private const string SalePriceName = "SalePrice";

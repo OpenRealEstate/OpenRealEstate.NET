@@ -4,7 +4,7 @@ using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
 {
-    public abstract class AggregateRoot
+    public abstract class AggregateRoot : IModifiedData
     {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly StringNotified _id;

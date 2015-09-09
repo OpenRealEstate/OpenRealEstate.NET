@@ -5,7 +5,7 @@ using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
 {
-    public class Address
+    public class Address : IModifiedData
     {
         private const string CountryIsoCodeName = "CountryIsoCode";
         private const string IsStreetDisplayedName = "IsStreetDisplayed";
