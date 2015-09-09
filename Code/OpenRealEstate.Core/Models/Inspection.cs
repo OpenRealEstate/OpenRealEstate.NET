@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
@@ -7,7 +8,11 @@ namespace OpenRealEstate.Core.Models
     {
         private const string ClosesOnName = "ClosesOn";
         private const string OpensOnName = "OpensOn";
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly DateTimeNullableNotified _closesOn;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly DateTimeNotified _opensOn;
 
         public Inspection()

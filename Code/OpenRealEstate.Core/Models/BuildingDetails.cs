@@ -1,16 +1,23 @@
 ﻿using System;
+using System.Diagnostics;
 using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
 {
     public class BuildingDetails
     {
-        private readonly DecimalNullableNotified _energyRating;
-        private readonly InstanceObjectNotified<UnitOfMeasure> _area;
-        [Obsolete]
-        private bool _isAreaModified;
         private const string AreaName = "Area";
         private const string EnergyRatingName = "EnergyRating";
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly InstanceObjectNotified<UnitOfMeasure> _area;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly DecimalNullableNotified _energyRating;
+
+        [Obsolete]
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private bool _isAreaModified;
 
         public BuildingDetails()
         {
@@ -30,6 +37,7 @@ namespace OpenRealEstate.Core.Models
             get { return _area.Value; }
             set { _area.Value = value; }
         }
+
         [Obsolete]
         public bool IsAreaModified
         {
@@ -69,7 +77,7 @@ namespace OpenRealEstate.Core.Models
                 _area.Value.ClearAllIsModified();
             }
 
-            ModifiedData.ClearModifiedProperties(new[] { EnergyRatingName, AreaName });
+            ModifiedData.ClearModifiedProperties(new[] {EnergyRatingName, AreaName});
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using OpenRealEstate.Core.Primitives;
 
@@ -8,15 +9,6 @@ namespace OpenRealEstate.Core.Models
 {
     public class Features
     {
-        private readonly Int32Notified _bathrooms;
-        private readonly Int32Notified _bedrooms;
-        private readonly InstanceObjectNotified<CarParking> _carParking;
-        private readonly Int32Notified _ensuites;
-        [Obsolete]
-        private bool _isCarParkingModified;
-        private readonly Int32Notified _livingAreas;
-        private readonly ObservableCollection<string> _tags;
-        private readonly Int32Notified _toilets;
         private const string BathroomsName = "Bathrooms";
         private const string BedroomsName = "Bedrooms";
         private const string CarParkingName = "CarParking";
@@ -24,6 +16,31 @@ namespace OpenRealEstate.Core.Models
         private const string LivingAreasName = "LivingAreas";
         private const string TagsName = "Tags";
         private const string ToiletsName = "Toilets";
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly Int32Notified _bathrooms;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly Int32Notified _bedrooms;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly InstanceObjectNotified<CarParking> _carParking;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly Int32Notified _ensuites;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly Int32Notified _livingAreas;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly ObservableCollection<string> _tags;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly Int32Notified _toilets;
+
+        [Obsolete]
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private bool _isCarParkingModified;
 
         public Features()
         {
@@ -50,6 +67,7 @@ namespace OpenRealEstate.Core.Models
             _toilets = new Int32Notified(ToiletsName);
             _toilets.PropertyChanged += ModifiedData.OnPropertyChanged;
         }
+
         public ModifiedData ModifiedData { get; private set; }
 
         public int Bedrooms
@@ -66,6 +84,7 @@ namespace OpenRealEstate.Core.Models
             get { return _bathrooms.Value; }
             set { _bathrooms.Value = value; }
         }
+
         [Obsolete]
         public bool IsBathroomsModified { get; private set; }
 
@@ -74,6 +93,7 @@ namespace OpenRealEstate.Core.Models
             get { return _toilets.Value; }
             set { _toilets.Value = value; }
         }
+
         [Obsolete]
         public bool IsToiletsModified { get; private set; }
 
@@ -82,6 +102,7 @@ namespace OpenRealEstate.Core.Models
             get { return _carParking.Value; }
             set { _carParking.Value = value; }
         }
+
         [Obsolete]
         public bool IsCarParkingModified
         {
@@ -99,6 +120,7 @@ namespace OpenRealEstate.Core.Models
             get { return _ensuites.Value; }
             set { _ensuites.Value = value; }
         }
+
         [Obsolete]
         public bool IsEnsuitesModified { get; private set; }
 
@@ -107,6 +129,7 @@ namespace OpenRealEstate.Core.Models
             get { return _livingAreas.Value; }
             set { _livingAreas.Value = value; }
         }
+
         [Obsolete]
         public bool IsLivingAreasModified { get; private set; }
 
@@ -150,7 +173,7 @@ namespace OpenRealEstate.Core.Models
 
             if (_tags != null)
             {
-                 _tags.Remove(tag);
+                _tags.Remove(tag);
             }
         }
 

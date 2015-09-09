@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Text;
 using OpenRealEstate.Core.Primitives;
 
@@ -6,17 +7,6 @@ namespace OpenRealEstate.Core.Models
 {
     public class Address
     {
-        private readonly ModifiedData _modifiedData;
-        private readonly StringNotified _countryIsoCode;
-        private readonly BooleanNotified _isStreetDisplayed;
-        private readonly DecimalNullableNotified _latitude;
-        private readonly DecimalNullableNotified _longitude;
-        private readonly StringNotified _municipality;
-        private readonly StringNotified _postcode;
-        private readonly StringNotified _state;
-        private readonly StringNotified _street;
-        private readonly StringNotified _streetNumber;
-        private readonly StringNotified _suburb;
         private const string CountryIsoCodeName = "CountryIsoCode";
         private const string IsStreetDisplayedName = "IsStreetDisplayed";
         private const string LatitudeName = "Latitude";
@@ -28,10 +18,43 @@ namespace OpenRealEstate.Core.Models
         private const string StreetNumberName = "StreetNumber";
         private const string SuburbName = "Suburb";
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly StringNotified _countryIsoCode;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly BooleanNotified _isStreetDisplayed;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly DecimalNullableNotified _latitude;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly DecimalNullableNotified _longitude;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly ModifiedData _modifiedData;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly StringNotified _municipality;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly StringNotified _postcode;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly StringNotified _state;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly StringNotified _street;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly StringNotified _streetNumber;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly StringNotified _suburb;
+
         public Address()
         {
             _modifiedData = new ModifiedData(GetType());
-            
+
             _countryIsoCode = new StringNotified(CountryIsoCodeName);
             _countryIsoCode.PropertyChanged += _modifiedData.OnPropertyChanged;
 
@@ -77,6 +100,7 @@ namespace OpenRealEstate.Core.Models
             get { return _street.Value; }
             set { _street.Value = value; }
         }
+
         [Obsolete]
         public bool IsStreetModified { get; private set; }
 
@@ -85,6 +109,7 @@ namespace OpenRealEstate.Core.Models
             get { return _suburb.Value; }
             set { _suburb.Value = value; }
         }
+
         [Obsolete]
         public bool IsSuburbModified { get; private set; }
 
@@ -93,6 +118,7 @@ namespace OpenRealEstate.Core.Models
             get { return _municipality.Value; }
             set { _municipality.Value = value; }
         }
+
         [Obsolete]
         public bool IsMunicipalityModified { get; private set; }
 
@@ -101,6 +127,7 @@ namespace OpenRealEstate.Core.Models
             get { return _state.Value; }
             set { _state.Value = value; }
         }
+
         [Obsolete]
         public bool IsStateModified { get; private set; }
 
@@ -110,6 +137,7 @@ namespace OpenRealEstate.Core.Models
             get { return _countryIsoCode.Value; }
             set { _countryIsoCode.Value = value; }
         }
+
         [Obsolete]
         public bool IsCountryIsoCodeModified { get; private set; }
 
@@ -118,6 +146,7 @@ namespace OpenRealEstate.Core.Models
             get { return _postcode.Value; }
             set { _postcode.Value = value; }
         }
+
         [Obsolete]
         public bool IsPostcodeModified { get; private set; }
 
@@ -126,6 +155,7 @@ namespace OpenRealEstate.Core.Models
             get { return _latitude.Value; }
             set { _latitude.Value = value; }
         }
+
         [Obsolete]
         public bool IsLatitudeModified { get; private set; }
 
@@ -134,6 +164,7 @@ namespace OpenRealEstate.Core.Models
             get { return _longitude.Value; }
             set { _longitude.Value = value; }
         }
+
         [Obsolete]
         public bool IsLongitudeModified { get; private set; }
 
@@ -142,8 +173,14 @@ namespace OpenRealEstate.Core.Models
             get { return _isStreetDisplayed.Value; }
             set { _isStreetDisplayed.Value = value; }
         }
+
         [Obsolete]
         public bool IsIsStreetDisplayedModified { get; private set; }
+
+        public bool IsModified
+        {
+            get { return _modifiedData.IsModified; }
+        }
 
         public override string ToString()
         {
@@ -179,11 +216,6 @@ namespace OpenRealEstate.Core.Models
             }
 
             return address.ToString();
-        }
-
-        public bool IsModified
-        {
-            get { return _modifiedData.IsModified; }
         }
 
         public void Copy(Address newAddress)

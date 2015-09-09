@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
@@ -6,6 +7,8 @@ namespace OpenRealEstate.Core.Models
     public class Depth : UnitOfMeasure
     {
         private const string SideName = "Side";
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly StringNotified _side;
 
         public Depth()

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using OpenRealEstate.Core.Primitives;
 
@@ -8,19 +9,30 @@ namespace OpenRealEstate.Core.Models
 {
     public class LandDetails
     {
-        private readonly InstanceObjectNotified<UnitOfMeasure> _area;
-        private readonly StringNotified _crossOver;
-        private readonly ObservableCollection<Depth> _depths;
-        private readonly InstanceObjectNotified<UnitOfMeasure> _frontage;
-        [Obsolete]
-        private bool _isAreaModified;
-        [Obsolete]
-        private bool _isFrontageModified;
-
         private const string AreaName = "Area";
         private const string CrossOverName = "CrossOver";
         private const string DepthsName = "Depths";
         private const string FrontageName = "Frontage";
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly InstanceObjectNotified<UnitOfMeasure> _area;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly StringNotified _crossOver;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly ObservableCollection<Depth> _depths;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly InstanceObjectNotified<UnitOfMeasure> _frontage;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        [Obsolete]
+        private bool _isAreaModified;
+
+        [Obsolete]
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private bool _isFrontageModified;
 
         public LandDetails()
         {
@@ -46,6 +58,7 @@ namespace OpenRealEstate.Core.Models
             get { return _area.Value; }
             set { _area.Value = value; }
         }
+
         [Obsolete]
         public bool IsAreaModified
         {
@@ -63,6 +76,7 @@ namespace OpenRealEstate.Core.Models
             get { return _frontage.Value; }
             set { _frontage.Value = value; }
         }
+
         [Obsolete]
         public bool IsFrontageModified
         {
@@ -79,6 +93,7 @@ namespace OpenRealEstate.Core.Models
         {
             get { return _depths.ToList().AsReadOnly(); }
         }
+
         [Obsolete]
         public bool IsDepthsModified { get; private set; }
 
@@ -87,6 +102,7 @@ namespace OpenRealEstate.Core.Models
             get { return _crossOver.Value; }
             set { _crossOver.Value = value; }
         }
+
         [Obsolete]
         public bool IsCrossOverModified { get; private set; }
 
@@ -140,7 +156,7 @@ namespace OpenRealEstate.Core.Models
                 var depths = new List<Depth>();
                 foreach (var depth in newLandDetails.Depths)
                 {
-                    var newDepth= new Depth();
+                    var newDepth = new Depth();
                     newDepth.Copy(depth);
                     depths.Add(newDepth);
                 }

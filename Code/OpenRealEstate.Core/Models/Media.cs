@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
@@ -8,8 +9,14 @@ namespace OpenRealEstate.Core.Models
         private const string OrderName = "Order";
         private const string TagName = "Tag";
         private const string UrlName = "Url";
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly Int32Notified _order;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly StringNotified _tag;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly StringNotified _url;
 
         public Media()

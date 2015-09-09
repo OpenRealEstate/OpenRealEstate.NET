@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
@@ -7,7 +8,11 @@ namespace OpenRealEstate.Core.Models
     {
         private const string DetailsName = "Details";
         private const string CommunicationTypeName = "CommunicationType";
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly EnumNotified<CommunicationType> _communicationType;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly StringNotified _details;
 
         public Communication()

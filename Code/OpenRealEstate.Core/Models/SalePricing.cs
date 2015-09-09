@@ -13,17 +13,23 @@ namespace OpenRealEstate.Core.Models
         private const string SoldPriceName = "SoldPrice";
         private const string SoldPriceTextName = "SoldPriceText";
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly BooleanNotified _isUnderOffer;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly BooleanNotified _isUnderOffer;
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly DecimalNotified _salePrice;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly DecimalNotified _salePrice;
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly StringNotified _salePriceText;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly StringNotified _salePriceText;
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly DateTimeNullableNotified _soldOn;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly DateTimeNullableNotified _soldOn;
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly DecimalNullableNotified _soldPrice;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly DecimalNullableNotified _soldPrice;
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly StringNotified _soldPriceText;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly StringNotified _soldPriceText;
 
         public SalePricing()
         {

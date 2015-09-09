@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using OpenRealEstate.Core.Primitives;
 
@@ -8,18 +9,26 @@ namespace OpenRealEstate.Core.Models
 {
     public class ListingAgent
     {
-        private readonly ObservableCollection<Communication> _communiations;
-        private readonly StringNotified _name;
-        private readonly Int32Notified _order;
         private const string CommunicationsName = "Communications";
         private const string NameName = "Name";
         private const string OrderName = "Order";
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly ObservableCollection<Communication> _communiations;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly StringNotified _name;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly Int32Notified _order;
+
         public ListingAgent()
         {
             ModifiedData = new ModifiedData(GetType());
 
             _communiations = new ObservableCollection<Communication>();
-            _communiations.CollectionChanged += (sender, args) => { ModifiedData.OnCollectionChanged(CommunicationsName); };
+            _communiations.CollectionChanged +=
+                (sender, args) => { ModifiedData.OnCollectionChanged(CommunicationsName); };
 
             _name = new StringNotified(NameName);
             _name.PropertyChanged += ModifiedData.OnPropertyChanged;
@@ -43,6 +52,7 @@ namespace OpenRealEstate.Core.Models
         {
             get { return _communiations.ToList().AsReadOnly(); }
         }
+
         [Obsolete]
         public bool IsCommunicationsModified { get; private set; }
 
@@ -107,7 +117,7 @@ namespace OpenRealEstate.Core.Models
         {
             ModifiedData.ClearModifiedProperties(new[]
             {
-                NameName, 
+                NameName,
                 OrderName,
                 CommunicationsName
             });

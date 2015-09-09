@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
@@ -7,7 +8,11 @@ namespace OpenRealEstate.Core.Models
     {
         private const string TypeName = "Type";
         private const string ValueName = "Value";
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly StringNotified _type;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly DecimalNotified _value;
 
         public UnitOfMeasure()

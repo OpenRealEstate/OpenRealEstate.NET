@@ -1,16 +1,23 @@
 ﻿using System;
+using System.Diagnostics;
 using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
 {
     public class CarParking
     {
-        private readonly Int32Notified _carports;
-        private readonly Int32Notified _garages;
-        private readonly Int32Notified _openspaces;
         private const string CarportsName = "Carports";
         private const string GaragesName = "Garages";
         private const string OpenSpacesName = "OpenSpaces";
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly Int32Notified _carports;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly Int32Notified _garages;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly Int32Notified _openspaces;
 
         public CarParking()
         {
@@ -27,6 +34,7 @@ namespace OpenRealEstate.Core.Models
         }
 
         public ModifiedData ModifiedData { get; private set; }
+
         public int Garages
         {
             get { return _garages.Value; }
@@ -41,6 +49,7 @@ namespace OpenRealEstate.Core.Models
             get { return _carports.Value; }
             set { _carports.Value = value; }
         }
+
         [Obsolete]
         public bool IsCarportsModified { get; set; }
 
@@ -49,6 +58,7 @@ namespace OpenRealEstate.Core.Models
             get { return _openspaces.Value; }
             set { _openspaces.Value = value; }
         }
+
         [Obsolete]
         public bool IsOpenSpacesModified { get; set; }
 
@@ -61,7 +71,7 @@ namespace OpenRealEstate.Core.Models
         {
             get { return ModifiedData.IsModified; }
         }
-        
+
         public void Copy(CarParking newCarParking)
         {
             ModifiedData.Copy(newCarParking, this);
