@@ -84,13 +84,13 @@ namespace OpenRealEstate.Core.Models.Residential
         {
             base.ClearAllIsModified();
 
-            if (_buildingDetails != null &&
+            if (_buildingDetails.Value != null &&
                 _buildingDetails.Value.ModifiedData.IsModified)
             {
                 _buildingDetails.Value.ClearAllIsModified();
             }
 
-            if (_salePricing != null &&
+            if (_salePricing.Value != null &&
                 _salePricing.Value.ModifiedData.IsModified)
             {
                 _salePricing.Value.ClearAllIsModified();

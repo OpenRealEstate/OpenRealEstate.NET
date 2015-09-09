@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 
@@ -11,9 +10,14 @@ namespace OpenRealEstate.Core.Primitives
 {
     public class ModifiedData
     {
-        private readonly Type _type;
-        private readonly List<string> _modifiedProperties;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly List<string> _modifiedCollections;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly List<string> _modifiedProperties;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly Type _type;
 
         public ModifiedData(Type type)
         {
@@ -33,9 +37,9 @@ namespace OpenRealEstate.Core.Primitives
             get
             {
                 return (_modifiedProperties != null &&
-                       _modifiedProperties.Any()) ||
+                        _modifiedProperties.Any()) ||
                        (_modifiedCollections != null &&
-                       _modifiedCollections.Any());
+                        _modifiedCollections.Any());
             }
         }
 
@@ -54,7 +58,7 @@ namespace OpenRealEstate.Core.Primitives
             if (!_modifiedProperties.Contains(propertyChangedEventArgs.PropertyName))
             {
                 _modifiedProperties.Add(propertyChangedEventArgs.PropertyName);
-            } 
+            }
         }
 
         public void OnCollectionChanged(string propertyName)
@@ -62,7 +66,7 @@ namespace OpenRealEstate.Core.Primitives
             if (!_modifiedCollections.Contains(propertyName))
             {
                 _modifiedCollections.Add(propertyName);
-            } 
+            }
         }
 
         public void Copy<T>(T source, T target) where T : class
@@ -94,7 +98,7 @@ namespace OpenRealEstate.Core.Primitives
             foreach (var property in properties)
             {
                 var sourceValue = source.GetType().GetProperty(property.Name).GetValue(source, null);
-                
+
                 // Does this new property have a ModifiedData field/property?
                 var childModifiedData = GetModifiedData(sourceValue);
                 if (childModifiedData != null)
@@ -133,34 +137,6 @@ namespace OpenRealEstate.Core.Primitives
                     : "-");
         }
 
-        private static ModifiedData GetModifiedData(object source)
-        {
-            const BindingFlags bindingFlags = BindingFlags.Public |
-                                              BindingFlags.NonPublic |
-                                              BindingFlags.Instance;
-
-            // Try properties.
-            var modifiedData = source.GetType()
-                .GetProperties(bindingFlags)
-                .Where(x => x.PropertyType == typeof (ModifiedData))
-                .Select(x => x.GetValue(source, null))
-                .Cast<ModifiedData>()
-                .SingleOrDefault();
-
-            if (modifiedData != null)
-            {
-                return modifiedData;
-            }
-
-            // Nope. nothing. lets try fields.
-            return source.GetType()
-                .GetFields(bindingFlags)
-                .Where(x => x.FieldType == typeof (ModifiedData))
-                .Select(x => x.GetValue(source))
-                .Cast<ModifiedData>()
-                .SingleOrDefault();
-        }
-
         public void ClearModifiedProperties(ICollection<string> propertyNames)
         {
             if (propertyNames == null)
@@ -187,6 +163,39 @@ namespace OpenRealEstate.Core.Primitives
 
             // TODO: Check if the property is of type `ModifiedData` and if so, call the Clear method on that.
             //       Eg. Listings.BuildingData <-- auto clear.
+        }
+
+        private static ModifiedData GetModifiedData(object source)
+        {
+            const BindingFlags bindingFlags = BindingFlags.Public |
+                                              BindingFlags.NonPublic |
+                                              BindingFlags.Instance;
+
+            if (source == null)
+            {
+                return null;
+            }
+
+            // Try properties.
+            var modifiedData = source.GetType()
+                .GetProperties(bindingFlags)
+                .Where(x => x.PropertyType == typeof (ModifiedData))
+                .Select(x => x.GetValue(source, null))
+                .Cast<ModifiedData>()
+                .SingleOrDefault();
+
+            if (modifiedData != null)
+            {
+                return modifiedData;
+            }
+
+            // Nope. nothing. lets try fields.
+            return source.GetType()
+                .GetFields(bindingFlags)
+                .Where(x => x.FieldType == typeof (ModifiedData))
+                .Select(x => x.GetValue(source))
+                .Cast<ModifiedData>()
+                .SingleOrDefault();
         }
     }
 }

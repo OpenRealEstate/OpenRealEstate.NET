@@ -14,9 +14,8 @@ namespace OpenRealEstate.Tests.Models
             public void GivenAnExistingListingAndANewListingWithEverythingModified_Copy_CopiesOverTheData()
             {
                 // Arrange.
-                var sourceListing =TestHelperUtilities.ResidentialListingFromFile(false) as Listing;
-                
-                var destinationListing =TestHelperUtilities.ResidentialListing() as Listing;
+                var sourceListing = TestHelperUtilities.ResidentialListingFromFile(false) as Listing;
+                var destinationListing = TestHelperUtilities.ResidentialListing() as Listing;
 
                 // Act.
                 destinationListing.Copy(sourceListing);
@@ -94,7 +93,7 @@ namespace OpenRealEstate.Tests.Models
             }
 
             [Fact]
-            public void GivenAnExistingListingAndANewListingWithANullValues_Copy_CopiesOverTheData()
+            public void GivenAnExistingListingAndANewListingWithSomeNullValues_Copy_CopiesOverTheData()
             {
                 // Arrange.
                 var sourceListing = TestHelperUtilities.ResidentialListingFromFile();
@@ -133,29 +132,29 @@ namespace OpenRealEstate.Tests.Models
                     sourceListing.RemoveVideo(video);
                 }
 
-                var destinationListing =TestHelperUtilities.ResidentialListingFromFile();
+                var destinationListing = TestHelperUtilities.ResidentialListingFromFile();
 
                 // Act.
                 destinationListing.Copy(sourceListing);
 
                 // Assert.
-                destinationListing.Agents.ShouldBe(null);
+                destinationListing.Agents.Count.ShouldBe(0);
                 destinationListing.Address.ShouldBe(null);
                 destinationListing.Features.ShouldBe(null);
-                destinationListing.FloorPlans.ShouldBe(null);
-                destinationListing.Images.ShouldBe(null);
-                destinationListing.Inspections.ShouldBe(null);
+                destinationListing.FloorPlans.Count.ShouldBe(0);
+                destinationListing.Images.Count.ShouldBe(0);
+                destinationListing.Inspections.Count.ShouldBe(0);
                 destinationListing.LandDetails.ShouldBe(null);
-                destinationListing.Links.ShouldBe(null);
-                destinationListing.Videos.ShouldBe(null);
+                destinationListing.Links.Count.ShouldBe(0);
+                destinationListing.Videos.Count.ShouldBe(0);
             }
 
             [Fact]
             public void GivenAnExistingListingAndChangingAnImage_Copy_CopiesOverTheData()
             {
                 // Arrange.
-                var sourceListing =TestHelperUtilities.ResidentialListingFromFile();
-                var destinationListing =TestHelperUtilities.ResidentialListingFromFile();
+                var sourceListing = TestHelperUtilities.ResidentialListingFromFile();
+                var destinationListing = TestHelperUtilities.ResidentialListingFromFile();
 
                 sourceListing.AddImages(new List<Media>
                 {
@@ -183,8 +182,8 @@ namespace OpenRealEstate.Tests.Models
             public void GivenAnExistingListingAndChangingAnAgentAfterwards_Copy_TheAgentsAreNotBothUpdated()
             {
                 // Arrange.
-                var sourceListing =TestHelperUtilities.ResidentialListing(false);
-                var destinationListing =TestHelperUtilities.ResidentialListingFromFile();
+                var sourceListing = TestHelperUtilities.ResidentialListing(false);
+                var destinationListing = TestHelperUtilities.ResidentialListingFromFile();
 
                 // Act.
                 destinationListing.Copy(sourceListing);

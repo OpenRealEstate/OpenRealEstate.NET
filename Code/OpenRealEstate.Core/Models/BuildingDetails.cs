@@ -47,7 +47,7 @@ namespace OpenRealEstate.Core.Models
 
         public void ClearAllIsModified()
         {
-            if (_area != null &&
+            if (_area.Value != null &&
                 _area.Value.ModifiedData.IsModified)
             {
                 _area.Value.ClearAllIsModified();

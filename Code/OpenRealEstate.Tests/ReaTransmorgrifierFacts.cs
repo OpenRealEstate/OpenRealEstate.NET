@@ -879,7 +879,7 @@ namespace OpenRealEstate.Tests
                 var listing = result.Listings.First().Listing;
                 listing.LandDetails.Area.ShouldBe(null);
                 listing.LandDetails.Frontage.ShouldBe(null);
-                listing.LandDetails.Depths.ShouldBe(null);
+                listing.LandDetails.Depths.Count.ShouldBe(0);
                 listing.LandDetails.CrossOver.ShouldBeNullOrEmpty();
             }
 

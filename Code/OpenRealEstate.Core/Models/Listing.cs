@@ -392,82 +392,114 @@ namespace OpenRealEstate.Core.Models
 
             if (newListing.ModifiedData.ModifiedCollections.Contains(AgentsName))
             {
-                var agents = new List<ListingAgent>();
-                foreach (var agent in newListing.Agents)
+                _agents.Clear();
+
+                if (newListing.Agents.Any())
                 {
-                    var newAgent = new ListingAgent();
-                    newAgent.Copy(agent);
-                    agents.Add(newAgent);
+                    var agents = new List<ListingAgent>();
+                    foreach (var agent in newListing.Agents)
+                    {
+                        var newAgent = new ListingAgent();
+                        newAgent.Copy(agent);
+                        agents.Add(newAgent);
+                    }
+                    AddAgents(agents);
                 }
-                AddAgents(agents);
             }
 
             // TODO: Somehow make this smarter using reflection.
             //       We need to manually 'Copy' the features because 
             //       this child property contains one or more Collections
             //       in it :/
-            if (Features != null &&
-                Features.ModifiedData.IsModified)
+            if (newListing.Features != null &&
+                newListing.Features.ModifiedData.IsModified)
             {
+                Features = new Features();
                 Features.Copy(newListing.Features);
             }
-            if (LandDetails != null &&
-                LandDetails.ModifiedData.IsModified)
+            if (newListing.LandDetails != null &&
+                newListing.LandDetails.ModifiedData.IsModified)
             {
+                LandDetails = new LandDetails();
                 LandDetails.Copy(newListing.LandDetails);
             }
 
             if (newListing.ModifiedData.ModifiedCollections.Contains(FloorPlansName))
             {
-                var floorPlans = new List<Media>();
-                foreach (var floorPlan in newListing.FloorPlans)
+                _floorPlans.Clear();
+
+                if (newListing.FloorPlans.Any())
                 {
-                    var newFloorPlan = new Media();
-                    newFloorPlan.Copy(floorPlan);
-                    floorPlans.Add(newFloorPlan);
+                    var floorPlans = new List<Media>();
+                    foreach (var floorPlan in newListing.FloorPlans)
+                    {
+                        var newFloorPlan = new Media();
+                        newFloorPlan.Copy(floorPlan);
+                        floorPlans.Add(newFloorPlan);
+                    }
+                    AddFloorPlans(floorPlans);
                 }
-                AddFloorPlans(floorPlans);
             }
 
             if (newListing.ModifiedData.ModifiedCollections.Contains(ImagesName))
             {
-                var images = new List<Media>();
-                foreach (var image in newListing.Images)
+                _images.Clear();
+
+                if (newListing.Images.Any())
                 {
-                    var newImage = new Media();
-                    newImage.Copy(image);
-                    images.Add(newImage);
+                    var images = new List<Media>();
+                    foreach (var image in newListing.Images)
+                    {
+                        var newImage = new Media();
+                        newImage.Copy(image);
+                        images.Add(newImage);
+                    }
+                    AddImages(images);
                 }
-                AddImages(images);
             }
 
             if (newListing.ModifiedData.ModifiedCollections.Contains(InspectionsName))
             {
-                var inspections = new List<Inspection>();
-                foreach (var inspection in newListing.Inspections)
+                _inspections.Clear();
+
+                if (newListing.Inspections.Any())
                 {
-                    var newInspection = new Inspection();
-                    newInspection.Copy(inspection);
-                    inspections.Add(newInspection);
+                    var inspections = new List<Inspection>();
+                    foreach (var inspection in newListing.Inspections)
+                    {
+                        var newInspection = new Inspection();
+                        newInspection.Copy(inspection);
+                        inspections.Add(newInspection);
+                    }
+                    AddInspections(inspections);
                 }
-                AddInspections(inspections);
             }
 
             if (newListing.ModifiedData.ModifiedCollections.Contains(VideosName))
             {
-                var videos = new List<Media>();
-                foreach (var video in newListing.Videos)
+                _videos.Clear();
+
+                if (newListing.Videos.Any())
                 {
-                    var newVideo = new Media();
-                    newVideo.Copy(video);
-                    videos.Add(newVideo);
+                    var videos = new List<Media>();
+                    foreach (var video in newListing.Videos)
+                    {
+                        var newVideo = new Media();
+                        newVideo.Copy(video);
+                        videos.Add(newVideo);
+                    }
+                    AddVideos(videos);
                 }
-                AddVideos(videos);
             }
 
             if (newListing.ModifiedData.ModifiedCollections.Contains(LinksName))
             {
-                AddLinks(newListing.Links.ToList());
+                _links.Clear();
+
+                if (newListing.Links.Any())
+                {
+                    AddLinks(newListing.Links.ToList());
+                }
             }
         }
 

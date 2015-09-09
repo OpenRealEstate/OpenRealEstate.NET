@@ -58,8 +58,6 @@ namespace OpenRealEstate.Core.Models.Rural
             set { _categoryType.Value = value; }
         }
 
-        public bool IsCategoryTypeModified { get; set; }
-
         public SalePricing Pricing
         {
             get { return _pricing.Value; }
@@ -99,19 +97,19 @@ namespace OpenRealEstate.Core.Models.Rural
         {
             base.ClearAllIsModified();
 
-            if (_buildingDetails != null &&
+            if (_buildingDetails.Value != null &&
                 _buildingDetails.Value.ModifiedData.IsModified)
             {
                 _buildingDetails.Value.ClearAllIsModified();
             }
 
-            if (_pricing != null &&
+            if (_pricing.Value != null &&
                 _pricing.Value.ModifiedData.IsModified)
             {
                 _pricing.Value.ClearAllIsModified();
             }
 
-            if (_ruralFeatures != null &&
+            if (_ruralFeatures.Value != null &&
                 _ruralFeatures.Value.ModifiedData.IsModified)
             {
                 _ruralFeatures.Value.ClearAllIsModified();

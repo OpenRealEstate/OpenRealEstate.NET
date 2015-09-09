@@ -88,18 +88,6 @@ namespace OpenRealEstate.Core.Models.Land
             }
 
             ModifiedData.Copy(newLandListing, this);
-
-            if (_estate != null &&
-                _estate.Value.ModifiedData.IsModified)
-            {
-                _estate.Value.ModifiedData.Copy(newLandListing.Estate, Estate);
-            }
-
-            if (_pricing != null &&
-                _pricing.Value.ModifiedData.IsModified)
-            {
-                _pricing.Value.ModifiedData.Copy(newLandListing.Pricing, Pricing);
-            }
         }
 
         public override void ClearAllIsModified()

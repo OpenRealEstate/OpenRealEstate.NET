@@ -24,7 +24,6 @@ namespace OpenRealEstate.Tests.Models
 
                 // Assert.
                 destinationListing.CategoryType.ShouldBe(sourceListing.CategoryType);
-                destinationListing.IsCategoryTypeModified.ShouldBe(true);
                 destinationListing.AuctionOn.ShouldBe(sourceListing.AuctionOn);
                 destinationListing.CouncilRates.ShouldBe(sourceListing.CouncilRates);
 

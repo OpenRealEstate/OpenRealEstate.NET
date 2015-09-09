@@ -65,7 +65,7 @@ namespace OpenRealEstate.Core.Models
 
             if (!communications.Any())
             {
-                throw new ArgumentOutOfRangeException("agencommunicationsts");
+                throw new ArgumentOutOfRangeException("communications");
             }
 
             foreach (var communication in communications)
@@ -93,14 +93,19 @@ namespace OpenRealEstate.Core.Models
 
             if (newListingAgent.ModifiedData.ModifiedCollections.Contains(CommunicationsName))
             {
-                var communications = new List<Communication>();
-                foreach (var communication in newListingAgent.Communications)
+                _communiations.Clear();
+
+                if (newListingAgent.Communications.Any())
                 {
-                    var newCommunication = new Communication();
-                    newCommunication.Copy(communication);
-                    communications.Add(newCommunication);
+                    var communications = new List<Communication>();
+                    foreach (var communication in newListingAgent.Communications)
+                    {
+                        var newCommunication = new Communication();
+                        newCommunication.Copy(communication);
+                        communications.Add(newCommunication);
+                    }
+                    AddCommunications(communications);
                 }
-                AddCommunications(communications);
             }
         }
 

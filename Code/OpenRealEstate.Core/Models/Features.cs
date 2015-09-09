@@ -140,18 +140,21 @@ namespace OpenRealEstate.Core.Models
 
         public void Copy(Features newFeatures)
         {
-            // NOTE: The main properties should already be copied from reflection
-            //       outside of this.
-            //ModifiedData.Copy(newFeatures, this);
+            ModifiedData.Copy(newFeatures, this);
 
             if (newFeatures.ModifiedData.ModifiedCollections.Contains(TagsName))
             {
-                var tags = new HashSet<string>();
-                foreach (var tag in newFeatures.Tags)
+                _tags.Clear();
+
+                if (newFeatures.Tags.Any())
                 {
-                    tags.Add(tag);
+                    var tags = new HashSet<string>();
+                    foreach (var tag in newFeatures.Tags)
+                    {
+                        tags.Add(tag);
+                    }
+                    AddTags(tags);
                 }
-                AddTags(tags);
             }
         }
 

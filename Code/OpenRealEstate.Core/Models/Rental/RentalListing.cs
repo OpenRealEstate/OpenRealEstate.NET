@@ -71,13 +71,13 @@ namespace OpenRealEstate.Core.Models.Rental
         {
             base.ClearAllIsModified();
 
-            if (_buildingDetails != null &&
+            if (_buildingDetails.Value != null &&
                 _buildingDetails.Value.ModifiedData.IsModified)
             {
                 _buildingDetails.Value.ClearAllIsModified();
             }
 
-            if (_pricing != null && 
+            if (_pricing.Value != null && 
                 _pricing.Value.ModifiedData.IsModified)
             {
                 _pricing.Value.ClearAllIsModified();

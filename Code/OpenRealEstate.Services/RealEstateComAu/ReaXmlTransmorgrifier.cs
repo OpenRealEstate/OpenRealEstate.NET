@@ -423,15 +423,21 @@ namespace OpenRealEstate.Services.RealEstateComAu
             }
             
             var floorPlans = ExtractFloorPlans(document);
-            listing.AddFloorPlans(floorPlans);
+            if (floorPlans != null &&
+                floorPlans.Any())
+            {
+                listing.AddFloorPlans(floorPlans);
+            }
             
             var videos = ExtractVideos(document);
-            if (videos != null && videos.Any())
+            if (videos != null 
+                && videos.Any())
             {
                 listing.AddVideos(videos);
             }
             listing.Features = ExtractFeatures(document);
             listing.LandDetails = ExtractLandDetails(document);
+
             var links = ExtractExternalLinks(document);
             if (links != null &&
                 links.Any())
@@ -620,7 +626,10 @@ namespace OpenRealEstate.Services.RealEstateComAu
                     });
                 }
 
-                agent.AddCommunications(communications);
+                if (communications.Any())
+                {
+                    agent.AddCommunications(communications);
+                }
 
                 // Some listings have this element but no data provided. :(
                 // So we don't add 'emtpy' agents.
@@ -641,7 +650,10 @@ namespace OpenRealEstate.Services.RealEstateComAu
                         Name = agent.Name,
                         Order = ++counter
                     };
-                    orderedAgent.AddCommunications(agent.Communications);
+                    if (agent.Communications.Any())
+                    {
+                        orderedAgent.AddCommunications(agent.Communications);
+                    }
                     orderedAgents.Add(orderedAgent);
                 }
 

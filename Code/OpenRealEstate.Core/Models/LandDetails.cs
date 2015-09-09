@@ -110,14 +110,19 @@ namespace OpenRealEstate.Core.Models
 
             if (newLandDetails.ModifiedData.ModifiedCollections.Contains(DepthsName))
             {
-                var depths = new List<Depth>();
-                foreach (var depth in newLandDetails.Depths)
+                _depths.Clear();
+
+                if (newLandDetails.Depths.Any())
                 {
-                    var newDepth = new Depth();
-                    newDepth.Copy(depth);
-                    depths.Add(newDepth);
+                    var depths = new List<Depth>();
+                    foreach (var depth in newLandDetails.Depths)
+                    {
+                        var newDepth = new Depth();
+                        newDepth.Copy(depth);
+                        depths.Add(newDepth);
+                    }
+                    AddDepths(depths);
                 }
-                AddDepths(depths);
             }
         }
 
