@@ -152,7 +152,7 @@ namespace OpenRealEstate.Core.Models
             get { return _agents.ToList().AsReadOnly(); }
         }
 
-        public IList<Media> Images
+        public ReadOnlyCollection<Media> Images
         {
             get { return _images.ToList().AsReadOnly(); }
         }
@@ -162,12 +162,12 @@ namespace OpenRealEstate.Core.Models
             get { return _floorPlans.ToList().AsReadOnly(); }
         }
 
-        public IList<Media> Videos
+        public ReadOnlyCollection<Media> Videos
         {
             get { return _videos.ToList().AsReadOnly(); }
         }
 
-        public IList<Inspection> Inspections
+        public ReadOnlyCollection<Inspection> Inspections
         {
             get { return _inspections.ToList().AsReadOnly(); }
         }
