@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using OpenRealEstate.Core.Primitives;
 
@@ -8,26 +9,6 @@ namespace OpenRealEstate.Core.Models
 {
     public abstract class Listing : AggregateRoot
     {
-        private readonly InstanceObjectNotified<Address> _address;
-        [Obsolete]
-        private bool _isAddressModified;
-        private readonly StringNotified _agencyId;
-        private readonly ObservableCollection<ListingAgent> _agents;
-        private readonly DateTimeNotified _createdOn;
-        private readonly StringNotified _description;
-        private readonly InstanceObjectNotified<Features> _features;
-        [Obsolete]
-        private bool _isFeaturesModified;
-        private readonly ObservableCollection<Media> _floorPlans;
-        private readonly ObservableCollection<Media> _images;
-        private readonly ObservableCollection<Inspection> _inspections;
-        private InstanceObjectNotified<LandDetails> _landDetails;
-        [Obsolete]
-        private bool _isLandDetailsModified;
-        private IList<string> _links;
-        private readonly EnumNotified<StatusType> _statusType;
-        private readonly StringNotified _title;
-        private readonly ObservableCollection<Media> _videos;
         private const string AddressName = "Address";
         private const string AgencyIdName = "AgencyId";
         private const string AgentsName = "AgencyId";
@@ -38,10 +19,46 @@ namespace OpenRealEstate.Core.Models
         private const string ImagesName = "Images";
         private const string InspectionsName = "Inspections";
         private const string LandDetailsName = "LandDetails";
+        private const string LinksName = "Links";
         private const string StatusTypeNane = "StatusType";
         private const string TitleName = "Title";
         private const string VideosName = "Videos";
-        
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly InstanceObjectNotified<Address> _address;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly StringNotified _agencyId;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly ObservableCollection<ListingAgent> _agents;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly DateTimeNotified _createdOn;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly StringNotified _description;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly InstanceObjectNotified<Features> _features;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly ObservableCollection<Media> _floorPlans;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly ObservableCollection<Media> _images;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly ObservableCollection<Inspection> _inspections;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly InstanceObjectNotified<LandDetails>
+            _landDetails;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly ObservableCollection<string> _links;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly EnumNotified<StatusType> _statusType;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly StringNotified _title;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly ObservableCollection<Media> _videos;
+
+        [Obsolete] [DebuggerBrowsable(DebuggerBrowsableState.Never)] private bool _isAddressModified;
+
+        [Obsolete] [DebuggerBrowsable(DebuggerBrowsableState.Never)] private bool _isFeaturesModified;
+
+        [Obsolete] [DebuggerBrowsable(DebuggerBrowsableState.Never)] private bool _isLandDetailsModified;
+
         protected Listing()
         {
             _address = new InstanceObjectNotified<Address>(AddressName);
@@ -73,6 +90,9 @@ namespace OpenRealEstate.Core.Models
 
             _landDetails = new InstanceObjectNotified<LandDetails>(LandDetailsName);
             _landDetails.PropertyChanged += ModifiedData.OnPropertyChanged;
+
+            _links = new ObservableCollection<string>();
+            _links.CollectionChanged += (sender, args) => { ModifiedData.OnCollectionChanged(LinksName); };
 
             _statusType = new EnumNotified<StatusType>(StatusTypeNane);
             _statusType.PropertyChanged += ModifiedData.OnPropertyChanged;
@@ -116,6 +136,7 @@ namespace OpenRealEstate.Core.Models
             get { return _title.Value; }
             set { _title.Value = value; }
         }
+
         [Obsolete]
         public bool IsTitleModified { get; private set; }
 
@@ -124,6 +145,7 @@ namespace OpenRealEstate.Core.Models
             get { return _description.Value; }
             set { _description.Value = value; }
         }
+
         [Obsolete]
         public bool IsDescriptionModified { get; private set; }
 
@@ -132,6 +154,7 @@ namespace OpenRealEstate.Core.Models
             get { return _address.Value; }
             set { _address.Value = value; }
         }
+
         [Obsolete]
         public bool IsAddressModified
         {
@@ -148,6 +171,7 @@ namespace OpenRealEstate.Core.Models
         {
             get { return _agents.ToList().AsReadOnly(); }
         }
+
         [Obsolete]
         public bool IsAgentsModified { get; private set; }
 
@@ -171,6 +195,7 @@ namespace OpenRealEstate.Core.Models
         {
             get { return _videos.ToList().AsReadOnly(); }
         }
+
         [Obsolete]
         public bool IsVideosModified { get; private set; }
 
@@ -178,6 +203,7 @@ namespace OpenRealEstate.Core.Models
         {
             get { return _inspections.ToList().AsReadOnly(); }
         }
+
         [Obsolete]
         public bool IsInspectionsModified { get; private set; }
 
@@ -186,6 +212,7 @@ namespace OpenRealEstate.Core.Models
             get { return _landDetails.Value; }
             set { _landDetails.Value = value; }
         }
+
         [Obsolete]
         public bool IsLandDetailsModified
         {
@@ -203,6 +230,7 @@ namespace OpenRealEstate.Core.Models
             get { return _features.Value; }
             set { _features.Value = value; }
         }
+
         [Obsolete]
         public bool IsFeaturesModified
         {
@@ -215,40 +243,17 @@ namespace OpenRealEstate.Core.Models
             set { _isFeaturesModified = value; }
         }
 
-        public IList<string> Links
+        public ReadOnlyCollection<string> Links
         {
-            get { return _links; }
-            set
-            {
-                _links = value;
-                IsLinksModified = true;
-            }
+            get { return _links.ToList().AsReadOnly(); }
         }
+
         [Obsolete]
         public bool IsLinksModified { get; private set; }
 
-        public override bool IsModified {
-            get
-            {
-                return base.IsModified ||
-                       IsAgencyIdModified ||
-                       IsStatusTypeModified ||
-                       IsCreatedOnModified ||
-                       IsTitleModified ||
-                       IsDescriptionModified ||
-                       IsAddressModified ||
-                       (Address != null && Address.IsModified) ||
-                       IsAgentsModified ||
-                       IsImagesModified ||
-                       IsFloorPlansModified ||
-                       IsVideosModified ||
-                       IsInspectionsModified ||
-                       IsLandDetailsModified ||
-                       (LandDetails != null && LandDetails.IsModified) ||
-                       IsFeaturesModified ||
-                       (Features != null && Features.IsModified) ||
-                       IsLinksModified;
-            }
+        public override bool IsModified
+        {
+            get { return ModifiedData.IsModified; }
         }
 
         public void AddFloorPlans(ICollection<Media> floorPlans)
@@ -375,6 +380,37 @@ namespace OpenRealEstate.Core.Models
             }
         }
 
+        public void AddLinks(ICollection<string> links)
+        {
+            if (links == null)
+            {
+                throw new ArgumentNullException("links");
+            }
+
+            if (!links.Any())
+            {
+                throw new ArgumentOutOfRangeException("links");
+            }
+
+            foreach (var link in links)
+            {
+                _links.Add(link);
+            }
+        }
+
+        public void RemoveLink(string link)
+        {
+            if (link == null)
+            {
+                throw new ArgumentNullException("link");
+            }
+
+            if (_links != null)
+            {
+                _links.Remove(link);
+            }
+        }
+
         public void AddVideos(ICollection<Media> videos)
         {
             if (videos == null)
@@ -442,7 +478,7 @@ namespace OpenRealEstate.Core.Models
             {
                 Features.Copy(newListing.Features);
             }
-            if (LandDetails!= null &&
+            if (LandDetails != null &&
                 LandDetails.ModifiedData.IsModified)
             {
                 LandDetails.Copy(newListing.LandDetails);
@@ -495,212 +531,12 @@ namespace OpenRealEstate.Core.Models
                 }
                 AddVideos(videos);
             }
+
+            if (newListing.ModifiedData.ModifiedCollections.Contains(LinksName))
+            {
+                AddLinks(newListing.Links.ToList());
+            }
         }
-    
-        //public void CopyX(Listing newListing)
-        //{
-        //    if (newListing == null)
-        //    {
-        //        throw new ArgumentNullException("newListing");
-        //    }
-
-        //    if (!newListing.IsModified)
-        //    {
-        //        return;
-        //    }
-
-        //    base.Copy(newListing);
-
-        //    if (newListing.IsAgencyIdModified)
-        //    {
-        //        AgencyId = newListing.AgencyId;
-        //    }
-
-        //    if (newListing.IsStatusTypeModified)
-        //    {
-        //        StatusType = newListing.StatusType;
-        //    }
-
-        //    if (newListing.IsCreatedOnModified)
-        //    {
-        //        CreatedOn = newListing.CreatedOn;
-        //    }
-
-        //    if (newListing.IsTitleModified)
-        //    {
-        //        Title = newListing.Title;
-        //    }
-
-        //    if (newListing.IsDescriptionModified)
-        //    {
-        //        Description = newListing.Description;
-        //    }
-
-        //    if (newListing.IsAddressModified)
-        //    {
-        //        if (newListing.Address == null)
-        //        {
-        //            Address = null;
-        //        }
-        //        else
-        //        {
-        //            if (Address == null)
-        //            {
-        //                Address = new Address();
-        //            }
-
-        //            if (newListing.Address.IsModified)
-        //            {
-        //                Address.Copy(newListing.Address);
-        //            }
-
-        //            IsAddressModified = true;
-        //        }
-        //    }
-
-        //    if (newListing.IsAgentsModified)
-        //    {
-        //        if (newListing.Agents == null)
-        //        {
-        //            Agents = null;
-        //        }
-        //        else
-        //        {
-        //            Agents = new List<ListingAgent>();
-        //            foreach (var newAgent in newListing.Agents)
-        //            {
-        //                var agent = new ListingAgent();
-        //                agent.Copy(newAgent);
-        //                Agents.Add(agent);
-        //            }
-        //        }
-        //    }
-
-        //    if (newListing.IsImagesModified)
-        //    {
-        //        if (newListing.Images == null)
-        //        {
-        //            Images = null;
-        //        }
-        //        else
-        //        {
-        //            Images = new List<Media>();
-        //            foreach (var newImage in newListing.Images)
-        //            {
-        //                var image = new Media();
-        //                image.Copy(newImage);
-        //                Images.Add(image);
-        //            }
-        //        }
-        //    }
-
-        //    if (newListing.IsFloorPlansModified)
-        //    {
-        //        if (newListing.FloorPlans == null)
-        //        {
-        //            FloorPlans = null;
-        //        }
-        //        else
-        //        {
-        //            FloorPlans = new List<Media>();
-        //            foreach (var newFloorPlan in newListing.FloorPlans)
-        //            {
-        //                var floorPlan = new Media();
-        //                floorPlan.Copy(newFloorPlan);
-        //                FloorPlans.Add(floorPlan);
-        //            }
-        //        }
-        //    }
-
-        //    if (newListing.IsVideosModified)
-        //    {
-        //        if (newListing.Videos == null)
-        //        {
-        //            Videos = null;
-        //        }
-        //        else
-        //        {
-        //            Videos = new List<Media>();
-        //            foreach (var newVideo in newListing.Videos)
-        //            {
-        //                var video = new Media();
-        //                video.Copy(newVideo);
-        //                Videos.Add(video);
-        //            }
-        //        }
-        //    }
-
-        //    if (newListing.IsInspectionsModified)
-        //    {
-        //        if (newListing.Inspections == null)
-        //        {
-        //            Inspections = null;
-        //        }
-
-        //        else
-        //        {
-        //            Inspections = new List<Inspection>();
-        //            foreach (var newInspection in newListing.Inspections)
-        //            {
-        //                var inspection = new Inspection();
-        //                inspection.Copy(newInspection);
-        //                Inspections.Add(inspection);
-        //            }
-
-        //        }
-        //    }
-
-        //    if (newListing.IsLandDetailsModified)
-        //    {
-        //        if (newListing.LandDetails == null)
-        //        {
-        //            LandDetails = null;
-        //        }
-        //        else
-        //        {
-        //            if (LandDetails == null)
-        //            {
-        //                LandDetails = new LandDetails();
-        //            }
-
-        //            if (newListing.LandDetails.IsModified)
-        //            {
-        //                LandDetails.Copy(newListing.LandDetails);
-        //            }
-
-        //            IsLandDetailsModified = true;
-        //        }
-        //    }
-
-        //    if (newListing.IsFeaturesModified)
-        //    {
-        //        if (newListing.Features == null)
-        //        {
-        //            Features = null;
-        //        }
-        //        else
-        //        {
-        //            if (Features == null)
-        //            {
-        //                Features = new Features();
-        //            }
-
-        //            if (newListing.Features.IsModified)
-        //            {
-        //                Features.Copy(newListing.Features);
-        //            }
-
-        //            IsFeaturesModified = true;
-        //        }
-        //    }
-
-        //    if (newListing.IsLinksModified)
-        //    {
-        //        Links = newListing.Links == null
-        //            ? null
-        //            : new List<string>(newListing.Links);
-        //    }
-        //}
 
         public override void ClearAllIsModified()
         {
@@ -735,83 +571,11 @@ namespace OpenRealEstate.Core.Models
                 FloorPlansName,
                 InspectionsName,
                 LandDetailsName,
+                LinksName,
                 StatusTypeNane,
                 TitleName,
                 VideosName,
             });
-
-
-
-
-            //if (Address != null)
-            //{
-            //    Address.ClearAllIsModified();
-            //}
-            //IsAddressModified = false;
-
-            //if (Agents != null)
-            //{
-            //    foreach (var agent in Agents)
-            //    {
-            //        agent.ClearAllIsModified();
-            //    }
-            //}
-            //IsAgentsModified = false;
-
-            //if (Images != null)
-            //{
-            //    foreach (var image in Images)
-            //    {
-            //        image.ClearAllIsModified();
-            //    }
-            //}
-            //IsImagesModified = false;
-
-            //if (FloorPlans != null)
-            //{
-            //    foreach (var floorPlan in FloorPlans)
-            //    {
-            //        floorPlan.ClearAllIsModified();
-            //    }
-            //}
-            //IsFloorPlansModified = false;
-
-            //if (Videos != null)
-            //{
-            //    foreach (var video in Videos)
-            //    {
-            //        video.ClearAllIsModified();
-            //    }
-            //}
-            //IsVideosModified = false;
-
-            //if (Inspections != null)
-            //{
-            //    foreach (var inspection in Inspections)
-            //    {
-            //        inspection.ClearAllIsModified();
-            //    }
-            //}
-
-            //if (LandDetails != null)
-            //{
-            //    LandDetails.ClearAllIsModified();
-            //}
-            //IsLandDetailsModified = false;
-
-            //if (Features != null)
-            //{
-            //    Features.ClearAllIsModified();
-            //}
-            //IsFeaturesModified = false;
-
-            //IsAgencyIdModified = false;
-            //IsStatusTypeModified = false;
-            //IsCreatedOnModified = false;
-            //IsTitleModified = false;
-            //IsDescriptionModified = false;
-            //IsInspectionsModified = false;
-            //IsLinksModified = false;
         }
     }
 }

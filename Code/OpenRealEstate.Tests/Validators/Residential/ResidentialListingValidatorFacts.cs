@@ -255,7 +255,7 @@ namespace OpenRealEstate.Tests.Validators.Residential
                 };
 
                 // Act & Assert.
-                validator.ShouldNotHaveValidationErrorFor(listing => listing.Links,
+                validator.ShouldNotHaveValidationErrorFor(listing => listing.Links.ToList(),
                     links,
                     ResidentialListingValidator.MinimumRuleSet);
             }
@@ -274,7 +274,7 @@ namespace OpenRealEstate.Tests.Validators.Residential
                 };
 
                 // Act & Assert.
-                validator.ShouldHaveValidationErrorFor(listing => listing.Links,
+                validator.ShouldHaveValidationErrorFor(listing => listing.Links.ToList(),
                     links,
                     ResidentialListingValidator.MinimumRuleSet);
             }

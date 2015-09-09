@@ -432,7 +432,12 @@ namespace OpenRealEstate.Services.RealEstateComAu
             }
             listing.Features = ExtractFeatures(document);
             listing.LandDetails = ExtractLandDetails(document);
-            listing.Links = ExtractExternalLinks(document);
+            var links = ExtractExternalLinks(document);
+            if (links != null &&
+                links.Any())
+            {
+                listing.AddLinks(links);
+            }
         }
 
         private static Address ExtractAddress(XElement document, string addressDelimeter)

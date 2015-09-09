@@ -1,53 +1,69 @@
 ﻿using System;
+using System.Diagnostics;
 using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models.Residential
 {
     public class ResidentialListing : Listing
     {
-        private readonly DateTimeNullableNotified _auctionOn;
-        private readonly InstanceObjectNotified<BuildingDetails> _buildingDetails;
-        private bool _isBuildingDetailsModified;
-        private readonly StringNotified _councilRates;
-        private PropertyType _propertyType;
-        private SalePricing _salePricing;
-        private bool _isPricingModified;
+        private const string AuctionOnName = "AuctionOn";
+        private const string BuildingDetailsName = "BuildingDetails";
+        private const string CouncilRatesName = "CouncilRates";
+        private const string PropertyTypeName = "PropertyType";
+        private const string SalePricingName = "Pricing";
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly DateTimeNullableNotified _auctionOn;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly InstanceObjectNotified<BuildingDetails>
+            _buildingDetails;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly StringNotified _councilRates;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly EnumNotified<PropertyType> _propertyType;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly InstanceObjectNotified<SalePricing>
+            _salePricing;
+
+        [Obsolete] [DebuggerBrowsable(DebuggerBrowsableState.Never)] private bool _isBuildingDetailsModified;
+
+        [Obsolete] [DebuggerBrowsable(DebuggerBrowsableState.Never)] private bool _isPricingModified;
 
         public ResidentialListing()
         {
-            _auctionOn = new DateTimeNullableNotified("AuctionOn");
+            _auctionOn = new DateTimeNullableNotified(AuctionOnName);
             _auctionOn.PropertyChanged += ModifiedData.OnPropertyChanged;
 
-            _councilRates = new StringNotified("CouncilRates");
+            _buildingDetails = new InstanceObjectNotified<BuildingDetails>(BuildingDetailsName);
+            _buildingDetails.PropertyChanged += ModifiedData.OnPropertyChanged;
+
+            _councilRates = new StringNotified(CouncilRatesName);
             _councilRates.PropertyChanged += ModifiedData.OnPropertyChanged;
 
-            _buildingDetails = new InstanceObjectNotified<BuildingDetails>("BuildingDetails");
-            _buildingDetails.PropertyChanged += ModifiedData.OnPropertyChanged;
+            _propertyType = new EnumNotified<PropertyType>(PropertyTypeName);
+            _propertyType.PropertyChanged += ModifiedData.OnPropertyChanged;
+
+            _salePricing = new InstanceObjectNotified<SalePricing>(SalePricingName);
+            _salePricing.PropertyChanged += ModifiedData.OnPropertyChanged;
         }
 
         public PropertyType PropertyType
         {
-            get { return _propertyType; }
-            set
-            {
-                _propertyType = value;
-                IsPropertyTypeModified = true;
-            }
+            get { return _propertyType.Value; }
+            set { _propertyType.Value = value; }
         }
 
+        [Obsolete]
         public bool IsPropertyTypeModified { get; private set; }
 
         public SalePricing Pricing
         {
-            get { return _salePricing; }
-            set
-            {
-                _salePricing = value;
-                IsPricingModified = true;
-            }
+            get { return _salePricing.Value; }
+            set { _salePricing.Value = value; }
         }
 
-        public bool IsPricingModified {
+        [Obsolete]
+        public bool IsPricingModified
+        {
             get
             {
                 return _isPricingModified ||
@@ -60,10 +76,7 @@ namespace OpenRealEstate.Core.Models.Residential
         public DateTime? AuctionOn
         {
             get { return _auctionOn.Value; }
-            set
-            {
-                _auctionOn.Value = value;
-            }
+            set { _auctionOn.Value = value; }
         }
 
         [Obsolete]
@@ -75,6 +88,7 @@ namespace OpenRealEstate.Core.Models.Residential
             set { _councilRates.Value = value; }
         }
 
+        [Obsolete]
         public bool IsCouncilRatesModified { get; private set; }
 
         public BuildingDetails BuildingDetails
@@ -97,15 +111,7 @@ namespace OpenRealEstate.Core.Models.Residential
 
         public override bool IsModified
         {
-            get
-            {
-                return base.IsModified ||
-                       IsPropertyTypeModified ||
-                       IsPricingModified ||
-                       IsAuctionOnModified ||
-                       IsCouncilRatesModified ||
-                       IsBuildingDetailsModified;
-            }
+            get { return ModifiedData.IsModified; }
         }
 
         public override string ToString()
@@ -113,97 +119,29 @@ namespace OpenRealEstate.Core.Models.Residential
             return string.Format("Residential >> {0}", base.ToString());
         }
 
-        public void CopyX<T>(T newResidentialListing) where T : class, new()
-        {
-            //if (newResidentialListing == null)
-            //{
-            //    throw new ArgumentNullException("newResidentialListing");
-            //}
-
-            //ModifiedData.Copy(newResidentialListing, this);
-
-//            base.Copy(newResidentialListing);
-            
-
-            //if (!newResidentialListing.IsModified)
-            //{
-            //    return;
-            //}
-
-            //base.Copy(newResidentialListing);
-
-            //if (newResidentialListing.IsPropertyTypeModified)
-            //{
-            //    PropertyType = newResidentialListing.PropertyType;
-            //}
-
-            //if (newResidentialListing.IsPricingModified)
-            //{
-            //    if (newResidentialListing.Pricing == null)
-            //    {
-            //        Pricing = null;
-            //    }
-            //    else
-            //    {
-            //        if (Pricing == null)
-            //        {
-            //            Pricing = new SalePricing();
-            //        }
-
-            //        if (newResidentialListing.Pricing.IsModified)
-            //        {
-            //            Pricing.Copy(newResidentialListing.Pricing);
-            //        }
-
-            //        IsPricingModified = true;
-            //    }
-            //}
-
-            //if (newResidentialListing.IsAuctionOnModified)
-            //{
-            //    AuctionOn = newResidentialListing.AuctionOn;
-            //}
-
-            //if (newResidentialListing.IsCouncilRatesModified)
-            //{
-            //    CouncilRates = newResidentialListing.CouncilRates;
-            //}
-
-            //if (newResidentialListing.IsBuildingDetailsModified)
-            //{
-            //    if (newResidentialListing.BuildingDetails == null)
-            //    {
-            //        BuildingDetails = null;
-            //    }
-            //    else
-            //    {
-            //        if (BuildingDetails == null)
-            //        {
-            //            BuildingDetails = new BuildingDetails();
-            //        }
-
-            //        if (newResidentialListing.BuildingDetails.IsModified)
-            //        {
-            //            BuildingDetails.Copy(newResidentialListing.BuildingDetails);
-            //        }
-
-            //        IsBuildingDetailsModified = true;
-            //    }
-            //}
-        }
-
         public override void ClearAllIsModified()
         {
             base.ClearAllIsModified();
-            if (_buildingDetails.Value.IsModified)
+
+            if (_buildingDetails != null &&
+                _buildingDetails.Value.IsModified)
             {
                 _buildingDetails.Value.ClearAllIsModified();
             }
 
+            if (_salePricing != null &&
+                _salePricing.Value.IsModified)
+            {
+                _salePricing.Value.ClearAllIsModified();
+            }
+
             ModifiedData.ClearModifiedProperties(new[]
             {
-                "AuctionOn", 
-                "CouncilRates"
+                AuctionOnName,
+                BuildingDetailsName,
+                CouncilRatesName,
+                PropertyTypeName,
+                SalePricingName
             });
         }
     }

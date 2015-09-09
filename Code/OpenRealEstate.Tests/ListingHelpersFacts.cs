@@ -1,4 +1,5 @@
-﻿using OpenRealEstate.Core.Models;
+﻿using System;
+using OpenRealEstate.Core.Models;
 using OpenRealEstate.Core.Models.Residential;
 using OpenRealEstate.Services;
 using Shouldly;
@@ -18,6 +19,10 @@ namespace OpenRealEstate.Tests
                 var sourceListing = TestHelperUtilities.ResidentialListingFromFile(false);
                 sourceListing.StatusType = StatusType.Sold;
                 sourceListing.Pricing.SalePrice = 100;
+                sourceListing.Pricing.IsUnderOffer = true;
+                sourceListing.Pricing.SoldOn = DateTime.Now;
+                sourceListing.Pricing.SoldPrice = 200;
+                sourceListing.Pricing.SoldPriceText = "just sold yeah!";
                 sourceListing.Features.LivingAreas = 111;
                 sourceListing.Features.Toilets = 8;
                 sourceListing.Features.CarParking.OpenSpaces = 111;

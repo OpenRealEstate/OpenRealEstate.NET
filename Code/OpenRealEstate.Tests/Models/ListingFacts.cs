@@ -97,10 +97,10 @@ namespace OpenRealEstate.Tests.Models
                 destinationListing.Features.CarParking.OpenSpaces.ShouldBe(sourceListing.Features.CarParking.OpenSpaces);
                 destinationListing.Features.CarParking.IsOpenSpacesModified.ShouldBe(true);
 
-               TestHelperUtilities.AssertMediaItems(destinationListing.FloorPlans, sourceListing.FloorPlans);
+               TestHelperUtilities.AssertMedias(destinationListing.FloorPlans, sourceListing.FloorPlans);
                 destinationListing.IsFloorPlansModified.ShouldBe(true);
 
-               TestHelperUtilities.AssertMediaItems(destinationListing.Images, sourceListing.Images);
+                TestHelperUtilities.AssertMedias(destinationListing.Images, sourceListing.Images);
                 destinationListing.IsImagesModified.ShouldBe(true);
 
                 for (int i = 0; i < destinationListing.Inspections.Count; i++)
@@ -140,7 +140,7 @@ namespace OpenRealEstate.Tests.Models
                 }
                 destinationListing.IsLinksModified.ShouldBe(true);
 
-               TestHelperUtilities.AssertMediaItems(destinationListing.Videos, sourceListing.Videos);
+                TestHelperUtilities.AssertMedias(destinationListing.Videos, sourceListing.Videos);
                 destinationListing.IsImagesModified.ShouldBe(true);
             }
 
@@ -174,7 +174,10 @@ namespace OpenRealEstate.Tests.Models
                 }
 
                 sourceListing.LandDetails = null;
-                sourceListing.Links = null;
+                foreach (var link in sourceListing.Links)
+                {
+                    sourceListing.RemoveLink(link);
+                }
 
                 foreach (var video in sourceListing.Videos)
                 {

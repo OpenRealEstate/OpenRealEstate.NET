@@ -441,7 +441,7 @@ namespace OpenRealEstate.Tests
                     Side = "some side 2"
                 }
             });
-            listing.Links = new List<string>(new[] {"link 1", "link 2"});
+            listing.AddLinks(new List<string>(new[] {"link 1", "link 2"}));
             listing.StatusType = StatusType.Current;
             listing.Title = "some title";
             listing.AddVideos(new List<Media>
@@ -507,6 +507,36 @@ namespace OpenRealEstate.Tests
             destination.IsModified.ShouldBe(true);
         }
 
+        public static void AssertBuildingDetails(BuildingDetails destination, BuildingDetails source)
+        {
+            if (destination == null &&
+                source == null)
+            {
+                return;
+            }
+
+            destination.EnergyRating.ShouldBe(source.EnergyRating);
+            AssertUnitOfMeasure(destination.Area, source.Area);
+            destination.ModifiedData.IsModified.ShouldBe(true);
+        }
+
+        public static void AssertSalePricing(SalePricing destination, SalePricing source)
+        {
+            if (destination == null &&
+                source == null)
+            {
+                return;
+            }
+
+            destination.IsUnderOffer.ShouldBe(source.IsUnderOffer);
+            destination.SalePrice.ShouldBe(source.SalePrice);
+            destination.SalePriceText.ShouldBe(source.SalePriceText);
+            destination.SoldPrice.ShouldBe(source.SoldPrice);
+            destination.SoldPriceText.ShouldBe(source.SoldPriceText);
+            destination.SoldOn.ShouldBe(source.SoldOn);
+            destination.ModifiedData.IsModified.ShouldBe(true);
+        }
+
         public static void AssertCommunication(Communication destination, Communication source)
         {
             if (destination == null &&
@@ -541,6 +571,19 @@ namespace OpenRealEstate.Tests
             destination.ModifiedData.IsModified.ShouldBe(true);
         }
 
+        public static void AssertListingAgents(IList<ListingAgent> destination, IList<ListingAgent> source)
+        {
+            if (destination != null &&
+                source != null)
+            {
+                destination.Count.ShouldBe(source.Count);
+                for (var i = 0; i < destination.Count; i++)
+                {
+                    AssertListingAgent(destination[i], source[i]);
+                }
+            }
+        }
+
         public static void AssertCarparking(CarParking destination, CarParking source)
         {
             if (destination == null &&
@@ -555,7 +598,7 @@ namespace OpenRealEstate.Tests
             destination.ModifiedData.IsModified.ShouldBe(true);
         }
 
-        public static void AssertTags(IList<string> destination, IList<string> source)
+        public static void AssertStringCollection(IList<string> destination, IList<string> source)
         {
             if (destination == null &&
                 source == null)
@@ -583,7 +626,7 @@ namespace OpenRealEstate.Tests
             AssertCarparking(destination.CarParking, source.CarParking);
             destination.Ensuites.ShouldBe(source.Ensuites);
             destination.LivingAreas.ShouldBe(source.LivingAreas);
-            AssertTags(destination.Tags, source.Tags);
+            AssertStringCollection(destination.Tags, source.Tags);
             destination.Toilets.ShouldBe(source.Toilets);
             destination.ModifiedData.IsModified.ShouldBe(true);
         }
@@ -683,7 +726,6 @@ namespace OpenRealEstate.Tests
             }
         }
 
-
         public static void AssertLandDetails(LandDetails destination, LandDetails source)
         {
             if (destination == null &&
@@ -708,15 +750,7 @@ namespace OpenRealEstate.Tests
 
             AssertAggregateRoot(destination, source);
             AssertAddress(destination.Address, source.Address);
-            if (destination.Agents != null &&
-                source.Agents != null)
-            {
-                destination.Agents.Count.ShouldBe(source.Agents.Count);
-                for(var i = 0; i < destination.Agents.Count; i++)
-                {
-                    AssertListingAgent(destination.Agents[0], source.Agents[0]);
-                }
-            }
+            AssertListingAgents(destination.Agents, source.Agents);
             destination.AgencyId.ShouldBe(source.AgencyId);
             destination.CreatedOn.ShouldBe(source.CreatedOn);
             destination.Description.ShouldBe(source.Description);
@@ -726,6 +760,7 @@ namespace OpenRealEstate.Tests
             AssertInspections(destination.Inspections, source.Inspections);
             destination.StatusType.ShouldBe(source.StatusType);
             destination.Title.ShouldBe(source.Title);
+            AssertStringCollection(destination.Links, source.Links);
             AssertMedias(destination.Videos, source.Videos);
             destination.IsModified.ShouldBe(true);
         }
@@ -739,29 +774,11 @@ namespace OpenRealEstate.Tests
             }
 
             AssertListing(destination, source);
+            AssertBuildingDetails(destination.BuildingDetails, source.BuildingDetails);
+            destination.CouncilRates.ShouldBe(source.CouncilRates);
+            destination.PropertyType.ShouldBe(source.PropertyType);
+            AssertSalePricing(destination.Pricing, source.Pricing);
             destination.IsModified.ShouldBe(true);
-        }
-
-        public static void AssertMediaItems(IList<Media> destinationMedia,
-            IList<Media> sourceMedia)
-        {
-            if ((destinationMedia == null &&
-                 sourceMedia != null) ||
-                (destinationMedia != null &&
-                 sourceMedia == null))
-            {
-                throw new ArgumentException("Both ICollection<'s need to be null or need to be instantiated.");
-            }
-
-            for (int i = 0; i < destinationMedia.Count; i++)
-            {
-                destinationMedia[i].Url.ShouldBe(sourceMedia[i].Url);
-                destinationMedia[i].IsUrlModified.ShouldBe(true);
-                destinationMedia[i].Order.ShouldBe(sourceMedia[i].Order);
-                destinationMedia[i].IsOrderModified.ShouldBe(true);
-                destinationMedia[i].Tag.ShouldBe(sourceMedia[i].Tag);
-                destinationMedia[i].IsTagModified.ShouldBe(true);
-            }
         }
 
         #endregion

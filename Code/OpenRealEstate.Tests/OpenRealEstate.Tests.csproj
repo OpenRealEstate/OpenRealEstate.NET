@@ -59,7 +59,6 @@
   <ItemGroup>
     <Compile Include="AgencyFacts.cs" />
     <Compile Include="AgentFacts.cs" />
-    <Compile Include="FooTests.cs" />
     <Compile Include="FranchiseFacts.cs" />
     <Compile Include="ListingHelpersFacts.cs" />
     <Compile Include="Models\AggregateRootFacts.cs" />

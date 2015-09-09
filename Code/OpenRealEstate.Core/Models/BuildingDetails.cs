@@ -6,27 +6,31 @@ namespace OpenRealEstate.Core.Models
     public class BuildingDetails
     {
         private readonly DecimalNullableNotified _energyRating;
-        private readonly ModifiedData _modifiedData;
-        private UnitOfMeasure _area;
+        private readonly InstanceObjectNotified<UnitOfMeasure> _area;
+        [Obsolete]
         private bool _isAreaModified;
+        private const string AreaName = "Area";
+        private const string EnergyRatingName = "EnergyRating";
 
         public BuildingDetails()
         {
-            _modifiedData = new ModifiedData(GetType());
-            _energyRating = new DecimalNullableNotified("EnergyRating");
-            _energyRating.PropertyChanged += _modifiedData.OnPropertyChanged;
+            ModifiedData = new ModifiedData(GetType());
+
+            _energyRating = new DecimalNullableNotified(EnergyRatingName);
+            _energyRating.PropertyChanged += ModifiedData.OnPropertyChanged;
+
+            _area = new InstanceObjectNotified<UnitOfMeasure>(AreaName);
+            _area.PropertyChanged += ModifiedData.OnPropertyChanged;
         }
+
+        public ModifiedData ModifiedData { get; private set; }
 
         public UnitOfMeasure Area
         {
-            get { return _area; }
-            set
-            {
-                _area = value;
-                IsAreaModified = true;
-            }
+            get { return _area.Value; }
+            set { _area.Value = value; }
         }
-
+        [Obsolete]
         public bool IsAreaModified
         {
             get
@@ -49,57 +53,23 @@ namespace OpenRealEstate.Core.Models
 
         public bool IsModified
         {
-            get { return _modifiedData.IsModified; }
+            get { return ModifiedData.IsModified; }
         }
 
         public void Copy(BuildingDetails newBuildingDetails)
         {
-            _modifiedData.Copy(newBuildingDetails, this);
-
-
-            //if (newBuildingDetails == null)
-            //{
-            //    throw new ArgumentNullException("newBuildingDetails");
-            //}
-
-            //if (newBuildingDetails.IsAreaModified)
-            //{
-            //    if (newBuildingDetails.Area == null)
-            //    {
-            //        Area = null;
-            //    }
-            //    else
-            //    {
-            //        if (Area== null)
-            //        {
-            //            Area = new UnitOfMeasure();
-            //        }
-
-            //        if (newBuildingDetails.Area.IsModified)
-            //        {
-            //            Area = newBuildingDetails.Area;
-            //        }
-
-            //        IsAreaModified = true;
-            //    }
-            //}
-
-            //if (newBuildingDetails.IsEnergyRatingModified)
-            //{
-            //    EnergyRating = newBuildingDetails.EnergyRating;
-            //}
+            ModifiedData.Copy(newBuildingDetails, this);
         }
 
         public void ClearAllIsModified()
         {
-            _modifiedData.ClearModifiedProperties(new[] {"EnergyRating"});
-            //if (Area != null)
-            //{
-            //    Area.ClearAllIsModified();
-            //}
-            //IsAreaModified = false;
+            if (_area != null &&
+                _area.Value.IsModified)
+            {
+                _area.Value.ClearAllIsModified();
+            }
 
-            //IsEnergyRatingModified = false;
+            ModifiedData.ClearModifiedProperties(new[] { EnergyRatingName, AreaName });
         }
     }
 }
