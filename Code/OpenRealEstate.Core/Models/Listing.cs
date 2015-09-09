@@ -24,40 +24,59 @@ namespace OpenRealEstate.Core.Models
         private const string TitleName = "Title";
         private const string VideosName = "Videos";
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly InstanceObjectNotified<Address> _address;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly InstanceObjectNotified<Address> _address;
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly StringNotified _agencyId;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly StringNotified _agencyId;
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly ObservableCollection<ListingAgent> _agents;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly ObservableCollection<ListingAgent> _agents;
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly DateTimeNotified _createdOn;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly DateTimeNotified _createdOn;
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly StringNotified _description;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly StringNotified _description;
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly InstanceObjectNotified<Features> _features;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly InstanceObjectNotified<Features> _features;
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly ObservableCollection<Media> _floorPlans;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly ObservableCollection<Media> _floorPlans;
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly ObservableCollection<Media> _images;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly ObservableCollection<Media> _images;
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly ObservableCollection<Inspection> _inspections;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly ObservableCollection<Inspection> _inspections;
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly InstanceObjectNotified<LandDetails>
-            _landDetails;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly InstanceObjectNotified<LandDetails> _landDetails;
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly ObservableCollection<string> _links;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly ObservableCollection<string> _links;
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly EnumNotified<StatusType> _statusType;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly EnumNotified<StatusType> _statusType;
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly StringNotified _title;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly StringNotified _title;
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly ObservableCollection<Media> _videos;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly ObservableCollection<Media> _videos;
 
-        [Obsolete] [DebuggerBrowsable(DebuggerBrowsableState.Never)] private bool _isAddressModified;
+        [Obsolete]
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private bool _isAddressModified;
 
-        [Obsolete] [DebuggerBrowsable(DebuggerBrowsableState.Never)] private bool _isFeaturesModified;
+        [Obsolete]
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private bool _isFeaturesModified;
 
-        [Obsolete] [DebuggerBrowsable(DebuggerBrowsableState.Never)] private bool _isLandDetailsModified;
+        [Obsolete]
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private bool _isLandDetailsModified;
 
         protected Listing()
         {

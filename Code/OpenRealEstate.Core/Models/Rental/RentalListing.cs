@@ -1,50 +1,74 @@
 ﻿using System;
+using System.Diagnostics;
+using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models.Rental
 {
     public class RentalListing : Listing
     {
-        private DateTime? _availableOn;
-        private BuildingDetails _buildingDetails;
+        private const string AvailableOnName = "AvailableOn";
+        private const string BuildingDetailsName = "BuildingDetails";
+        private const string RentalPricingName = "Pricing";
+        private const string PropertyTypeName = "PropertyType";
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly DateTimeNullableNotified _availableOn;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private InstanceObjectNotified<BuildingDetails> _buildingDetails;
+
+        [Obsolete]
         private bool _isBuildingDetailsModified;
-        private RentalPricing _pricing;
+
+        [Obsolete]
         private bool _isPricingModified;
-        private PropertyType _propertyType;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private InstanceObjectNotified<RentalPricing> _pricing;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private EnumNotified<PropertyType> _propertyType;
+
+        public RentalListing()
+        {
+            _availableOn= new DateTimeNullableNotified(AvailableOnName);
+            _availableOn.PropertyChanged += ModifiedData.OnPropertyChanged;
+
+            _buildingDetails = new InstanceObjectNotified<BuildingDetails>(BuildingDetailsName);
+            _buildingDetails.PropertyChanged += ModifiedData.OnPropertyChanged;
+
+            _pricing = new InstanceObjectNotified<RentalPricing>(RentalPricingName);
+            _pricing.PropertyChanged += ModifiedData.OnPropertyChanged;
+
+            _propertyType = new EnumNotified<PropertyType>(PropertyTypeName);
+            _propertyType.PropertyChanged += ModifiedData.OnPropertyChanged;
+        }
 
         public PropertyType PropertyType
         {
-            get { return _propertyType; }
-            set
-            {
-                _propertyType = value;
-                IsPropertyTypeModified = true;
-            }
+            get { return _propertyType.Value; }
+            set { _propertyType.Value = value; }
         }
 
+        [Obsolete]
         public bool IsPropertyTypeModified { get; set; }
 
         public DateTime? AvailableOn
         {
-            get { return _availableOn; }
-            set
-            {
-                _availableOn = value;
-                IsAvailableOnModified = true;
-            }
+            get { return _availableOn.Value; }
+            set { _availableOn.Value = value; }
         }
 
+        [Obsolete]
         public bool IsAvailableOnModified { get; set; }
 
         public RentalPricing Pricing
         {
-            get { return _pricing; }
-            set
-            {
-                _pricing = value;
-                IsPricingModified = true;
-            }
+            get { return _pricing.Value; }
+            set { _pricing.Value = value; }
         }
 
+        [Obsolete]
         public bool IsPricingModified
         {
             get
@@ -58,14 +82,11 @@ namespace OpenRealEstate.Core.Models.Rental
 
         public BuildingDetails BuildingDetails
         {
-            get { return _buildingDetails; }
-            set
-            {
-                _buildingDetails = value;
-                IsBuildingDetailsModified = true;
-            }
+            get { return _buildingDetails.Value; }
+            set { _buildingDetails.Value = value; }
         }
 
+        [Obsolete]
         public bool IsBuildingDetailsModified
         {
             get
@@ -79,14 +100,7 @@ namespace OpenRealEstate.Core.Models.Rental
 
         public override bool IsModified
         {
-            get
-            {
-                return base.IsModified ||
-                       IsPropertyTypeModified ||
-                       IsAvailableOnModified ||
-                       IsPricingModified ||
-                       IsBuildingDetailsModified;
-            }
+            get { return ModifiedData.IsModified; }
         }
 
         public override string ToString()
@@ -94,88 +108,21 @@ namespace OpenRealEstate.Core.Models.Rental
             return string.Format("Rental >> {0}", base.ToString());
         }
 
-        public void Copy(RentalListing newRentalListing)
-        {
-            if (newRentalListing == null)
-            {
-                throw new ArgumentNullException("newRentalListing");
-            }
-
-            base.Copy(newRentalListing);
-
-            if (newRentalListing.IsPropertyTypeModified)
-            {
-                PropertyType = newRentalListing.PropertyType;
-            }
-
-            if (newRentalListing.IsAvailableOnModified)
-            {
-                AvailableOn = newRentalListing.AvailableOn;
-            }
-
-            if (newRentalListing.IsPricingModified)
-            {
-                if (newRentalListing.Pricing == null)
-                {
-                    Pricing = null;
-                }
-                else
-                {
-                    if (Pricing == null)
-                    {
-                        Pricing = new RentalPricing();
-                    }
-
-                    if (newRentalListing.Pricing.IsModified)
-                    {
-                        Pricing.Copy(newRentalListing.Pricing);
-                    }
-
-                    IsPricingModified = true;
-                }
-            }
-
-            if (newRentalListing.IsBuildingDetailsModified)
-            {
-                if (newRentalListing.BuildingDetails == null)
-                {
-                    BuildingDetails = null;
-                }
-                else
-                {
-                    if (BuildingDetails == null)
-                    {
-                        BuildingDetails = new BuildingDetails();
-                    }
-
-                    if (newRentalListing.BuildingDetails.IsModified)
-                    {
-                        BuildingDetails.Copy(newRentalListing.BuildingDetails);
-                    }
-
-                    IsBuildingDetailsModified = true;
-                }
-            }
-        }
-
         public override void ClearAllIsModified()
         {
             base.ClearAllIsModified();
 
-            if (BuildingDetails != null)
+            if (_buildingDetails != null &&
+                _buildingDetails.Value.IsModified)
             {
-                BuildingDetails.ClearAllIsModified();
+                _buildingDetails.Value.ClearAllIsModified();
             }
-            IsBuildingDetailsModified = false; 
 
-            if (Pricing != null)
+            if (_pricing != null && 
+                _pricing.Value.ModifiedData.IsModified)
             {
-                Pricing.ClearAllIsModified();
+                _pricing.Value.ClearAllIsModified();
             }
-            IsPricingModified = false;
-
-            IsPropertyTypeModified = false;
-            IsAvailableOnModified = false;
         }
     }
 }

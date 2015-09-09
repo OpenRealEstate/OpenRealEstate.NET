@@ -1,5 +1,6 @@
 ﻿using System;
 using OpenRealEstate.Core.Models;
+using OpenRealEstate.Core.Models.Rental;
 using OpenRealEstate.Core.Models.Residential;
 using OpenRealEstate.Services;
 using Shouldly;
@@ -52,6 +53,22 @@ namespace OpenRealEstate.Tests
             }
 
             [Fact]
+            public void GivenTwoRentalListingWhereOneIsEmptys_Copy_CopiesTheData()
+            {
+                // Arrange.
+                var destinationListing = new RentalListing();
+                var sourceListing = TestHelperUtilities.RentalListing(false);
+                sourceListing.StatusType = StatusType.Leased;
+                sourceListing.Pricing.RentalPrice = 100;
+
+                // Act.
+                ListingHelpers.Copy(destinationListing, sourceListing);
+
+                // Assert.
+                TestHelperUtilities.AssertRentalListing(destinationListing, sourceListing);
+            }
+
+            [Fact]
             public void GivenTwoRentalListings_Copy_CopiesTheData()
             {
                 // Arrange.
@@ -65,7 +82,9 @@ namespace OpenRealEstate.Tests
 
                 // Assert.
                 destinationListing.StatusType.ShouldBe(sourceListing.StatusType);
+                destinationListing.ModifiedData.IsModified.ShouldBe(true);
                 destinationListing.Pricing.RentalPrice.ShouldBe(sourceListing.Pricing.RentalPrice);
+                destinationListing.Pricing.ModifiedData.IsModified.ShouldBe(true);
             }
 
             [Fact]

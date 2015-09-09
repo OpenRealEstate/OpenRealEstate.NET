@@ -740,6 +740,21 @@ namespace OpenRealEstate.Tests
             AssertUnitOfMeasure(destination.Frontage, source.Frontage);
         }
 
+        public static void AssertRentalPricing(RentalPricing destination, RentalPricing source)
+        {
+            if (destination == null &&
+                source == null)
+            {
+                return;
+            }
+
+            destination.Bond.ShouldBe(source.Bond);
+            destination.PaymentFrequencyType.ShouldBe(source.PaymentFrequencyType);
+            destination.RentalPrice.ShouldBe(source.RentalPrice);
+            destination.RentalPriceText.ShouldBe(source.RentalPriceText);
+            destination.ModifiedData.IsModified.ShouldBe(true);
+        }
+
         public static void AssertListing(Listing destination, Listing source)
         {
             if (destination == null &&
@@ -779,6 +794,21 @@ namespace OpenRealEstate.Tests
             destination.PropertyType.ShouldBe(source.PropertyType);
             AssertSalePricing(destination.Pricing, source.Pricing);
             destination.IsModified.ShouldBe(true);
+        }
+
+        public static void AssertRentalListing(RentalListing destination, RentalListing source)
+        {
+            if (destination == null &&
+                   source == null)
+            {
+                return;
+            }
+            
+            destination.AvailableOn.ShouldBe(source.AvailableOn);
+            AssertBuildingDetails(destination.BuildingDetails, source.BuildingDetails);
+            destination.PropertyType.ShouldBe(source.PropertyType);
+            AssertRentalPricing(destination.Pricing, source.Pricing);
+            destination.ModifiedData.IsModified.ShouldBe(true);
         }
 
         #endregion

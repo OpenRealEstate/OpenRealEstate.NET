@@ -12,21 +12,28 @@ namespace OpenRealEstate.Core.Models.Residential
         private const string PropertyTypeName = "PropertyType";
         private const string SalePricingName = "Pricing";
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly DateTimeNullableNotified _auctionOn;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly DateTimeNullableNotified _auctionOn;
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly InstanceObjectNotified<BuildingDetails>
-            _buildingDetails;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly InstanceObjectNotified<BuildingDetails> _buildingDetails;
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly StringNotified _councilRates;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly StringNotified _councilRates;
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly EnumNotified<PropertyType> _propertyType;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly EnumNotified<PropertyType> _propertyType;
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)] private readonly InstanceObjectNotified<SalePricing>
-            _salePricing;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly InstanceObjectNotified<SalePricing> _salePricing;
 
-        [Obsolete] [DebuggerBrowsable(DebuggerBrowsableState.Never)] private bool _isBuildingDetailsModified;
+        [Obsolete]
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private bool _isBuildingDetailsModified;
 
-        [Obsolete] [DebuggerBrowsable(DebuggerBrowsableState.Never)] private bool _isPricingModified;
+        [Obsolete]
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private bool _isPricingModified;
 
         public ResidentialListing()
         {
