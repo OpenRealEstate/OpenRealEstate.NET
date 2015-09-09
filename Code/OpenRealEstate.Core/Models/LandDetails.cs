@@ -128,13 +128,19 @@ namespace OpenRealEstate.Core.Models
 
         public void ClearAllIsModified()
         {
-            ModifiedData.ClearModifiedProperties(new[]
+            if (_area.Value != null &&
+                _area.Value.ModifiedData.IsModified)
             {
-                AreaName,
-                CrossOverName,
-                DepthsName,
-                FrontageName
-            });
+                _area.Value.ClearAllIsModified();
+            }
+
+            if (_frontage.Value != null &&
+                _frontage.Value.ModifiedData.IsModified)
+            {
+                _frontage.Value.ClearAllIsModified();
+            }
+
+            ModifiedData.ClearModifiedPropertiesAndCollections();
         }
     }
 }

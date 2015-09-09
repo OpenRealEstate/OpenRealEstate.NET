@@ -137,32 +137,10 @@ namespace OpenRealEstate.Core.Primitives
                     : "-");
         }
 
-        public void ClearModifiedProperties(ICollection<string> propertyNames)
+        public void ClearModifiedPropertiesAndCollections()
         {
-            if (propertyNames == null)
-            {
-                throw new ArgumentNullException("propertyNames");
-            }
-
-            if (!propertyNames.Any())
-            {
-                throw new ArgumentOutOfRangeException("propertyNames");
-            }
-
-            if (!IsModified)
-            {
-                // Nothing to clear.
-                return;
-            }
-
-            foreach (var propertyName in
-                propertyNames.Where(propertyName => _modifiedProperties.Contains(propertyName)))
-            {
-                _modifiedProperties.Remove(propertyName);
-            }
-
-            // TODO: Check if the property is of type `ModifiedData` and if so, call the Clear method on that.
-            //       Eg. Listings.BuildingData <-- auto clear.
+            _modifiedProperties.Clear();
+            _modifiedCollections.Clear();
         }
 
         private static ModifiedData GetModifiedData(object source)

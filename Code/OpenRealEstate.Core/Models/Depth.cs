@@ -21,12 +21,5 @@ namespace OpenRealEstate.Core.Models
             get { return _side.Value; }
             set { _side.Value = value; }
         }
-
-        public override void ClearAllIsModified()
-        {
-            base.ClearAllIsModified();
-
-            ModifiedData.ClearModifiedProperties(new[] {SideName});
-        }
     }
 }

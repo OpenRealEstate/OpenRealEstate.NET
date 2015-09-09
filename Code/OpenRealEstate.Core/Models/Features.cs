@@ -160,20 +160,12 @@ namespace OpenRealEstate.Core.Models
 
         public void ClearAllIsModified()
         {
-            ModifiedData.ClearModifiedProperties(new[]
-            {
-                BathroomsName,
-                BedroomsName,
-                CarParkingName,
-                EnsuitesName,
-                LivingAreasName,
-                TagsName,
-                ToiletsName
-            });
+            ModifiedData.ClearModifiedPropertiesAndCollections();
 
-            if (CarParking != null)
+            if (_carParking.Value != null &&
+                _carParking.Value.ModifiedData.IsModified)
             {
-                CarParking.ClearAllIsModified();
+                _carParking.Value.ClearAllIsModified();
             }
         }
     }

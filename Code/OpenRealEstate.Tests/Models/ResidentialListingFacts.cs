@@ -52,5 +52,23 @@ namespace OpenRealEstate.Tests.Models
                 destinationListing.Pricing.ShouldBe(null);
             }
         }
+
+        public class ClearAllIsModifiedFacts
+        {
+            [Fact]
+            public void GivenAnExistingFullListing_ClearAllIsModified_SetsIsModifiedToFalse()
+            {
+                // Arrange.
+                var listing = TestHelperUtilities.ResidentialListing(false);
+
+                // Act.
+                listing.ClearAllIsModified();
+
+                // Arrange.
+                listing.ModifiedData.IsModified.ShouldBe(false);
+                TestHelperUtilities.AssertBuildingDetailsIsModified(listing.BuildingDetails, false);
+                TestHelperUtilities.AssertSalePricing(listing.Pricing, false);
+            }
+        }
     }
 }

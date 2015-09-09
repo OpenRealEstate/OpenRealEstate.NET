@@ -11,7 +11,7 @@ namespace OpenRealEstate.Core.Models
     {
         private const string AddressName = "Address";
         private const string AgencyIdName = "AgencyId";
-        private const string AgentsName = "AgencyId";
+        private const string AgentsName = "Agents";
         private const string CreatedOnName = "CreatedOn";
         private const string DescriptionName = "Description";
         private const string FeaturesNames = "Features";
@@ -525,22 +525,7 @@ namespace OpenRealEstate.Core.Models
                 _landDetails.Value.ClearAllIsModified();
             }
 
-            ModifiedData.ClearModifiedProperties(new[]
-            {
-                AddressName,
-                AgencyIdName,
-                AgentsName,
-                CreatedOnName,
-                DescriptionName,
-                ImagesName,
-                FloorPlansName,
-                InspectionsName,
-                LandDetailsName,
-                LinksName,
-                StatusTypeNane,
-                TitleName,
-                VideosName,
-            });
+            ModifiedData.ClearModifiedPropertiesAndCollections();
         }
     }
 }

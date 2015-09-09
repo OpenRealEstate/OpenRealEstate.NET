@@ -94,14 +94,17 @@ namespace OpenRealEstate.Core.Models.Land
         {
             base.ClearAllIsModified();
 
-            ModifiedData.ClearModifiedProperties(new[]
+            if (_estate.Value != null &&
+                _estate.Value.ModifiedData.IsModified)
             {
-                AuctionOnName,
-                CategoryTypeName,
-                CouncilRatesName,
-                EstateName,
-                SalePricingName
-            });
+                _estate.Value.ClearAllIsModified();
+            }
+
+            if (_pricing.Value != null &&
+                _pricing.Value.ModifiedData.IsModified)
+            {
+                _pricing.Value.ClearAllIsModified();
+            }
         }
     }
 }

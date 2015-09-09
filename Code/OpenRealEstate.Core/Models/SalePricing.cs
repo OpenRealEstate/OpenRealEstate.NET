@@ -99,15 +99,7 @@ namespace OpenRealEstate.Core.Models
 
         public void ClearAllIsModified()
         {
-            ModifiedData.ClearModifiedProperties(new[]
-            {
-                IsUnderOfferName,
-                SalePriceName,
-                SalePriceTextName,
-                SoldOnName,
-                SoldPriceName,
-                SoldPriceTextName
-            });
+            ModifiedData.ClearModifiedPropertiesAndCollections();
         }
     }
 }

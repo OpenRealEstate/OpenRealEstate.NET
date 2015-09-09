@@ -53,7 +53,7 @@ namespace OpenRealEstate.Core.Models
                 _area.Value.ClearAllIsModified();
             }
 
-            ModifiedData.ClearModifiedProperties(new[] {EnergyRatingName, AreaName});
+            ModifiedData.ClearModifiedPropertiesAndCollections();
         }
     }
 }

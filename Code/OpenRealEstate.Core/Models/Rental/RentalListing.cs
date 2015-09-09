@@ -15,13 +15,13 @@ namespace OpenRealEstate.Core.Models.Rental
         private readonly DateTimeNullableNotified _availableOn;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private InstanceObjectNotified<BuildingDetails> _buildingDetails;
+        private readonly InstanceObjectNotified<BuildingDetails> _buildingDetails;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private InstanceObjectNotified<RentalPricing> _pricing;
+        private readonly InstanceObjectNotified<RentalPricing> _pricing;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private EnumNotified<PropertyType> _propertyType;
+        private readonly EnumNotified<PropertyType> _propertyType;
 
         public RentalListing()
         {

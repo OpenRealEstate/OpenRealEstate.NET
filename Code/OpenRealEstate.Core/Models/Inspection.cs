@@ -47,7 +47,7 @@ namespace OpenRealEstate.Core.Models
 
         public void ClearAllIsModified()
         {
-            ModifiedData.ClearModifiedProperties(new[] {ClosesOnName, OpensOnName});
+            ModifiedData.ClearModifiedPropertiesAndCollections();
         }
     }
 }

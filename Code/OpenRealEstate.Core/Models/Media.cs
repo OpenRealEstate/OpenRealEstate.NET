@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
@@ -60,7 +59,7 @@ namespace OpenRealEstate.Core.Models
 
         public void ClearAllIsModified()
         {
-            ModifiedData.ClearModifiedProperties(new[] {OrderName, TagName, UrlName});
+            ModifiedData.ClearModifiedPropertiesAndCollections();
         }
     }
 }

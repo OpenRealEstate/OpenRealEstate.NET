@@ -96,14 +96,7 @@ namespace OpenRealEstate.Core.Models.Residential
                 _salePricing.Value.ClearAllIsModified();
             }
 
-            ModifiedData.ClearModifiedProperties(new[]
-            {
-                AuctionOnName,
-                BuildingDetailsName,
-                CouncilRatesName,
-                PropertyTypeName,
-                SalePricingName
-            });
+            ModifiedData.ClearModifiedPropertiesAndCollections();
         }
     }
 }

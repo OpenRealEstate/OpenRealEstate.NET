@@ -78,13 +78,7 @@ namespace OpenRealEstate.Core.Models.Rental
 
         public void ClearAllIsModified()
         {
-            ModifiedData.ClearModifiedProperties(new[]
-            {
-                BondName,
-                PaymentFrequencyTypeName,
-                RentalPriceName,
-                RentalPriceTextName
-            });
+            ModifiedData.ClearModifiedPropertiesAndCollections();
         }
     }
 }

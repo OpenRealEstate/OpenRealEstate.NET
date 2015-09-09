@@ -117,16 +117,7 @@ namespace OpenRealEstate.Core.Models.Rural
 
         public void ClearAllIsModified()
         {
-            ModifiedData.ClearModifiedProperties(new[]
-            {
-                AnnualRainfallName,
-                CarryingCapacityName,
-                FencingName,
-                ImprovementsName,
-                IrrigationName,
-                ServicesName,
-                SoilTypesName
-            });
+            ModifiedData.ClearModifiedPropertiesAndCollections();
         }
     }
 }

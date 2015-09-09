@@ -872,6 +872,22 @@ namespace OpenRealEstate.Tests
             AssertRuralFeatures(destination.RuralFeatures, source.RuralFeatures);
         }
 
+        public static void AssertUnitOfMeasureIsModified(UnitOfMeasure unitOfMeasure, bool isModified)
+        {
+            unitOfMeasure.ModifiedData.IsModified.ShouldBe(isModified);
+        }
+
+        public static void AssertBuildingDetailsIsModified(BuildingDetails buildingDetails, bool isModified)
+        {
+            AssertUnitOfMeasureIsModified(buildingDetails.Area, isModified);
+            buildingDetails.ModifiedData.IsModified.ShouldBe(isModified);
+        }
+
+        public static void AssertSalePricing(SalePricing salePricing, bool isModified)
+        {
+            salePricing.ModifiedData.IsModified.ShouldBe(isModified);
+        }
+
         #endregion
     }
 }

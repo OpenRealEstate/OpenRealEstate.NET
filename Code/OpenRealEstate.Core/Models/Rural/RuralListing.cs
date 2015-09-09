@@ -115,15 +115,7 @@ namespace OpenRealEstate.Core.Models.Rural
                 _ruralFeatures.Value.ClearAllIsModified();
             }
 
-            ModifiedData.ClearModifiedProperties(new[]
-            {
-                AuctionOnName,
-                BuildingDetailsName,
-                CategoryTypeName,
-                CouncilRatesName,
-                PricingName,
-                RuralFeaturesName
-            });
+            ModifiedData.ClearModifiedPropertiesAndCollections();
         }
     }
 }

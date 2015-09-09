@@ -52,7 +52,7 @@ namespace OpenRealEstate.Core.Models.Land
 
         public void ClearAllIsModified()
         {
-            ModifiedData.ClearModifiedProperties(new[] {NameName, StageName});
+            ModifiedData.ClearModifiedPropertiesAndCollections();
         }
     }
 }

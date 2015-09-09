@@ -202,19 +202,7 @@ namespace OpenRealEstate.Core.Models
 
         public void ClearAllIsModified()
         {
-            ModifiedData.ClearModifiedProperties(new[]
-            {
-                CountryIsoCodeName,
-                IsStreetDisplayedName,
-                LatitudeName,
-                LongitudeName,
-                MunicipalityName,
-                PostcodeName,
-                StateName,
-                StreetName,
-                StreetNumberName,
-                SuburbName
-            });
+            ModifiedData.ClearModifiedPropertiesAndCollections();
         }
     }
 }

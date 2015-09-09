@@ -44,7 +44,7 @@ namespace OpenRealEstate.Core.Models
 
         public virtual void ClearAllIsModified()
         {
-            ModifiedData.ClearModifiedProperties(new[] {"Id", "UpdatedOn"});
+            ModifiedData.ClearModifiedPropertiesAndCollections();
         }
     }
 }
