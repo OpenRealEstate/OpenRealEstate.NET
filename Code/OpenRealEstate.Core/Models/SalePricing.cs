@@ -62,17 +62,11 @@ namespace OpenRealEstate.Core.Models
             set { _salePrice.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsSalePriceModified { get; private set; }
-
         public string SalePriceText
         {
             get { return _salePriceText.Value; }
             set { _salePriceText.Value = value; }
         }
-
-        [Obsolete]
-        public bool IsSalePriceTextModified { get; private set; }
 
         public decimal? SoldPrice
         {
@@ -80,17 +74,11 @@ namespace OpenRealEstate.Core.Models
             set { _soldPrice.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsSoldPriceModified { get; private set; }
-
         public string SoldPriceText
         {
             get { return _soldPriceText.Value; }
             set { _soldPriceText.Value = value; }
         }
-
-        [Obsolete]
-        public bool IsSoldPriceTextModified { get; private set; }
 
         public DateTime? SoldOn
         {
@@ -98,21 +86,10 @@ namespace OpenRealEstate.Core.Models
             set { _soldOn.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsSoldOnModified { get; private set; }
-
         public bool IsUnderOffer
         {
             get { return _isUnderOffer.Value; }
             set { _isUnderOffer.Value = value; }
-        }
-
-        [Obsolete]
-        public bool IsUnderOfferModified { get; private set; }
-
-        public bool IsModified
-        {
-            get { return ModifiedData.IsModified; }
         }
 
         public void Copy(SalePricing newSalePricing)

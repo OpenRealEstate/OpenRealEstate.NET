@@ -27,14 +27,6 @@ namespace OpenRealEstate.Core.Models.Residential
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly InstanceObjectNotified<SalePricing> _salePricing;
 
-        [Obsolete]
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private bool _isBuildingDetailsModified;
-
-        [Obsolete]
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private bool _isPricingModified;
-
         public ResidentialListing()
         {
             _auctionOn = new DateTimeNullableNotified(AuctionOnName);
@@ -59,25 +51,10 @@ namespace OpenRealEstate.Core.Models.Residential
             set { _propertyType.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsPropertyTypeModified { get; private set; }
-
         public SalePricing Pricing
         {
             get { return _salePricing.Value; }
             set { _salePricing.Value = value; }
-        }
-
-        [Obsolete]
-        public bool IsPricingModified
-        {
-            get
-            {
-                return _isPricingModified ||
-                       (Pricing != null &&
-                        Pricing.IsModified);
-            }
-            set { _isPricingModified = value; }
         }
 
         public DateTime? AuctionOn
@@ -86,39 +63,16 @@ namespace OpenRealEstate.Core.Models.Residential
             set { _auctionOn.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsAuctionOnModified { get; private set; }
-
         public string CouncilRates
         {
             get { return _councilRates.Value; }
             set { _councilRates.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsCouncilRatesModified { get; private set; }
-
         public BuildingDetails BuildingDetails
         {
             get { return _buildingDetails.Value; }
             set { _buildingDetails.Value = value; }
-        }
-
-        [Obsolete]
-        public bool IsBuildingDetailsModified
-        {
-            get
-            {
-                return _isBuildingDetailsModified ||
-                       (BuildingDetails != null &&
-                        BuildingDetails.IsModified);
-            }
-            set { _isBuildingDetailsModified = value; }
-        }
-
-        public override bool IsModified
-        {
-            get { return ModifiedData.IsModified; }
         }
 
         public override string ToString()
@@ -131,13 +85,13 @@ namespace OpenRealEstate.Core.Models.Residential
             base.ClearAllIsModified();
 
             if (_buildingDetails != null &&
-                _buildingDetails.Value.IsModified)
+                _buildingDetails.Value.ModifiedData.IsModified)
             {
                 _buildingDetails.Value.ClearAllIsModified();
             }
 
             if (_salePricing != null &&
-                _salePricing.Value.IsModified)
+                _salePricing.Value.ModifiedData.IsModified)
             {
                 _salePricing.Value.ClearAllIsModified();
             }

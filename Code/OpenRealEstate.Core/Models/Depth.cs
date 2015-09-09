@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
@@ -22,9 +21,6 @@ namespace OpenRealEstate.Core.Models
             get { return _side.Value; }
             set { _side.Value = value; }
         }
-
-        [Obsolete]
-        public bool IsSideModified { get; private set; }
 
         public override void ClearAllIsModified()
         {

@@ -48,17 +48,11 @@ namespace OpenRealEstate.Core.Models.Rental
             set { _rentalPrice.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsRentalPriceModified { get; set; }
-
         public PaymentFrequencyType PaymentFrequencyType
         {
             get { return _paymentFrequencyType.Value; }
             set { _paymentFrequencyType.Value = value; }
         }
-
-        [Obsolete]
-        public bool IsPaymentFrequencyTypeModified { get; set; }
 
         public string RentalPriceText
         {
@@ -66,21 +60,10 @@ namespace OpenRealEstate.Core.Models.Rental
             set { _rentalPriceText.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsRentalPriceTextModified { get; set; }
-
         public decimal? Bond
         {
             get { return _bond.Value; }
             set { _bond.Value = value; }
-        }
-
-        [Obsolete]
-        public bool IsBondModified { get; set; }
-
-        public bool IsModified
-        {
-            get { return ModifiedData.IsModified; }
         }
 
         public void Copy(RentalPricing newRentalPricing)

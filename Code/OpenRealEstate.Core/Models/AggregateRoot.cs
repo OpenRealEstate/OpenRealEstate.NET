@@ -31,21 +31,10 @@ namespace OpenRealEstate.Core.Models
             set { _id.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsIdModified { get; private set; }
-
         public DateTime UpdatedOn
         {
             get { return _updatedOn.Value; }
             set { _updatedOn.Value = value; }
-        }
-
-        [Obsolete]
-        public bool IsUpdatedOnModified { get; private set; }
-
-        public virtual bool IsModified
-        {
-            get { return ModifiedData.IsModified; }
         }
 
         public void Copy(AggregateRoot newAggregateRoot)

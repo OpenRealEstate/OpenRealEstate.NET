@@ -27,14 +27,6 @@ namespace OpenRealEstate.Core.Models.Land
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly InstanceObjectNotified<SalePricing> _pricing;
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        [Obsolete]
-        private bool _isEstateModified;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        [Obsolete]
-        private bool _isPricingModified;
-
         public LandListing()
         {
             _auctionOn = new DateTimeNullableNotified(AuctionOnName);
@@ -59,25 +51,10 @@ namespace OpenRealEstate.Core.Models.Land
             set { _categoryType.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsCategoryTypeModified { get; set; }
-
         public SalePricing Pricing
         {
             get { return _pricing.Value; }
             set { _pricing.Value = value; }
-        }
-
-        [Obsolete]
-        public bool IsPricingModified
-        {
-            get
-            {
-                return _isPricingModified ||
-                       (Pricing != null &&
-                        Pricing.IsModified);
-            }
-            set { _isPricingModified = value; }
         }
 
         public DateTime? AuctionOn
@@ -86,47 +63,16 @@ namespace OpenRealEstate.Core.Models.Land
             set { _auctionOn.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsAuctionOnModified { get; set; }
-
         public LandEstate Estate
         {
             get { return _estate.Value; }
             set { _estate.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsEstateModified
-        {
-            get
-            {
-                return _isEstateModified ||
-                       (Estate != null &&
-                        Estate.IsModified);
-            }
-            set { _isEstateModified = value; }
-        }
-
         public string CouncilRates
         {
             get { return _councilRates.Value; }
             set { _councilRates.Value = value; }
-        }
-
-        [Obsolete]
-        public bool IsCouncilRatesModified { get; set; }
-
-        public override bool IsModified
-        {
-            get
-            {
-                return base.IsModified ||
-                       IsCategoryTypeModified ||
-                       IsPricingModified ||
-                       IsAuctionOnModified ||
-                       IsEstateModified ||
-                       IsCouncilRatesModified;
-            }
         }
 
         public override string ToString()

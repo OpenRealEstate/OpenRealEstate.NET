@@ -31,17 +31,6 @@ namespace OpenRealEstate.Core.Models.Rural
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly InstanceObjectNotified<RuralFeatures> _ruralFeatures;
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private bool _isBuildingDetailsModified;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        [Obsolete]
-        private bool _isPricingModified;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        [Obsolete]
-        private bool _isRuralFeaturesModified;
-
         public RuralListing()
         {
             _auctionOn = new DateTimeNullableNotified(AuctionOnName);
@@ -77,43 +66,16 @@ namespace OpenRealEstate.Core.Models.Rural
             set { _pricing.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsPricingModified
-        {
-            get
-            {
-                return _isPricingModified ||
-                       (Pricing != null &&
-                        Pricing.IsModified);
-            }
-            set { _isPricingModified = value; }
-        }
-
         public DateTime? AuctionOn
         {
             get { return _auctionOn.Value; }
             set { _auctionOn.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsAuctionOnModified { get; set; }
-
         public RuralFeatures RuralFeatures
         {
             get { return _ruralFeatures.Value; }
             set { _ruralFeatures.Value = value; }
-        }
-
-        [Obsolete]
-        public bool IsRuralFeaturesModified
-        {
-            get
-            {
-                return _isRuralFeaturesModified ||
-                       (RuralFeatures != null &&
-                        RuralFeatures.IsModified);
-            }
-            set { _isRuralFeaturesModified = value; }
         }
 
         public string CouncilRates
@@ -122,30 +84,10 @@ namespace OpenRealEstate.Core.Models.Rural
             set { _councilRates.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsCouncilRatesModified { get; set; }
-
         public BuildingDetails BuildingDetails
         {
             get { return _buildingDetails.Value; }
             set { _buildingDetails.Value = value; }
-        }
-
-        [Obsolete]
-        public bool IsBuildingDetailsModified
-        {
-            get
-            {
-                return _isBuildingDetailsModified ||
-                       (BuildingDetails != null &&
-                        BuildingDetails.IsModified);
-            }
-            set { _isBuildingDetailsModified = value; }
-        }
-
-        public override bool IsModified
-        {
-            get { return ModifiedData.IsModified; }
         }
 
         public override string ToString()

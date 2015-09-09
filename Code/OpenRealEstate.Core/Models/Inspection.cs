@@ -34,17 +34,11 @@ namespace OpenRealEstate.Core.Models
             set { _opensOn.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsOpensOnModified { get; private set; }
-
         public DateTime? ClosesOn
         {
             get { return _closesOn.Value; }
             set { _closesOn.Value = value; }
         }
-
-        [Obsolete]
-        public bool IsClosesOnModified { get; private set; }
 
         public void Copy(Inspection inspection)
         {

@@ -598,9 +598,7 @@ namespace OpenRealEstate.Tests
                     {
                         listingAgents.Count.ShouldBe(1);
                         listingAgents.First().Name.ShouldBe("Mr. John Doe");
-                        listingAgents.First().IsNameModified.ShouldBe(isModified);
                         listingAgents.First().Order.ShouldBe(1);
-                        listingAgents.First().IsOrderModified.ShouldBe(isModified);
                     };
                 AssertResidentialCurrentListing(listing,
                     tags:
@@ -626,27 +624,15 @@ namespace OpenRealEstate.Tests
                 Action<IList<ListingAgent>, bool> assertAgents = null)
             {
                 listing.AgencyId.ShouldBe("XNWXNW");
-                listing.IsAgencyIdModified.ShouldBe(isModified);
                 listing.Id.ShouldBe("Residential-Current-ABCD1234");
-                listing.IsIdModified.ShouldBe(isModified);
                 listing.StatusType.ShouldBe(StatusType.Current);
-                listing.IsStatusTypeModified.ShouldBe(isModified);
                 listing.PropertyType.ShouldBe(expectedPropertyType);
-                listing.IsPropertyTypeModified.ShouldBe(isModified);
                 listing.CouncilRates.ShouldBe("$2000 per month");
-                listing.IsCouncilRatesModified.ShouldBe(isModified);
                 listing.Links[0].ShouldBe("http://www.au.open2view.com/properties/314244/tour#floorplan");
                 listing.Links[1].ShouldBe("http://www.google.com/hello");
-                listing.IsLinksModified.ShouldBe(isModified);
-
                 AssertAddress(listing.Address, streetNumber, isModified);
-                listing.IsAddressModified.ShouldBe(isModified);
-
                 AssertSalePrice(listing.Pricing, salePriceText, isModified);
-                listing.IsPricingModified.ShouldBe(isModified);
-
-                AssertInspections(listing.Inspections, isModified);
-                listing.IsInspectionsModified.ShouldBe(isModified);
+                AssertInspections(listing.Inspections);
 
                 if (assertAgents != null)
                 {
@@ -654,9 +640,8 @@ namespace OpenRealEstate.Tests
                 }
                 else
                 {
-                    AssertAgents(listing.Agents, isModified);    
+                    AssertAgents(listing.Agents);    
                 }
-                listing.IsAgentsModified.ShouldBe(isModified);
 
                 AssertFeatures(listing.Features, 
                     tags, 
@@ -664,28 +649,21 @@ namespace OpenRealEstate.Tests
                     expectedBedroomsCount,
                     bathroomCount: 2,
                     ensuitesCount: 2);
-                listing.IsFeaturesModified.ShouldBe(isModified);
 
                 AssertImages(listing.Images, imageUrls, isModified);
-                listing.IsImagesModified.ShouldBe(isModified);
 
                 AssertFloorPlans(listing.FloorPlans, floorplanUrls, isModified);
-                listing.IsFloorPlansModified.ShouldBe(isModified);
 
                 if (videoUrls != null)
                 {
                     AssertVideos(listing.Videos, videoUrls, isModified);
-                    listing.IsVideosModified.ShouldBe(isModified);
                 }
                 
                 listing.AuctionOn.ShouldBe(new DateTime(2009, 02, 04, 18, 30, 00));
-                listing.IsAuctionOnModified.ShouldBe(isModified);
 
-                AssertBuildingDetails(listing.BuildingDetails, isModified);
-                listing.BuildingDetails.IsEnergyRatingModified.ShouldBe(isModified);
+                AssertBuildingDetails(listing.BuildingDetails);
 
-                AssertLandDetails(listing.LandDetails, isModified);
-                listing.IsLandDetailsModified.ShouldBe(isModified);
+                AssertLandDetails(listing.LandDetails);
             }
 
             private static void AssertResidentialSoldListing(ResidentialListing listing,
@@ -811,16 +789,11 @@ namespace OpenRealEstate.Tests
                 int bedroomsCount = 0)
             {
                 listing.AgencyId.ShouldBe("XNWXNW");
-                listing.IsAgencyIdModified.ShouldBe(isModified);
                 listing.Id.ShouldBe("Rental-Current-ABCD1234");
-                listing.IsIdModified.ShouldBe(isModified);
                 listing.StatusType.ShouldBe(StatusType.Current);
-                listing.IsStatusTypeModified.ShouldBe(isModified);
                 listing.PropertyType.ShouldBe(PropertyType.House);
-                listing.IsPropertyTypeModified.ShouldBe(isModified);
 
                 AssertAddress(listing.Address, "39", isModified);
-                listing.IsAddressModified.ShouldBe(isModified);
 
                 listing.AvailableOn.ShouldBe(new DateTime(2009, 01, 26, 12, 30, 00));
 
@@ -1410,21 +1383,13 @@ namespace OpenRealEstate.Tests
                 bool isModified)
             {
                 address.IsStreetDisplayed.ShouldBe(true);
-                address.IsIsStreetDisplayedModified.ShouldBe(isModified);
                 address.StreetNumber.ShouldBe(streetNumber);
-                address.IsStreetNumberModified.ShouldBe(isModified);
                 address.Street.ShouldBe("Main Road");
-                address.IsStreetModified.ShouldBe(isModified);
                 address.Suburb.ShouldBe("RICHMOND");
-                address.IsSuburbModified.ShouldBe(isModified);
                 address.Municipality.ShouldBe("Yarra");
-                address.IsMunicipalityModified.ShouldBe(isModified);
                 address.State.ShouldBe("vic");
-                address.IsStateModified.ShouldBe(isModified);
                 address.CountryIsoCode.ShouldBe("AU");
-                address.IsCountryIsoCodeModified.ShouldBe(isModified);
                 address.Postcode.ShouldBe("3121");
-                address.IsPostcodeModified.ShouldBe(isModified);
             }
 
             private static void AssertSalePrice(SalePricing pricing,
@@ -1432,45 +1397,30 @@ namespace OpenRealEstate.Tests
                 bool isModified)
             {
                 pricing.SalePrice.ShouldBe(500000m);
-                pricing.IsSalePriceModified.ShouldBe(isModified);
                 pricing.SalePriceText.ShouldBe(salePriceText);
-                pricing.IsSalePriceTextModified.ShouldBe(isModified);
                 pricing.IsUnderOffer.ShouldBe(false);
-                pricing.IsUnderOfferModified.ShouldBe(isModified);
             }
 
-            private static void AssertInspections(IList<Inspection> inspections,
-                bool isModified)
+            private static void AssertInspections(IList<Inspection> inspections)
             {
                 inspections.Count.ShouldBe(2);
                 inspections.First().OpensOn.ShouldBe(new DateTime(2009, 1, 21, 11, 00, 0));
                 inspections.First().ClosesOn.ShouldBe(new DateTime(2009, 1, 21, 13, 00, 0));
-                inspections.First().IsOpensOnModified.ShouldBe(isModified);
-                inspections.First().IsClosesOnModified.ShouldBe(isModified);
             }
 
-            private static void AssertAgents(IList<ListingAgent> agents, bool isModified)
+            private static void AssertAgents(IList<ListingAgent> agents)
             {
                 agents.Count.ShouldBe(1);
 
                 var listingAgent = agents[0];
                 listingAgent.Name.ShouldBe("Mr. John Doe");
-                listingAgent.IsNameModified.ShouldBe(isModified);
                 listingAgent.Order.ShouldBe(1);
-                listingAgent.IsOrderModified.ShouldBe(isModified);
                 listingAgent.Communications[0].CommunicationType.ShouldBe(CommunicationType.Email);
-                listingAgent.Communications[0].IsCommunicationTypeModified.ShouldBe(isModified);
                 listingAgent.Communications[0].Details.ShouldBe("jdoe@somedomain.com.au");
-                listingAgent.Communications[0].IsDetailsModified.ShouldBe(isModified);
                 listingAgent.Communications[1].CommunicationType.ShouldBe(CommunicationType.Mobile);
-                listingAgent.Communications[1].IsCommunicationTypeModified.ShouldBe(isModified);
                 listingAgent.Communications[1].Details.ShouldBe("0418 123 456");
-                listingAgent.Communications[1].IsDetailsModified.ShouldBe(isModified);
                 listingAgent.Communications[2].CommunicationType.ShouldBe(CommunicationType.Landline);
-                listingAgent.Communications[2].IsCommunicationTypeModified.ShouldBe(isModified);
                 listingAgent.Communications[2].Details.ShouldBe("05 1234 5678");
-                listingAgent.Communications[2].IsDetailsModified.ShouldBe(isModified);
-                listingAgent.IsCommunicationsModified.ShouldBe(isModified);
             }
 
             private static void AssertFeatures(Features features,
@@ -1484,15 +1434,10 @@ namespace OpenRealEstate.Tests
                 CarParking carParking = null)
             {
                 features.Bedrooms.ShouldBe(bedroomsCount);
-                features.IsBedroomsModified.ShouldBe(isModified);
                 features.Bathrooms.ShouldBe(bathroomCount);
-                features.IsBathroomsModified.ShouldBe(isModified);
                 features.Ensuites.ShouldBe(ensuitesCount);
-                features.IsEnsuitesModified.ShouldBe(isModified);
                 features.Toilets.ShouldBe(toiletsCount);
-                features.IsToiletsModified.ShouldBe(isModified);
                 features.LivingAreas.ShouldBe(livingAreasCount);
-                features.IsLivingAreasModified.ShouldBe(isModified);
 
                 if (tags != null)
                 {
@@ -1501,37 +1446,25 @@ namespace OpenRealEstate.Tests
 
                 if (features.CarParking != null)
                 {
-                    AssertCarParking(features.CarParking, carParking, isModified);
+                    AssertCarParking(features.CarParking, carParking);
                 }
-                features.IsCarParkingModified.ShouldBe(isModified);
-
-                features.IsTagsModified.ShouldBe(isModified);
             }
 
 
             private static void AssertCarParking(CarParking carParking, 
-                CarParking optionalCarParkingData,
-                bool isModified)
+                CarParking optionalCarParkingData)
             {
                 carParking.Garages.ShouldBe(optionalCarParkingData != null
                     ? optionalCarParkingData.Garages
                     : 3);
-                carParking.IsGaragesModified.ShouldBe(isModified);
 
                 carParking.Carports.ShouldBe(optionalCarParkingData != null
                     ? optionalCarParkingData.Carports
                     : 2);
-                carParking.IsCarportsModified.ShouldBe(isModified);
 
                 carParking.OpenSpaces.ShouldBe(optionalCarParkingData != null
                     ? optionalCarParkingData.OpenSpaces
                     : 0);
-                carParking.IsOpenSpacesModified.ShouldBe(optionalCarParkingData != null &&
-                    optionalCarParkingData.OpenSpaces != 0
-                    ? optionalCarParkingData.IsOpenSpacesModified
-                    : isModified);
-
-                carParking.IsModified.ShouldBe(isModified);
             }
 
             private static void AssertTags(ICollection<string> featureTags, IEnumerable<string> tags)
@@ -1552,17 +1485,13 @@ namespace OpenRealEstate.Tests
             {
                 images.Count.ShouldBe(2);
                 images[0].Order.ShouldBe(1);
-                images[0].IsOrderModified.ShouldBe(isModified);
                 images[0].Url.ShouldBe(imageUrls == null
                     ? "http://www.realestate.com.au/tmp/imageM.jpg"
                     : imageUrls[0]);
-                images[0].IsUrlModified.ShouldBe(isModified);
                 images[1].Order.ShouldBe(2);
-                images[1].IsOrderModified.ShouldBe(isModified);
                 images[1].Url.ShouldBe(imageUrls == null
                     ? "http://www.realestate.com.au/tmp/imageA.jpg"
                     : imageUrls[1]);
-                images[1].IsUrlModified.ShouldBe(isModified);
             }
 
             private static void AssertFloorPlans(IList<Media> floorPlans,
@@ -1573,15 +1502,11 @@ namespace OpenRealEstate.Tests
                 floorPlans[0].Url.ShouldBe(floorplanUrls == null
                     ? "http://www.realestate.com.au/tmp/floorplan1.gif"
                     : floorplanUrls[0]);
-                floorPlans[0].IsUrlModified.ShouldBe(isModified);
                 floorPlans[0].Order.ShouldBe(1);
-                floorPlans[0].IsOrderModified.ShouldBe(isModified);
                 floorPlans[1].Url.ShouldBe(floorplanUrls == null
                     ? "http://www.realestate.com.au/tmp/floorplan2.gif"
                     : floorplanUrls[1]);
-                floorPlans[1].IsUrlModified.ShouldBe(isModified);
                 floorPlans[1].Order.ShouldBe(2);
-                floorPlans[1].IsOrderModified.ShouldBe(isModified);
             }
 
             private static void AssertVideos(IList<Media> videos,
@@ -1591,50 +1516,31 @@ namespace OpenRealEstate.Tests
                 for (var i = 0; i < videos.Count; i++)
                 {
                     videos[i].Url.ShouldBe(videoUrls[i]);
-                    videos[i].IsUrlModified.ShouldBe(isModified);
                 }
             }
 
-            private static void AssertBuildingDetails(BuildingDetails buildingDetails,
-                bool isModified)
+            private static void AssertBuildingDetails(BuildingDetails buildingDetails)
             {
                 buildingDetails.Area.Value.ShouldBe(40);
-                buildingDetails.Area.IsValueModified.ShouldBe(isModified);
                 buildingDetails.Area.Type.ShouldBe("square");
-                buildingDetails.Area.IsTypeModified.ShouldBe(isModified);
-                buildingDetails.IsAreaModified.ShouldBe(isModified);
                 buildingDetails.EnergyRating.ShouldBe(4.5m);
             }
 
-            private static void AssertLandDetails(LandDetails landDetails,
-                bool isModified)
+            private static void AssertLandDetails(LandDetails landDetails)
             {
                 landDetails.Area.Value.ShouldBe(80M);
-                landDetails.Area.IsValueModified.ShouldBe(isModified);
                 landDetails.Area.Type.ShouldBe("square");
-                landDetails.Area.IsTypeModified.ShouldBe(isModified);
                 landDetails.Frontage.Value.ShouldBe(20M);
-                landDetails.Frontage.IsValueModified.ShouldBe(isModified);
                 landDetails.Frontage.Type.ShouldBe("meter");
-                landDetails.Frontage.IsTypeModified.ShouldBe(isModified);
                 landDetails.Depths[0].Value.ShouldBe(40M);
-                landDetails.Depths[0].IsValueModified.ShouldBe(isModified);
                 landDetails.Depths[0].Type.ShouldBe("meter");
-                landDetails.Depths[0].IsTypeModified.ShouldBe(isModified);
                 landDetails.Depths[0].Side.ShouldBe("rear");
-                landDetails.Depths[0].IsSideModified.ShouldBe(isModified);
                 landDetails.Depths[1].Value.ShouldBe(60M);
-                landDetails.Depths[1].IsValueModified.ShouldBe(isModified);
                 landDetails.Depths[1].Type.ShouldBe("meter");
-                landDetails.Depths[1].IsTypeModified.ShouldBe(isModified);
                 landDetails.Depths[1].Side.ShouldBe("left");
-                landDetails.Depths[1].IsSideModified.ShouldBe(isModified);
                 landDetails.Depths[2].Value.ShouldBe(20M);
-                landDetails.Depths[2].IsValueModified.ShouldBe(isModified);
                 landDetails.Depths[2].Type.ShouldBe("meter");
-                landDetails.Depths[2].IsTypeModified.ShouldBe(isModified);
                 landDetails.Depths[2].Side.ShouldBe("right");
-                landDetails.Depths[2].IsSideModified.ShouldBe(isModified);
             }
         }
     }

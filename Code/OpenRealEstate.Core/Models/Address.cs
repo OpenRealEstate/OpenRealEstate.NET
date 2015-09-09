@@ -31,9 +31,6 @@ namespace OpenRealEstate.Core.Models
         private readonly DecimalNullableNotified _longitude;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly ModifiedData _modifiedData;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly StringNotified _municipality;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -53,38 +50,40 @@ namespace OpenRealEstate.Core.Models
 
         public Address()
         {
-            _modifiedData = new ModifiedData(GetType());
+            ModifiedData = new ModifiedData(GetType());
 
             _countryIsoCode = new StringNotified(CountryIsoCodeName);
-            _countryIsoCode.PropertyChanged += _modifiedData.OnPropertyChanged;
+            _countryIsoCode.PropertyChanged += ModifiedData.OnPropertyChanged;
 
             _isStreetDisplayed = new BooleanNotified(IsStreetDisplayedName);
-            _isStreetDisplayed.PropertyChanged += _modifiedData.OnPropertyChanged;
+            _isStreetDisplayed.PropertyChanged += ModifiedData.OnPropertyChanged;
 
             _latitude = new DecimalNullableNotified(LatitudeName);
-            _latitude.PropertyChanged += _modifiedData.OnPropertyChanged;
+            _latitude.PropertyChanged += ModifiedData.OnPropertyChanged;
 
             _longitude = new DecimalNullableNotified(LongitudeName);
-            _longitude.PropertyChanged += _modifiedData.OnPropertyChanged;
+            _longitude.PropertyChanged += ModifiedData.OnPropertyChanged;
 
             _municipality = new StringNotified(MunicipalityName);
-            _municipality.PropertyChanged += _modifiedData.OnPropertyChanged;
+            _municipality.PropertyChanged += ModifiedData.OnPropertyChanged;
 
             _postcode = new StringNotified(PostcodeName);
-            _postcode.PropertyChanged += _modifiedData.OnPropertyChanged;
+            _postcode.PropertyChanged += ModifiedData.OnPropertyChanged;
 
             _state = new StringNotified(StateName);
-            _state.PropertyChanged += _modifiedData.OnPropertyChanged;
+            _state.PropertyChanged += ModifiedData.OnPropertyChanged;
 
             _street = new StringNotified(StreetName);
-            _street.PropertyChanged += _modifiedData.OnPropertyChanged;
+            _street.PropertyChanged += ModifiedData.OnPropertyChanged;
 
             _streetNumber = new StringNotified(StreetNumberName);
-            _streetNumber.PropertyChanged += _modifiedData.OnPropertyChanged;
+            _streetNumber.PropertyChanged += ModifiedData.OnPropertyChanged;
 
             _suburb = new StringNotified(SuburbName);
-            _suburb.PropertyChanged += _modifiedData.OnPropertyChanged;
+            _suburb.PropertyChanged += ModifiedData.OnPropertyChanged;
         }
+
+        public ModifiedData ModifiedData { get; private set; }
 
         public string StreetNumber
         {
@@ -92,17 +91,11 @@ namespace OpenRealEstate.Core.Models
             set { _streetNumber.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsStreetNumberModified { get; private set; }
-
         public string Street
         {
             get { return _street.Value; }
             set { _street.Value = value; }
         }
-
-        [Obsolete]
-        public bool IsStreetModified { get; private set; }
 
         public string Suburb
         {
@@ -110,26 +103,17 @@ namespace OpenRealEstate.Core.Models
             set { _suburb.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsSuburbModified { get; private set; }
-
         public string Municipality
         {
             get { return _municipality.Value; }
             set { _municipality.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsMunicipalityModified { get; private set; }
-
         public string State
         {
             get { return _state.Value; }
             set { _state.Value = value; }
         }
-
-        [Obsolete]
-        public bool IsStateModified { get; private set; }
 
         /// <remarks>More Info: http://en.wikipedia.org/wiki/ISO_3166-1</remarks>
         public string CountryIsoCode
@@ -138,17 +122,11 @@ namespace OpenRealEstate.Core.Models
             set { _countryIsoCode.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsCountryIsoCodeModified { get; private set; }
-
         public string Postcode
         {
             get { return _postcode.Value; }
             set { _postcode.Value = value; }
         }
-
-        [Obsolete]
-        public bool IsPostcodeModified { get; private set; }
 
         public decimal? Latitude
         {
@@ -156,30 +134,16 @@ namespace OpenRealEstate.Core.Models
             set { _latitude.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsLatitudeModified { get; private set; }
-
         public decimal? Longitude
         {
             get { return _longitude.Value; }
             set { _longitude.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsLongitudeModified { get; private set; }
-
         public bool IsStreetDisplayed
         {
             get { return _isStreetDisplayed.Value; }
             set { _isStreetDisplayed.Value = value; }
-        }
-
-        [Obsolete]
-        public bool IsIsStreetDisplayedModified { get; private set; }
-
-        public bool IsModified
-        {
-            get { return _modifiedData.IsModified; }
         }
 
         public override string ToString()
@@ -220,7 +184,7 @@ namespace OpenRealEstate.Core.Models
 
         public void Copy(Address newAddress)
         {
-            _modifiedData.Copy(newAddress, this);
+            ModifiedData.Copy(newAddress, this);
         }
 
         private static void AppendDelimeter(StringBuilder stringBuilder, string delimeter = ", ")
@@ -238,7 +202,7 @@ namespace OpenRealEstate.Core.Models
 
         public void ClearAllIsModified()
         {
-            _modifiedData.ClearModifiedProperties(new[]
+            ModifiedData.ClearModifiedProperties(new[]
             {
                 CountryIsoCodeName,
                 IsStreetDisplayedName,

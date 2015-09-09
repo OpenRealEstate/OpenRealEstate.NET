@@ -34,21 +34,10 @@ namespace OpenRealEstate.Core.Models.Land
             set { _name.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsNameModified { get; set; }
-
         public string Stage
         {
             get { return _stage.Value; }
             set { _stage.Value = value; }
-        }
-
-        [Obsolete]
-        public bool IsStageModified { get; set; }
-
-        public bool IsModified
-        {
-            get { return ModifiedData.IsModified; }
         }
 
         public void Copy(LandEstate newLandEstate)

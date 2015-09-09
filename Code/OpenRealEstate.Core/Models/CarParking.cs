@@ -41,17 +41,11 @@ namespace OpenRealEstate.Core.Models
             set { _garages.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsGaragesModified { get; set; }
-
         public int Carports
         {
             get { return _carports.Value; }
             set { _carports.Value = value; }
         }
-
-        [Obsolete]
-        public bool IsCarportsModified { get; set; }
 
         public int OpenSpaces
         {
@@ -59,17 +53,9 @@ namespace OpenRealEstate.Core.Models
             set { _openspaces.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsOpenSpacesModified { get; set; }
-
         public int TotalCount
         {
             get { return Garages + Carports + OpenSpaces; }
-        }
-
-        public bool IsModified
-        {
-            get { return ModifiedData.IsModified; }
         }
 
         public void Copy(CarParking newCarParking)

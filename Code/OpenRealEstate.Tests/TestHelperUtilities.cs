@@ -504,7 +504,7 @@ namespace OpenRealEstate.Tests
             destination.Street.ShouldBe(source.Street);
             destination.StreetNumber.ShouldBe(source.StreetNumber);
             destination.Suburb.ShouldBe(source.Suburb);
-            destination.IsModified.ShouldBe(true);
+            destination.ModifiedData.IsModified.ShouldBe(true);
         }
 
         public static void AssertBuildingDetails(BuildingDetails destination, BuildingDetails source)
@@ -807,7 +807,7 @@ namespace OpenRealEstate.Tests
             destination.Title.ShouldBe(source.Title);
             AssertStringCollection(destination.Links, source.Links);
             AssertMedias(destination.Videos, source.Videos);
-            destination.IsModified.ShouldBe(true);
+            destination.ModifiedData.IsModified.ShouldBe(true);
         }
 
         public static void AssertResidentialListing(ResidentialListing destination, ResidentialListing source)
@@ -823,7 +823,7 @@ namespace OpenRealEstate.Tests
             destination.CouncilRates.ShouldBe(source.CouncilRates);
             destination.PropertyType.ShouldBe(source.PropertyType);
             AssertSalePricing(destination.Pricing, source.Pricing);
-            destination.IsModified.ShouldBe(true);
+            destination.ModifiedData.IsModified.ShouldBe(true);
         }
 
         public static void AssertRentalListing(RentalListing destination, RentalListing source)

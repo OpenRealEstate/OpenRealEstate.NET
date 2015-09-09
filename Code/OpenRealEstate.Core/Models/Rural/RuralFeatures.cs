@@ -69,17 +69,11 @@ namespace OpenRealEstate.Core.Models.Rural
             set { _fencing.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsFencingModified { get; set; }
-
         public string AnnualRainfall
         {
             get { return _annualRainfall.Value; }
             set { _annualRainfall.Value = value; }
         }
-
-        [Obsolete]
-        public bool IsAnnualRainfallModified { get; set; }
 
         public string SoilTypes
         {
@@ -87,17 +81,11 @@ namespace OpenRealEstate.Core.Models.Rural
             set { _soilTypes.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsSoilTypesModified { get; set; }
-
         public string Improvements
         {
             get { return _improvements.Value; }
             set { _improvements.Value = value; }
         }
-
-        [Obsolete]
-        public bool IsImprovementsModified { get; set; }
 
         public string Irrigation
         {
@@ -105,30 +93,16 @@ namespace OpenRealEstate.Core.Models.Rural
             set { _irrigation.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsIrrigationModified { get; set; }
-
         public string CarryingCapacity
         {
             get { return _carryingCapacity.Value; }
             set { _carryingCapacity.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsCarryingCapacityModified { get; set; }
-
         public string Services
         {
             get { return _services.Value; }
             set { _services.Value = value; }
-        }
-
-        [Obsolete]
-        public bool IsServicesModified { get; set; }
-
-        public bool IsModified
-        {
-            get { return ModifiedData.IsModified; }
         }
 
         public void Copy(RuralFeatures newRuralFeatures)

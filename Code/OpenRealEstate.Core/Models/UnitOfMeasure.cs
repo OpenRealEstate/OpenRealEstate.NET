@@ -34,21 +34,10 @@ namespace OpenRealEstate.Core.Models
             set { _type.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsTypeModified { get; private set; }
-
         public decimal Value
         {
             get { return _value.Value; }
             set { _value.Value = value; }
-        }
-
-        [Obsolete]
-        public bool IsValueModified { get; private set; }
-
-        public bool IsModified
-        {
-            get { return ModifiedData.IsModified; }
         }
 
         public override string ToString()

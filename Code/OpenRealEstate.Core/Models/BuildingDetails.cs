@@ -15,10 +15,6 @@ namespace OpenRealEstate.Core.Models
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly DecimalNullableNotified _energyRating;
 
-        [Obsolete]
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private bool _isAreaModified;
-
         public BuildingDetails()
         {
             ModifiedData = new ModifiedData(GetType());
@@ -38,30 +34,10 @@ namespace OpenRealEstate.Core.Models
             set { _area.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsAreaModified
-        {
-            get
-            {
-                return _isAreaModified ||
-                       (Area != null &&
-                        Area.IsModified);
-            }
-            set { _isAreaModified = value; }
-        }
-
         public decimal? EnergyRating
         {
             get { return _energyRating.Value; }
             set { _energyRating.Value = value; }
-        }
-
-        [Obsolete]
-        public bool IsEnergyRatingModified { get; private set; }
-
-        public bool IsModified
-        {
-            get { return ModifiedData.IsModified; }
         }
 
         public void Copy(BuildingDetails newBuildingDetails)
@@ -72,7 +48,7 @@ namespace OpenRealEstate.Core.Models
         public void ClearAllIsModified()
         {
             if (_area != null &&
-                _area.Value.IsModified)
+                _area.Value.ModifiedData.IsModified)
             {
                 _area.Value.ClearAllIsModified();
             }

@@ -38,10 +38,6 @@ namespace OpenRealEstate.Core.Models
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly Int32Notified _toilets;
 
-        [Obsolete]
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private bool _isCarParkingModified;
-
         public Features()
         {
             ModifiedData = new ModifiedData(GetType());
@@ -76,17 +72,11 @@ namespace OpenRealEstate.Core.Models
             set { _bedrooms.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsBedroomsModified { get; private set; }
-
         public int Bathrooms
         {
             get { return _bathrooms.Value; }
             set { _bathrooms.Value = value; }
         }
-
-        [Obsolete]
-        public bool IsBathroomsModified { get; private set; }
 
         public int Toilets
         {
@@ -94,25 +84,10 @@ namespace OpenRealEstate.Core.Models
             set { _toilets.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsToiletsModified { get; private set; }
-
         public CarParking CarParking
         {
             get { return _carParking.Value; }
             set { _carParking.Value = value; }
-        }
-
-        [Obsolete]
-        public bool IsCarParkingModified
-        {
-            get
-            {
-                return _isCarParkingModified ||
-                       (CarParking != null &&
-                        CarParking.IsModified);
-            }
-            set { _isCarParkingModified = value; }
         }
 
         public int Ensuites
@@ -121,29 +96,15 @@ namespace OpenRealEstate.Core.Models
             set { _ensuites.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsEnsuitesModified { get; private set; }
-
         public int LivingAreas
         {
             get { return _livingAreas.Value; }
             set { _livingAreas.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsLivingAreasModified { get; private set; }
-
         public ReadOnlyCollection<string> Tags
         {
             get { return _tags.ToList().AsReadOnly(); }
-        }
-
-        [Obsolete]
-        public bool IsTagsModified { get; private set; }
-
-        public bool IsModified
-        {
-            get { return ModifiedData.IsModified; }
         }
 
         public void AddTags(ICollection<string> tags)

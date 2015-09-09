@@ -45,25 +45,16 @@ namespace OpenRealEstate.Core.Models
             set { _name.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsNameModified { get; private set; }
-
         public ReadOnlyCollection<Communication> Communications
         {
             get { return _communiations.ToList().AsReadOnly(); }
         }
-
-        [Obsolete]
-        public bool IsCommunicationsModified { get; private set; }
 
         public int Order
         {
             get { return _order.Value; }
             set { _order.Value = value; }
         }
-
-        [Obsolete]
-        public bool IsOrderModified { get; private set; }
 
         public void AddCommunications(ICollection<Communication> communications)
         {

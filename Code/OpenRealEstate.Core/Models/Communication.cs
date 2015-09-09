@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
@@ -34,21 +33,10 @@ namespace OpenRealEstate.Core.Models
             set { _details.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsDetailsModified { get; private set; }
-
         public CommunicationType CommunicationType
         {
             get { return _communicationType.Value; }
             set { _communicationType.Value = value; }
-        }
-
-        [Obsolete]
-        public bool IsCommunicationTypeModified { get; private set; }
-
-        public bool IsModified
-        {
-            get { return ModifiedData.IsModified; }
         }
 
         public void Copy(Communication newCommunication)

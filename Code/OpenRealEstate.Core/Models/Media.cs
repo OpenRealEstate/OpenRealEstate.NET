@@ -41,45 +41,17 @@ namespace OpenRealEstate.Core.Models
             set { _order.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsOrderModified { get; private set; }
-
         public string Url
         {
             get { return _url.Value; }
             set { _url.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsUrlModified { get; private set; }
-
         public string Tag
         {
             get { return _tag.Value; }
             set { _tag.Value = value; }
         }
-
-        [Obsolete]
-        public bool IsTagModified { get; private set; }
-
-        //public void Validate(Dictionary<string, string> errors, string keySuffix = null)
-        //{
-        //    if (errors == null)
-        //    {
-        //        throw new ArgumentNullException("errors");
-        //    }
-
-        //    // We can have a string.Empty keySuffix, which means do have a key to postpend.
-        //    if (keySuffix == null)
-        //    {
-        //        throw new ArgumentNullException("keySuffix");
-        //    }
-
-        //    if (string.IsNullOrWhiteSpace(Url))
-        //    {
-        //        errors.Add("Url" + keySuffix, "An url is required.");
-        //    }
-        //}
 
         public void Copy(Media newMedia)
         {

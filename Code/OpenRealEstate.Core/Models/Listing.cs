@@ -66,18 +66,6 @@ namespace OpenRealEstate.Core.Models
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly ObservableCollection<Media> _videos;
 
-        [Obsolete]
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private bool _isAddressModified;
-
-        [Obsolete]
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private bool _isFeaturesModified;
-
-        [Obsolete]
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private bool _isLandDetailsModified;
-
         protected Listing()
         {
             _address = new InstanceObjectNotified<Address>(AddressName);
@@ -129,17 +117,11 @@ namespace OpenRealEstate.Core.Models
             set { _agencyId.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsAgencyIdModified { get; private set; }
-
         public StatusType StatusType
         {
             get { return _statusType.Value; }
             set { _statusType.Value = value; }
         }
-
-        [Obsolete]
-        public bool IsStatusTypeModified { get; private set; }
 
         public DateTime CreatedOn
         {
@@ -147,17 +129,11 @@ namespace OpenRealEstate.Core.Models
             set { _createdOn.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsCreatedOnModified { get; private set; }
-
         public string Title
         {
             get { return _title.Value; }
             set { _title.Value = value; }
         }
-
-        [Obsolete]
-        public bool IsTitleModified { get; private set; }
 
         public string Description
         {
@@ -165,25 +141,10 @@ namespace OpenRealEstate.Core.Models
             set { _description.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsDescriptionModified { get; private set; }
-
         public Address Address
         {
             get { return _address.Value; }
             set { _address.Value = value; }
-        }
-
-        [Obsolete]
-        public bool IsAddressModified
-        {
-            get
-            {
-                return _isAddressModified ||
-                       (Address != null &&
-                        Address.IsModified);
-            }
-            set { _isAddressModified = value; }
         }
 
         public ReadOnlyCollection<ListingAgent> Agents
@@ -191,57 +152,30 @@ namespace OpenRealEstate.Core.Models
             get { return _agents.ToList().AsReadOnly(); }
         }
 
-        [Obsolete]
-        public bool IsAgentsModified { get; private set; }
-
         public IList<Media> Images
         {
             get { return _images.ToList().AsReadOnly(); }
         }
-
-        [Obsolete]
-        public bool IsImagesModified { get; private set; }
 
         public ReadOnlyCollection<Media> FloorPlans
         {
             get { return _floorPlans.ToList().AsReadOnly(); }
         }
 
-        [Obsolete]
-        public bool IsFloorPlansModified { get; private set; }
-
         public IList<Media> Videos
         {
             get { return _videos.ToList().AsReadOnly(); }
         }
-
-        [Obsolete]
-        public bool IsVideosModified { get; private set; }
 
         public IList<Inspection> Inspections
         {
             get { return _inspections.ToList().AsReadOnly(); }
         }
 
-        [Obsolete]
-        public bool IsInspectionsModified { get; private set; }
-
         public LandDetails LandDetails
         {
             get { return _landDetails.Value; }
             set { _landDetails.Value = value; }
-        }
-
-        [Obsolete]
-        public bool IsLandDetailsModified
-        {
-            get
-            {
-                return _isLandDetailsModified ||
-                       (LandDetails != null &&
-                        LandDetails.IsModified);
-            }
-            set { _isLandDetailsModified = value; }
         }
 
         public Features Features
@@ -250,29 +184,9 @@ namespace OpenRealEstate.Core.Models
             set { _features.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsFeaturesModified
-        {
-            get
-            {
-                return _isFeaturesModified ||
-                       (Features != null &&
-                        Features.IsModified);
-            }
-            set { _isFeaturesModified = value; }
-        }
-
         public ReadOnlyCollection<string> Links
         {
             get { return _links.ToList().AsReadOnly(); }
-        }
-
-        [Obsolete]
-        public bool IsLinksModified { get; private set; }
-
-        public override bool IsModified
-        {
-            get { return ModifiedData.IsModified; }
         }
 
         public void AddFloorPlans(ICollection<Media> floorPlans)
@@ -562,19 +476,19 @@ namespace OpenRealEstate.Core.Models
             base.ClearAllIsModified();
 
             if (_address.Value != null &&
-                _address.Value.IsModified)
+                _address.Value.ModifiedData.IsModified)
             {
                 _address.Value.ClearAllIsModified();
             }
 
             if (_features.Value != null &&
-                _features.Value.IsModified)
+                _features.Value.ModifiedData.IsModified)
             {
                 _features.Value.ClearAllIsModified();
             }
 
             if (_landDetails.Value != null &&
-                _landDetails.Value.IsModified)
+                _landDetails.Value.ModifiedData.IsModified)
             {
                 _landDetails.Value.ClearAllIsModified();
             }

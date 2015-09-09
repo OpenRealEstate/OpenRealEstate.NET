@@ -26,14 +26,6 @@ namespace OpenRealEstate.Core.Models
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly InstanceObjectNotified<UnitOfMeasure> _frontage;
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        [Obsolete]
-        private bool _isAreaModified;
-
-        [Obsolete]
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private bool _isFrontageModified;
-
         public LandDetails()
         {
             ModifiedData = new ModifiedData(GetType());
@@ -59,34 +51,10 @@ namespace OpenRealEstate.Core.Models
             set { _area.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsAreaModified
-        {
-            get
-            {
-                return _isAreaModified ||
-                       (Area != null &&
-                        Area.IsModified);
-            }
-            private set { _isAreaModified = value; }
-        }
-
         public UnitOfMeasure Frontage
         {
             get { return _frontage.Value; }
             set { _frontage.Value = value; }
-        }
-
-        [Obsolete]
-        public bool IsFrontageModified
-        {
-            get
-            {
-                return _isFrontageModified ||
-                       (Frontage != null &&
-                        Frontage.IsModified);
-            }
-            private set { _isFrontageModified = value; }
         }
 
         public ReadOnlyCollection<Depth> Depths
@@ -94,21 +62,10 @@ namespace OpenRealEstate.Core.Models
             get { return _depths.ToList().AsReadOnly(); }
         }
 
-        [Obsolete]
-        public bool IsDepthsModified { get; private set; }
-
         public string CrossOver
         {
             get { return _crossOver.Value; }
             set { _crossOver.Value = value; }
-        }
-
-        [Obsolete]
-        public bool IsCrossOverModified { get; private set; }
-
-        public bool IsModified
-        {
-            get { return ModifiedData.IsModified; }
         }
 
         public void AddDepths(ICollection<Depth> depths)

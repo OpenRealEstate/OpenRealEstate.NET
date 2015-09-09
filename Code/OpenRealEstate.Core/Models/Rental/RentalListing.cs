@@ -17,12 +17,6 @@ namespace OpenRealEstate.Core.Models.Rental
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private InstanceObjectNotified<BuildingDetails> _buildingDetails;
 
-        [Obsolete]
-        private bool _isBuildingDetailsModified;
-
-        [Obsolete]
-        private bool _isPricingModified;
-
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private InstanceObjectNotified<RentalPricing> _pricing;
 
@@ -50,17 +44,11 @@ namespace OpenRealEstate.Core.Models.Rental
             set { _propertyType.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsPropertyTypeModified { get; set; }
-
         public DateTime? AvailableOn
         {
             get { return _availableOn.Value; }
             set { _availableOn.Value = value; }
         }
-
-        [Obsolete]
-        public bool IsAvailableOnModified { get; set; }
 
         public RentalPricing Pricing
         {
@@ -68,39 +56,10 @@ namespace OpenRealEstate.Core.Models.Rental
             set { _pricing.Value = value; }
         }
 
-        [Obsolete]
-        public bool IsPricingModified
-        {
-            get
-            {
-                return _isPricingModified ||
-                       (Pricing != null &&
-                        Pricing.IsModified);
-            }
-            set { _isPricingModified = value; }
-        }
-
         public BuildingDetails BuildingDetails
         {
             get { return _buildingDetails.Value; }
             set { _buildingDetails.Value = value; }
-        }
-
-        [Obsolete]
-        public bool IsBuildingDetailsModified
-        {
-            get
-            {
-                return _isBuildingDetailsModified ||
-                       (BuildingDetails != null &&
-                        BuildingDetails.IsModified);
-            }
-            set { _isBuildingDetailsModified = value; }
-        }
-
-        public override bool IsModified
-        {
-            get { return ModifiedData.IsModified; }
         }
 
         public override string ToString()
@@ -113,7 +72,7 @@ namespace OpenRealEstate.Core.Models.Rental
             base.ClearAllIsModified();
 
             if (_buildingDetails != null &&
-                _buildingDetails.Value.IsModified)
+                _buildingDetails.Value.ModifiedData.IsModified)
             {
                 _buildingDetails.Value.ClearAllIsModified();
             }
