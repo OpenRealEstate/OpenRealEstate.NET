@@ -1,113 +1,134 @@
 ﻿using System;
+using System.Diagnostics;
+using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models.Rural
 {
     public class RuralFeatures
     {
-        private string _annualRainfall;
-        private string _carryingCapacity;
-        private string _fencing;
-        private string _improvements;
-        private string _irrigation;
-        private string _services;
-        private string _soilTypes;
+        private const string AnnualRainfallName = "AnnualRainfall";
+        private const string CarryingCapacityName = "CarryingCapacity";
+        private const string FencingName = "Fencing";
+        private const string ImprovementsName = "Improvements";
+        private const string IrrigationName = "Irrigation";
+        private const string ServicesName = "Services";
+        private const string SoilTypesName = "SoilTypes";
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly StringNotified _annualRainfall;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly StringNotified _carryingCapacity;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly StringNotified _fencing;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly StringNotified _improvements;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly StringNotified _irrigation;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly StringNotified _services;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly StringNotified _soilTypes;
+
+        public RuralFeatures()
+        {
+            ModifiedData = new ModifiedData(GetType());
+
+            _annualRainfall = new StringNotified(AnnualRainfallName);
+            _annualRainfall.PropertyChanged += ModifiedData.OnPropertyChanged;
+
+            _carryingCapacity = new StringNotified(CarryingCapacityName);
+            _carryingCapacity.PropertyChanged += ModifiedData.OnPropertyChanged;
+
+            _fencing = new StringNotified(FencingName);
+            _fencing.PropertyChanged += ModifiedData.OnPropertyChanged;
+
+            _improvements = new StringNotified(ImprovementsName);
+            _improvements.PropertyChanged += ModifiedData.OnPropertyChanged;
+
+            _irrigation = new StringNotified(IrrigationName);
+            _irrigation.PropertyChanged += ModifiedData.OnPropertyChanged;
+
+            _services = new StringNotified(ServicesName);
+            _services.PropertyChanged += ModifiedData.OnPropertyChanged;
+
+            _soilTypes = new StringNotified(SoilTypesName);
+            _soilTypes.PropertyChanged += ModifiedData.OnPropertyChanged;
+        }
+
+        public ModifiedData ModifiedData { get; private set; }
 
         public string Fencing
         {
-            get { return _fencing; }
-            set
-            {
-                _fencing = value;
-                IsFencingModified = true;
-            }
+            get { return _fencing.Value; }
+            set { _fencing.Value = value; }
         }
 
+        [Obsolete]
         public bool IsFencingModified { get; set; }
 
         public string AnnualRainfall
         {
-            get { return _annualRainfall; }
-            set
-            {
-                _annualRainfall = value;
-                IsAnnualRainfallModified = true;
-            }
+            get { return _annualRainfall.Value; }
+            set { _annualRainfall.Value = value; }
         }
 
+        [Obsolete]
         public bool IsAnnualRainfallModified { get; set; }
 
         public string SoilTypes
         {
-            get { return _soilTypes; }
-            set
-            {
-                _soilTypes = value;
-                IsSoilTypesModified = true;
-            }
+            get { return _soilTypes.Value; }
+            set { _soilTypes.Value = value; }
         }
 
+        [Obsolete]
         public bool IsSoilTypesModified { get; set; }
 
         public string Improvements
         {
-            get { return _improvements; }
-            set
-            {
-                _improvements = value;
-                IsImprovementsModified = true;
-            }
+            get { return _improvements.Value; }
+            set { _improvements.Value = value; }
         }
 
+        [Obsolete]
         public bool IsImprovementsModified { get; set; }
 
         public string Irrigation
         {
-            get { return _irrigation; }
-            set
-            {
-                _irrigation = value;
-                IsIrrigationModified = true;
-            }
+            get { return _irrigation.Value; }
+            set { _irrigation.Value = value; }
         }
 
+        [Obsolete]
         public bool IsIrrigationModified { get; set; }
 
         public string CarryingCapacity
         {
-            get { return _carryingCapacity; }
-            set
-            {
-                _carryingCapacity = value;
-                IsCarryingCapacityModified = true;
-            }
+            get { return _carryingCapacity.Value; }
+            set { _carryingCapacity.Value = value; }
         }
 
+        [Obsolete]
         public bool IsCarryingCapacityModified { get; set; }
 
         public string Services
         {
-            get { return _services; }
-            set
-            {
-                _services = value;
-                IsServicesModified = true;
-            }
+            get { return _services.Value; }
+            set { _services.Value = value; }
         }
 
+        [Obsolete]
         public bool IsServicesModified { get; set; }
 
         public bool IsModified
         {
-            get
-            {
-                return IsFencingModified ||
-                       IsAnnualRainfallModified ||
-                       IsSoilTypesModified ||
-                       IsImprovementsModified ||
-                       IsIrrigationModified ||
-                       IsCarryingCapacityModified ||
-                       IsServicesModified;
-            }
+            get { return ModifiedData.IsModified; }
         }
 
         public void Copy(RuralFeatures newRuralFeatures)
@@ -117,51 +138,21 @@ namespace OpenRealEstate.Core.Models.Rural
                 throw new ArgumentNullException("newRuralFeatures");
             }
 
-            if (newRuralFeatures.IsFencingModified)
-            {
-                Fencing = newRuralFeatures.Fencing;
-            }
-
-            if (newRuralFeatures.IsAnnualRainfallModified)
-            {
-                AnnualRainfall = newRuralFeatures.AnnualRainfall;
-            }
-
-            if (newRuralFeatures.IsSoilTypesModified)
-            {
-                SoilTypes = newRuralFeatures.SoilTypes;
-            }
-
-            if (newRuralFeatures.IsImprovementsModified)
-            {
-                Improvements = newRuralFeatures.Improvements;
-            }
-
-            if (newRuralFeatures.IsIrrigationModified)
-            {
-                Irrigation = newRuralFeatures.Irrigation;
-            }
-
-            if (newRuralFeatures.IsCarryingCapacityModified)
-            {
-                CarryingCapacity = newRuralFeatures.CarryingCapacity;
-            }
-
-            if (newRuralFeatures.IsServicesModified)
-            {
-                Services = newRuralFeatures.Services;
-            }
+            ModifiedData.Copy(newRuralFeatures, this);
         }
 
         public void ClearAllIsModified()
         {
-            IsFencingModified = false;
-            IsAnnualRainfallModified = false;
-            IsSoilTypesModified = false;
-            IsImprovementsModified = false;
-            IsIrrigationModified = false;
-            IsCarryingCapacityModified = false;
-            IsServicesModified = false;
+            ModifiedData.ClearModifiedProperties(new[]
+            {
+                AnnualRainfallName,
+                CarryingCapacityName,
+                FencingName,
+                ImprovementsName,
+                IrrigationName,
+                ServicesName,
+                SoilTypesName
+            });
         }
     }
 }

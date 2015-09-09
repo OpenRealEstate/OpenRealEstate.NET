@@ -3,6 +3,7 @@ using OpenRealEstate.Core.Models;
 using OpenRealEstate.Core.Models.Land;
 using OpenRealEstate.Core.Models.Rental;
 using OpenRealEstate.Core.Models.Residential;
+using OpenRealEstate.Core.Models.Rural;
 using OpenRealEstate.Services;
 using Shouldly;
 using Xunit;
@@ -89,7 +90,7 @@ namespace OpenRealEstate.Tests
             }
 
             [Fact]
-            public void GivenTwoLandListingWhereOneIsEmptys_Copy_CopiesTheData()
+            public void GivenTwoLandListingsWhereOneIsEmpty_Copy_CopiesTheData()
             {
                 // Arrange.
                 var destinationListing = new LandListing();
@@ -102,6 +103,44 @@ namespace OpenRealEstate.Tests
 
                 // Assert.
                 TestHelperUtilities.AssertLandListing(destinationListing, sourceListing);
+            }
+
+            [Fact]
+            public void GivenTwoLandListings_Copy_CopiesTheData()
+            {
+                // Arrange.
+                var destinationListing = TestHelperUtilities.LandListing();
+                var sourceListing = TestHelperUtilities.LandListing(false);
+                sourceListing.StatusType = StatusType.Leased;
+                sourceListing.CouncilRates = "yo"; 
+                sourceListing.Pricing.SalePrice = 100212;
+                sourceListing.Estate.Name = "some name";
+
+                // Act.
+                ListingHelpers.Copy(destinationListing, sourceListing);
+
+                // Assert.
+                destinationListing.Pricing.SalePrice.ShouldBe(sourceListing.Pricing.SalePrice);
+                destinationListing.Pricing.ModifiedData.IsModified.ShouldBe(true);
+                destinationListing.Estate.Name.ShouldBe(sourceListing.Estate.Name);
+                destinationListing.Estate.ModifiedData.IsModified.ShouldBe(true);
+                destinationListing.StatusType.ShouldBe(sourceListing.StatusType);
+                destinationListing.CouncilRates.ShouldBe(sourceListing.CouncilRates);
+                destinationListing.ModifiedData.IsModified.ShouldBe(true);
+            }
+
+            [Fact]
+            public void GivenTwoRuralListingsWhereOneIsEmpty_Copy_CopiesTheData()
+            {
+                // Arrange.
+                var destinationListing = new RuralListing();
+                var sourceListing = TestHelperUtilities.RuralListing(false);
+
+                // Act.
+                ListingHelpers.Copy(destinationListing, sourceListing);
+
+                // Assert.
+                TestHelperUtilities.AssertRuralListing(destinationListing, sourceListing);
             }
 
             [Fact]
@@ -120,8 +159,6 @@ namespace OpenRealEstate.Tests
                 destinationListing.StatusType.ShouldBe(sourceListing.StatusType);
                 destinationListing.Pricing.SalePrice.ShouldBe(sourceListing.Pricing.SalePrice);
             }
-
-            
         }
     }
 }

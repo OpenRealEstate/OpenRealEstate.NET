@@ -768,6 +768,23 @@ namespace OpenRealEstate.Tests
             destination.ModifiedData.IsModified.ShouldBe(true);
         }
 
+        public static void AssertRuralFeatures(RuralFeatures destination, RuralFeatures source)
+        {
+            if (destination == null &&
+                   source == null)
+            {
+                return;
+            }
+
+            destination.AnnualRainfall.ShouldBe(source.AnnualRainfall);
+            destination.CarryingCapacity.ShouldBe(source.CarryingCapacity);
+            destination.Fencing.ShouldBe(source.Fencing);
+            destination.Improvements.ShouldBe(source.Improvements);
+            destination.Irrigation.ShouldBe(source.Irrigation);
+            destination.Services.ShouldBe(source.Services);
+            destination.SoilTypes.ShouldBe(source.SoilTypes);
+            destination.ModifiedData.IsModified.ShouldBe(true);
+        }
         public static void AssertListing(Listing destination, Listing source)
         {
             if (destination == null &&
@@ -837,6 +854,22 @@ namespace OpenRealEstate.Tests
             AssertLandEstate(destination.Estate, source.Estate);
             AssertSalePricing(destination.Pricing, source.Pricing);
             destination.ModifiedData.IsModified.ShouldBe(true);
+        }
+
+        public static void AssertRuralListing(RuralListing destination, RuralListing source)
+        {
+            if (destination == null &&
+                    source == null)
+            {
+                return;
+            }
+
+            destination.AuctionOn.ShouldBe(source.AuctionOn);
+            AssertBuildingDetails(destination.BuildingDetails, source.BuildingDetails);
+            destination.CategoryType.ShouldBe(source.CategoryType);
+            destination.CouncilRates.ShouldBe(source.CouncilRates);
+            AssertSalePricing(destination.Pricing, source.Pricing);
+            AssertRuralFeatures(destination.RuralFeatures, source.RuralFeatures);
         }
 
         #endregion
