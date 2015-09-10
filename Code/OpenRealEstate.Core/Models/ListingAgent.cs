@@ -7,7 +7,7 @@ using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
 {
-    public class ListingAgent : IModifiedData
+    public class ListingAgent : BaseModifiedData
     {
         private const string CommunicationsName = "Communications";
         private const string NameName = "Name";
@@ -24,8 +24,6 @@ namespace OpenRealEstate.Core.Models
 
         public ListingAgent()
         {
-            ModifiedData = new ModifiedData(GetType());
-
             _communications = new ObservableCollection<Communication>();
             _communications.CollectionChanged +=
                 (sender, args) => { ModifiedData.OnCollectionChanged(CommunicationsName); };
@@ -36,8 +34,6 @@ namespace OpenRealEstate.Core.Models
             _order = new Int32Notified(OrderName);
             _order.PropertyChanged += ModifiedData.OnPropertyChanged;
         }
-
-        public ModifiedData ModifiedData { get; private set; }
 
         public string Name
         {

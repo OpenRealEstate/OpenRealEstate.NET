@@ -4,7 +4,7 @@ using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
 {
-    public class UnitOfMeasure : IModifiedData
+    public class UnitOfMeasure : BaseModifiedData
     {
         private const string TypeName = "Type";
         private const string ValueName = "Value";
@@ -17,16 +17,12 @@ namespace OpenRealEstate.Core.Models
 
         public UnitOfMeasure()
         {
-            ModifiedData = new ModifiedData(GetType());
-
             _type = new StringNotified(TypeName);
             _type.PropertyChanged += ModifiedData.OnPropertyChanged;
 
             _value = new DecimalNotified(ValueName);
             _value.PropertyChanged += ModifiedData.OnPropertyChanged;
         }
-
-        public ModifiedData ModifiedData { get; private set; }
 
         public string Type
         {

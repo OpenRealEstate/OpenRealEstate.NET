@@ -4,7 +4,7 @@ using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models.Rural
 {
-    public class RuralFeatures : IModifiedData
+    public class RuralFeatures : BaseModifiedData
     {
         private const string AnnualRainfallName = "AnnualRainfall";
         private const string CarryingCapacityName = "CarryingCapacity";
@@ -37,8 +37,6 @@ namespace OpenRealEstate.Core.Models.Rural
 
         public RuralFeatures()
         {
-            ModifiedData = new ModifiedData(GetType());
-
             _annualRainfall = new StringNotified(AnnualRainfallName);
             _annualRainfall.PropertyChanged += ModifiedData.OnPropertyChanged;
 
@@ -60,8 +58,6 @@ namespace OpenRealEstate.Core.Models.Rural
             _soilTypes = new StringNotified(SoilTypesName);
             _soilTypes.PropertyChanged += ModifiedData.OnPropertyChanged;
         }
-
-        public ModifiedData ModifiedData { get; private set; }
 
         public string Fencing
         {

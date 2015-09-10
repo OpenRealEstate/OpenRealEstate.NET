@@ -4,7 +4,7 @@ using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
 {
-    public class SalePricing : IModifiedData
+    public class SalePricing : BaseModifiedData
     {
         private const string IsUnderOfferName = "IsUnderOffer";
         private const string SalePriceName = "SalePrice";
@@ -33,8 +33,6 @@ namespace OpenRealEstate.Core.Models
 
         public SalePricing()
         {
-            ModifiedData = new ModifiedData(GetType());
-
             _isUnderOffer = new BooleanNotified(IsUnderOfferName);
             _isUnderOffer.PropertyChanged += ModifiedData.OnPropertyChanged;
 
@@ -53,8 +51,6 @@ namespace OpenRealEstate.Core.Models
             _soldPriceText = new StringNotified(SoldPriceTextName);
             _soldPriceText.PropertyChanged += ModifiedData.OnPropertyChanged;
         }
-
-        public ModifiedData ModifiedData { get; private set; }
 
         public decimal SalePrice
         {

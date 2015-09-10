@@ -4,7 +4,7 @@ using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models.Land
 {
-    public class LandEstate : IModifiedData
+    public class LandEstate : BaseModifiedData
     {
         private const string NameName = "Name";
         private const string StageName = "Stage";
@@ -17,16 +17,12 @@ namespace OpenRealEstate.Core.Models.Land
 
         public LandEstate()
         {
-            ModifiedData = new ModifiedData(GetType());
-
             _name = new StringNotified(NameName);
             _name.PropertyChanged += ModifiedData.OnPropertyChanged;
 
             _stage = new StringNotified(StageName);
             _stage.PropertyChanged += ModifiedData.OnPropertyChanged;
         }
-
-        public ModifiedData ModifiedData { get; private set; }
 
         public string Name
         {

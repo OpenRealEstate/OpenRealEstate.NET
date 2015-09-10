@@ -38,11 +38,11 @@
   <ItemGroup>
     <Compile Include="Filters\AggregateRootFilters.cs" />
     <Compile Include="HelperUtilities.cs" />
-    <Compile Include="IModifiedData.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Agency.cs" />
     <Compile Include="Models\Agent.cs" />
     <Compile Include="Models\AggregateRoot.cs" />
+    <Compile Include="Primitives\BaseModifiedData.cs" />
     <Compile Include="Models\BuildingDetails.cs" />
     <Compile Include="Models\CarParking.cs" />
     <Compile Include="Models\CommunicationType.cs" />

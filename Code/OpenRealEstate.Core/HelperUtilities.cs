@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core
 {
     internal static class HelperUtilities
     {
-        internal static void ClearAllObservableCollectionItems<T>(ICollection<T> collection) where T : IModifiedData
+        internal static void ClearAllObservableCollectionItems<T>(ICollection<T> collection) where T : BaseModifiedData
         {
             if (collection == null ||
                 !collection.Any())

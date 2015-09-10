@@ -3,7 +3,7 @@ using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
 {
-    public class BuildingDetails : IModifiedData
+    public class BuildingDetails : BaseModifiedData
     {
         private const string AreaName = "Area";
         private const string EnergyRatingName = "EnergyRating";
@@ -16,8 +16,6 @@ namespace OpenRealEstate.Core.Models
 
         public BuildingDetails()
         {
-            ModifiedData = new ModifiedData(GetType());
-
             _energyRating = new DecimalNullableNotified(EnergyRatingName);
             _energyRating.PropertyChanged += ModifiedData.OnPropertyChanged;
 
@@ -36,8 +34,6 @@ namespace OpenRealEstate.Core.Models
             get { return _energyRating.Value; }
             set { _energyRating.Value = value; }
         }
-
-        public ModifiedData ModifiedData { get; private set; }
 
         public void Copy(BuildingDetails newBuildingDetails, bool isModifiedPropertiesOnly = true)
         {

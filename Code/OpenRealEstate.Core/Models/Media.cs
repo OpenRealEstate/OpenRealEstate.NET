@@ -3,7 +3,7 @@ using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
 {
-    public class Media : IModifiedData
+    public class Media : BaseModifiedData
     {
         private const string OrderName = "Order";
         private const string TagName = "Tag";
@@ -20,8 +20,6 @@ namespace OpenRealEstate.Core.Models
 
         public Media()
         {
-            ModifiedData = new ModifiedData(GetType());
-
             _order = new Int32Notified(OrderName);
             _order.PropertyChanged += ModifiedData.OnPropertyChanged;
 
@@ -31,8 +29,6 @@ namespace OpenRealEstate.Core.Models
             _url = new StringNotified(UrlName);
             _url.PropertyChanged += ModifiedData.OnPropertyChanged;
         }
-
-        public ModifiedData ModifiedData { get; private set; }
 
         public int Order
         {

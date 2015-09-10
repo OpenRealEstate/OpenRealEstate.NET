@@ -4,7 +4,7 @@ using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models.Rental
 {
-    public class RentalPricing : IModifiedData
+    public class RentalPricing : BaseModifiedData
     {
         private const string BondName = "Bond";
         private const string PaymentFrequencyTypeName = "PaymentFrequencyType";
@@ -25,8 +25,6 @@ namespace OpenRealEstate.Core.Models.Rental
 
         public RentalPricing()
         {
-            ModifiedData = new ModifiedData(GetType());
-
             _bond = new DecimalNullableNotified(BondName);
             _bond.PropertyChanged += ModifiedData.OnPropertyChanged;
 
@@ -39,8 +37,6 @@ namespace OpenRealEstate.Core.Models.Rental
             _rentalPriceText = new StringNotified(RentalPriceTextName);
             _rentalPriceText.PropertyChanged += ModifiedData.OnPropertyChanged;
         }
-
-        public ModifiedData ModifiedData { get; private set; }
 
         public decimal RentalPrice
         {

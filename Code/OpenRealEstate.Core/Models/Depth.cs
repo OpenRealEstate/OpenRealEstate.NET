@@ -3,7 +3,7 @@ using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
 {
-    public class Depth : UnitOfMeasure, IModifiedData
+    public class Depth : UnitOfMeasure
     {
         private const string SideName = "Side";
 

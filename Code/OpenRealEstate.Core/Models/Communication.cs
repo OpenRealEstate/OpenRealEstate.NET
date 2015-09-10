@@ -3,7 +3,7 @@ using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
 {
-    public class Communication : IModifiedData
+    public class Communication : BaseModifiedData
     {
         private const string DetailsName = "Details";
         private const string CommunicationTypeName = "CommunicationType";
@@ -16,16 +16,12 @@ namespace OpenRealEstate.Core.Models
 
         public Communication()
         {
-            ModifiedData = new ModifiedData(GetType());
-
             _details = new StringNotified(DetailsName);
             _details.PropertyChanged += ModifiedData.OnPropertyChanged;
 
             _communicationType = new EnumNotified<CommunicationType>(CommunicationTypeName);
             _communicationType.PropertyChanged += ModifiedData.OnPropertyChanged;
         }
-
-        public ModifiedData ModifiedData { get; private set; }
 
         public string Details
         {

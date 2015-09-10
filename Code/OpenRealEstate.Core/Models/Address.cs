@@ -5,7 +5,7 @@ using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
 {
-    public class Address : IModifiedData
+    public class Address : BaseModifiedData
     {
         private const string CountryIsoCodeName = "CountryIsoCode";
         private const string IsStreetDisplayedName = "IsStreetDisplayed";
@@ -50,8 +50,6 @@ namespace OpenRealEstate.Core.Models
 
         public Address()
         {
-            ModifiedData = new ModifiedData(GetType());
-
             _countryIsoCode = new StringNotified(CountryIsoCodeName);
             _countryIsoCode.PropertyChanged += ModifiedData.OnPropertyChanged;
 
@@ -82,8 +80,6 @@ namespace OpenRealEstate.Core.Models
             _suburb = new StringNotified(SuburbName);
             _suburb.PropertyChanged += ModifiedData.OnPropertyChanged;
         }
-
-        public ModifiedData ModifiedData { get; private set; }
 
         public string StreetNumber
         {

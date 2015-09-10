@@ -4,7 +4,7 @@ using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
 {
-    public abstract class AggregateRoot : IModifiedData
+    public abstract class AggregateRoot : BaseModifiedData
     {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly StringNotified _id;
@@ -12,18 +12,17 @@ namespace OpenRealEstate.Core.Models
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly DateTimeNotified _updatedOn;
 
+        private const string IdName = "Id";
+        private const string UpdatedOnName = "UpdatedOn";
+
         protected AggregateRoot()
         {
-            ModifiedData = new ModifiedData(GetType());
-
-            _id = new StringNotified("Id");
+            _id = new StringNotified(IdName);
             _id.PropertyChanged += ModifiedData.OnPropertyChanged;
 
-            _updatedOn = new DateTimeNotified("UpdatedOn");
+            _updatedOn = new DateTimeNotified(UpdatedOnName);
             _updatedOn.PropertyChanged += ModifiedData.OnPropertyChanged;
         }
-
-        public ModifiedData ModifiedData { get; private set; }
 
         public string Id
         {

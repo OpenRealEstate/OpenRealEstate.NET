@@ -7,7 +7,7 @@ using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
 {
-    public class LandDetails : IModifiedData
+    public class LandDetails : BaseModifiedData
     {
         private const string AreaName = "Area";
         private const string CrossOverName = "CrossOver";
@@ -28,8 +28,6 @@ namespace OpenRealEstate.Core.Models
 
         public LandDetails()
         {
-            ModifiedData = new ModifiedData(GetType());
-
             _area = new InstanceObjectNotified<UnitOfMeasure>(AreaName);
             _area.PropertyChanged += ModifiedData.OnPropertyChanged;
 
@@ -42,8 +40,6 @@ namespace OpenRealEstate.Core.Models
             _frontage = new InstanceObjectNotified<UnitOfMeasure>(FrontageName);
             _frontage.PropertyChanged += ModifiedData.OnPropertyChanged;
         }
-
-        public ModifiedData ModifiedData { get; private set; }
 
         public UnitOfMeasure Area
         {

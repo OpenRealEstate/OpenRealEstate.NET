@@ -7,7 +7,7 @@ using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
 {
-    public class Features : IModifiedData
+    public class Features : BaseModifiedData
     {
         private const string BathroomsName = "Bathrooms";
         private const string BedroomsName = "Bedrooms";
@@ -40,8 +40,6 @@ namespace OpenRealEstate.Core.Models
 
         public Features()
         {
-            ModifiedData = new ModifiedData(GetType());
-
             _bathrooms = new Int32Notified(BathroomsName);
             _bathrooms.PropertyChanged += ModifiedData.OnPropertyChanged;
 
@@ -63,8 +61,6 @@ namespace OpenRealEstate.Core.Models
             _toilets = new Int32Notified(ToiletsName);
             _toilets.PropertyChanged += ModifiedData.OnPropertyChanged;
         }
-
-        public ModifiedData ModifiedData { get; private set; }
 
         public int Bedrooms
         {
