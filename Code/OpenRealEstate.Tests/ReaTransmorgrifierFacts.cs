@@ -665,6 +665,30 @@ namespace OpenRealEstate.Tests
                 result.ModifiedData.ModifiedCollections.Contains("Agents").ShouldBe(result.Agents.Count > 0);
             }
 
+            [Fact]
+            public void GivenTheFileREAResidentialCurrentMinimum_Convert_ReturnsAResidentialCurrentListing()
+            {
+                // Arrange.
+                var reaXml =
+                    File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current-Minimum.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.ShouldNotBe(null);
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
+                result.Errors.ShouldBe(null);
+
+                // We have the minimum listing data, so lets make sure barelly anytything
+                // has been set.
+                var listing = (ResidentialListing)result.Listings.First().Listing;
+                listing.Pricing.SalePrice.ShouldBe(0);
+                listing.Pricing.SalePriceText.ShouldBeNullOrEmpty();
+            }
+
             private static void AssertResidentialCurrentListing(ResidentialListing listing,
                 PropertyType expectedPropertyType = PropertyType.House,
                 int expectedBedroomsCount = 4,

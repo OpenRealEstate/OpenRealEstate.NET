@@ -994,6 +994,8 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 SalePrice = document.MoneyValueOrDefault(cultureInfo, "price")
             };
 
+            var doesSalePriceExists = !string.IsNullOrWhiteSpace(document.ValueOrDefault("price"));
+
             // Selling data.
 
             var salePriceText = document.ValueOrDefault("priceView");
@@ -1001,9 +1003,14 @@ namespace OpenRealEstate.Services.RealEstateComAu
             var isDisplay = string.IsNullOrWhiteSpace(displayAttributeValue) ||
                             displayAttributeValue.ParseOneYesZeroNoToBool();
             
-            // NOTE: If Display="no" then we do not display anything for the price, regardless
+            // NOTE 1: If Display="no" then we do not display anything for the price, regardless
             //       of any other data provided. Otherwise, make a decision.
-            salePricing.SalePriceText = isDisplay
+            // NOTE 2: If -NO- saleprice is provided (eg. this is _very_ common when we get
+            //         an SOLD or LEASED, etc) then we should leave the sale price text alone.
+            //         So only do the sale-price-text checks if we have a value set AND
+            //         it's ok to display a value.
+            salePricing.SalePriceText = isDisplay &&
+                                        doesSalePriceExists
                 ? string.IsNullOrWhiteSpace(salePriceText)
                     ? salePricing.SalePrice.ToString("C0")
                     : salePriceText
