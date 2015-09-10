@@ -37,7 +37,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\FluentValidation.5.5.0.0\lib\Net40\FluentValidation.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -63,6 +63,7 @@
     <Compile Include="ListingHelpersFacts.cs" />
     <Compile Include="Models\AggregateRootFacts.cs" />
     <Compile Include="Models\BuildingDetailsFacts.cs" />
+    <Compile Include="ModifiedDataContractResolver.cs" />
     <Compile Include="TestHelperUtilities.cs" />
     <Compile Include="Models\LandListingFacts.cs" />
     <Compile Include="Models\ListingFacts.cs" />
