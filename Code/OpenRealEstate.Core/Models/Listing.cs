@@ -153,7 +153,10 @@ namespace OpenRealEstate.Core.Models
             set
             {
                 _agents.Clear();
-                AddAgents(value);
+                if (value.Any())
+                {
+                    AddAgents(value);
+                }
             }
         }
 
@@ -163,7 +166,10 @@ namespace OpenRealEstate.Core.Models
             set
             {
                 _images.Clear();
-                AddImages(value);
+                if (value.Any())
+                {
+                    AddImages(value);
+                }
             }
         }
 
@@ -173,7 +179,10 @@ namespace OpenRealEstate.Core.Models
             set
             {
                 _floorPlans.Clear();
-                AddFloorPlans(value);
+                if (value.Any())
+                {
+                    AddFloorPlans(value);
+                }
             }
         }
 
@@ -183,7 +192,10 @@ namespace OpenRealEstate.Core.Models
             set
             {
                 _videos.Clear();
-                AddVideos(value);
+                if (value.Any())
+                {
+                    AddVideos(value);
+                }
             }
         }
 
@@ -193,7 +205,10 @@ namespace OpenRealEstate.Core.Models
             set
             {
                 _inspections.Clear();
-                AddInspections(value);
+                if (value.Any())
+                {
+                    AddInspections(value);
+                }
             }
         }
 

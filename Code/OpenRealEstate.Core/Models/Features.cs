@@ -108,7 +108,10 @@ namespace OpenRealEstate.Core.Models
             set
             {
                 _tags.Clear();
-                AddTags(value);
+                if (value.Any())
+                {
+                    AddTags(value);
+                }
             }
         }
 

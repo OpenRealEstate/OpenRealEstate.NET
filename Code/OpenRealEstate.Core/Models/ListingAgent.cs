@@ -51,7 +51,10 @@ namespace OpenRealEstate.Core.Models
             set
             {
                 _communiations.Clear();
-                AddCommunications(value);
+                if (value.Any())
+                {
+                    AddCommunications(value);
+                }
             }
         }
 

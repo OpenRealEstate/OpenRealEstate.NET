@@ -63,7 +63,10 @@ namespace OpenRealEstate.Core.Models
             set
             {
                 _depths.Clear();
-                AddDepths(value);
+                if (value.Any())
+                {
+                    AddDepths(value);
+                }
             }
         }
 
