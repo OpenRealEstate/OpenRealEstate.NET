@@ -105,6 +105,11 @@ namespace OpenRealEstate.Core.Models
         public ReadOnlyCollection<string> Tags
         {
             get { return _tags.ToList().AsReadOnly(); }
+            set
+            {
+                _tags.Clear();
+                AddTags(value);
+            }
         }
 
         public void AddTags(ICollection<string> tags)

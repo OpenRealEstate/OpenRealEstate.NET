@@ -48,6 +48,11 @@ namespace OpenRealEstate.Core.Models
         public ReadOnlyCollection<Communication> Communications
         {
             get { return _communiations.ToList().AsReadOnly(); }
+            set
+            {
+                _communiations.Clear();
+                AddCommunications(value);
+            }
         }
 
         public int Order

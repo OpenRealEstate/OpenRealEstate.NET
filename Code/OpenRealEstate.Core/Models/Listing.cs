@@ -150,26 +150,51 @@ namespace OpenRealEstate.Core.Models
         public ReadOnlyCollection<ListingAgent> Agents
         {
             get { return _agents.ToList().AsReadOnly(); }
+            set
+            {
+                _agents.Clear();
+                AddAgents(value);
+            }
         }
 
         public ReadOnlyCollection<Media> Images
         {
             get { return _images.ToList().AsReadOnly(); }
+            set
+            {
+                _images.Clear();
+                AddImages(value);
+            }
         }
 
         public ReadOnlyCollection<Media> FloorPlans
         {
             get { return _floorPlans.ToList().AsReadOnly(); }
+            set
+            {
+                _floorPlans.Clear();
+                AddFloorPlans(value);
+            }
         }
 
         public ReadOnlyCollection<Media> Videos
         {
             get { return _videos.ToList().AsReadOnly(); }
+            set
+            {
+                _videos.Clear();
+                AddVideos(value);
+            }
         }
 
         public ReadOnlyCollection<Inspection> Inspections
         {
             get { return _inspections.ToList().AsReadOnly(); }
+            set
+            {
+                _inspections.Clear();
+                AddInspections(value);
+            }
         }
 
         public LandDetails LandDetails
@@ -187,6 +212,11 @@ namespace OpenRealEstate.Core.Models
         public ReadOnlyCollection<string> Links
         {
             get { return _links.ToList().AsReadOnly(); }
+            set
+            {
+                _links.Clear();
+                AddLinks(value);
+            }
         }
 
         public void AddFloorPlans(ICollection<Media> floorPlans)
