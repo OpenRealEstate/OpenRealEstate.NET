@@ -659,6 +659,10 @@ namespace OpenRealEstate.Tests
                 {
                     result.Agents[i].Communications.Count.ShouldBe(source.Agents[i].Communications.Count);
                 }
+
+                // If we don't have a count, then we need to make sure the collection hasn't been modified.
+                // Basically, the collection hasn't been touched.
+                result.ModifiedData.ModifiedCollections.Contains("Agents").ShouldBe(result.Agents.Count > 0);
             }
 
             private static void AssertResidentialCurrentListing(ResidentialListing listing,

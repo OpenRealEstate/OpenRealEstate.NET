@@ -150,66 +150,31 @@ namespace OpenRealEstate.Core.Models
         public ReadOnlyCollection<ListingAgent> Agents
         {
             get { return _agents.ToList().AsReadOnly(); }
-            set
-            {
-                _agents.Clear();
-                if (value.Any())
-                {
-                    AddAgents(value);
-                }
-            }
+            set { HelperUtilities.SetCollection(_agents, value, AddAgents); }
         }
 
         public ReadOnlyCollection<Media> Images
         {
             get { return _images.ToList().AsReadOnly(); }
-            set
-            {
-                _images.Clear();
-                if (value.Any())
-                {
-                    AddImages(value);
-                }
-            }
+            set { HelperUtilities.SetCollection(_images, value, AddImages); }
         }
 
         public ReadOnlyCollection<Media> FloorPlans
         {
             get { return _floorPlans.ToList().AsReadOnly(); }
-            set
-            {
-                _floorPlans.Clear();
-                if (value.Any())
-                {
-                    AddFloorPlans(value);
-                }
-            }
+            set { HelperUtilities.SetCollection(_floorPlans, value, AddFloorPlans); }
         }
 
         public ReadOnlyCollection<Media> Videos
         {
             get { return _videos.ToList().AsReadOnly(); }
-            set
-            {
-                _videos.Clear();
-                if (value.Any())
-                {
-                    AddVideos(value);
-                }
-            }
+            set { HelperUtilities.SetCollection(_videos, value, AddVideos); }
         }
 
         public ReadOnlyCollection<Inspection> Inspections
         {
             get { return _inspections.ToList().AsReadOnly(); }
-            set
-            {
-                _inspections.Clear();
-                if (value.Any())
-                {
-                    AddInspections(value);
-                }
-            }
+            set { HelperUtilities.SetCollection(_inspections, value, AddInspections); }
         }
 
         public LandDetails LandDetails
@@ -227,14 +192,7 @@ namespace OpenRealEstate.Core.Models
         public ReadOnlyCollection<string> Links
         {
             get { return _links.ToList().AsReadOnly(); }
-            set
-            {
-                _links.Clear();
-                if (value.Any())
-                {
-                    AddLinks(value);
-                }
-            }
+            set { HelperUtilities.SetCollection(_links, value, AddLinks); }
         }
 
         public void AddFloorPlans(ICollection<Media> floorPlans)

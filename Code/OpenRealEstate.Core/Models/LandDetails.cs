@@ -60,14 +60,7 @@ namespace OpenRealEstate.Core.Models
         public ReadOnlyCollection<Depth> Depths
         {
             get { return _depths.ToList().AsReadOnly(); }
-            set
-            {
-                _depths.Clear();
-                if (value.Any())
-                {
-                    AddDepths(value);
-                }
-            }
+            set { HelperUtilities.SetCollection(_depths, value, AddDepths); }
         }
 
         public string CrossOver

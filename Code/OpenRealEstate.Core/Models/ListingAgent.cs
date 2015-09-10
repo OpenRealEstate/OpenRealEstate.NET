@@ -48,14 +48,7 @@ namespace OpenRealEstate.Core.Models
         public ReadOnlyCollection<Communication> Communications
         {
             get { return _communiations.ToList().AsReadOnly(); }
-            set
-            {
-                _communiations.Clear();
-                if (value.Any())
-                {
-                    AddCommunications(value);
-                }
-            }
+            set { HelperUtilities.SetCollection(_communiations, value, AddCommunications); }
         }
 
         public int Order
