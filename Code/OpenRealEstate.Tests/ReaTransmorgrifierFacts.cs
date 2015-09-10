@@ -614,12 +614,14 @@ namespace OpenRealEstate.Tests
                     assertAgents: assertAgents);
             }
 
-            [Fact]
-            public void GivenTheFileREAResidentialCurrent_ConvertThenSaveThenCovertAgain_ReturnsAResidentialCurrentListing()
+            [Theory,
+            InlineData("REA-Residential-Current.xml"),
+            InlineData("REA-Residential-Current-WithFloorPlansMissing.xml")]
+            public void GivenTheFileREAResidentialCurrent_ConvertThenSaveThenCovertAgain_ReturnsAResidentialCurrentListing(string fileName)
             {
                 // Arrange.
                 var reaXml =
-                    File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current.xml");
+                    File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\" + fileName);
                 var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
 
                 // Act.
@@ -628,7 +630,6 @@ namespace OpenRealEstate.Tests
                 var settings = new JsonSerializerSettings
                 {
                     ContractResolver = new ModifiedDataContractResolver(),
-                    ObjectCreationHandling = ObjectCreationHandling.Replace,
                     Formatting = Formatting.Indented
                 };
 
@@ -636,7 +637,7 @@ namespace OpenRealEstate.Tests
 
                 // Act.
                 var json = JsonConvert.SerializeObject(source, settings);
-                var result = JsonConvert.DeserializeObject<ResidentialListing>(json, settings);
+                var result = JsonConvert.DeserializeObject<ResidentialListing>(json);
 
                 // Assert.
                 result.Agents.Count.ShouldBe(source.Agents.Count);
