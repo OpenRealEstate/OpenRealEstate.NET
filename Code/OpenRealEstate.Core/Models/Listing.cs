@@ -230,7 +230,10 @@ namespace OpenRealEstate.Core.Models
             set
             {
                 _links.Clear();
-                AddLinks(value);
+                if (value.Any())
+                {
+                    AddLinks(value);
+                }
             }
         }
 

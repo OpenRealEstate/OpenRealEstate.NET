@@ -616,7 +616,8 @@ namespace OpenRealEstate.Tests
 
             [Theory,
             InlineData("REA-Residential-Current.xml"),
-            InlineData("REA-Residential-Current-WithFloorPlansMissing.xml")]
+            InlineData("REA-Residential-Current-WithFloorPlansMissing.xml"),
+            InlineData("REA-Residential-Sold.xml")]
             public void GivenTheFileREAResidentialCurrent_ConvertThenSaveThenCovertAgain_ReturnsAResidentialCurrentListing(string fileName)
             {
                 // Arrange.
@@ -646,8 +647,14 @@ namespace OpenRealEstate.Tests
                 result.Videos.Count.ShouldBe(source.Videos.Count);
                 result.Inspections.Count.ShouldBe(source.Inspections.Count);
                 result.Links.Count.ShouldBe(source.Links.Count);
-                result.Features.Tags.Count.ShouldBe(source.Features.Tags.Count);
-                result.LandDetails.Depths.Count.ShouldBe(source.LandDetails.Depths.Count);
+                if (result.Features != null)
+                {
+                    result.Features.Tags.Count.ShouldBe(source.Features.Tags.Count);
+                }
+                if (result.LandDetails != null)
+                {
+                    result.LandDetails.Depths.Count.ShouldBe(source.LandDetails.Depths.Count);
+                }
                 for (var i = 0; i < result.Agents.Count; i++)
                 {
                     result.Agents[i].Communications.Count.ShouldBe(source.Agents[i].Communications.Count);
