@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.SymbolStore;
 using System.IO;
 using System.Linq;
 using FluentValidation.Results;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using OpenRealEstate.Core.Filters;
 using OpenRealEstate.Core.Models;
 using OpenRealEstate.Core.Models.Land;
@@ -609,6 +612,45 @@ namespace OpenRealEstate.Tests
                         },
                     videoUrls: new[] { "http://www.foo.tv/abcd.html" },
                     assertAgents: assertAgents);
+            }
+
+            [Fact]
+            public void GivenTheFileREAResidentialCurrent_ConvertThenSaveThenCovertAgain_ReturnsAResidentialCurrentListing()
+            {
+                // Arrange.
+                var reaXml =
+                    File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var tempResult = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                var settings = new JsonSerializerSettings
+                {
+                    ContractResolver = new ModifiedDataContractResolver(),
+                    ObjectCreationHandling = ObjectCreationHandling.Replace,
+                    Formatting = Formatting.Indented
+                };
+
+                var source = tempResult.Listings.First().Listing;
+
+                // Act.
+                var json = JsonConvert.SerializeObject(source, settings);
+                var result = JsonConvert.DeserializeObject<ResidentialListing>(json, settings);
+
+                // Assert.
+                result.Agents.Count.ShouldBe(source.Agents.Count);
+                result.Images.Count.ShouldBe(source.Images.Count);
+                result.FloorPlans.Count.ShouldBe(source.FloorPlans.Count);
+                result.Videos.Count.ShouldBe(source.Videos.Count);
+                result.Inspections.Count.ShouldBe(source.Inspections.Count);
+                result.Links.Count.ShouldBe(source.Links.Count);
+                result.Features.Tags.Count.ShouldBe(source.Features.Tags.Count);
+                result.LandDetails.Depths.Count.ShouldBe(source.LandDetails.Depths.Count);
+                for (var i = 0; i < result.Agents.Count; i++)
+                {
+                    result.Agents[i].Communications.Count.ShouldBe(source.Agents[i].Communications.Count);
+                }
             }
 
             private static void AssertResidentialCurrentListing(ResidentialListing listing,
