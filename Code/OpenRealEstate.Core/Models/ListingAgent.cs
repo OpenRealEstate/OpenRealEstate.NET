@@ -14,7 +14,7 @@ namespace OpenRealEstate.Core.Models
         private const string OrderName = "Order";
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly ObservableCollection<Communication> _communiations;
+        private readonly ObservableCollection<Communication> _communications;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly StringNotified _name;
@@ -26,8 +26,8 @@ namespace OpenRealEstate.Core.Models
         {
             ModifiedData = new ModifiedData(GetType());
 
-            _communiations = new ObservableCollection<Communication>();
-            _communiations.CollectionChanged +=
+            _communications = new ObservableCollection<Communication>();
+            _communications.CollectionChanged +=
                 (sender, args) => { ModifiedData.OnCollectionChanged(CommunicationsName); };
 
             _name = new StringNotified(NameName);
@@ -47,8 +47,8 @@ namespace OpenRealEstate.Core.Models
 
         public ReadOnlyCollection<Communication> Communications
         {
-            get { return _communiations.ToList().AsReadOnly(); }
-            set { HelperUtilities.SetCollection(_communiations, value, AddCommunications); }
+            get { return _communications.ToList().AsReadOnly(); }
+            set { HelperUtilities.SetCollection(_communications, value, AddCommunications); }
         }
 
         public int Order
@@ -71,7 +71,7 @@ namespace OpenRealEstate.Core.Models
 
             foreach (var communication in communications)
             {
-                _communiations.Add(communication);
+                _communications.Add(communication);
             }
         }
 
@@ -82,9 +82,9 @@ namespace OpenRealEstate.Core.Models
                 throw new ArgumentNullException("communication");
             }
 
-            if (_communiations != null)
+            if (_communications != null)
             {
-                _communiations.Remove(communication);
+                _communications.Remove(communication);
             }
         }
 
@@ -94,7 +94,7 @@ namespace OpenRealEstate.Core.Models
 
             if (newListingAgent.ModifiedData.ModifiedCollections.Contains(CommunicationsName))
             {
-                _communiations.Clear();
+                _communications.Clear();
 
                 if (newListingAgent.Communications.Any())
                 {
@@ -113,6 +113,8 @@ namespace OpenRealEstate.Core.Models
         public void ClearAllIsModified()
         {
             ModifiedData.ClearModifiedPropertiesAndCollections();
+
+            HelperUtilities.ClearAllObservableCollectionItems(_communications);
         }
     }
 }
