@@ -39,5 +39,14 @@ namespace OpenRealEstate.Core.Models
         {
             ModifiedData.Copy(newCommunication, this, isModifiedPropertiesOnly);
         }
+
+        public override string ToString()
+        {
+            return string.Format("{0} - {1}",
+                CommunicationType,
+                string.IsNullOrWhiteSpace(Details)
+                    ? "-no details-"
+                    : Details);
+        }
     }
 }

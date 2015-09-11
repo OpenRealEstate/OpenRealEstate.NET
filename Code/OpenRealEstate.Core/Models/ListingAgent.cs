@@ -115,7 +115,8 @@ namespace OpenRealEstate.Core.Models
 
         public override string ToString()
         {
-            return string.Format("{0} - {1} Comm's",
+            return string.Format("{0} {1} - C: {2}",
+                Order,
                 string.IsNullOrWhiteSpace(Name)
                     ? "-no name-"
                     : Name,
