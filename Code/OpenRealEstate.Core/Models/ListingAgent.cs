@@ -112,5 +112,17 @@ namespace OpenRealEstate.Core.Models
 
             HelperUtilities.ClearAllObservableCollectionItems(_communications);
         }
+
+        public override string ToString()
+        {
+            return string.Format("{0} - {1} Comm's",
+                string.IsNullOrWhiteSpace(Name)
+                    ? "-no name-"
+                    : Name,
+                Communications != null &&
+                Communications.Any()
+                    ? Communications.Count
+                    : 0);
+        }
     }
 }

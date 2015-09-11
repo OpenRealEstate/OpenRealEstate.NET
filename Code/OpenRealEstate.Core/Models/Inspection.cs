@@ -40,5 +40,14 @@ namespace OpenRealEstate.Core.Models
         {
             ModifiedData.Copy(inspection, this, isModifiedPropertiesOnly);
         }
+
+        public override string ToString()
+        {
+            return string.Format("{0} <-> {1}",
+                OpensOn,
+                ClosesOn.HasValue
+                    ? ClosesOn.ToString()
+                    : "-no time given-");
+        }
     }
 }

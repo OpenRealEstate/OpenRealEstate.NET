@@ -92,5 +92,14 @@ namespace OpenRealEstate.Core.Models
         {
             ModifiedData.Copy(newSalePricing, this, isModifiedPropertiesOnly);
         }
+
+        public override string ToString()
+        {
+            return string.Format("Sale: {0}/{1}",
+                SalePrice.ToString("C0"),
+                string.IsNullOrWhiteSpace(SoldPriceText)
+                    ? "-no sale price text-"
+                    : SoldPriceText);
+        }
     }
 }

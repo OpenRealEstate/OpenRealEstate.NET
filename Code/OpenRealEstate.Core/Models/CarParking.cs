@@ -57,5 +57,14 @@ namespace OpenRealEstate.Core.Models
         {
             ModifiedData.Copy(newCarParking, this, isModifiedPropertiesOnly);
         }
+
+        public override string ToString()
+        {
+            return string.Format("C:{0} G:{1} O:{2} / T:{3}",
+                Carports,
+                Garages,
+                OpenSpaces,
+                TotalCount);
+        }
     }
 }
