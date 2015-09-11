@@ -97,9 +97,9 @@ namespace OpenRealEstate.Core.Models
         {
             return string.Format("Sale: {0}/{1}",
                 SalePrice.ToString("C0"),
-                string.IsNullOrWhiteSpace(SoldPriceText)
+                string.IsNullOrWhiteSpace(SalePriceText)
                     ? "-no sale price text-"
-                    : SoldPriceText);
+                    : SalePriceText);
         }
     }
 }
