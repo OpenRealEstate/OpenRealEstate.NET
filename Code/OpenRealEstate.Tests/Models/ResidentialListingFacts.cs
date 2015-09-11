@@ -1,4 +1,5 @@
-﻿using Shouldly;
+﻿using System;
+using Shouldly;
 using Xunit;
 
 namespace OpenRealEstate.Tests.Models
@@ -12,6 +13,10 @@ namespace OpenRealEstate.Tests.Models
             {
                 // Arrange.
                 var sourceListing = TestHelperUtilities.ResidentialListing(false);
+                sourceListing.Pricing.SoldPrice = 100;
+                sourceListing.Pricing.SoldPriceText = "yah!";
+                sourceListing.Pricing.SoldOn = DateTime.Now;
+
                 var destinationListing = TestHelperUtilities.ResidentialListingFromFile();
 
                 // Act.

@@ -95,11 +95,17 @@ namespace OpenRealEstate.Core.Models
 
         public override string ToString()
         {
-            return string.Format("Sale: {0}/{1}",
+            return string.Format("Sale: {0}/{1} | Sold: {2}/{3}",
                 SalePrice.ToString("C0"),
                 string.IsNullOrWhiteSpace(SalePriceText)
                     ? "-no sale price text-"
-                    : SalePriceText);
+                    : SalePriceText,
+                SoldPrice.HasValue
+                    ? SoldPrice.Value.ToString("C0")
+                    : "-not sold-",
+                string.IsNullOrWhiteSpace(SoldPriceText)
+                    ? "-no sold price text-"
+                    : SoldPriceText);
         }
     }
 }
