@@ -45,10 +45,5 @@ namespace OpenRealEstate.Core.Models.Land
 
             ModifiedData.Copy(newLandEstate, this, isModifiedPropertiesOnly);
         }
-
-        public void ClearAllIsModified()
-        {
-            ModifiedData.ClearModifiedPropertiesAndCollections();
-        }
     }
 }

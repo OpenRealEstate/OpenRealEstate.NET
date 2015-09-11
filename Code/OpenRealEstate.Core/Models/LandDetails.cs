@@ -123,8 +123,10 @@ namespace OpenRealEstate.Core.Models
             }
         }
 
-        public void ClearAllIsModified()
+        public override void ClearAllIsModified()
         {
+            base.ClearAllIsModified();
+
             if (_area.Value != null &&
                 _area.Value.ModifiedData.IsModified)
             {
@@ -138,8 +140,6 @@ namespace OpenRealEstate.Core.Models
             }
 
             HelperUtilities.ClearAllObservableCollectionItems(_depths);
-
-            ModifiedData.ClearModifiedPropertiesAndCollections();
         }
     }
 }

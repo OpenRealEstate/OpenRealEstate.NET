@@ -71,10 +71,5 @@ namespace OpenRealEstate.Core.Models.Rental
 
             ModifiedData.Copy(newRentalPricing, this, isModifiedPropertiesOnly);
         }
-
-        public void ClearAllIsModified()
-        {
-            ModifiedData.ClearModifiedPropertiesAndCollections();
-        }
     }
 }

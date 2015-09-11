@@ -40,10 +40,5 @@ namespace OpenRealEstate.Core.Models
         {
             ModifiedData.Copy(newAggregateRoot, this, isModifiedPropertiesOnly);
         }
-
-        public virtual void ClearAllIsModified()
-        {
-            ModifiedData.ClearModifiedPropertiesAndCollections();
-        }
     }
 }

@@ -155,9 +155,9 @@ namespace OpenRealEstate.Core.Models
             }
         }
 
-        public void ClearAllIsModified()
+        public override void ClearAllIsModified()
         {
-            ModifiedData.ClearModifiedPropertiesAndCollections();
+            base.ClearAllIsModified();
 
             if (_carParking.Value != null &&
                 _carParking.Value.ModifiedData.IsModified)

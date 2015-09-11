@@ -15,5 +15,10 @@ namespace OpenRealEstate.Core.Primitives
         {
             get { return _modifiedData ?? (_modifiedData = new ModifiedData(CurrentType)); }
         }
+
+        public virtual void ClearAllIsModified()
+        {
+            ModifiedData.ClearModifiedPropertiesAndCollections();
+        }
     }
 }

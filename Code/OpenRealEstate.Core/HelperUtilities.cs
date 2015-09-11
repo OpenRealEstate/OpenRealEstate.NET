@@ -19,18 +19,20 @@ namespace OpenRealEstate.Core
 
             foreach (var item in collection)
             {
-                item.ModifiedData.ClearModifiedPropertiesAndCollections();
+                item.ClearAllIsModified();
             }
         }
 
-        internal static void SetCollection<T>(ObservableCollection<T> source, ICollection<T> value, Action<ICollection<T>> action) where T : class
+        internal static void SetCollection<T>(ObservableCollection<T> source, 
+            ICollection<T> value,
+            Action<ICollection<T>> action) where T : class
         {
             if ((source == null &&
-                value == null) ||
+                 value == null) ||
                 (source != null &&
-                !source.Any() &&
-                value != null &&
-                !value.Any()))
+                 !source.Any() &&
+                 value != null &&
+                 !value.Any()))
             {
                 // Nothing to set ... and we don't want the collection events to fire off.
                 return;
@@ -47,6 +49,5 @@ namespace OpenRealEstate.Core
                 action(value);
             }
         }
-
     }
 }

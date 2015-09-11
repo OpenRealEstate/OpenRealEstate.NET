@@ -54,10 +54,5 @@ namespace OpenRealEstate.Core.Models
 
             ModifiedData.Copy(newUnitOfMeasure, this, isModifiedPropertiesOnly);
         }
-
-        public virtual void ClearAllIsModified()
-        {
-            ModifiedData.ClearModifiedPropertiesAndCollections();
-        }
     }
 }

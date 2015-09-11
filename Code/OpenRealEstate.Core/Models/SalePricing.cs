@@ -92,10 +92,5 @@ namespace OpenRealEstate.Core.Models
         {
             ModifiedData.Copy(newSalePricing, this, isModifiedPropertiesOnly);
         }
-
-        public void ClearAllIsModified()
-        {
-            ModifiedData.ClearModifiedPropertiesAndCollections();
-        }
     }
 }

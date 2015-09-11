@@ -57,10 +57,5 @@ namespace OpenRealEstate.Core.Models
         {
             ModifiedData.Copy(newCarParking, this, isModifiedPropertiesOnly);
         }
-
-        public void ClearAllIsModified()
-        {
-            ModifiedData.ClearModifiedPropertiesAndCollections();
-        }
     }
 }

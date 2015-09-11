@@ -195,10 +195,5 @@ namespace OpenRealEstate.Core.Models
                 stringBuilder.Append(delimeter);
             }
         }
-
-        public void ClearAllIsModified()
-        {
-            ModifiedData.ClearModifiedPropertiesAndCollections();
-        }
-    }
+    } 
 }

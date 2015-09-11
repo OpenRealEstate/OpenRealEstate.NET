@@ -106,9 +106,9 @@ namespace OpenRealEstate.Core.Models
             }
         }
 
-        public void ClearAllIsModified()
+        public override void ClearAllIsModified()
         {
-            ModifiedData.ClearModifiedPropertiesAndCollections();
+            base.ClearAllIsModified();
 
             HelperUtilities.ClearAllObservableCollectionItems(_communications);
         }

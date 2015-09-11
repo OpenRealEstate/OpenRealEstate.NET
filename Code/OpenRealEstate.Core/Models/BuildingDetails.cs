@@ -40,15 +40,15 @@ namespace OpenRealEstate.Core.Models
             ModifiedData.Copy(newBuildingDetails, this, isModifiedPropertiesOnly);
         }
 
-        public void ClearAllIsModified()
+        public override void ClearAllIsModified()
         {
+            base.ClearAllIsModified();
+
             if (_area.Value != null &&
                 _area.Value.ModifiedData.IsModified)
             {
                 _area.Value.ClearAllIsModified();
             }
-
-            ModifiedData.ClearModifiedPropertiesAndCollections();
         }
     }
 }

@@ -110,10 +110,5 @@ namespace OpenRealEstate.Core.Models.Rural
 
             ModifiedData.Copy(newRuralFeatures, this, isModifiedPropertiesOnly);
         }
-
-        public void ClearAllIsModified()
-        {
-            ModifiedData.ClearModifiedPropertiesAndCollections();
-        }
     }
 }
