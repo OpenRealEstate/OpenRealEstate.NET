@@ -71,6 +71,7 @@ namespace OpenRealEstate.Tests
                 AssertResidentialSoldListing(result.Listings.First().Listing as ResidentialListing);
             }
 
+            // NOTE: no display attribute for the sold-data element means a 'yes', please show the value.
             [Fact]
             public void GivenTheFileREAResidentialSoldWithMissingDisplayPrice_Convert_ReturnsAResidentialSoldListing()
             {
@@ -708,8 +709,8 @@ namespace OpenRealEstate.Tests
                 listing.CouncilRates.ShouldBe("$2000 per month");
                 listing.Links[0].ShouldBe("http://www.au.open2view.com/properties/314244/tour#floorplan");
                 listing.Links[1].ShouldBe("http://www.google.com/hello");
-                AssertAddress(listing.Address, streetNumber, isModified);
-                AssertSalePrice(listing.Pricing, salePriceText, isModified);
+                AssertAddress(listing.Address, streetNumber);
+                AssertSalePrice(listing.Pricing, salePriceText);
                 AssertInspections(listing.Inspections);
 
                 if (assertAgents != null)
@@ -723,18 +724,17 @@ namespace OpenRealEstate.Tests
 
                 AssertFeatures(listing.Features, 
                     tags, 
-                    isModified,
                     expectedBedroomsCount,
                     bathroomCount: 2,
                     ensuitesCount: 2);
 
-                AssertImages(listing.Images, imageUrls, isModified);
+                AssertImages(listing.Images, imageUrls);
 
-                AssertFloorPlans(listing.FloorPlans, floorplanUrls, isModified);
+                AssertFloorPlans(listing.FloorPlans, floorplanUrls);
 
                 if (videoUrls != null)
                 {
-                    AssertVideos(listing.Videos, videoUrls, isModified);
+                    AssertVideos(listing.Videos, videoUrls);
                 }
                 
                 listing.AuctionOn.ShouldBe(new DateTime(2009, 02, 04, 18, 30, 00));
@@ -871,7 +871,7 @@ namespace OpenRealEstate.Tests
                 listing.StatusType.ShouldBe(StatusType.Current);
                 listing.PropertyType.ShouldBe(PropertyType.House);
 
-                AssertAddress(listing.Address, "39", isModified);
+                AssertAddress(listing.Address, "39");
 
                 listing.AvailableOn.ShouldBe(new DateTime(2009, 01, 26, 12, 30, 00));
 
@@ -891,7 +891,8 @@ namespace OpenRealEstate.Tests
                 listingAgent.Communications[1].CommunicationType.ShouldBe(CommunicationType.Landline);
                 listingAgent.Communications[1].Details.ShouldBe("05 1234 5678");
 
-                AssertFeatures(listing.Features, tags, isModified,
+                AssertFeatures(listing.Features, 
+                    tags, 
                     bedroomsCount:bedroomsCount,
                     bathroomCount: 2,
                     ensuitesCount: 2,
@@ -1124,8 +1125,7 @@ namespace OpenRealEstate.Tests
 
                 AssertFeatures(listing.Features, 
                     tags, 
-                    carParking:carParking,
-                    isModified: isModified);
+                    carParking:carParking);
             }
 
             private static void AssertLandSoldListing(LandListing listing,
@@ -1296,7 +1296,6 @@ namespace OpenRealEstate.Tests
 
                 AssertFeatures(listing.Features, 
                     tags, 
-                    isModified, 
                     bedroomsCount,
                     2,
                     2);
@@ -1457,8 +1456,7 @@ namespace OpenRealEstate.Tests
             }
 
             private static void AssertAddress(Address address,
-                string streetNumber,
-                bool isModified)
+                string streetNumber)
             {
                 address.IsStreetDisplayed.ShouldBe(true);
                 address.StreetNumber.ShouldBe(streetNumber);
@@ -1471,8 +1469,7 @@ namespace OpenRealEstate.Tests
             }
 
             private static void AssertSalePrice(SalePricing pricing,
-                string salePriceText,
-                bool isModified)
+                string salePriceText)
             {
                 pricing.SalePrice.ShouldBe(500000m);
                 pricing.SalePriceText.ShouldBe(salePriceText);
@@ -1503,7 +1500,6 @@ namespace OpenRealEstate.Tests
 
             private static void AssertFeatures(Features features,
                 IList<string> tags,
-                bool isModified,
                 int bedroomsCount = 0,
                 int bathroomCount = 0,
                 int ensuitesCount = 0,
@@ -1558,8 +1554,7 @@ namespace OpenRealEstate.Tests
             }
 
             private static void AssertImages(IList<Media> images,
-                IList<string> imageUrls,
-                bool isModified)
+                IList<string> imageUrls)
             {
                 images.Count.ShouldBe(2);
                 images[0].Order.ShouldBe(1);
@@ -1573,8 +1568,7 @@ namespace OpenRealEstate.Tests
             }
 
             private static void AssertFloorPlans(IList<Media> floorPlans,
-                IList<string> floorplanUrls,
-                bool isModified)
+                IList<string> floorplanUrls)
             {
                 floorPlans.Count.ShouldBe(2);
                 floorPlans[0].Url.ShouldBe(floorplanUrls == null
@@ -1588,8 +1582,7 @@ namespace OpenRealEstate.Tests
             }
 
             private static void AssertVideos(IList<Media> videos,
-                IList<string> videoUrls,
-                bool isModified)
+                IList<string> videoUrls)
             {
                 for (var i = 0; i < videos.Count; i++)
                 {

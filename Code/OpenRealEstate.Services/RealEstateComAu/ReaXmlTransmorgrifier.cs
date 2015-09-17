@@ -775,12 +775,12 @@ namespace OpenRealEstate.Services.RealEstateComAu
             }
         }
 
-        private static void ExtractOtherFeatures(XElement features, ISet<string> tags)
+        private static void ExtractOtherFeatures(XElement document, ISet<string> tags)
         {
-            features.ShouldNotBe(null);
+            document.ShouldNotBe(null);
             tags.ShouldNotBe(null);
 
-            var value = features.ValueOrDefault("otherFeatures");
+            var value = document.ValueOrDefault("otherFeatures");
             if (string.IsNullOrWhiteSpace(value))
             {
                 return;
@@ -794,13 +794,13 @@ namespace OpenRealEstate.Services.RealEstateComAu
             }
         }
 
-        private static ISet<string> ExtractBooleanFeatures(XElement xElement)
+        private static ISet<string> ExtractBooleanFeatures(XElement document)
         {
             var suppliedFeatures = new ConcurrentBag<string>();
 
             Parallel.ForEach(XmlFeatureHelpers.OtherFeatureNames, possibleFeature =>
             {
-                if (xElement.BoolValueOrDefault(possibleFeature))
+                if (document.BoolValueOrDefault(possibleFeature))
                 {
                     suppliedFeatures.Add(possibleFeature);
                 }
@@ -989,26 +989,43 @@ namespace OpenRealEstate.Services.RealEstateComAu
         {
             document.ShouldNotBe(null);
 
-            var salePricing = new SalePricing
-            {
-                SalePrice = document.MoneyValueOrDefault(cultureInfo, "price")
-            };
+            var salePricing = new SalePricing();
 
-            var doesSalePriceExists = !string.IsNullOrWhiteSpace(document.ValueOrDefault("price"));
+            ExtractSalePrice(document, salePricing, cultureInfo);
+            
+            ExtractSoldDetails(document, salePricing);
 
-            // Selling data.
+            return salePricing;
+        }
+
+        /* Eg xml.
+           <residential ...
+             <price display="yes">500000</price>
+             <priceView>Between $400,000 and $600,000</priceView>
+           />
+        */
+        private static void ExtractSalePrice(XElement document, 
+            SalePricing salePricing,
+            CultureInfo cultureInfo)
+        {
+            document.ShouldNotBe(null);
+            salePricing.ShouldNotBe(null);
+
+            salePricing.SalePrice = document.MoneyValueOrDefault(cultureInfo, "price");
 
             var salePriceText = document.ValueOrDefault("priceView");
             var displayAttributeValue = document.ValueOrDefault("price", "display");
             var isDisplay = string.IsNullOrWhiteSpace(displayAttributeValue) ||
                             displayAttributeValue.ParseOneYesZeroNoToBool();
-            
+            var doesSalePriceExists = !string.IsNullOrWhiteSpace(document.ValueOrDefault("price"));
+
             // NOTE 1: If Display="no" then we do not display anything for the price, regardless
             //       of any other data provided. Otherwise, make a decision.
             // NOTE 2: If -NO- saleprice is provided (eg. this is _very_ common when we get
             //         an SOLD or LEASED, etc) then we should leave the sale price text alone.
             //         So only do the sale-price-text checks if we have a value set AND
             //         it's ok to display a value.
+            // NOTE 3: display='no' means NO price is displayed, even if there's a priceText.
             salePricing.SalePriceText = isDisplay &&
                                         doesSalePriceExists
                 ? string.IsNullOrWhiteSpace(salePriceText)
@@ -1019,9 +1036,21 @@ namespace OpenRealEstate.Services.RealEstateComAu
             var isUnderOffer = document.ValueOrDefault("underOffer", "value");
             salePricing.IsUnderOffer = !string.IsNullOrWhiteSpace(isUnderOffer) &&
                                        isUnderOffer.ParseOneYesZeroNoToBool();
+        }
 
+        /* Eg xml.
+           <residential ...
+             <soldDetails>
+               <price display="yes">580000</price>
+               <date>2009-01-10-12:30:00</date>
+             </soldDetails>
+           />
+        */
+        private static void ExtractSoldDetails(XElement document, SalePricing salePricing)
+        {
+            document.ShouldNotBe(null);
+            salePricing.ShouldNotBe(null);
 
-            // Sold data.
             var soldDetails = document.Element("soldDetails");
             if (soldDetails != null)
             {
@@ -1040,37 +1069,40 @@ namespace OpenRealEstate.Services.RealEstateComAu
                     ExtractSoldOn(soldDate, salePricing);
                 }
             }
-
-            return salePricing;
         }
 
-        private static void ExtractSoldPrice(XElement element, SalePricing salePricing)
+        // Eg xml: <price display="yes">580000</price>
+        private static void ExtractSoldPrice(XElement document, SalePricing salePricing)
         {
-            element.ShouldNotBe(null);
+            document.ShouldNotBe(null);
+            salePricing.ShouldNotBe(null);
 
-            salePricing.SoldPrice = element.DecimalValueOrDefault();
-
-            var soldDisplayAttribute = element.ValueOrDefault(null, "display");
-           
+            salePricing.SoldPrice = document.DecimalValueOrDefault();
 
             // NOTE 1: no display price assumes a 'YES' and that the price -is- to be displayed.
             // NOTE 2: A _display attribute_ value of 'range' can only valid for commerical properties ...
             //         and .. we don't handle commerical. So it will end up throwing an exception
             //         which is legit in this case.
+            // NOTE 3: display='no' means NO price is displayed, even if there's a priceText.
+            var soldDisplayAttribute = document.ValueOrDefault(null, "display");
             var isDisplay = string.IsNullOrWhiteSpace(soldDisplayAttribute) ||
                             soldDisplayAttribute.ParseOneYesZeroNoToBool();
 
-            salePricing.SoldPriceText = isDisplay
-                ? salePricing.SoldPrice.Value.ToString("C0")
+            salePricing.SoldPriceText = isDisplay &&
+                                        salePricing.SoldPrice > 0
+                ? string.IsNullOrWhiteSpace(salePricing.SoldPriceText)
+                    ? salePricing.SoldPrice.Value.ToString("C0")
+                    : salePricing.SoldPriceText
                 : null;
         }
 
-        private static void ExtractSoldOn(XElement element, SalePricing salePricing)
+        // Eg xml: <date>2009-01-10-12:30:00</date>
+        private static void ExtractSoldOn(XElement document, SalePricing salePricing)
         {
-            element.ShouldNotBe(null);
+            document.ShouldNotBe(null);
 
             // SoldOn could be date or soldData. Thanks REA for such a great schema.
-            var soldOnText = element.ValueOrDefault();
+            var soldOnText = document.ValueOrDefault();
             if (!string.IsNullOrWhiteSpace(soldOnText))
             {
                 salePricing.SoldOn = ToDateTime(soldOnText);
