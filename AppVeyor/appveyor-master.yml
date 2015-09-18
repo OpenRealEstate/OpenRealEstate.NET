@@ -38,6 +38,14 @@ on_success:
 #artifacts:
 #  - path: '**\*.nupkg'
 
+deploy:
+- provider: WebDeploy
+  server: https://openrealestate.scm.azurewebsites.net:443/msdeploy.axd?site=openrealestate
+  website: openrealestate
+  username: $openrealestate
+  password:
+    secure: dDSrZ7EKMDsUZfcWehsTJRYRTq4Txg1BfI01FSesmHUYqE3X+ylNVfQrZE51c9hukliPhTa0MyolrkcQB3btsw==
+  remove_files: true
 cache:
   - packages -> **\packages.config
 
