@@ -111,6 +111,8 @@ namespace OpenRealEstate.Core.Models
             _videos.CollectionChanged += (sender, args) => { ModifiedData.OnCollectionChanged(VideosName); };
         }
 
+        public abstract string ListingType { get; }
+
         public string AgencyId
         {
             get { return _agencyId.Value; }

@@ -52,6 +52,11 @@ namespace OpenRealEstate.Core.Models.Rural
             _ruralFeatures.PropertyChanged += ModifiedData.OnPropertyChanged;
         }
 
+        public override string ListingType
+        {
+            get { return "Rural"; }
+        }
+
         public CategoryType CategoryType
         {
             get { return _categoryType.Value; }

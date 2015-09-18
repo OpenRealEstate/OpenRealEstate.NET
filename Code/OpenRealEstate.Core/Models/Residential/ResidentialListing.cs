@@ -45,6 +45,11 @@ namespace OpenRealEstate.Core.Models.Residential
             _salePricing.PropertyChanged += ModifiedData.OnPropertyChanged;
         }
 
+        public override string ListingType
+        {
+            get { return "Residential"; }
+        }
+
         public PropertyType PropertyType
         {
             get { return _propertyType.Value; }

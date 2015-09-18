@@ -38,6 +38,11 @@ namespace OpenRealEstate.Core.Models.Rental
             _propertyType.PropertyChanged += ModifiedData.OnPropertyChanged;
         }
 
+        public override string ListingType
+        {
+            get { return "Rental"; }
+        }
+
         public PropertyType PropertyType
         {
             get { return _propertyType.Value; }

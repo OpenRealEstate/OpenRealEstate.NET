@@ -45,6 +45,11 @@ namespace OpenRealEstate.Core.Models.Land
             _pricing.PropertyChanged += ModifiedData.OnPropertyChanged;
         }
 
+        public override string ListingType
+        {
+            get { return "Land"; }
+        }
+
         public CategoryType CategoryType
         {
             get { return _categoryType.Value; }
