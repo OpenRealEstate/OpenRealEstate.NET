@@ -6,21 +6,21 @@ namespace OpenRealEstate.Services
 {
     public static class SystemExtensions
     {
-        private static readonly ISet<string> yesSet = 
-            new HashSet<string>(new []{"y", "yes"}, StringComparer.InvariantCultureIgnoreCase);
-        private static readonly ISet<string> noSet = 
-            new HashSet<string>(new [] {"n", "no"}, StringComparer.InvariantCultureIgnoreCase);
+        private static readonly ISet<string> YesTrueSet = 
+            new HashSet<string>(new []{"y", "yes", "true"}, StringComparer.InvariantCultureIgnoreCase);
+        private static readonly ISet<string> NoFalseSet = 
+            new HashSet<string>(new [] {"n", "no", "false"}, StringComparer.InvariantCultureIgnoreCase);
 
-        public static bool ParseYesOrNoToBool(this string value)
+        public static bool ParseYesTrueOrNoFalseToBool(this string value)
         {
             value.ShouldNotBeNullOrEmpty();
 
-            if (yesSet.Contains(value))
+            if (YesTrueSet.Contains(value))
             {
                 return true;
             }
 
-            if (noSet.Contains(value))
+            if (NoFalseSet.Contains(value))
             {
                 return false;
             }
@@ -32,14 +32,14 @@ namespace OpenRealEstate.Services
         {
             value.ShouldNotBeNullOrEmpty();
 
-            if (yesSet.Contains(value))
+            if (YesTrueSet.Contains(value))
             {
                 result = true;
                 return true;
             }
 
             result = false;
-            return noSet.Contains(value);
+            return NoFalseSet.Contains(value);
         }
        
         public static bool ParseOneYesZeroNoToBool(this string value)
@@ -47,13 +47,13 @@ namespace OpenRealEstate.Services
             value.ShouldNotBeNullOrEmpty();
 
             if (value == "1" ||
-                yesSet.Contains(value))
+                YesTrueSet.Contains(value))
             {
                 return true;
             }
 
             if (value == "0" ||
-                noSet.Contains(value))
+                NoFalseSet.Contains(value))
             {
                 return false;
             }

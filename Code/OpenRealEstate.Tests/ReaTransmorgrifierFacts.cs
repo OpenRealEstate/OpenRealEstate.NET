@@ -690,6 +690,44 @@ namespace OpenRealEstate.Tests
                 listing.Pricing.SalePriceText.ShouldBeNullOrEmpty();
             }
 
+            [Fact]
+            public void GivenTheFileREAResidentialCurrentWithEnsuiteIsTrue_Convert_ReturnsAResidentialCurrentListing()
+            {
+                // Arrange.
+                var reaXml =
+                    File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current-WithEnsuiteIsTrue.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.ShouldNotBe(null);
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
+                result.Errors.ShouldBe(null);
+                result.Listings.First().Listing.Features.Ensuites.ShouldBe(1);
+            }
+
+            [Fact]
+            public void GivenTheFileREAResidentialCurrentWithEnsuiteIsFalse_Convert_ReturnsAResidentialCurrentListing()
+            {
+                // Arrange.
+                var reaXml =
+                    File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current-WithEnsuiteIsFalse.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.ShouldNotBe(null);
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
+                result.Errors.ShouldBe(null);
+                result.Listings.First().Listing.Features.Ensuites.ShouldBe(0);
+            }
+
             private static void AssertResidentialCurrentListing(ResidentialListing listing,
                 PropertyType expectedPropertyType = PropertyType.House,
                 int expectedBedroomsCount = 4,
