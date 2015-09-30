@@ -70,6 +70,7 @@ namespace OpenRealEstate.Core.Models.Rural
                 case "LIVESTOCK":
                     return CategoryType.Livestock;
                 case "MIXEDFARMING":
+                case "MIXED FARMING":
                     return CategoryType.MixedFarming;
                 case "VITICULTURE":
                     return CategoryType.Viticulture;
