@@ -90,6 +90,9 @@ namespace OpenRealEstate.Core.Models
                 case "ASR":
                 case "ACREAGESEMI-RURAL":
                 case "ACREAGESEMIRURAL":
+                case "ACREAGE/SEMI-RURAL":
+                case "ACREAGE SEMI-RURAL":
+                case "ACREAGE SEMIRURAL":
                     return PropertyType.AcreageSemiRural;
                 case "ALP":
                 case "ALPINE":
@@ -99,6 +102,7 @@ namespace OpenRealEstate.Core.Models
                     return PropertyType.Apartment;
                 case "BOU":
                 case "BLOCKOFUNITS":
+                case "BLOCK OF UNITS":
                     return PropertyType.BlockOfUnits;
                 case "FLT":
                 case "FLAT":
@@ -111,10 +115,13 @@ namespace OpenRealEstate.Core.Models
                     return PropertyType.Retirement;
                 case "SDC":
                 case "DUPLEXSEMI-DETACHED":
+                case "DUPLEX SEMI-DETACHED":
                 case "SEMIDETACHED":
+                case "SEMI-DETACHED":
                     return PropertyType.SemiDetached;
                 case "SAP":
                 case "SERVICEDAPARTMENT":
+                case "SERVICED APARTMENT":
                     return PropertyType.ServicedApartment;
                 case "STD":
                 case "STUDIO":
@@ -130,6 +137,7 @@ namespace OpenRealEstate.Core.Models
                     return PropertyType.Unit;
                 case "LND":
                 case "VACANTLAND":
+                case "VACANT LAND":
                     return PropertyType.VacantLand;
                 case "VIL":
                 case "VILLA":
