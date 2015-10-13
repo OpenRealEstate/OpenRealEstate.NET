@@ -93,6 +93,7 @@ namespace OpenRealEstate.Core.Models
                 case "ACREAGE/SEMI-RURAL":
                 case "ACREAGE SEMI-RURAL":
                 case "ACREAGE SEMIRURAL":
+                case "ACREAGE-SEMI-RURAL":
                     return PropertyType.AcreageSemiRural;
                 case "ALP":
                 case "ALPINE":
@@ -103,6 +104,7 @@ namespace OpenRealEstate.Core.Models
                 case "BOU":
                 case "BLOCKOFUNITS":
                 case "BLOCK OF UNITS":
+                case "UNITBLOCK":
                     return PropertyType.BlockOfUnits;
                 case "FLT":
                 case "FLAT":
@@ -116,6 +118,7 @@ namespace OpenRealEstate.Core.Models
                 case "SDC":
                 case "DUPLEXSEMI-DETACHED":
                 case "DUPLEX SEMI-DETACHED":
+                case "DUPLEX-SEMI-DETACHED":
                 case "SEMIDETACHED":
                 case "SEMI-DETACHED":
                     return PropertyType.SemiDetached;
