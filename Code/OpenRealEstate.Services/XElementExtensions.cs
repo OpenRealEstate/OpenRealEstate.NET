@@ -210,6 +210,19 @@ namespace OpenRealEstate.Services
             throw new Exception(errorMessage);
         }
 
+        public static decimal? NullableMoneyValueOrDefault(this XElement xElement, 
+            CultureInfo cultureInfo,
+            string elementName = null)
+        {
+            var value = xElement.ValueOrDefault(elementName);
+            if (string.IsNullOrEmpty(value))
+            {
+                return null;
+            }
+
+            return xElement.MoneyValueOrDefault(cultureInfo, elementName);
+        }
+
         public static byte ByteValueOrDefault(this XElement xElement, string elementName = null)
         {
             var value = xElement.ValueOrDefault(elementName);

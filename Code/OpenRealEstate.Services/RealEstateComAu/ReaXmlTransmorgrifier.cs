@@ -1421,7 +1421,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 rentalPricing.RentalPriceText = priceView;
             } 
 
-            rentalPricing.Bond = xElement.MoneyValueOrDefault(cultureInfo, "bond");
+            rentalPricing.Bond = xElement.NullableMoneyValueOrDefault(cultureInfo, "bond");
 
             return rentalPricing;
         }

@@ -820,7 +820,6 @@ namespace OpenRealEstate.Tests
                         "hotWaterService-gas", "heating-other", "balcony", "shed", "courtyard", "isANewConstruction",
                         "fullyFenced", "outdoorEnt", "courtyard", "deck", "tennisCourt"
                     },
-                    true,
                     4);
             }
 
@@ -899,10 +898,33 @@ namespace OpenRealEstate.Tests
                     bedroomsCount: 4);
             }
 
+            [Fact]
+            public void GivenTheFileREARentalCurrentWithNoBond_Convert_ReturnsARentalCurrentListing()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Rental\\REA-Rental-Current-WithNoBond.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
+                AssertRentalCurrentListing(result.Listings.First().Listing as RentalListing,
+                    new[]
+                    {
+                        "hotWaterService-gas", "heating-other", "balcony", "shed", "courtyard", "isANewConstruction",
+                        "fullyFenced", "outdoorEnt", "courtyard", "deck", "tennisCourt"
+                    },
+                    4,
+                    null);
+            }
+
             private static void AssertRentalCurrentListing(RentalListing listing,
                 IList<string> tags = null,
-                bool isModified = true,
-                int bedroomsCount = 0)
+                int bedroomsCount = 0,
+                decimal? bond = 999)
             {
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Rental-Current-ABCD1234");
@@ -913,10 +935,7 @@ namespace OpenRealEstate.Tests
 
                 listing.AvailableOn.ShouldBe(new DateTime(2009, 01, 26, 12, 30, 00));
 
-                listing.Pricing.RentalPrice.ShouldBe(350);
-                listing.Pricing.RentalPriceText.ShouldBe("$350");
-                listing.Pricing.PaymentFrequencyType.ShouldBe(PaymentFrequencyType.Weekly);
-                listing.Pricing.Bond.ShouldBe(999);
+                AssertRentalPricing(listing.Pricing, bond);
 
                 listing.Inspections.Count.ShouldBe(2);
 
@@ -1650,6 +1669,15 @@ namespace OpenRealEstate.Tests
                 landDetails.Depths[2].Value.ShouldBe(20M);
                 landDetails.Depths[2].Type.ShouldBe("meter");
                 landDetails.Depths[2].Side.ShouldBe("right");
+            }
+
+            private static void AssertRentalPricing(RentalPricing rentalPricing,
+                decimal? bond)
+            {
+                rentalPricing.RentalPrice.ShouldBe(350);
+                rentalPricing.RentalPriceText.ShouldBe("$350");
+                rentalPricing.PaymentFrequencyType.ShouldBe(PaymentFrequencyType.Weekly);
+                rentalPricing.Bond.ShouldBe(bond);
             }
         }
     }
