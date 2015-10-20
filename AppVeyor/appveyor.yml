@@ -1,5 +1,5 @@
 
-version: '1.{build}.0-dev'
+version: '0.{build}.0-dev'
 configuration: Release
 
 branches:
@@ -15,7 +15,7 @@ environment:
 
 init:
   - ps: iex ((new-object net.webclient).DownloadString('https://gist.githubusercontent.com/PureKrome/0f79e25693d574807939/raw/8cf3160c9516ef1f4effc825c0a44acc918a0b5a/appveyor-build-info.ps'))
-
+  
 before_build:
   - nuget restore
 
@@ -31,8 +31,7 @@ build:
   verbosity: minimal
 
 on_success:
-  - ps: Write-Host $env:appveyor_build_version
-  - ps: '& ".\NuGet\NuGet Package and Publish.ps1" -Version $env:appveyor_build_version -NuGet "C:\Tools\NuGet\nuget.exe" -feedSource https://www.myget.org/F/openrealestate/api/v2 -apiKey $env:apiKey'
+  - ps: $destinationPath = $env:appveyor_build_folder + ".\file1.ps1"; (new-object net.webclient).DownloadFile('https://raw.githubusercontent.com/PureKrome/PushIt/master/NuGet%20Package%20and%20Publish.ps1', $destinationPath); & $destinationPath  -Version $env:appveyor_build_version -NuGet "C:\Tools\NuGet\nuget.exe" -feedSource https://www.myget.org/F/openrealestate/api/v2 -apiKey $env:apiKey -source '.\NuGet\' -destination '.\NuGet\'
 
 cache:
   - packages -> **\packages.config
