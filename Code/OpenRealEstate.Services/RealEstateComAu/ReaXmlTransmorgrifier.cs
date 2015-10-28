@@ -742,7 +742,10 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 Toilets = featuresElement.BoolOrByteValueOrDefault("toilets"),
                 LivingAreas = featuresElement.BoolOrByteValueOrDefault("livingAreas"),
             };
-            finalFeatures.AddTags(tags);
+            if (tags.Any())
+            {
+                finalFeatures.AddTags(tags);
+            }
 
             return finalFeatures;
         }
