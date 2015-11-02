@@ -43,6 +43,7 @@
     <Compile Include="Models\Agency.cs" />
     <Compile Include="Models\Agent.cs" />
     <Compile Include="Models\AggregateRoot.cs" />
+    <Compile Include="Models\CopyDataOptions.cs" />
     <Compile Include="Primitives\BaseModifiedData.cs" />
     <Compile Include="Models\BuildingDetails.cs" />
     <Compile Include="Models\CarParking.cs" />

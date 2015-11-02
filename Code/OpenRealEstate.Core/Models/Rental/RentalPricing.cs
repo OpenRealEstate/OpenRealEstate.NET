@@ -62,14 +62,15 @@ namespace OpenRealEstate.Core.Models.Rental
             set { _bond.Value = value; }
         }
 
-        public void Copy(RentalPricing newRentalPricing, bool isModifiedPropertiesOnly = true)
+        public void Copy(RentalPricing newRentalPricing,
+            CopyDataOptions copyDataOptions = CopyDataOptions.OnlyCopyModifiedProperties)
         {
             if (newRentalPricing == null)
             {
                 throw new ArgumentNullException("newRentalPricing");
             }
 
-            ModifiedData.Copy(newRentalPricing, this, isModifiedPropertiesOnly);
+            ModifiedData.Copy(newRentalPricing, this, copyDataOptions);
         }
     }
 }

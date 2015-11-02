@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using OpenRealEstate.Core.Models;
 
 namespace OpenRealEstate.Core.Primitives
 {
@@ -69,9 +70,11 @@ namespace OpenRealEstate.Core.Primitives
             }
         }
 
-        public void Copy<T>(T source, T target, bool isModifiedPropertiesOnly = true) where T : class
+        public void Copy<T>(T source, 
+            T target,
+            CopyDataOptions copyDataOptions = CopyDataOptions.OnlyCopyModifiedProperties) where T : class
         {
-            if (!isModifiedPropertiesOnly)
+            if (copyDataOptions == CopyDataOptions.CopyAllData)
             {
                 // Copy all the properties. This is generally for collection deep copying.
                 CopyAllProperties(source, target);

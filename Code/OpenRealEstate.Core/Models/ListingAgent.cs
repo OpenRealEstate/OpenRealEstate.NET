@@ -84,9 +84,10 @@ namespace OpenRealEstate.Core.Models
             }
         }
 
-        public void Copy(ListingAgent newListingAgent, bool isModifiedPropertiesOnly = true)
+        public void Copy(ListingAgent newListingAgent,
+            CopyDataOptions copyDataOptions = CopyDataOptions.OnlyCopyModifiedProperties)
         {
-            ModifiedData.Copy(newListingAgent, this, isModifiedPropertiesOnly);
+            ModifiedData.Copy(newListingAgent, this, copyDataOptions);
 
             if (newListingAgent.ModifiedData.ModifiedCollections.Contains(CommunicationsName))
             {
@@ -98,7 +99,7 @@ namespace OpenRealEstate.Core.Models
                     foreach (var communication in newListingAgent.Communications)
                     {
                         var newCommunication = new Communication();
-                        newCommunication.Copy(communication, false);
+                        newCommunication.Copy(communication, CopyDataOptions.CopyAllData);
                         communications.Add(newCommunication);
                     }
                     AddCommunications(communications);

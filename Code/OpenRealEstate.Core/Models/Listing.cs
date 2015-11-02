@@ -394,9 +394,10 @@ namespace OpenRealEstate.Core.Models
                     : Id);
         }
 
-        public void Copy(Listing newListing, bool isModifiedPropertiesOnly = true)
+        public void Copy(Listing newListing, 
+            CopyDataOptions copyDataOptions = CopyDataOptions.OnlyCopyModifiedProperties)
         {
-            base.Copy(newListing, isModifiedPropertiesOnly);
+            base.Copy(newListing, copyDataOptions);
 
             if (newListing.ModifiedData.ModifiedCollections.Contains(AgentsName))
             {
@@ -408,7 +409,7 @@ namespace OpenRealEstate.Core.Models
                     foreach (var agent in newListing.Agents)
                     {
                         var newAgent = new ListingAgent();
-                        newAgent.Copy(agent, false);
+                        newAgent.Copy(agent, CopyDataOptions.CopyAllData);
                         agents.Add(newAgent);
                     }
                     AddAgents(agents);
@@ -442,7 +443,7 @@ namespace OpenRealEstate.Core.Models
                     foreach (var floorPlan in newListing.FloorPlans)
                     {
                         var newFloorPlan = new Media();
-                        newFloorPlan.Copy(floorPlan, false);
+                        newFloorPlan.Copy(floorPlan, CopyDataOptions.CopyAllData);
                         floorPlans.Add(newFloorPlan);
                     }
                     AddFloorPlans(floorPlans);
@@ -459,7 +460,7 @@ namespace OpenRealEstate.Core.Models
                     foreach (var image in newListing.Images)
                     {
                         var newImage = new Media();
-                        newImage.Copy(image, false);
+                        newImage.Copy(image, CopyDataOptions.CopyAllData);
                         images.Add(newImage);
                     }
                     AddImages(images);
@@ -476,7 +477,7 @@ namespace OpenRealEstate.Core.Models
                     foreach (var inspection in newListing.Inspections)
                     {
                         var newInspection = new Inspection();
-                        newInspection.Copy(inspection, false);
+                        newInspection.Copy(inspection, CopyDataOptions.CopyAllData);
                         inspections.Add(newInspection);
                     }
                     AddInspections(inspections);
@@ -493,7 +494,7 @@ namespace OpenRealEstate.Core.Models
                     foreach (var video in newListing.Videos)
                     {
                         var newVideo = new Media();
-                        newVideo.Copy(video, false);
+                        newVideo.Copy(video, CopyDataOptions.CopyAllData);
                         videos.Add(newVideo);
                     }
                     AddVideos(videos);

@@ -57,9 +57,9 @@ namespace OpenRealEstate.Core.Models
                     : Url);
         }
 
-        public void Copy(Media newMedia, bool isModifiedPropertiesOnly = true)
+        public void Copy(Media newMedia, CopyDataOptions copyDataOptions = CopyDataOptions.OnlyCopyModifiedProperties)
         {
-            ModifiedData.Copy(newMedia, this, isModifiedPropertiesOnly);
+            ModifiedData.Copy(newMedia, this, copyDataOptions);
         }
     }
 }

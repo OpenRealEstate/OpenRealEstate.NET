@@ -36,14 +36,15 @@ namespace OpenRealEstate.Core.Models.Land
             set { _stage.Value = value; }
         }
 
-        public void Copy(LandEstate newLandEstate, bool isModifiedPropertiesOnly = true)
+        public void Copy(LandEstate newLandEstate,
+            CopyDataOptions copyDataOptions = CopyDataOptions.OnlyCopyModifiedProperties)
         {
             if (newLandEstate == null)
             {
                 throw new ArgumentNullException("newLandEstate");
             }
 
-            ModifiedData.Copy(newLandEstate, this, isModifiedPropertiesOnly);
+            ModifiedData.Copy(newLandEstate, this, copyDataOptions);
         }
     }
 }

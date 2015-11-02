@@ -88,9 +88,10 @@ namespace OpenRealEstate.Core.Models
             set { _isUnderOffer.Value = value; }
         }
 
-        public void Copy(SalePricing newSalePricing, bool isModifiedPropertiesOnly = true)
+        public void Copy(SalePricing newSalePricing,
+            CopyDataOptions copyDataOptions = CopyDataOptions.OnlyCopyModifiedProperties)
         {
-            ModifiedData.Copy(newSalePricing, this, isModifiedPropertiesOnly);
+            ModifiedData.Copy(newSalePricing, this, copyDataOptions);
         }
 
         public override string ToString()

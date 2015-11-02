@@ -10,7 +10,8 @@ namespace OpenRealEstate.Services
     public class ListingHelpers
     {
         public static void Copy<T>(T existingListing,
-            T updatedListing) where T : Listing
+            T updatedListing,
+            CopyDataOptions copyDataOptions = CopyDataOptions.OnlyCopyModifiedProperties) where T : Listing
         {
             if (existingListing == null)
             {
@@ -27,7 +28,7 @@ namespace OpenRealEstate.Services
             if (residentialListing != null &&
                 updatedResidentialListing != null)
             {
-                residentialListing.Copy(updatedResidentialListing);
+                residentialListing.Copy(updatedResidentialListing, copyDataOptions);
                 return;
             }
 
@@ -36,7 +37,7 @@ namespace OpenRealEstate.Services
             if (rentalListing != null &&
                 updatedRentalListing != null)
             {
-                rentalListing.Copy(updatedRentalListing);
+                rentalListing.Copy(updatedRentalListing, copyDataOptions);
                 return;
             }
 
@@ -45,7 +46,7 @@ namespace OpenRealEstate.Services
             if (ruralListing != null &&
                 updatedRuralListig != null)
             {
-                ruralListing.Copy(updatedRuralListig);
+                ruralListing.Copy(updatedRuralListig, copyDataOptions);
                 return;
             }
 
@@ -54,7 +55,7 @@ namespace OpenRealEstate.Services
             if (landListing != null &&
                 updatedLandListing != null)
             {
-                landListing.Copy(updatedLandListing);
+                landListing.Copy(updatedLandListing, copyDataOptions);
                 return;
             }
 

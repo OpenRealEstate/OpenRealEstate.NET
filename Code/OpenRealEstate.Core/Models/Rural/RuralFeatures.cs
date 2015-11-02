@@ -101,14 +101,15 @@ namespace OpenRealEstate.Core.Models.Rural
             set { _services.Value = value; }
         }
 
-        public void Copy(RuralFeatures newRuralFeatures, bool isModifiedPropertiesOnly = true)
+        public void Copy(RuralFeatures newRuralFeatures,
+            CopyDataOptions copyDataOptions = CopyDataOptions.OnlyCopyModifiedProperties)
         {
             if (newRuralFeatures == null)
             {
                 throw new ArgumentNullException("newRuralFeatures");
             }
 
-            ModifiedData.Copy(newRuralFeatures, this, isModifiedPropertiesOnly);
+            ModifiedData.Copy(newRuralFeatures, this, copyDataOptions);
         }
     }
 }

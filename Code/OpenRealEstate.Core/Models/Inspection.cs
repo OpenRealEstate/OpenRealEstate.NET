@@ -36,9 +36,10 @@ namespace OpenRealEstate.Core.Models
             set { _closesOn.Value = value; }
         }
 
-        public void Copy(Inspection inspection, bool isModifiedPropertiesOnly = true)
+        public void Copy(Inspection inspection,
+            CopyDataOptions copyDataOptions = CopyDataOptions.OnlyCopyModifiedProperties)
         {
-            ModifiedData.Copy(inspection, this, isModifiedPropertiesOnly);
+            ModifiedData.Copy(inspection, this, copyDataOptions);
         }
 
         public override string ToString()

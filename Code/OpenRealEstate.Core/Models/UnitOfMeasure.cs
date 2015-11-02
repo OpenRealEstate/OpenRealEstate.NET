@@ -45,14 +45,15 @@ namespace OpenRealEstate.Core.Models
                     : Type);
         }
 
-        public void Copy(UnitOfMeasure newUnitOfMeasure, bool isModifiedPropertiesOnly = true)
+        public void Copy(UnitOfMeasure newUnitOfMeasure,
+            CopyDataOptions copyDataOptions = CopyDataOptions.OnlyCopyModifiedProperties)
         {
             if (newUnitOfMeasure == null)
             {
                 throw new ArgumentNullException("newUnitOfMeasure");
             }
 
-            ModifiedData.Copy(newUnitOfMeasure, this, isModifiedPropertiesOnly);
+            ModifiedData.Copy(newUnitOfMeasure, this, copyDataOptions);
         }
     }
 }

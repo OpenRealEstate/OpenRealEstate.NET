@@ -53,9 +53,10 @@ namespace OpenRealEstate.Core.Models
             get { return Garages + Carports + OpenSpaces; }
         }
 
-        public void Copy(CarParking newCarParking, bool isModifiedPropertiesOnly = true)
+        public void Copy(CarParking newCarParking,
+            CopyDataOptions copyDataOptions = CopyDataOptions.OnlyCopyModifiedProperties)
         {
-            ModifiedData.Copy(newCarParking, this, isModifiedPropertiesOnly);
+            ModifiedData.Copy(newCarParking, this, copyDataOptions);
         }
 
         public override string ToString()

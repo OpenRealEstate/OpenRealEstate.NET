@@ -35,9 +35,10 @@ namespace OpenRealEstate.Core.Models
             set { _energyRating.Value = value; }
         }
 
-        public void Copy(BuildingDetails newBuildingDetails, bool isModifiedPropertiesOnly = true)
+        public void Copy(BuildingDetails newBuildingDetails,
+            CopyDataOptions copyDataOptions = CopyDataOptions.OnlyCopyModifiedProperties)
         {
-            ModifiedData.Copy(newBuildingDetails, this, isModifiedPropertiesOnly);
+            ModifiedData.Copy(newBuildingDetails, this, copyDataOptions);
         }
 
         public override void ClearAllIsModified()
