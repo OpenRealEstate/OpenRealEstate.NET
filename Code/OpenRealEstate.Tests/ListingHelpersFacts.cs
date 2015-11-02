@@ -159,6 +159,25 @@ namespace OpenRealEstate.Tests
                 destinationListing.StatusType.ShouldBe(sourceListing.StatusType);
                 destinationListing.Pricing.SalePrice.ShouldBe(sourceListing.Pricing.SalePrice);
             }
+
+            [Fact]
+            public void GivenTwoResidentialListingsWhereOneHasAnAuctionTimeAndTheNewOneDoesnt_Copy_CopiesTheDataWithNoAuctionTime()
+            {
+                // Arrange.
+                var destinationListing = TestHelperUtilities.ResidentialListingFromFile(false);
+                destinationListing.AuctionOn = DateTime.UtcNow.AddDays(-10);
+                destinationListing.ClearAllIsModified();
+
+                var sourceListing = TestHelperUtilities.ResidentialListingFromFile(false);
+                sourceListing.AuctionOn = null;
+                sourceListing.ClearAllIsModified();
+
+                // Act.
+                ListingHelpers.Copy(destinationListing, sourceListing, CopyDataOptions.CopyAllData);
+
+                // Assert.
+                destinationListing.AuctionOn.ShouldBe(null);
+            }
         }
     }
 }
