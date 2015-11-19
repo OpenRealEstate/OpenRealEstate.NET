@@ -19,6 +19,7 @@ using Shouldly;
 using Xunit;
 using CategoryType = OpenRealEstate.Core.Models.Rural.CategoryType;
 using LandCategoryType = OpenRealEstate.Core.Models.Land.CategoryType;
+using System.Collections.ObjectModel;
 
 namespace OpenRealEstate.Tests
 {
@@ -726,6 +727,47 @@ namespace OpenRealEstate.Tests
                 result.UnhandledData.ShouldBe(null);
                 result.Errors.ShouldBe(null);
                 result.Listings.First().Listing.Features.Ensuites.ShouldBe(0);
+            }
+
+            [Fact]
+            public void GivenTheFileREAResidentialCurrentWithDuplicateAgents_Convert_ReturnsAResidentialCurrentListing()
+            {
+                // Arrange.
+                var reaXml =
+                    File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current-WithDuplicateAgents.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.ShouldNotBe(null);
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
+                result.Errors.ShouldBe(null);
+
+                Action<IList<ListingAgent>, bool> assertAgents =
+                    delegate (IList<ListingAgent> listingAgents, bool isModified)
+                    {
+                        listingAgents.Count.ShouldBe(2);
+                        listingAgents[0].Name.ShouldBe("Princess Leia");
+                        listingAgents[0].Order.ShouldBe(1);
+                        listingAgents[0].Communications.Count.ShouldBe(2);
+
+                        listingAgents[1].Name.ShouldBe("Han Solo");
+                        listingAgents[1].Order.ShouldBe(2);
+                        listingAgents[1].Communications.Count.ShouldBe(2);
+                    };
+
+                AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
+                    tags:
+                        new[]
+                        {
+                            "houseAndLandPackage", "solarPanels", "waterTank", "hotWaterService-gas", "heating-other",
+                            "balcony", "shed", "courtyard", "isANewConstruction"
+                        },
+                    videoUrls: new[] { "http://www.foo.tv/abcd.html" },
+                    assertAgents: assertAgents);
             }
 
             private static void AssertResidentialCurrentListing(ResidentialListing listing,

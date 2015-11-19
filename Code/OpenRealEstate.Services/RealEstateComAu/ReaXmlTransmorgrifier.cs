@@ -580,9 +580,18 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
             foreach (var agentElement in agentElements)
             {
+                var name = agentElement.ValueOrDefault("name");
+                if (string.IsNullOrWhiteSpace(name))
+                {
+                    // We need a name of the agent at the very least.
+                    // Some listings have this element but no data provided. :(
+                    // So we don't add 'emtpy' agents.
+                    continue;
+                }
+
                 var agent = new ListingAgent
                 {
-                    Name = agentElement.ValueOrDefault("name")
+                    Name = name
                 };
 
                 var orderValue = agentElement.AttributeValueOrDefault("id");
@@ -605,7 +614,6 @@ namespace OpenRealEstate.Services.RealEstateComAu
                     });
                 }
                 
-
                 var phoneMobile = agentElement.ValueOrDefault("telephone", "type", "mobile");
                 if (!string.IsNullOrWhiteSpace(phoneMobile))
                 {
@@ -631,10 +639,10 @@ namespace OpenRealEstate.Services.RealEstateComAu
                     agent.AddCommunications(communications);
                 }
 
-                // Some listings have this element but no data provided. :(
-                // So we don't add 'emtpy' agents.
-                if (!string.IsNullOrWhiteSpace(agent.Name))
+                // Don't add this agent, if the name already exists in the list.
+                if (!agents.Any(x => x.Name.Equals(agent.Name, StringComparison.InvariantCultureIgnoreCase)))
                 {
+                    // This agent doesn't exists - so we're good to add them!
                     agents.Add(agent);
                 }
             }
