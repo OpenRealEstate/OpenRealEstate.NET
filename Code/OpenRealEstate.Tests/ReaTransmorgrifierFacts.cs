@@ -14,12 +14,10 @@ using OpenRealEstate.Core.Models.Rental;
 using OpenRealEstate.Core.Models.Residential;
 using OpenRealEstate.Core.Models.Rural;
 using OpenRealEstate.Services.RealEstateComAu;
-using OpenRealEstate.Validation.Residential;
 using Shouldly;
 using Xunit;
 using CategoryType = OpenRealEstate.Core.Models.Rural.CategoryType;
 using LandCategoryType = OpenRealEstate.Core.Models.Land.CategoryType;
-using System.Collections.ObjectModel;
 
 namespace OpenRealEstate.Tests
 {
@@ -1656,6 +1654,7 @@ namespace OpenRealEstate.Tests
                 IList<string> imageUrls)
             {
                 images.Count.ShouldBe(2);
+                images[0].CreatedOn.ShouldBe(new DateTime(2009, 1, 1, 12, 30, 0));
                 images[0].Order.ShouldBe(1);
                 images[0].Url.ShouldBe(imageUrls == null
                     ? "http://www.realestate.com.au/tmp/imageM.jpg"
@@ -1670,6 +1669,7 @@ namespace OpenRealEstate.Tests
                 IList<string> floorplanUrls)
             {
                 floorPlans.Count.ShouldBe(2);
+                floorPlans[0].CreatedOn.ShouldBe(new DateTime(2009, 1, 1, 12, 30, 0));
                 floorPlans[0].Url.ShouldBe(floorplanUrls == null
                     ? "http://www.realestate.com.au/tmp/floorplan1.gif"
                     : floorplanUrls[0]);

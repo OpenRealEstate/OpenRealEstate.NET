@@ -913,11 +913,13 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 let url = x.AttributeValueOrDefault("url")
                 let file = x.AttributeValueOrDefault("file")
                 let order = x.AttributeValueOrDefault("id")
+                let createdOn = ParseReaDateTime(x.AttributeValueOrDefault("modTime"))
                 where (!string.IsNullOrWhiteSpace(url) ||
                        !string.IsNullOrWhiteSpace(file)) &&
                       !string.IsNullOrWhiteSpace(order)
                 select new Media
                 {
+                    CreatedOn = createdOn,
                     Url = string.IsNullOrWhiteSpace(url)
                         ? string.IsNullOrWhiteSpace(file)
                             ? null
@@ -951,10 +953,12 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 let url = x.AttributeValueOrDefault("url")
                 let file = x.AttributeValueOrDefault("file")
                 let order = x.AttributeValueOrDefault("id")
+                let createdOn = ParseReaDateTime(x.AttributeValueOrDefault("modTime"))
                 where !string.IsNullOrWhiteSpace(url) ||
                       !string.IsNullOrWhiteSpace(file)
                 select new Media
                 {
+                    CreatedOn = createdOn,
                     Url = string.IsNullOrWhiteSpace(url)
                         ? string.IsNullOrWhiteSpace(file)
                             ? null

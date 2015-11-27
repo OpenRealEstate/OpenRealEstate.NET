@@ -1,13 +1,18 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
 {
     public class Media : BaseModifiedData
     {
+        private const string CreatedOnName = "CreatedOn";
         private const string OrderName = "Order";
         private const string TagName = "Tag";
         private const string UrlName = "Url";
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly DateTimeNotified _createdOn;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly Int32Notified _order;
@@ -20,6 +25,9 @@ namespace OpenRealEstate.Core.Models
 
         public Media()
         {
+            _createdOn = new DateTimeNotified(CreatedOnName);
+            _createdOn.PropertyChanged += ModifiedData.OnPropertyChanged;
+
             _order = new Int32Notified(OrderName);
             _order.PropertyChanged += ModifiedData.OnPropertyChanged;
 
@@ -28,6 +36,11 @@ namespace OpenRealEstate.Core.Models
 
             _url = new StringNotified(UrlName);
             _url.PropertyChanged += ModifiedData.OnPropertyChanged;
+        }
+
+        public DateTime CreatedOn {
+            get { return _createdOn.Value; }
+            set { _createdOn.Value = value; }
         }
 
         public int Order
