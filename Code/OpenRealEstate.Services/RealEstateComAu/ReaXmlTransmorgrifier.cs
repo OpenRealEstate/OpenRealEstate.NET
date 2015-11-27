@@ -894,6 +894,8 @@ namespace OpenRealEstate.Services.RealEstateComAu
         {
             document.ShouldNotBe(null);
 
+            // Images can go in either <images> or <objects>. Only idiots are putting them in <objects>
+            // Generally, <objects> is reservered for floorplans. :/
             var imageElement = document.Element("images") ?? document.Element("objects");
             if (imageElement == null)
             {
@@ -906,37 +908,15 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 return null;
             }
 
-            // Note: Image 'urls' can either be via a Uri (yay!) or
-            //       a file name because the xml was provided in a zip file with
-            //       the images (booooo! hiss!!!)
-            var images = (from x in imagesElements
-                let url = x.AttributeValueOrDefault("url")
-                let file = x.AttributeValueOrDefault("file")
-                let order = x.AttributeValueOrDefault("id")
-                let createdOn = ParseReaDateTime(x.AttributeValueOrDefault("modTime"))
-                where (!string.IsNullOrWhiteSpace(url) ||
-                       !string.IsNullOrWhiteSpace(file)) &&
-                      !string.IsNullOrWhiteSpace(order)
-                select new Media
-                {
-                    CreatedOn = createdOn,
-                    Url = string.IsNullOrWhiteSpace(url)
-                        ? string.IsNullOrWhiteSpace(file)
-                            ? null
-                            : file
-                        : url,
-                    Order = ConvertImageOrderToNumber(order)
-                }).ToList();
-
-            return images.Any()
-                ? images
-                : null;
+            return ConvertMediaXmlDataToMedia(imagesElements, ConvertImageOrderToNumber);
         }
 
         private static IList<Media> ExtractFloorPlans(XElement document)
         {
             document.ShouldNotBe(null);
 
+            // NOTE: The idea is that <images> will contain images while <objects> will only be for floorplans.
+            //       Yes, some listings put their images in <objects>, but this is handled elsewhere.
             var objectElement = document.Element("objects");
             if (objectElement == null)
             {
@@ -949,25 +929,38 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 return null;
             }
 
-            var floorPlans = (from x in floorPlanElements
-                let url = x.AttributeValueOrDefault("url")
-                let file = x.AttributeValueOrDefault("file")
-                let order = x.AttributeValueOrDefault("id")
-                let createdOn = ParseReaDateTime(x.AttributeValueOrDefault("modTime"))
-                where !string.IsNullOrWhiteSpace(url) ||
-                      !string.IsNullOrWhiteSpace(file)
-                select new Media
-                {
-                    CreatedOn = createdOn,
-                    Url = string.IsNullOrWhiteSpace(url)
-                        ? string.IsNullOrWhiteSpace(file)
-                            ? null
-                            : file
-                        : url,
-                    Order = Convert.ToInt32(order)
-                }).ToList();
+            return ConvertMediaXmlDataToMedia(floorPlanElements, Convert.ToInt32);
+        }
 
-            return floorPlans.Any() ? floorPlans : null;
+        private static IList<Media> ConvertMediaXmlDataToMedia(IEnumerable<XElement> mediaElements, 
+            Func<string, int> orderConverstionFunction)
+        {
+            // Note: Image 'urls' can either be via a Uri (yay!) or
+            //       a file name because the xml was provided in a zip file with
+            //       the images (booooo! hiss!!!)
+            var media = (from x in mediaElements
+                          let url = x.AttributeValueOrDefault("url")
+                          let file = x.AttributeValueOrDefault("file")
+                          let order = x.AttributeValueOrDefault("id")
+                          let createdOn = x.AttributeValueOrDefault("modTime")
+                          where (!string.IsNullOrWhiteSpace(url) ||
+                                 !string.IsNullOrWhiteSpace(file)) &&
+                                !string.IsNullOrWhiteSpace(order) &&
+                                !string.IsNullOrWhiteSpace(createdOn)
+                          select new Media
+                          {
+                              CreatedOn = ParseReaDateTime(createdOn),
+                              Url = string.IsNullOrWhiteSpace(url)
+                                  ? string.IsNullOrWhiteSpace(file)
+                                      ? null
+                                      : file
+                                  : url,
+                              Order = orderConverstionFunction(order)
+                          }).ToList();
+
+            return media.Any()
+                ? media
+                : null;
         }
 
         private static IList<Media> ExtractVideos(XElement document)

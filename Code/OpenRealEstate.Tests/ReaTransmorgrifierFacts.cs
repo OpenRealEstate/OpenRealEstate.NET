@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Diagnostics.SymbolStore;
 using System.IO;
 using System.Linq;
-using FluentValidation.Results;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using OpenRealEstate.Core.Filters;
 using OpenRealEstate.Core.Models;
 using OpenRealEstate.Core.Models.Land;
@@ -766,6 +762,32 @@ namespace OpenRealEstate.Tests
                         },
                     videoUrls: new[] { "http://www.foo.tv/abcd.html" },
                     assertAgents: assertAgents);
+            }
+
+            [Fact]
+            public void GivenTheFileREAResidentialCurrentWithEmptyImagesAndFloorplans_Convert_ReturnsAResidentialCurrentListing()
+            {
+                // Arrange.
+                var reaXml =
+                    File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.ShouldNotBe(null);
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBe(null);
+                result.Errors.ShouldBe(null);
+                AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
+                    tags:
+                        new[]
+                        {
+                            "houseAndLandPackage", "solarPanels", "waterTank", "hotWaterService-gas", "heating-other",
+                            "balcony", "shed", "courtyard", "isANewConstruction"
+                        },
+                    videoUrls: new[] { "http://www.foo.tv/abcd.html" });
             }
 
             private static void AssertResidentialCurrentListing(ResidentialListing listing,
