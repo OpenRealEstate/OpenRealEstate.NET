@@ -1,22 +1,27 @@
 #OpenRealEstate.NET 
-[![Build status](https://ci.appveyor.com/api/projects/status/hdaer866pn98ly6k)](https://ci.appveyor.com/project/PureKrome/openrealestate-net)
 
-- Core [![](http://img.shields.io/nuget/v/OpenRealEstate.Core.svg?style=flat-square)](https://www.nuget.org/packages/OpenRealEstate.Core) ![](http://img.shields.io/nuget/dt/OpenRealEstate.Core.svg?style=flat-square)
-- Services [![](http://img.shields.io/nuget/v/OpenRealEstate.Services.svg?style=flat-square)](https://www.nuget.org/packages/OpenRealEstate.Services) ![](http://img.shields.io/nuget/dt/OpenRealEstate.Services.svg?style=flat-square)
+|            | Production | Dev |
+| ----------:| ---------- | --- |
+|            | [![Build status](https://ci.appveyor.com/api/projects/status/hdaer866pn98ly6k/branch/master?svg=true)](https://ci.appveyor.com/project/PureKrome/openrealestate-net-wof7s) | [![Build status](https://ci.appveyor.com/api/projects/status/hdaer866pn98ly6k?svg=true)](https://ci.appveyor.com/project/PureKrome/openrealestate-net)
+| Core       | [![](http://img.shields.io/nuget/v/OpenRealEstate.Core.svg?style=flat-square)](https://www.nuget.org/packages/OpenRealEstate.Core) ![](http://img.shields.io/nuget/dt/OpenRealEstate.Core.svg?style=flat-square) | [![](https://img.shields.io/myget/openrealestate/vpre/OpenRealEstate.Core.svg?style=flat-square)](https://www.nuget.org/packages/OpenRealEstate.Core) ![](https://img.shields.io/myget/openrealestate/dt/OpenRealEstate.Core.svg?style=flat-square) | 
+| Services   | [![](http://img.shields.io/nuget/v/OpenRealEstate.Services.svg?style=flat-square)](https://www.nuget.org/packages/OpenRealEstate.Services) ![](http://img.shields.io/nuget/dt/OpenRealEstate.Services.svg?style=flat-square) | [![](https://img.shields.io/myget/openrealestate/vpre/OpenRealEstate.Services.svg?style=flat-square)](https://www.nuget.org/packages/OpenRealEstate.Services) ![](https://img.shields.io/myget/openrealestate/dt/OpenRealEstate.Services.svg?style=flat-square) |
+| Validation | [![](http://img.shields.io/nuget/v/OpenRealEstate.Validation.svg?style=flat-square)](https://www.nuget.org/packages/OpenRealEstate.Validation) ![](http://img.shields.io/nuget/dt/OpenRealEstate.Validation.svg?style=flat-square) | [![](https://img.shields.io/myget/openrealestate/vpre/OpenRealEstate.Validation.svg?style=flat-square)](https://www.nuget.org/packages/OpenRealEstate.Validation) ![](https://img.shields.io/myget/openrealestate/dt/OpenRealEstate.Validation.svg?style=flat-square) |
 
 ---
 
 This library is an easy to use .NET Client api to help parse OpenRealEstate schema/data.
 
-The library offers two packages:
+The library offers three packages:
 - `Core` : all the models that represent listing types.
 - `Services`: the services that convert other listing formats to this OpenRealestate format.
+- 'Validation`: validation logic for a listing. Eg. Latitude/Longitudes are legit, price is valid, etc.
 
 ---
 ## Installation
 
-TODO:  image for nuget pics, etc.    
- !! split into two parts, one per nuget package
+![](http://i.imgur.com/LKwcJ2U.png)
+![](http://i.imgur.com/LdCxDle.png)
+![](http://i.imgur.com/8YMVxXE.png)
 
 ---
 
