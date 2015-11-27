@@ -8,6 +8,8 @@ namespace OpenRealEstate.Validation
         public MediaValidator()
         {
             RuleFor(media => media.Url).NotEmpty();
+            RuleFor(media => media.CreatedOn).NotEmpty();
+            RuleFor(media => media.Order).NotEmpty().GreaterThan(0);
         }
     }
 }

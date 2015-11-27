@@ -974,6 +974,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 {
                     new Media
                     {
+                        CreatedOn = DateTime.UtcNow,
                         Order = 1,
                         Url = videoUrl
                     }
