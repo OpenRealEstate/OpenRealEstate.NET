@@ -17,6 +17,8 @@
         <tags>ore ore.net realestate openrealestate worlddomination worldomination unicorn magicalunicorn magical-unicorn</tags>
         <dependencies>
             <dependency id="OpenRealEstate.Core" version="[0.0.0, 1.0.0)" />
+            <dependency id="Newtonsoft.Json" version="[7.0.1, 8.0.0)" />
+            <dependency id="Shouldly" version="[2.6.0, 3.0.0)" />
         </dependencies>
     </metadata>
     <files>
