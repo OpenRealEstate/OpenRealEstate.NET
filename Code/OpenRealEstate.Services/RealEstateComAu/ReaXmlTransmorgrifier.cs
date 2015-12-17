@@ -1238,6 +1238,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 "yyyy-MM-dd",
                 "yyyy-MM-dd-HH:mm",
                 "yyyy-MM-dd-HH:mm:ss",
+                "yyyy-MM-dd-hh:mm:sstt", // 2015-12-15-01:18:52PM
                 "yyyy-MM-ddTHH:mm",
                 "yyyy-MM-ddTHH:mm:ss",
                 "yyyyMMdd",
