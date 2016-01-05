@@ -1,5 +1,6 @@
-﻿using FluentValidation.TestHelper;
+﻿using OpenRealEstate.Core.Models;
 using OpenRealEstate.Validation;
+using Shouldly;
 using Xunit;
 
 namespace OpenRealEstate.Tests.Validators
@@ -14,39 +15,41 @@ namespace OpenRealEstate.Tests.Validators
         }
 
         [Fact]
-        public void GivenAValidGarage_Validate_ShouldNotHaveAnError()
+        public void GivenTheSumOfAllThreeCarparkingValuesWhichIsLessThan255_Validate_ShouldNotHaveAnError()
         {
-            _carParkingValidator.ShouldNotHaveValidationErrorFor(feature => feature.Garages, 0);
+            // Arrange.
+            var carParking = new CarParking
+            {
+                Carports = 1,
+                Garages = 2,
+                OpenSpaces = 3
+            };
+
+            // Act.
+            var result = _carParkingValidator.Validate(carParking);
+
+            // Assert.
+            result.IsValid.ShouldBe(true);
         }
 
         [Fact]
-        public void GivenAInvalidGarage_Validate_ShouldHaveAnError()
+        public void GivenTheSumOfAllThreeCarparkingValuesWhichIsGreaterThan255_Validate_ShouldNotHaveAnError()
         {
-            _carParkingValidator.ShouldHaveValidationErrorFor(feature => feature.Garages, -1);
-        }
+            // Arrange.
+            var carParking = new CarParking
+            {
+                Carports = 100,
+                Garages = 100,
+                OpenSpaces = 100
+            };
 
-        [Fact]
-        public void GivenAValidCarport_Validate_ShouldNotHaveAnError()
-        {
-            _carParkingValidator.ShouldNotHaveValidationErrorFor(feature => feature.Carports, 0);
-        }
+            // Act.
+            var result = _carParkingValidator.Validate(carParking);
 
-        [Fact]
-        public void GivenAInvalidCarport_Validate_ShouldHaveAnError()
-        {
-            _carParkingValidator.ShouldHaveValidationErrorFor(feature => feature.Carports, -1);
-        }
-
-        [Fact]
-        public void GivenAValidOpenSpaces_Validate_ShouldNotHaveAnError()
-        {
-            _carParkingValidator.ShouldNotHaveValidationErrorFor(feature => feature.OpenSpaces, 0);
-        }
-
-        [Fact]
-        public void GivenAInvalidOpenSpaces_Validate_ShouldHaveAnError()
-        {
-            _carParkingValidator.ShouldHaveValidationErrorFor(feature => feature.OpenSpaces, -1);
+            // Assert.
+            result.IsValid.ShouldBe(false);
+            result.Errors.Count.ShouldBe(1);
+            result.Errors[0].ErrorMessage.ShouldBe("The sum of Garages, Carports and Openspaces must not exceed 255. It is currently set at: 300.");
         }
     }
 }

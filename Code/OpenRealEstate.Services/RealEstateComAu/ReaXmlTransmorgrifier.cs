@@ -689,7 +689,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             //       value will be returned as ZERO.
             //       If it's a STUDIO, we'll add that to the feature's tag hash set.
             var bedroomsValue = featuresElement.ValueOrDefault("bedrooms");
-            var bedrooms = 0;
+            byte bedrooms = 0;
             if (!string.IsNullOrWhiteSpace(bedroomsValue))
             {
                 if (bedroomsValue.Equals("studio", StringComparison.OrdinalIgnoreCase))

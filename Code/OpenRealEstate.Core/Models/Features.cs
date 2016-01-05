@@ -18,63 +18,63 @@ namespace OpenRealEstate.Core.Models
         private const string ToiletsName = "Toilets";
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly Int32Notified _bathrooms;
+        private readonly ByteNotified _bathrooms;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly Int32Notified _bedrooms;
+        private readonly ByteNotified _bedrooms;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly InstanceObjectNotified<CarParking> _carParking;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly Int32Notified _ensuites;
+        private readonly ByteNotified _ensuites;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly Int32Notified _livingAreas;
+        private readonly ByteNotified _livingAreas;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly ObservableCollection<string> _tags;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly Int32Notified _toilets;
+        private readonly ByteNotified _toilets;
 
         public Features()
         {
-            _bathrooms = new Int32Notified(BathroomsName);
+            _bathrooms = new ByteNotified(BathroomsName);
             _bathrooms.PropertyChanged += ModifiedData.OnPropertyChanged;
 
-            _bedrooms = new Int32Notified(BedroomsName);
+            _bedrooms = new ByteNotified(BedroomsName);
             _bedrooms.PropertyChanged += ModifiedData.OnPropertyChanged;
 
             _carParking = new InstanceObjectNotified<CarParking>(CarParkingName);
             _carParking.PropertyChanged += ModifiedData.OnPropertyChanged;
 
-            _ensuites = new Int32Notified(EnsuitesName);
+            _ensuites = new ByteNotified(EnsuitesName);
             _ensuites.PropertyChanged += ModifiedData.OnPropertyChanged;
 
-            _livingAreas = new Int32Notified(LivingAreasName);
+            _livingAreas = new ByteNotified(LivingAreasName);
             _livingAreas.PropertyChanged += ModifiedData.OnPropertyChanged;
 
             _tags = new ObservableCollection<string>();
             _tags.CollectionChanged += (sender, args) => { ModifiedData.OnCollectionChanged(TagsName); };
 
-            _toilets = new Int32Notified(ToiletsName);
+            _toilets = new ByteNotified(ToiletsName);
             _toilets.PropertyChanged += ModifiedData.OnPropertyChanged;
         }
 
-        public int Bedrooms
+        public byte Bedrooms
         {
             get { return _bedrooms.Value; }
             set { _bedrooms.Value = value; }
         }
 
-        public int Bathrooms
+        public byte Bathrooms
         {
             get { return _bathrooms.Value; }
             set { _bathrooms.Value = value; }
         }
 
-        public int Toilets
+        public byte Toilets
         {
             get { return _toilets.Value; }
             set { _toilets.Value = value; }
@@ -86,13 +86,13 @@ namespace OpenRealEstate.Core.Models
             set { _carParking.Value = value; }
         }
 
-        public int Ensuites
+        public byte Ensuites
         {
             get { return _ensuites.Value; }
             set { _ensuites.Value = value; }
         }
 
-        public int LivingAreas
+        public byte LivingAreas
         {
             get { return _livingAreas.Value; }
             set { _livingAreas.Value = value; }

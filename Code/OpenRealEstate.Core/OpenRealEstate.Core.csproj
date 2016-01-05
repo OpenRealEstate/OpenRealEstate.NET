@@ -75,6 +75,7 @@
     <Compile Include="Primitives\InstanceObjectNotified.cs" />
     <Compile Include="Primitives\DateTimeNullableNotified.cs" />
     <Compile Include="Primitives\DecimalNullableNotified.cs" />
+    <Compile Include="Primitives\ByteNotified.cs" />
     <Compile Include="Primitives\Int32Notified.cs" />
     <Compile Include="Primitives\ModifiedData.cs" />
     <Compile Include="Primitives\DateTimeNotified.cs" />

@@ -701,7 +701,7 @@ namespace OpenRealEstate.Tests
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
                 result.Errors.ShouldBe(null);
-                result.Listings.First().Listing.Features.Ensuites.ShouldBe(1);
+                result.Listings.First().Listing.Features.Ensuites.ShouldBe((byte)1);
             }
 
             [Fact]
@@ -720,7 +720,7 @@ namespace OpenRealEstate.Tests
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBe(null);
                 result.Errors.ShouldBe(null);
-                result.Listings.First().Listing.Features.Ensuites.ShouldBe(0);
+                result.Listings.First().Listing.Features.Ensuites.ShouldBe((byte)0);
             }
 
             [Fact]
@@ -792,7 +792,7 @@ namespace OpenRealEstate.Tests
 
             private static void AssertResidentialCurrentListing(ResidentialListing listing,
                 PropertyType expectedPropertyType = PropertyType.House,
-                int expectedBedroomsCount = 4,
+                byte expectedBedroomsCount = 4,
                 IList<string> tags = null,
                 string salePriceText = "Between $400,000 and $600,000",
                 IList<string> imageUrls = null,
@@ -985,7 +985,7 @@ namespace OpenRealEstate.Tests
 
             private static void AssertRentalCurrentListing(RentalListing listing,
                 IList<string> tags = null,
-                int bedroomsCount = 0,
+                byte bedroomsCount = 0,
                 decimal? bond = 999)
             {
                 listing.AgencyId.ShouldBe("XNWXNW");
@@ -1366,7 +1366,7 @@ namespace OpenRealEstate.Tests
             private static void AssertRuralCurrentListing(RuralListing listing,
                 IList<string> tags = null,
                 bool isModified = true,
-                int bedroomsCount = 0)
+                byte bedroomsCount = 0)
             {
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Rural-Current-ABCD1234");
@@ -1619,11 +1619,11 @@ namespace OpenRealEstate.Tests
 
             private static void AssertFeatures(Features features,
                 IList<string> tags,
-                int bedroomsCount = 0,
-                int bathroomCount = 0,
-                int ensuitesCount = 0,
-                int toiletsCount = 0,
-                int livingAreasCount = 0,
+                byte bedroomsCount = 0,
+                byte bathroomCount = 0,
+                byte ensuitesCount = 0,
+                byte toiletsCount = 0,
+                byte livingAreasCount = 0,
                 CarParking carParking = null)
             {
                 features.Bedrooms.ShouldBe(bedroomsCount);
@@ -1649,15 +1649,15 @@ namespace OpenRealEstate.Tests
             {
                 carParking.Garages.ShouldBe(optionalCarParkingData != null
                     ? optionalCarParkingData.Garages
-                    : 3);
+                    : (byte)3);
 
                 carParking.Carports.ShouldBe(optionalCarParkingData != null
                     ? optionalCarParkingData.Carports
-                    : 2);
+                    : (byte)2);
 
                 carParking.OpenSpaces.ShouldBe(optionalCarParkingData != null
                     ? optionalCarParkingData.OpenSpaces
-                    : 0);
+                    : (byte)0);
             }
 
             private static void AssertTags(ICollection<string> featureTags, IEnumerable<string> tags)

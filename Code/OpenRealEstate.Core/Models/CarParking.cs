@@ -10,47 +10,59 @@ namespace OpenRealEstate.Core.Models
         private const string OpenSpacesName = "OpenSpaces";
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly Int32Notified _carports;
+        private readonly ByteNotified _carports;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly Int32Notified _garages;
+        private readonly ByteNotified _garages;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly Int32Notified _openspaces;
+        private readonly ByteNotified _openspaces;
 
         public CarParking()
         {
-            _carports = new Int32Notified(CarportsName);
+            _carports = new ByteNotified(CarportsName);
             _carports.PropertyChanged += ModifiedData.OnPropertyChanged;
 
-            _garages = new Int32Notified(GaragesName);
+            _garages = new ByteNotified(GaragesName);
             _garages.PropertyChanged += ModifiedData.OnPropertyChanged;
 
-            _openspaces = new Int32Notified(OpenSpacesName);
+            _openspaces = new ByteNotified(OpenSpacesName);
             _openspaces.PropertyChanged += ModifiedData.OnPropertyChanged;
         }
 
-        public int Garages
+        public byte Garages
         {
             get { return _garages.Value; }
             set { _garages.Value = value; }
         }
 
-        public int Carports
+        public byte Carports
         {
             get { return _carports.Value; }
             set { _carports.Value = value; }
         }
 
-        public int OpenSpaces
+        public byte OpenSpaces
         {
             get { return _openspaces.Value; }
             set { _openspaces.Value = value; }
         }
 
-        public int TotalCount
+        /// <summary>
+        /// NOTICE: This is the sum of Garages, Carports and Openspaces. If the sum of all three are greater than byte.MaxValue, then the total count is set to byte.MaxValue.<br/>
+        ///         This is to avoid stilly data entry edgecases which cause overflow errors.<br/>
+        ///         The provided Car Parking Validator does a check for this and throws a validation error if the sum of all three, overflows.<br/>
+        ///         Eg. G:100 + C:100 + O:100 == T:255, not 300. 
+        /// </summary>
+        public byte TotalCount
         {
-            get { return Garages + Carports + OpenSpaces; }
+            get
+            {
+                int value = Garages + Carports + OpenSpaces;
+                return value > byte.MaxValue
+                    ? byte.MaxValue
+                    : (byte) value;
+            }
         }
 
         public void Copy(CarParking newCarParking,
