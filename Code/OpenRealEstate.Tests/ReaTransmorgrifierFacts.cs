@@ -790,6 +790,25 @@ namespace OpenRealEstate.Tests
                     videoUrls: new[] { "http://www.foo.tv/abcd.html" });
             }
 
+            [Fact]
+            public void GivenTheFileREAResidentialCurrentWithTooManyBedrooms_Convert_ReturnsSomeInvalidData()
+            {
+                // Arrange.
+                var reaXml =
+                    File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current-WithTooManyBedrooms.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.ShouldNotBeNull();
+                result.Listings.ShouldBeNull();
+                result.UnhandledData.ShouldBeNull();
+                result.Errors.Count.ShouldBe(1);
+                result.Errors.First().ExceptionMessage.ShouldBe("Failed to parse the value '3334' into a byte.");
+            }
+
             private static void AssertResidentialCurrentListing(ResidentialListing listing,
                 PropertyType expectedPropertyType = PropertyType.House,
                 byte expectedBedroomsCount = 4,
