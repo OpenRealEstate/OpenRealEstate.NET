@@ -139,12 +139,12 @@ namespace OpenRealEstate.Tests.Models
 
                 // Assert.
                 destinationListing.Agents.Count.ShouldBe(0);
-                destinationListing.Address.ShouldBe(null);
-                destinationListing.Features.ShouldBe(null);
+                destinationListing.Address.ShouldBeNull();
+                destinationListing.Features.ShouldBeNull();
                 destinationListing.FloorPlans.Count.ShouldBe(0);
                 destinationListing.Images.Count.ShouldBe(0);
                 destinationListing.Inspections.Count.ShouldBe(0);
-                destinationListing.LandDetails.ShouldBe(null);
+                destinationListing.LandDetails.ShouldBeNull();
                 destinationListing.Links.Count.ShouldBe(0);
                 destinationListing.Videos.Count.ShouldBe(0);
             }

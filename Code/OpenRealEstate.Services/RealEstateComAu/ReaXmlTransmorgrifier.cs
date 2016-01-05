@@ -182,7 +182,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         private static void EnsureXmlHasRootNode(ref XDocument document)
         {
-            document.ShouldNotBe(null);
+            document.ShouldNotBeNull();
 
             var rootNode = document.Root == null
                 ? null
@@ -252,7 +252,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             string addressDelimeter,
             bool isClearAllIsModified)
         {
-            document.ShouldNotBe(null);
+            document.ShouldNotBeNull();
 
             // Determine the category, so we know why type of listing we need to create.
             var categoryType = document.Name.ToCategoryType();
@@ -379,8 +379,8 @@ namespace OpenRealEstate.Services.RealEstateComAu
             XElement document, 
             string addressDelimeter)
         {
-            listing.ShouldNotBe(null);
-            document.ShouldNotBe(null);
+            listing.ShouldNotBeNull();
+            document.ShouldNotBeNull();
 
             listing.UpdatedOn = ParseReaDateTime(document.AttributeValue("modTime"));
 
@@ -448,7 +448,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         private static Address ExtractAddress(XElement document, string addressDelimeter)
         {
-            document.ShouldNotBe(null);
+            document.ShouldNotBeNull();
 
             var addressElement = document.Element("address");
             if (addressElement == null)
@@ -548,8 +548,8 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         private static void ExtractLatitudeLongitudes(XElement document, Address address)
         {
-            document.ShouldNotBe(null);
-            address.ShouldNotBe(null);
+            document.ShouldNotBeNull();
+            address.ShouldNotBeNull();
 
             var latitudeElement = document.Descendants("Latitude").FirstOrDefault() ??
                                   document.Descendants("latitude").FirstOrDefault();
@@ -568,7 +568,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         private static IList<ListingAgent> ExtractAgent(XElement document)
         {
-            document.ShouldNotBe(null);
+            document.ShouldNotBeNull();
 
             var agentElements = document.Elements("listingAgent").ToArray();
             if (!agentElements.Any())
@@ -673,7 +673,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         private static Features ExtractFeatures(XElement document)
         {
-            document.ShouldNotBe(null);
+            document.ShouldNotBeNull();
 
             var featuresElement = document.Element("features");
             if (featuresElement == null)
@@ -764,10 +764,10 @@ namespace OpenRealEstate.Services.RealEstateComAu
             ISet<string> tags,
             string delimeter = "-")
         {
-            document.ShouldNotBe(null);
+            document.ShouldNotBeNull();
             elementName.ShouldNotBeNullOrEmpty();
-            validValues.ShouldNotBe(null);
-            tags.ShouldNotBe(null);
+            validValues.ShouldNotBeNull();
+            tags.ShouldNotBeNull();
 
             var type = document.ValueOrDefault(elementName, ("type"));
             if (string.IsNullOrWhiteSpace(type))
@@ -788,8 +788,8 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         private static void ExtractOtherFeatures(XElement document, ISet<string> tags)
         {
-            document.ShouldNotBe(null);
-            tags.ShouldNotBe(null);
+            document.ShouldNotBeNull();
+            tags.ShouldNotBeNull();
 
             var value = document.ValueOrDefault("otherFeatures");
             if (string.IsNullOrWhiteSpace(value))
@@ -822,7 +822,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         private static IList<Inspection> ExtractInspectionTimes(XElement document)
         {
-            document.ShouldNotBe(null);
+            document.ShouldNotBeNull();
 
             var inspectionTimes = document.Element("inspectionTimes");
             if (inspectionTimes == null)
@@ -892,7 +892,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         private static IList<Media> ExtractImages(XElement document)
         {
-            document.ShouldNotBe(null);
+            document.ShouldNotBeNull();
 
             // Images can go in either <images> or <objects>. Only idiots are putting them in <objects>
             // Generally, <objects> is reservered for floorplans. :/
@@ -913,7 +913,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         private static IList<Media> ExtractFloorPlans(XElement document)
         {
-            document.ShouldNotBe(null);
+            document.ShouldNotBeNull();
 
             // NOTE: The idea is that <images> will contain images while <objects> will only be for floorplans.
             //       Yes, some listings put their images in <objects>, but this is handled elsewhere.
@@ -965,7 +965,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         private static IList<Media> ExtractVideos(XElement document)
         {
-            document.ShouldNotBe(null);
+            document.ShouldNotBeNull();
 
             var videoUrl = document.ValueOrDefault("videoLink", "href");
             return string.IsNullOrWhiteSpace(videoUrl)
@@ -996,7 +996,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         private static SalePricing ExtractSalePricing(XElement document, CultureInfo cultureInfo)
         {
-            document.ShouldNotBe(null);
+            document.ShouldNotBeNull();
 
             var salePricing = new SalePricing();
 
@@ -1017,8 +1017,8 @@ namespace OpenRealEstate.Services.RealEstateComAu
             SalePricing salePricing,
             CultureInfo cultureInfo)
         {
-            document.ShouldNotBe(null);
-            salePricing.ShouldNotBe(null);
+            document.ShouldNotBeNull();
+            salePricing.ShouldNotBeNull();
 
             salePricing.SalePrice = document.MoneyValueOrDefault(cultureInfo, "price");
 
@@ -1057,8 +1057,8 @@ namespace OpenRealEstate.Services.RealEstateComAu
         */
         private static void ExtractSoldDetails(XElement document, SalePricing salePricing)
         {
-            document.ShouldNotBe(null);
-            salePricing.ShouldNotBe(null);
+            document.ShouldNotBeNull();
+            salePricing.ShouldNotBeNull();
 
             var soldDetails = document.Element("soldDetails");
             if (soldDetails != null)
@@ -1083,8 +1083,8 @@ namespace OpenRealEstate.Services.RealEstateComAu
         // Eg xml: <price display="yes">580000</price>
         private static void ExtractSoldPrice(XElement document, SalePricing salePricing)
         {
-            document.ShouldNotBe(null);
-            salePricing.ShouldNotBe(null);
+            document.ShouldNotBeNull();
+            salePricing.ShouldNotBeNull();
 
             salePricing.SoldPrice = document.DecimalValueOrDefault();
 
@@ -1108,7 +1108,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
         // Eg xml: <date>2009-01-10-12:30:00</date>
         private static void ExtractSoldOn(XElement document, SalePricing salePricing)
         {
-            document.ShouldNotBe(null);
+            document.ShouldNotBeNull();
 
             // SoldOn could be date or soldData. Thanks REA for such a great schema.
             var soldOnText = document.ValueOrDefault();
@@ -1120,7 +1120,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         private static DateTime? ExtractAuction(XElement document)
         {
-            document.ShouldNotBe(null);
+            document.ShouldNotBeNull();
 
             var auction = document.ValueOrDefault("auction");
 
@@ -1141,7 +1141,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         private static BuildingDetails ExtractBuildingDetails(XElement document)
         {
-            document.ShouldNotBe(null);
+            document.ShouldNotBeNull();
 
             var buildingDetailsElement = document.Element("buildingDetails");
             if (buildingDetailsElement == null)
@@ -1162,7 +1162,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         private static LandDetails ExtractLandDetails(XElement document)
         {
-            document.ShouldNotBe(null);
+            document.ShouldNotBeNull();
 
             var landDetailsElement = document.Element("landDetails");
             if (landDetailsElement == null)
@@ -1207,7 +1207,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         private static IList<string> ExtractExternalLinks(XElement document)
         {
-            document.ShouldNotBe(null);
+            document.ShouldNotBeNull();
 
             var elements = document.Elements("externalLink").ToArray();
             if (!elements.Any())
@@ -1297,8 +1297,8 @@ namespace OpenRealEstate.Services.RealEstateComAu
             XElement document, 
             CultureInfo cultureInfo)
         {
-            residentialListing.ShouldNotBe(null);
-            document.ShouldNotBe(null);
+            residentialListing.ShouldNotBeNull();
+            document.ShouldNotBeNull();
 
             residentialListing.PropertyType = ExtractResidentialAndRentalPropertyType(document);
             residentialListing.Pricing = ExtractSalePricing(document, cultureInfo);
@@ -1311,8 +1311,8 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         private static void ExtractHomeAndLandPackage(XElement document, ResidentialListing residentialListing)
         {
-            document.ShouldNotBe(null);
-            residentialListing.ShouldNotBe(null);
+            document.ShouldNotBeNull();
+            residentialListing.ShouldNotBeNull();
 
             var homeAndLandPackageElement = document.Element("isHomeLandPackage");
             if (homeAndLandPackageElement == null)
@@ -1334,8 +1334,8 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         private static void ExtractResidentialNewConstruction(XElement document, ResidentialListing listing)
         {
-            document.ShouldNotBe(null);
-            listing.ShouldNotBe(null);
+            document.ShouldNotBeNull();
+            listing.ShouldNotBeNull();
 
             if (!document.BoolValueOrDefault("newConstruction"))
             {
@@ -1356,8 +1356,8 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         private static void ExtractRentalData(RentalListing rentalListing, XElement document, CultureInfo cultureInfo)
         {
-            rentalListing.ShouldNotBe(null);
-            document.ShouldNotBe(null);
+            rentalListing.ShouldNotBeNull();
+            document.ShouldNotBeNull();
 
             var dateAvailble = document.ValueOrDefault("dateAvailable");
             if (!string.IsNullOrWhiteSpace(dateAvailble))
@@ -1375,7 +1375,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
         // REF: http://reaxml.realestate.com.au/docs/reaxml1-xml-format.html#rent
         private static RentalPricing ExtractRentalPricing(XElement xElement, CultureInfo cultureInfo)
         {
-            xElement.ShouldNotBe(null);
+            xElement.ShouldNotBeNull();
 
 
             // Quote: There can be multiple rent elements if you wish to specify a price for both monthly and weekly. 
@@ -1438,8 +1438,8 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         private static void ExtractRentalNewConstruction(XElement document, RentalListing listing)
         {
-            document.ShouldNotBe(null);
-            listing.ShouldNotBe(null);
+            document.ShouldNotBeNull();
+            listing.ShouldNotBeNull();
 
             if (!document.BoolValueOrDefault("newConstruction"))
             {
@@ -1460,8 +1460,8 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         private static void ExtractLandData(LandListing landListing, XElement document, CultureInfo cultureInfo)
         {
-            landListing.ShouldNotBe(null);
-            document.ShouldNotBe(null);
+            landListing.ShouldNotBeNull();
+            document.ShouldNotBeNull();
 
             landListing.CategoryType = ExtractLandCategoryType(document);
             landListing.Pricing = ExtractSalePricing(document, cultureInfo);
@@ -1481,7 +1481,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         private static LandEstate ExtractLandEstate(XElement xElement)
         {
-            xElement.ShouldNotBe(null);
+            xElement.ShouldNotBeNull();
 
             var estateElement = xElement.Element("estate");
             if (estateElement == null)
@@ -1502,7 +1502,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         private static void ExtractRuralData(RuralListing ruralListing, XElement document, CultureInfo cultureInfo)
         {
-            document.ShouldNotBe(null);
+            document.ShouldNotBeNull();
 
             ruralListing.CategoryType = ExtractRuralCategoryType(document);
             ruralListing.Pricing = ExtractSalePricing(document, cultureInfo);
@@ -1515,7 +1515,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         private static Core.Models.Rural.CategoryType ExtractRuralCategoryType(XElement document)
         {
-            document.ShouldNotBe(null);
+            document.ShouldNotBeNull();
 
             var categoryElement = document.Element("ruralCategory");
             if (categoryElement == null)
@@ -1531,7 +1531,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         private static RuralFeatures ExtractRuralFeatures(XElement document)
         {
-            document.ShouldNotBe(null);
+            document.ShouldNotBeNull();
             var ruralFeaturesElement = document.Element("ruralFeatures");
             if (ruralFeaturesElement == null)
             {
@@ -1552,7 +1552,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         private static string ExtractRuralCouncilRates(XElement document)
         {
-            document.ShouldNotBe(null);
+            document.ShouldNotBeNull();
             var ruralFeaturesElement = document.Element("ruralFeatures");
             return ruralFeaturesElement == null
                 ? null
@@ -1561,8 +1561,8 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         private static void ExtractRuralNewConstruction(XElement document, RuralListing listing)
         {
-            document.ShouldNotBe(null);
-            listing.ShouldNotBe(null);
+            document.ShouldNotBeNull();
+            listing.ShouldNotBeNull();
 
             if (!document.BoolValueOrDefault("newConstruction"))
             {

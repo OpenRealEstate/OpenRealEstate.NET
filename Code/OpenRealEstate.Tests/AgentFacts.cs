@@ -21,7 +21,7 @@ namespace OpenRealEstate.Tests
                 var agent = JsonConvert.DeserializeObject<Agent>(json);
 
                 // Assert.
-                agent.ShouldNotBe(null);
+                agent.ShouldNotBeNull();
                 agent.Id.ShouldBe("Jane.Smith");
                 var validationErrors = new Dictionary<string, string>();
                 agent.Validate(validationErrors);
@@ -38,11 +38,11 @@ namespace OpenRealEstate.Tests
                 var agent = JsonConvert.DeserializeObject<Agent>(json);
 
                 // Assert.
-                agent.ShouldNotBe(null);
+                agent.ShouldNotBeNull();
                 agent.Id.ShouldBe("Jane.Smith");
                 var validationErrors = new Dictionary<string, string>();
                 agent.Validate(validationErrors);
-                validationErrors.ShouldNotBe(null);
+                validationErrors.ShouldNotBeNull();
                 validationErrors["Name"].ShouldBe("A name is required. eg. Jane Smith.");
                 validationErrors["AgencyIds"].ShouldBe("At least one AgencyId is requires where this Agent works at.");
             }

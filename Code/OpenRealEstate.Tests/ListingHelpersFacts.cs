@@ -176,7 +176,7 @@ namespace OpenRealEstate.Tests
                 ListingHelpers.Copy(destinationListing, sourceListing, CopyDataOptions.CopyAllData);
 
                 // Assert.
-                destinationListing.AuctionOn.ShouldBe(null);
+                destinationListing.AuctionOn.ShouldBeNull();
             }
         }
     }

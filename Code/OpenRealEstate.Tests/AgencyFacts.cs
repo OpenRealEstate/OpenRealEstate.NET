@@ -21,7 +21,7 @@ namespace OpenRealEstate.Tests
             var agency = JsonConvert.DeserializeObject<Agency>(json);
 
             // Assert.
-            agency.ShouldNotBe(null);
+            agency.ShouldNotBeNull();
             agency.Id.ShouldBe("sample.agency.1");
         }
 
@@ -35,7 +35,7 @@ namespace OpenRealEstate.Tests
             var agency = JsonConvert.DeserializeObject<Agency>(json);
 
             // Assert.
-            agency.ShouldNotBe(null);
+            agency.ShouldNotBeNull();
             agency.Id.ShouldBe("sample.agency.1");
         }
     }

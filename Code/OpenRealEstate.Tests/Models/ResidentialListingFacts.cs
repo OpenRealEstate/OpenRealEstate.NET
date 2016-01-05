@@ -53,8 +53,8 @@ namespace OpenRealEstate.Tests.Models
                 destinationListing.Copy(sourceListing);
 
                 // Assert.
-                destinationListing.BuildingDetails.ShouldBe(null);
-                destinationListing.Pricing.ShouldBe(null);
+                destinationListing.BuildingDetails.ShouldBeNull();
+                destinationListing.Pricing.ShouldBeNull();
             }
         }
 

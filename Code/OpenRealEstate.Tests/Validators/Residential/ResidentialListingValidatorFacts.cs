@@ -51,7 +51,7 @@ namespace OpenRealEstate.Tests.Validators.Residential
                     ruleSet: ResidentialListingValidator.MinimumRuleSet);
 
                 // Assert.
-                result.ShouldNotBe(null);
+                result.ShouldNotBeNull();
                 result.Errors.Count.ShouldBe(8);
             }
 

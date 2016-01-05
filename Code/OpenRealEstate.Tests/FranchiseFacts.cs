@@ -18,7 +18,7 @@ namespace OpenRealEstate.Tests
             var franchise = JsonConvert.DeserializeObject<Franchise>(json);
 
             // Assert.
-            franchise.ShouldNotBe(null);
+            franchise.ShouldNotBeNull();
             franchise.Id.ShouldBe("sample.franchise.1");
         }
 
@@ -32,8 +32,8 @@ namespace OpenRealEstate.Tests
             var franchise = JsonConvert.DeserializeObject<Franchise>(json);
 
             // Assert.
-            franchise.ShouldNotBe(null);
-            franchise.Id.ShouldBe(null); // Missing data.
+            franchise.ShouldNotBeNull();
+            franchise.Id.ShouldBeNull(); // Missing data.
         }
     }
 }

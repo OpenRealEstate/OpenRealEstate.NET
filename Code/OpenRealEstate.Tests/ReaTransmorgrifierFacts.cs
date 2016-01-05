@@ -35,10 +35,10 @@ namespace OpenRealEstate.Tests
                 var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                result.ShouldNotBe(null);
+                result.ShouldNotBeNull();
                 result.Listings.Count.ShouldBe(1);
-                result.UnhandledData.ShouldBe(null);
-                result.Errors.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
+                result.Errors.ShouldBeNull();
                 AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
                     tags:
                         new[]
@@ -62,7 +62,7 @@ namespace OpenRealEstate.Tests
 
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
-                result.UnhandledData.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
                 AssertResidentialSoldListing(result.Listings.First().Listing as ResidentialListing);
             }
 
@@ -81,7 +81,7 @@ namespace OpenRealEstate.Tests
 
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
-                result.UnhandledData.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
                 AssertResidentialSoldListing(result.Listings.First().Listing as ResidentialListing);
             }
 
@@ -99,7 +99,7 @@ namespace OpenRealEstate.Tests
 
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
-                result.UnhandledData.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
                 AssertResidentialSoldListing(result.Listings.First().Listing as ResidentialListing, false);
             }
 
@@ -116,7 +116,7 @@ namespace OpenRealEstate.Tests
 
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
-                result.UnhandledData.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
 
                 var listing = result.Listings.First().Listing;
                 listing.AgencyId.ShouldBe("XNWXNW");
@@ -137,7 +137,7 @@ namespace OpenRealEstate.Tests
 
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
-                result.UnhandledData.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
 
                 var listing = result.Listings.First().Listing;
                 listing.AgencyId.ShouldBe("XNWXNW");
@@ -159,7 +159,7 @@ namespace OpenRealEstate.Tests
 
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
-                result.UnhandledData.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
                 AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing);
             }
 
@@ -176,9 +176,9 @@ namespace OpenRealEstate.Tests
                 var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                result.ShouldNotBe(null);
-                result.Listings.ShouldBe(null);
-                result.UnhandledData.ShouldBe(null);
+                result.ShouldNotBeNull();
+                result.Listings.ShouldBeNull();
+                result.UnhandledData.ShouldBeNull();
                 result.Errors.Count.ShouldBe(1);
                 result.Errors[0].ExceptionMessage.ShouldBe(
                     "Inspection element has an invald Date/Time value. Element: <inspection> 12:00AM to 12:00AM</inspection>");
@@ -198,8 +198,8 @@ namespace OpenRealEstate.Tests
                 var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                result.Listings.ShouldBe(null);
-                result.UnhandledData.ShouldBe(null);
+                result.Listings.ShouldBeNull();
+                result.UnhandledData.ShouldBeNull();
                 result.Errors[0].ExceptionMessage.ShouldBe(
                     "Failed to parse the value '550000600000550000600000550000600000' into a decimal.");
                 result.Errors[0].InvalidData.ShouldNotBeNullOrEmpty();
@@ -218,9 +218,9 @@ namespace OpenRealEstate.Tests
                 var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                result.ShouldNotBe(null);
+                result.ShouldNotBeNull();
                 result.Listings.Count.ShouldBe(1);
-                result.UnhandledData.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
                 AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
                     PropertyType.Studio,
                     0);
@@ -239,9 +239,9 @@ namespace OpenRealEstate.Tests
                 var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                result.ShouldNotBe(null);
+                result.ShouldNotBeNull();
                 result.Listings.Count.ShouldBe(1);
-                result.UnhandledData.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
                 AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
                     PropertyType.House,
                     4,
@@ -261,9 +261,9 @@ namespace OpenRealEstate.Tests
                 var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                result.ShouldNotBe(null);
-                result.Listings.ShouldBe(null);
-                result.UnhandledData.ShouldBe(null);
+                result.ShouldNotBeNull();
+                result.Listings.ShouldBeNull();
+                result.UnhandledData.ShouldBeNull();
                 result.Errors.Count.ShouldBe(1);
                 result.Errors.First()
                     .ExceptionMessage.ShouldBe(
@@ -285,9 +285,9 @@ namespace OpenRealEstate.Tests
                 var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                result.ShouldNotBe(null);
-                result.UnhandledData.ShouldBe(null);
-                result.Errors.ShouldBe(null);
+                result.ShouldNotBeNull();
+                result.UnhandledData.ShouldBeNull();
+                result.Errors.ShouldBeNull();
 
                 AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
                     tags:
@@ -312,9 +312,9 @@ namespace OpenRealEstate.Tests
                 var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                result.ShouldNotBe(null);
-                result.UnhandledData.ShouldBe(null);
-                result.Errors.ShouldBe(null);
+                result.ShouldNotBeNull();
+                result.UnhandledData.ShouldBeNull();
+                result.Errors.ShouldBeNull();
 
                 AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
                     tags:
@@ -339,9 +339,9 @@ namespace OpenRealEstate.Tests
                 var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                result.ShouldNotBe(null);
-                result.UnhandledData.ShouldBe(null);
-                result.Errors.ShouldBe(null);
+                result.ShouldNotBeNull();
+                result.UnhandledData.ShouldBeNull();
+                result.Errors.ShouldBeNull();
 
                 AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
                     tags:
@@ -366,9 +366,9 @@ namespace OpenRealEstate.Tests
                 var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                result.ShouldNotBe(null);
-                result.UnhandledData.ShouldBe(null);
-                result.Errors.ShouldBe(null);
+                result.ShouldNotBeNull();
+                result.UnhandledData.ShouldBeNull();
+                result.Errors.ShouldBeNull();
 
                 AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
                     tags:
@@ -396,10 +396,10 @@ namespace OpenRealEstate.Tests
                 var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                result.ShouldNotBe(null);
+                result.ShouldNotBeNull();
                 result.Listings.Count.ShouldBe(1);
-                result.UnhandledData.ShouldBe(null);
-                result.Errors.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
+                result.Errors.ShouldBeNull();
                 AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
                     tags:
                         new[]
@@ -425,10 +425,10 @@ namespace OpenRealEstate.Tests
                 var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                result.ShouldNotBe(null);
+                result.ShouldNotBeNull();
                 result.Listings.Count.ShouldBe(1);
-                result.UnhandledData.ShouldBe(null);
-                result.Errors.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
+                result.Errors.ShouldBeNull();
                 AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
                     tags:
                         new[]
@@ -454,10 +454,10 @@ namespace OpenRealEstate.Tests
                 var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                result.ShouldNotBe(null);
+                result.ShouldNotBeNull();
                 result.Listings.Count.ShouldBe(1);
-                result.UnhandledData.ShouldBe(null);
-                result.Errors.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
+                result.Errors.ShouldBeNull();
                 AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
                     tags:
                         new[]
@@ -485,10 +485,10 @@ namespace OpenRealEstate.Tests
                 var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                result.ShouldNotBe(null);
+                result.ShouldNotBeNull();
                 result.Listings.Count.ShouldBe(1);
-                result.UnhandledData.ShouldBe(null);
-                result.Errors.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
+                result.Errors.ShouldBeNull();
                 AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
                     tags:
                         new[]
@@ -512,9 +512,9 @@ namespace OpenRealEstate.Tests
                 var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                result.ShouldNotBe(null);
-                result.UnhandledData.ShouldBe(null);
-                result.Errors.ShouldBe(null);
+                result.ShouldNotBeNull();
+                result.UnhandledData.ShouldBeNull();
+                result.Errors.ShouldBeNull();
 
                 AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
                     tags:
@@ -539,8 +539,8 @@ namespace OpenRealEstate.Tests
                 var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                result.ShouldNotBe(null);
-                result.UnhandledData.ShouldBe(null);
+                result.ShouldNotBeNull();
+                result.UnhandledData.ShouldBeNull();
                 result.Errors.Count.ShouldBe(1);
                 result.Errors.First()
                     .ExceptionMessage.ShouldBe(
@@ -560,10 +560,10 @@ namespace OpenRealEstate.Tests
                 var result = reaXmlTransmorgrifier.ConvertTo(reaXml, isClearAllIsModified: true);
 
                 // Assert.
-                result.ShouldNotBe(null);
+                result.ShouldNotBeNull();
                 result.Listings.Count.ShouldBe(1);
-                result.UnhandledData.ShouldBe(null);
-                result.Errors.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
+                result.Errors.ShouldBeNull();
                 AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
                     tags:
                         new[]
@@ -587,10 +587,10 @@ namespace OpenRealEstate.Tests
                 var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                result.ShouldNotBe(null);
+                result.ShouldNotBeNull();
                 result.Listings.Count.ShouldBe(1);
-                result.UnhandledData.ShouldBe(null);
-                result.Errors.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
+                result.Errors.ShouldBeNull();
                 var listing = (ResidentialListing) result.Listings.First().Listing;
                 Action<IList<ListingAgent>, bool> assertAgents =
                     delegate(IList<ListingAgent> listingAgents, bool isModified)
@@ -673,10 +673,10 @@ namespace OpenRealEstate.Tests
                 var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                result.ShouldNotBe(null);
+                result.ShouldNotBeNull();
                 result.Listings.Count.ShouldBe(1);
-                result.UnhandledData.ShouldBe(null);
-                result.Errors.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
+                result.Errors.ShouldBeNull();
 
                 // We have the minimum listing data, so lets make sure barelly anytything
                 // has been set.
@@ -697,10 +697,10 @@ namespace OpenRealEstate.Tests
                 var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                result.ShouldNotBe(null);
+                result.ShouldNotBeNull();
                 result.Listings.Count.ShouldBe(1);
-                result.UnhandledData.ShouldBe(null);
-                result.Errors.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
+                result.Errors.ShouldBeNull();
                 result.Listings.First().Listing.Features.Ensuites.ShouldBe((byte)1);
             }
 
@@ -716,10 +716,10 @@ namespace OpenRealEstate.Tests
                 var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                result.ShouldNotBe(null);
+                result.ShouldNotBeNull();
                 result.Listings.Count.ShouldBe(1);
-                result.UnhandledData.ShouldBe(null);
-                result.Errors.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
+                result.Errors.ShouldBeNull();
                 result.Listings.First().Listing.Features.Ensuites.ShouldBe((byte)0);
             }
 
@@ -735,10 +735,10 @@ namespace OpenRealEstate.Tests
                 var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                result.ShouldNotBe(null);
+                result.ShouldNotBeNull();
                 result.Listings.Count.ShouldBe(1);
-                result.UnhandledData.ShouldBe(null);
-                result.Errors.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
+                result.Errors.ShouldBeNull();
 
                 Action<IList<ListingAgent>, bool> assertAgents =
                     delegate (IList<ListingAgent> listingAgents, bool isModified)
@@ -776,10 +776,10 @@ namespace OpenRealEstate.Tests
                 var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                result.ShouldNotBe(null);
+                result.ShouldNotBeNull();
                 result.Listings.Count.ShouldBe(1);
-                result.UnhandledData.ShouldBe(null);
-                result.Errors.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
+                result.Errors.ShouldBeNull();
                 AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
                     tags:
                         new[]
@@ -894,7 +894,7 @@ namespace OpenRealEstate.Tests
 
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
-                result.UnhandledData.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
                 AssertRentalCurrentListing(result.Listings.First().Listing as RentalListing,
                     new[]
                     {
@@ -916,7 +916,7 @@ namespace OpenRealEstate.Tests
 
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
-                result.UnhandledData.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
                 var listing = result.Listings.First().Listing;
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Rental-Leased-ABCD1234");
@@ -935,7 +935,7 @@ namespace OpenRealEstate.Tests
 
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
-                result.UnhandledData.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
                 var listing = result.Listings.First().Listing;
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Rental-Withdrawn-ABCD1234");
@@ -954,7 +954,7 @@ namespace OpenRealEstate.Tests
 
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
-                result.UnhandledData.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
                 var listing = result.Listings.First().Listing;
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Rental-OffMarket-ABCD1234");
@@ -974,7 +974,7 @@ namespace OpenRealEstate.Tests
 
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
-                result.UnhandledData.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
                 AssertRentalCurrentListing(result.Listings.First().Listing as RentalListing,
                     bedroomsCount: 4);
             }
@@ -991,7 +991,7 @@ namespace OpenRealEstate.Tests
 
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
-                result.UnhandledData.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
                 AssertRentalCurrentListing(result.Listings.First().Listing as RentalListing,
                     new[]
                     {
@@ -1071,7 +1071,7 @@ namespace OpenRealEstate.Tests
 
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
-                result.UnhandledData.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
                 AssertLandCurrentListing(result.Listings.First().Listing as LandListing,
                     tags: new[] {"fullyFenced"},
                     carParking: new CarParking());
@@ -1091,11 +1091,11 @@ namespace OpenRealEstate.Tests
 
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
-                result.UnhandledData.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
 
                 var listing = result.Listings.First().Listing;
-                listing.LandDetails.Area.ShouldBe(null);
-                listing.LandDetails.Frontage.ShouldBe(null);
+                listing.LandDetails.Area.ShouldBeNull();
+                listing.LandDetails.Frontage.ShouldBeNull();
                 listing.LandDetails.Depths.Count.ShouldBe(0);
                 listing.LandDetails.CrossOver.ShouldBeNullOrEmpty();
             }
@@ -1112,7 +1112,7 @@ namespace OpenRealEstate.Tests
 
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
-                result.UnhandledData.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
                 AssertLandSoldListing(result.Listings.First().Listing as LandListing);
             }
 
@@ -1129,7 +1129,7 @@ namespace OpenRealEstate.Tests
 
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
-                result.UnhandledData.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
                 AssertLandSoldListing(result.Listings.First().Listing as LandListing, false);
             }
 
@@ -1145,7 +1145,7 @@ namespace OpenRealEstate.Tests
 
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
-                result.UnhandledData.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
 
                 var listing = result.Listings.First().Listing;
                 listing.AgencyId.ShouldBe("XNWXNW");
@@ -1165,7 +1165,7 @@ namespace OpenRealEstate.Tests
 
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
-                result.UnhandledData.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
 
                 var listing = result.Listings.First().Listing;
                 listing.AgencyId.ShouldBe("XNWXNW");
@@ -1187,7 +1187,7 @@ namespace OpenRealEstate.Tests
 
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
-                result.UnhandledData.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
                 AssertLandCurrentListing(result.Listings.First().Listing as LandListing, 
                     LandCategoryType.Unknown,
                     carParking: new CarParking());
@@ -1207,7 +1207,7 @@ namespace OpenRealEstate.Tests
 
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
-                result.UnhandledData.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
                 AssertLandCurrentListing(result.Listings.First().Listing as LandListing,
                     tags: new[] {"fullyFenced"},
                     streetNumber: "12",
@@ -1296,9 +1296,9 @@ namespace OpenRealEstate.Tests
                 var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                result.ShouldNotBe(null);
+                result.ShouldNotBeNull();
                 result.Listings.Count.ShouldBe(1);
-                result.UnhandledData.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
                 AssertRuralCurrentListing(result.Listings.First().Listing as RuralListing,
                     new[]
                     {
@@ -1321,7 +1321,7 @@ namespace OpenRealEstate.Tests
 
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
-                result.UnhandledData.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
                 AssertRuralSoldListing(result.Listings.First().Listing as RuralListing);
             }
 
@@ -1338,7 +1338,7 @@ namespace OpenRealEstate.Tests
 
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
-                result.UnhandledData.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
                 AssertRuralSoldListing(result.Listings.First().Listing as RuralListing, false);
             }
 
@@ -1354,7 +1354,7 @@ namespace OpenRealEstate.Tests
 
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
-                result.UnhandledData.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
 
                 var listing = result.Listings.First().Listing;
                 listing.AgencyId.ShouldBe("XNWXNW");
@@ -1374,7 +1374,7 @@ namespace OpenRealEstate.Tests
 
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
-                result.UnhandledData.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
 
                 var listing = result.Listings.First().Listing;
                 listing.AgencyId.ShouldBe("XNWXNW");
@@ -1409,7 +1409,7 @@ namespace OpenRealEstate.Tests
 
                 listing.Pricing.IsUnderOffer.ShouldBe(false);
                 listing.Pricing.SalePrice.ShouldBe(400000);
-                listing.Pricing.SalePriceText.ShouldBe(null);
+                listing.Pricing.SalePriceText.ShouldBeNull();
 
                 listing.LandDetails.Area.Value.ShouldBe(50);
                 listing.LandDetails.Area.Type.ShouldBe("acre");
@@ -1467,7 +1467,7 @@ namespace OpenRealEstate.Tests
 
                 // Assert.
                 result.Listings.Count.ShouldBe(6);
-                result.UnhandledData.ShouldBe(null);
+                result.UnhandledData.ShouldBeNull();
                 var listings = result.Listings.Select(x => x.Listing).ToList();
 
                 var residentialCurrentListing = listings
@@ -1475,42 +1475,42 @@ namespace OpenRealEstate.Tests
                     .WithId("Residential-Current-ABCD1234")
                     .OfType<ResidentialListing>()
                     .SingleOrDefault();
-                residentialCurrentListing.ShouldNotBe(null);
+                residentialCurrentListing.ShouldNotBeNull();
 
                 var residentialSoldListing = listings
                     .AsQueryable()
                     .WithId("Residential-Sold-ABCD1234")
                     .OfType<ResidentialListing>()
                     .SingleOrDefault();
-                residentialSoldListing.ShouldNotBe(null);
+                residentialSoldListing.ShouldNotBeNull();
 
                 var residentialWithdrawnListing = listings
                     .AsQueryable()
                     .WithId("Residential-Withdrawn-ABCD1234")
                     .OfType<ResidentialListing>()
                     .SingleOrDefault();
-                residentialWithdrawnListing.ShouldNotBe(null);
+                residentialWithdrawnListing.ShouldNotBeNull();
 
                 var rentalCurrentListing = listings
                     .AsQueryable()
                     .WithId("Rental-Current-ABCD1234")
                     .OfType<RentalListing>()
                     .SingleOrDefault();
-                rentalCurrentListing.ShouldNotBe(null);
+                rentalCurrentListing.ShouldNotBeNull();
 
                 var rentalLeasedListing = listings
                     .AsQueryable()
                     .WithId("Rental-Leased-ABCD1234")
                     .OfType<RentalListing>()
                     .SingleOrDefault();
-                rentalLeasedListing.ShouldNotBe(null);
+                rentalLeasedListing.ShouldNotBeNull();
 
                 var rentalListing = listings
                     .AsQueryable()
                     .WithId("Rental-Withdrawn-ABCD1234")
                     .OfType<RentalListing>()
                     .SingleOrDefault();
-                rentalListing.ShouldNotBe(null);
+                rentalListing.ShouldNotBeNull();
             }
 
             [Fact]
@@ -1524,8 +1524,8 @@ namespace OpenRealEstate.Tests
                 var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                result.Listings.ShouldBe(null);
-                result.UnhandledData.ShouldBe(null);
+                result.Listings.ShouldBeNull();
+                result.UnhandledData.ShouldBeNull();
                 result.Errors.Count.ShouldBe(1);
                 result.Errors.First()
                     .ExceptionMessage.ShouldBe(
@@ -1546,7 +1546,7 @@ namespace OpenRealEstate.Tests
                 var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                result.ShouldNotBe(null);
+                result.ShouldNotBeNull();
                 result.Listings.Count.ShouldBe(2);
                 result.UnhandledData.Count.ShouldBe(3);
                 result.UnhandledData[0].StartsWith("<pewPew1").ShouldBe(true);
@@ -1563,8 +1563,8 @@ namespace OpenRealEstate.Tests
                 var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
 
                 // Assert.
-                result.Listings.ShouldBe(null);
-                result.UnhandledData.ShouldBe(null);
+                result.Listings.ShouldBeNull();
+                result.UnhandledData.ShouldBeNull();
                 result.Errors.Count.ShouldBe(1);
                 result.Errors.First()
                     .ExceptionMessage.ShouldBe(
@@ -1590,7 +1590,7 @@ namespace OpenRealEstate.Tests
                     .WithId("Residential-Current-ABCD1234")
                     .OfType<ResidentialListing>()
                     .SingleOrDefault();
-                residentialCurrentListing.ShouldNotBe(null);
+                residentialCurrentListing.ShouldNotBeNull();
             }
 
             private static void AssertAddress(Address address,
