@@ -122,23 +122,86 @@ namespace OpenRealEstate.Tests
         {
             var listing = new ResidentialListing
             {
-                Address = CreateAddress(),
-                BuildingDetails = CreateBuildingDetails(),
-                Features = CreateFeatures(),
-
                 Id = "Residential-Current-ABCD1234",
-                AgencyId = "XNWXNW",
-                CreatedOn = DateTime.Parse("2009-01-01T12:30:00"),
-                UpdatedOn = DateTime.Parse("2009-01-01T12:30:00"),
-                AuctionOn = DateTime.Parse("2009-02-04T18:30:00"),
                 CouncilRates = "$2000 per month",
-                Title = "SHOW STOPPER!!!",
-                Description = "Don't pass up an opportunity like this! First to inspect will buy! Close to local amenities and schools. Features lavishly appointed bathrooms, modern kitchen, rustic outhouse.Don't pass up an opportunity like this! First to inspect will buy! Close to local amenities and schools. Features lavishly appointed bathrooms, modern kitchen, rustic outhouse.",
+                AuctionOn = DateTime.Parse("2009-02-04T18:30:00"),
                 PropertyType = PropertyType.Townhouse,
                 Pricing = CreateSalePricing(),
-                StatusType = StatusType.Current
+
+                BuildingDetails = CreateBuildingDetails()
             };
 
+            UpdateCommonListingData(listing, isClearAllIsModified);
+
+            return listing;
+        }
+
+        public static RentalListing RentalListing(bool isClearAllIsModified = true)
+        {
+                var listing = new RentalListing
+                {
+                    Id = "Rental-Current-ABCD1234",
+                    AvailableOn = new DateTime(2015, 5, 23),
+                    Pricing = CreateRentalPricing(),
+                    BuildingDetails = CreateBuildingDetails()
+                };
+
+            UpdateCommonListingData(listing, isClearAllIsModified);
+
+            return listing;
+        }
+
+        public static LandListing LandListing(bool isClearAllIsModified = true)
+        {
+            var listing = new LandListing
+            {
+                Id = "Land-Current-ABCD1234",
+                CategoryType = LandListingCategoryType.Residential,
+                AuctionOn = new DateTime(2015, 5, 23),
+                CouncilRates = "some council rates",
+                Estate = CreateLandEstate(),
+                Pricing = CreateSalePricing()
+            };
+
+            UpdateCommonListingData(listing, isClearAllIsModified);
+            
+            return listing;
+        }
+
+        public static RuralListing RuralListing(bool isClearAllIsModified = true)
+        {
+            var listing = new RuralListing
+            {
+                CategoryType = RuralListingCategoryType.Horticulture,
+                AuctionOn = new DateTime(2015, 5, 23),
+                CouncilRates = "some council rates",
+                RuralFeatures = CreateRuralFeatures(),
+                Pricing = CreateSalePricing(),
+                BuildingDetails = CreateBuildingDetails()
+            };
+         
+            UpdateCommonListingData(listing, isClearAllIsModified);
+
+            return listing;
+        }
+
+        #region Fake data for listing parts
+
+        private static void UpdateCommonListingData(Listing listing, bool isClearAllIsModified)
+        {
+            listing.ShouldNotBeNull();
+            
+            listing.AgencyId = "XNWXNW";
+            listing.CreatedOn = DateTime.Parse("2009-01-01T12:30:00");
+            listing.UpdatedOn = DateTime.Parse("2009-01-01T12:30:00");
+            
+            listing.Title = "SHOW STOPPER!!!";
+            listing.Description =
+                "Don't pass up an opportunity like this! First to inspect will buy! Close to local amenities and schools. Features lavishly appointed bathrooms, modern kitchen, rustic outhouse.Don't pass up an opportunity like this! First to inspect will buy! Close to local amenities and schools. Features lavishly appointed bathrooms, modern kitchen, rustic outhouse.";
+            listing.StatusType = StatusType.Current;
+
+            listing.Address = CreateAddress();
+            listing.Features = CreateFeatures();
             listing.AddAgents(CreateAgents());
             listing.AddImages(CreateImages());
             listing.AddFloorPlans(CreateFloorplans());
@@ -151,117 +214,7 @@ namespace OpenRealEstate.Tests
                 listing.ClearAllIsModified();
             }
 
-            return listing;
         }
-
-        public static RentalListing RentalListing(bool isClearAllIsModified = true)
-        {
-                var listing = new RentalListing
-                {
-                    AvailableOn = new DateTime(2015, 5, 23),
-                    BuildingDetails = new BuildingDetails
-                    {
-                        Area = new UnitOfMeasure
-                        {
-                            Type = "Some type",
-                            Value = 1.2345m
-                        },
-                        EnergyRating = 111.222m,
-                    },
-                    PropertyType = PropertyType.Townhouse,
-                    Pricing = new RentalPricing
-                    {
-                        RentalPrice = 567.88m,
-                        RentalPriceText = "house for rent",
-                        Bond = 1000m,
-                        PaymentFrequencyType = PaymentFrequencyType.Monthly
-                    }
-                };
-
-            if (isClearAllIsModified)
-            {
-                listing.ClearAllIsModified();
-            }
-
-            return listing;
-        }
-
-        public static LandListing LandListing(bool isClearAllIsModified = true)
-        {
-            var listing = new LandListing
-            {
-                CategoryType = LandListingCategoryType.Residential,
-                AuctionOn = new DateTime(2015, 5, 23),
-                CouncilRates = "some council rates",
-                Estate = new LandEstate
-                {
-                    Name = "some land estate",
-                    Stage = "1st stage"
-                },
-                Pricing = new SalePricing
-                {
-                    IsUnderOffer = true,
-                    SalePrice = 12345.66m,
-                    SalePriceText = "house for sale",
-                    SoldOn = new DateTime(2015, 6, 1),
-                    SoldPrice = 45432.99m,
-                    SoldPriceText = "just sold woot!"
-                }
-            };
-
-            if (isClearAllIsModified)
-            {
-                listing.ClearAllIsModified();
-            }
-
-            return listing;
-        }
-
-        public static RuralListing RuralListing(bool isClearAllIsModified = true)
-        {
-            var listing = new RuralListing
-            {
-                CategoryType = RuralListingCategoryType.Horticulture,
-                AuctionOn = new DateTime(2015, 5, 23),
-                CouncilRates = "some council rates",
-                RuralFeatures = new RuralFeatures
-                {
-                    AnnualRainfall = "some rain",
-                    CarryingCapacity = "some carrying capacity",
-                    Fencing = "some fencing",
-                    Improvements = "lots of improvements",
-                    Irrigation = "some irrigation",
-                    Services = "a number of services",
-                    SoilTypes = "dirty soil"
-                },
-                Pricing = new SalePricing
-                {
-                    IsUnderOffer = true,
-                    SalePrice = 12345.66m,
-                    SalePriceText = "house for sale",
-                    SoldOn = new DateTime(2015, 6, 1),
-                    SoldPrice = 45432.99m,
-                    SoldPriceText = "just sold woot!"
-                },
-                BuildingDetails = new BuildingDetails
-                {
-                    Area = new UnitOfMeasure
-                    {
-                        Type = "Some type",
-                        Value = 1.2345m
-                    },
-                    EnergyRating = 111.222m,
-                }
-            };
-         
-            if (isClearAllIsModified)
-            {
-                listing.ClearAllIsModified();
-            }
-            return listing;
-        }
-
-        #region Fake data for listing parts
 
         private static Address CreateAddress()
         {
@@ -465,6 +418,40 @@ namespace OpenRealEstate.Tests
             {
                 "http://www.au.open2view.com/properties/314244/tour#floorplan",
                 "http://www.google.com/hello"
+            };
+        }
+
+        private static RentalPricing CreateRentalPricing()
+        {
+            return new RentalPricing
+            {
+                RentalPrice = 567.88m,
+                RentalPriceText = "house for rent",
+                Bond = 1000m,
+                PaymentFrequencyType = PaymentFrequencyType.Monthly
+            };
+        }
+
+        private static LandEstate CreateLandEstate()
+        {
+            return new LandEstate
+            {
+                Name = "some land estate",
+                Stage = "1st stage"
+            };
+        }
+
+        private static RuralFeatures CreateRuralFeatures()
+        {
+            return new RuralFeatures
+            {
+                AnnualRainfall = "some rain",
+                CarryingCapacity = "some carrying capacity",
+                Fencing = "some fencing",
+                Improvements = "lots of improvements",
+                Irrigation = "some irrigation",
+                Services = "a number of services",
+                SoilTypes = "dirty soil"
             };
         }
 
@@ -804,17 +791,19 @@ namespace OpenRealEstate.Tests
             }
 
             AssertAggregateRoot(destination, source);
-            AssertAddress(destination.Address, source.Address);
-            AssertListingAgents(destination.Agents, source.Agents);
+
             destination.AgencyId.ShouldBe(source.AgencyId);
             destination.CreatedOn.ShouldBe(source.CreatedOn);
             destination.Description.ShouldBe(source.Description);
+            destination.StatusType.ShouldBe(source.StatusType);
+            destination.Title.ShouldBe(source.Title);
+
+            AssertAddress(destination.Address, source.Address);
+            AssertListingAgents(destination.Agents, source.Agents);
             AssertFeatures(destination.Features, source.Features);
             AssertMedias(destination.Images, source.Images);
             AssertMedias(destination.FloorPlans, source.FloorPlans);
             AssertInspections(destination.Inspections, source.Inspections);
-            destination.StatusType.ShouldBe(source.StatusType);
-            destination.Title.ShouldBe(source.Title);
             AssertStringCollection(destination.Links, source.Links);
             AssertMedias(destination.Videos, source.Videos);
             destination.ModifiedData.IsModified.ShouldBe(true);
@@ -830,6 +819,7 @@ namespace OpenRealEstate.Tests
 
             AssertListing(destination, source);
             AssertBuildingDetails(destination.BuildingDetails, source.BuildingDetails);
+            destination.AuctionOn.ShouldBe(source.AuctionOn);
             destination.CouncilRates.ShouldBe(source.CouncilRates);
             destination.PropertyType.ShouldBe(source.PropertyType);
             AssertSalePricing(destination.Pricing, source.Pricing);
@@ -843,7 +833,8 @@ namespace OpenRealEstate.Tests
             {
                 return;
             }
-            
+
+            AssertListing(destination, source);
             destination.AvailableOn.ShouldBe(source.AvailableOn);
             AssertBuildingDetails(destination.BuildingDetails, source.BuildingDetails);
             destination.PropertyType.ShouldBe(source.PropertyType);
@@ -858,7 +849,8 @@ namespace OpenRealEstate.Tests
             {
                 return;
             }
- 
+
+            AssertListing(destination, source);
             destination.AuctionOn.ShouldBe(source.AuctionOn);
             destination.CategoryType.ShouldBe(source.CategoryType);
             AssertLandEstate(destination.Estate, source.Estate);
@@ -874,6 +866,7 @@ namespace OpenRealEstate.Tests
                 return;
             }
 
+            AssertListing(destination, source);
             destination.AuctionOn.ShouldBe(source.AuctionOn);
             AssertBuildingDetails(destination.BuildingDetails, source.BuildingDetails);
             destination.CategoryType.ShouldBe(source.CategoryType);

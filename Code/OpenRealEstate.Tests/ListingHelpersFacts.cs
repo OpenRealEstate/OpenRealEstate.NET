@@ -96,7 +96,6 @@ namespace OpenRealEstate.Tests
                 var destinationListing = new LandListing();
                 var sourceListing = TestHelperUtilities.LandListing(false);
                 sourceListing.StatusType = StatusType.Leased;
-                //sourceListing.Pricing.
 
                 // Act.
                 ListingHelpers.Copy(destinationListing, sourceListing);

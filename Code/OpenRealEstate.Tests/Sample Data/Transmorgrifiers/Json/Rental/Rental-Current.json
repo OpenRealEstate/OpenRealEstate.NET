@@ -1,0 +1,168 @@
+﻿{
+    "ListingType": "Rental",
+    "PropertyType": 0,
+    "AvailableOn": "2015-05-23T00:00:00",
+    "Pricing": {
+        "RentalPrice": 567.88,
+        "PaymentFrequencyType": 2,
+        "RentalPriceText": "house for rent",
+        "Bond": 1000
+    },
+    "BuildingDetails": {
+        "Area": {
+            "Type": "square",
+            "Value": 40
+        },
+        "EnergyRating": 4.5
+    },
+    "AgencyId": "XNWXNW",
+    "StatusType": 1,
+    "CreatedOn": "2009-01-01T12:30:00",
+    "Title": "SHOW STOPPER!!!",
+    "Description": "Don't pass up an opportunity like this! First to inspect will buy! Close to local amenities and schools. Features lavishly appointed bathrooms, modern kitchen, rustic outhouse.Don't pass up an opportunity like this! First to inspect will buy! Close to local amenities and schools. Features lavishly appointed bathrooms, modern kitchen, rustic outhouse.",
+    "Address": {
+        "StreetNumber": "2/39",
+        "Street": "Main Road",
+        "Suburb": "RICHMOND",
+        "Municipality": "Yarra",
+        "State": "vic",
+        "CountryIsoCode": "AU",
+        "Postcode": "3121",
+        "Latitude": 12.34,
+        "Longitude": 56.78901,
+        "IsStreetDisplayed": true
+    },
+    "Agents": [
+        {
+            "Name": "Princess Leia",
+            "Communications": [
+                {
+                    "Details": "I.am.a.Princess@rebel.alliance",
+                    "CommunicationType": 1
+                },
+                {
+                    "Details": "0418 123 456",
+                    "CommunicationType": 2
+                },
+                {
+                    "Details": "05 1234 5678",
+                    "CommunicationType": 3
+                }
+            ],
+            "Order": 1
+        },
+        {
+            "Name": "Han Solo",
+            "Communications": [
+                {
+                    "Details": "scoundrel@rebel.alliance",
+                    "CommunicationType": 1
+                },
+                {
+                    "Details": "0418 555 666",
+                    "CommunicationType": 2
+                },
+                {
+                    "Details": "05 2222 3333",
+                    "CommunicationType": 3
+                }
+            ],
+            "Order": 2
+        }
+    ],
+    "Images": [
+        {
+            "CreatedOn": "2009-01-01T12:30:00",
+            "Order": 1,
+            "Url": "http://www.photos.com.au/tmp/imageM.jpg",
+            "Tag": "aaa bbb"
+        },
+        {
+            "CreatedOn": "2009-01-01T12:30:00",
+            "Order": 2,
+            "Url": "http://www.photos.com.au/tmp/imageA.jpg",
+            "Tag": "aaa bbb"
+        }
+    ],
+    "FloorPlans": [
+        {
+            "CreatedOn": "2009-01-01T12:30:00",
+            "Order": 1,
+            "Url": "http://www.photos.com.au/tmp/floorplan1.gif",
+            "Tag": "aaa bbb"
+        },
+        {
+            "CreatedOn": "2009-01-01T12:30:00",
+            "Order": 2,
+            "Url": "http://www.photos.com.au/tmp/floorplan2.gif",
+            "Tag": "aaa bbb"
+        }
+    ],
+    "Videos": [
+        {
+            "CreatedOn": "2009-01-01T12:30:00",
+            "Order": 1,
+            "Url": "http://www.foo.tv/abcd.html",
+            "Tag": "aaa bbb"
+        },
+        {
+            "CreatedOn": "2009-01-01T12:30:00",
+            "Order": 2,
+            "Url": "http://www.foo.tv/qqqq.html",
+            "Tag": "aaa bbb"
+        }
+    ],
+    "Inspections": [
+        {
+            "OpensOn": "2009-01-21T11:00:00",
+            "ClosesOn": "2009-01-21T13:00:00"
+        },
+        {
+            "OpensOn": "2009-01-22T15:00:00",
+            "ClosesOn": "2009-01-22T15:30:00"
+        }
+    ],
+    "LandDetails": null,
+    "Features": {
+        "Bedrooms": 3,
+        "Bathrooms": 2,
+        "Toilets": 5,
+        "CarParking": {
+            "Garages": 2,
+            "Carports": 1,
+            "OpenSpaces": 3,
+            "TotalCount": 6
+        },
+        "Ensuites": 1,
+        "LivingAreas": 4,
+        "Tags": [
+            "heating-other",
+            "hotWaterService-gas",
+            "poolinground",
+            "spainground",
+            "balcony",
+            "courtyard",
+            "shed",
+            "tennisCourt",
+            "secureParking",
+            "remoteGarage",
+            "pool",
+            "outdoorEnt",
+            "openFirePlace",
+            "fullyFenced",
+            "deck",
+            "alarmSystem",
+            "airConditioning",
+            "solarPanels",
+            "waterTank",
+            "houseAndLandPackage",
+            "isANewConstruction"
+        ]
+    },
+    "Links": [
+        "http://www.au.open2view.com/properties/314244/tour#floorplan",
+        "http://www.google.com/hello"
+    ],
+    "Id": "Rental-Current-ABCD1234",
+    "UpdatedOn": "2009-01-01T12:30:00"
+}

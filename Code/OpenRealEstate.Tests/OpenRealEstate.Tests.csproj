@@ -136,6 +136,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Sample Data\Transmorgrifiers\Json\Rural\Rural-Current.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Sample Data\Transmorgrifiers\Json\Land\Land-Current.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Sample Data\Transmorgrifiers\Json\Residential\Residential-Current.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Withdrawn.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -451,7 +460,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Sample Data\Transmorgrifiers\Json\Residential\Residential-Current.json">
+    <None Include="Sample Data\Transmorgrifiers\Json\Rental\Rental-Current.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
