@@ -49,6 +49,9 @@
   <ItemGroup>
     <Compile Include="ConvertToResult.cs" />
     <Compile Include="ITransmorgrifier.cs" />
+    <Compile Include="Json\JsonCreationConverter.cs" />
+    <Compile Include="Json\JsonTransmorgrifier.cs" />
+    <Compile Include="Json\ListingConverter.cs" />
     <Compile Include="ListingResult.cs" />
     <Compile Include="ListingHelpers.cs" />
     <Compile Include="ParsedError.cs" />

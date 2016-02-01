@@ -64,6 +64,7 @@
     <Compile Include="AgencyFacts.cs" />
     <Compile Include="AgentFacts.cs" />
     <Compile Include="FranchiseFacts.cs" />
+    <Compile Include="JsonTransmorgrifierTests.cs" />
     <Compile Include="ListingHelpersFacts.cs" />
     <Compile Include="Models\AggregateRootFacts.cs" />
     <Compile Include="Models\BuildingDetailsFacts.cs" />
@@ -445,6 +446,11 @@
   <ItemGroup>
     <None Include="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current-WithTooManyBedrooms.xml">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Sample Data\Transmorgrifiers\Json\Residential\Residential-Current.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

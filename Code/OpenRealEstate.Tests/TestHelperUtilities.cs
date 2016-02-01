@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using OpenRealEstate.Core.Models;
@@ -119,52 +120,31 @@ namespace OpenRealEstate.Tests
 
         public static ResidentialListing ResidentialListing(bool isClearAllIsModified = true)
         {
-            var communications = new List<Communication>
-            {
-                new Communication
-                {
-                    CommunicationType = CommunicationType.Email,
-                    Details = "a@b.c.d.e"
-                }
-            };
-            var agent = new ListingAgent
-            {
-                Name = "Princess Leia",
-                Order = 1
-            };
-            agent.AddCommunications(communications);
-
-            var agents = new List<ListingAgent>
-            {
-                agent
-            };
-
             var listing = new ResidentialListing
             {
-                AuctionOn = new DateTime(2015, 5, 23),
+                Address = CreateAddress(),
+                BuildingDetails = CreateBuildingDetails(),
+                Features = CreateFeatures(),
 
-                BuildingDetails = new BuildingDetails
-                {
-                    Area = new UnitOfMeasure
-                    {
-                        Type = "Some type",
-                        Value = 1.2345m
-                    },
-                    EnergyRating = 111.222m,
-                },
-                CouncilRates = "some council rates",
+                Id = "Residential-Current-ABCD1234",
+                AgencyId = "XNWXNW",
+                CreatedOn = DateTime.Parse("2009-01-01T12:30:00"),
+                UpdatedOn = DateTime.Parse("2009-01-01T12:30:00"),
+                AuctionOn = DateTime.Parse("2009-02-04T18:30:00"),
+                CouncilRates = "$2000 per month",
+                Title = "SHOW STOPPER!!!",
+                Description = "Don't pass up an opportunity like this! First to inspect will buy! Close to local amenities and schools. Features lavishly appointed bathrooms, modern kitchen, rustic outhouse.Don't pass up an opportunity like this! First to inspect will buy! Close to local amenities and schools. Features lavishly appointed bathrooms, modern kitchen, rustic outhouse.",
                 PropertyType = PropertyType.Townhouse,
-                Pricing = new SalePricing
-                {
-                    IsUnderOffer = true,
-                    SalePrice = 12345.66m,
-                    SalePriceText = "house for sale",
-                    SoldOn = new DateTime(2015, 6, 1),
-                    SoldPrice = 45432.99m,
-                    SoldPriceText = "just sold woot!"
-                }
+                Pricing = CreateSalePricing(),
+                StatusType = StatusType.Current
             };
-            listing.AddAgents(agents);
+
+            listing.AddAgents(CreateAgents());
+            listing.AddImages(CreateImages());
+            listing.AddFloorPlans(CreateFloorplans());
+            listing.AddInspections(CreateInspections());
+            listing.AddLinks(CreateLinks());
+            listing.AddVideos(CreateVideos());
 
             if (isClearAllIsModified)
             {
@@ -281,185 +261,214 @@ namespace OpenRealEstate.Tests
             return listing;
         }
 
-        private static void UpdateListingWithFakeData(Listing listing)
+        #region Fake data for listing parts
+
+        private static Address CreateAddress()
         {
-            if (listing == null)
+            return new Address
             {
-                throw new ArgumentNullException("listing");
-            }
+                CountryIsoCode = "AU",
+                IsStreetDisplayed = true,
+                Latitude = (decimal?)12.34,
+                Longitude = (decimal?)56.78901,
+                Municipality = "Yarra",
+                Postcode = "3121",
+                State = "vic",
+                Street = "Main Road",
+                StreetNumber = "2/39",
+                Suburb = "RICHMOND"
+            };
+        }
 
-            UpdateAggregateRootWithFakeData(listing);
-
+        private static IList<ListingAgent> CreateAgents()
+        {
+            var communications1 = new List<Communication>
+            {
+                new Communication
+                {
+                    CommunicationType = CommunicationType.Email,
+                    Details = "I.am.a.Princess@rebel.alliance"
+                },
+                new Communication
+                {
+                    CommunicationType = CommunicationType.Mobile,
+                    Details = "0418 123 456"
+                },
+                new Communication
+                {
+                    CommunicationType = CommunicationType.Landline,
+                    Details = "05 1234 5678"
+                }
+            };
             var agent1 = new ListingAgent
             {
                 Name = "Princess Leia",
                 Order = 1
             };
-            agent1.AddCommunications(new List<Communication>
+            agent1.AddCommunications(communications1);
+
+            var communications2 = new List<Communication>
             {
                 new Communication
                 {
                     CommunicationType = CommunicationType.Email,
-                    Details = "i-am-a-princess@rebel-alliance.org"
+                    Details = "scoundrel@rebel.alliance"
+                },
+                new Communication
+                {
+                    CommunicationType = CommunicationType.Mobile,
+                    Details = "0418 555 666"
+                },
+                new Communication
+                {
+                    CommunicationType = CommunicationType.Landline,
+                    Details = "05 2222 3333"
                 }
-            });
-            
+            };
             var agent2 = new ListingAgent
             {
                 Name = "Han Solo",
-                Order = 1
+                Order = 2
             };
-            agent2.AddCommunications(new List<Communication>
-            {
-                new Communication
-                {
-                    CommunicationType = CommunicationType.Email,
-                    Details = "scruffy-nerf-herder@galacticmail.com"
-                }
-            });
+            agent2.AddCommunications(communications2);
 
-            listing.AddAgents(new List<ListingAgent>
+            return new List<ListingAgent>
             {
                 agent1,
                 agent2
-            });
-
-            listing.Address = new Address
-            {
-                CountryIsoCode = "AU",
-                IsStreetDisplayed = true,
-                Latitude = 1.23m,
-                Longitude = 3.45m,
-                Municipality = "some municipality",
-                Postcode = "1234a",
-                State = "VIC",
-                Street = "Some Street",
-                StreetNumber = "69",
-                Suburb = "Some Suburb"
             };
-            listing.AgencyId = "ABCD-1234";
-            listing.CreatedOn = new DateTime(2015, 5, 1);
-            listing.Description = "Some description";
-            listing.Features = new Features
+        }
+
+        private static BuildingDetails CreateBuildingDetails()
+        {
+            return new BuildingDetails
             {
-                Bathrooms = 1,
-                Bedrooms = 2,
+                Area = new UnitOfMeasure {Type = "square", Value = 40},
+                EnergyRating = 4.5m
+            };
+        }
+
+        private static Features CreateFeatures()
+        {
+            var tags = new List<string>
+            {
+                "heating-other",
+                "hotWaterService-gas",
+                "poolinground",
+                "spainground",
+                "balcony",
+                "courtyard",
+                "shed",
+                "tennisCourt",
+                "secureParking",
+                "remoteGarage",
+                "pool",
+                "outdoorEnt",
+                "openFirePlace",
+                "fullyFenced",
+                "deck",
+                "alarmSystem",
+                "airConditioning",
+                "solarPanels",
+                "waterTank",
+                "houseAndLandPackage",
+                "isANewConstruction"
+            };
+            return new Features
+            {
                 CarParking = new CarParking
                 {
-                    Garages = 5,
-                    Carports = 3,
-                    OpenSpaces = 7
+                    Carports = 1,
+                    Garages = 2,
+                    OpenSpaces = 3,
                 },
-                Ensuites = 4,
-                LivingAreas = 6,
-
-                Toilets = 8,
+                Bedrooms = 3,
+                Bathrooms = 2,
+                Ensuites = 1,
+                LivingAreas = 4,
+                Toilets = 5,
+                Tags = new ReadOnlyCollection<string>(tags)
             };
-            listing.Features.AddTags(new HashSet<string>(new[] {"z", "y", "x", "w"}));
-            listing.AddFloorPlans(new List<Media>
-            {
-                new Media
-                {
-                    Url = "http://a.b.c/floorplan1",
-                    Order = 1,
-                    Tag = "fp1"
-                },
-                new Media
-                {
-                    Url = "http://a.b.c/floorplan2",
-                    Order = 2,
-                    Tag = "fp2"
-                }
-            });
-            listing.AddImages(new List<Media>
-            {
-                new Media
-                {
-                    Url = "http://a.b.c/image1",
-                    Order = 1,
-                    Tag = "img1"
-                },
-                new Media
-                {
-                    Url = "http://a.b.c/image2",
-                    Order = 2,
-                    Tag = "img2"
-                },
-                new Media
-                {
-                    Url = "http://a.b.c/image3",
-                    Order = 3,
-                    Tag = "img3"
-                }
-            });
-            listing.AddInspections(new List<Inspection>
-            {
-                new Inspection
-                {
-                    OpensOn = new DateTime(2015, 5, 5, 11, 55, 00),
-                    ClosesOn = new DateTime(2015, 5, 5, 13, 00, 00)
-                },
-                new Inspection
-                {
-                    OpensOn = new DateTime(2015, 5, 6, 11, 55, 00),
-                    ClosesOn = new DateTime(2015, 5, 6, 13, 00, 00)
-                },
-                new Inspection
-                {
-                    OpensOn = new DateTime(2015, 5, 7, 11, 55, 00),
-                    ClosesOn = new DateTime(2015, 5, 7, 13, 00, 00)
-                }
-            });
-            listing.LandDetails = new LandDetails
-            {
-                Area = new Depth
-                {
-                    Value = 1.234m,
-                    Type = "some type",
-                    Side = "some side"
-                },
-                CrossOver = "some cross over",
-                Frontage = new Depth
-                {
-                    Value = 1234.11m,
-                    Type = "some type 1",
-                    Side = "some side 1"
-                }
-            };
-            listing.LandDetails.AddDepths(new List<Depth>
-            {
-                new Depth
-                {
-                    Value = 1234.11m,
-                    Type = "some type 1",
-                    Side = "some side 1"
-                },
-                new Depth
-                {
-                    Value = 333.44m,
-                    Type = "some type 2",
-                    Side = "some side 2"
-                }
-            });
-            listing.AddLinks(new List<string>(new[] {"link 1", "link 2"}));
-            listing.StatusType = StatusType.Current;
-            listing.Title = "some title";
-            listing.AddVideos(new List<Media>
-            {
-                new Media
-                {
-                    Url = "http://a.b.c/video1",
-                    Order = 1,
-                    Tag = "v1"
-                },
-                new Media
-                {
-                    Url = "http://a.b.c/video2",
-                    Order = 2,
-                    Tag = "v2"
-                }
-            });
         }
+
+        private static SalePricing CreateSalePricing()
+        {
+            return new SalePricing
+            {
+                IsUnderOffer = true,
+                SalePrice = 500000,
+                SalePriceText = "Between $400,000 and $600,000",
+                SoldOn = DateTime.Parse("2010-02-03T14:30:00"),
+                SoldPrice = 45432.99m,
+                SoldPriceText = "Nice Sale!"
+            };
+        }
+
+        private static IList<Media> CreateImages()
+        {
+            return new List<Media>
+            {
+                CreateMedia("http://www.photos.com.au/tmp/imageM.jpg", 1),
+                CreateMedia("http://www.photos.com.au/tmp/imageA.jpg", 2)
+            };
+        }
+
+        private static IList<Media> CreateFloorplans()
+        {
+            return new List<Media>
+            {
+                CreateMedia("http://www.photos.com.au/tmp/floorplan1.gif", 1),
+                CreateMedia("http://www.photos.com.au/tmp/floorplan2.gif", 2)
+            };
+        }
+
+        private static IList<Media> CreateVideos()
+        {
+            return new List<Media>
+            {
+                CreateMedia("http://www.foo.tv/abcd.html", 1),
+                CreateMedia("http://www.foo.tv/qqqq.html", 2)
+            };
+        } 
+
+        private static Media CreateMedia(string url, int order)
+        {
+            return new Media
+            {
+                CreatedOn = DateTime.Parse("2009-01-01T12:30:00"),
+                Url = url,
+                Order = order,
+                Tag = "aaa bbb"
+            };
+        }
+
+        private static IList<Inspection> CreateInspections()
+        {
+            return new List<Inspection>
+            {
+                new Inspection
+                {
+                    OpensOn = DateTime.Parse("2009-01-21T11:00:00"),
+                    ClosesOn = DateTime.Parse("2009-01-21T13:00:00")
+                },
+                new Inspection
+                {
+                    OpensOn = DateTime.Parse("2009-01-22T15:00:00"),
+                    ClosesOn = DateTime.Parse("2009-01-22T15:30:00")
+                }
+            };
+        }
+
+        private static IList<string> CreateLinks()
+        {
+            return new[]
+            {
+                "http://www.au.open2view.com/properties/314244/tour#floorplan",
+                "http://www.google.com/hello"
+            };
+        }
+
+        #endregion
 
         public static void UpdateAggregateRootWithFakeData(AggregateRoot aggregateRoot)
         {
@@ -785,6 +794,7 @@ namespace OpenRealEstate.Tests
             destination.SoilTypes.ShouldBe(source.SoilTypes);
             destination.ModifiedData.IsModified.ShouldBe(true);
         }
+
         public static void AssertListing(Listing destination, Listing source)
         {
             if (destination == null &&
