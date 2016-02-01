@@ -1,6 +1,6 @@
-﻿using System;
+﻿using OpenRealEstate.Core;
+using System;
 using System.Collections.Generic;
-using Shouldly;
 
 namespace OpenRealEstate.Services
 {
@@ -13,7 +13,7 @@ namespace OpenRealEstate.Services
 
         public static bool ParseYesTrueOrNoFalseToBool(this string value)
         {
-            value.ShouldNotBeNullOrEmpty();
+            Guard.AgainstNulls(value);
 
             if (YesTrueSet.Contains(value))
             {
@@ -30,7 +30,7 @@ namespace OpenRealEstate.Services
 
         public static bool TryParseYesOrNoToBool(this string value, out bool result)
         {
-            value.ShouldNotBeNullOrEmpty();
+            Guard.AgainstNulls(value);
 
             if (YesTrueSet.Contains(value))
             {
@@ -44,7 +44,7 @@ namespace OpenRealEstate.Services
        
         public static bool ParseOneYesZeroNoToBool(this string value)
         {
-            value.ShouldNotBeNullOrEmpty();
+            Guard.AgainstNulls(value);
 
             if (value == "1" ||
                 YesTrueSet.Contains(value))

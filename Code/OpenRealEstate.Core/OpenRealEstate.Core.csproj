@@ -38,6 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Filters\AggregateRootFilters.cs" />
+    <Compile Include="Guard.cs" />
     <Compile Include="HelperUtilities.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Agency.cs" />
