@@ -65,6 +65,7 @@
     <Compile Include="AgentFacts.cs" />
     <Compile Include="FranchiseFacts.cs" />
     <Compile Include="JsonTransmorgrifierTests.cs" />
+    <Compile Include="ListingContractResolverTests.cs" />
     <Compile Include="ListingHelpersFacts.cs" />
     <Compile Include="Models\AggregateRootFacts.cs" />
     <Compile Include="Models\BuildingDetailsFacts.cs" />

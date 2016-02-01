@@ -19,7 +19,13 @@ namespace OpenRealEstate.Services.Json
 
             try
             {
-                listing = JsonConvert.DeserializeObject<Listing>(data, new ListingConverter());
+                var jsonSettings = new JsonSerializerSettings
+                {
+                    Converters = new JsonConverter[] { new ListingConverter() },
+                    ContractResolver = new ListingContractResolver()
+                };
+
+                listing = JsonConvert.DeserializeObject<Listing>(data, jsonSettings);
             }
             catch (Exception exception)
             {
