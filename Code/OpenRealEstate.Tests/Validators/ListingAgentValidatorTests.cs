@@ -7,11 +7,11 @@ using Xunit;
 
 namespace OpenRealEstate.Tests.Validators
 {
-    public class ListingAgentValidatorFacts
+    public class ListingAgentValidatorTests
     {
         private readonly ListingAgentValidator _validator;
 
-        public ListingAgentValidatorFacts()
+        public ListingAgentValidatorTests()
         {
             _validator = new ListingAgentValidator();
         }

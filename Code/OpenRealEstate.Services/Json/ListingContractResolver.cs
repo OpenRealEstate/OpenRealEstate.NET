@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Services.Json
 {
@@ -11,8 +12,8 @@ namespace OpenRealEstate.Services.Json
         protected override IList<JsonProperty> CreateProperties(Type type,
             MemberSerialization memberSerialization)
         {
-            var properties = base.CreateProperties(type, memberSerialization).ToArray();
-            return properties.Where(x => x.PropertyName != "ModifiedData").ToArray();
+            var properties = base.CreateProperties(type, memberSerialization);
+            return properties.Where(p => p.PropertyType != typeof (ModifiedData)).ToArray();
         }
     }
 }

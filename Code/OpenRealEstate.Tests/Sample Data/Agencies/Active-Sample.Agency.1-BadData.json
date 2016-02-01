@@ -1,1 +1,44 @@
-﻿{"FranchiseId":"sample.franchise.1","Address":{"StreetNumber":"1/24","Street":"Smith St.","Suburb":"Richmond","State":"VIC","Country":"AU","Postcode":null,"Latitude":33.11,"Longitude":22.33},"Description":"Lorem ipsum","IsActive":true,"Communications":[{"Details":"questions@sampleagency.com.au","CommunicationType":1},{"Details":"03 1234 5678","CommunicationType":3}],"WebSites":{"homepage":"http://www.sampleagency.com.au","google+":"http://www.google.com.au/c/sampleagency"},"Logos":[{"Order":1,"Url":"http://www.google.com/a.png"}],"Images":[{"Order":1,"Url":"http://www.google.com/a.png"}],"Videos":null,"Id":"sample.agency.1","UpdatedOn":"2014-04-08T23:12:05.6482215Z"}
+﻿{
+    "FranchiseId": "sample.franchise.1",
+    "Name": "Sample Agency #1",
+    "Address": {
+        "StreetNumber": "1/24",
+        "Street": "Smith St.",
+        "Suburb": "Richmond",
+        "State": "VIC",
+        "Country": "AU",
+        "Postcode": null,
+        "Latitude": 33.11,
+        "Longitude": 22.33
+    },
+    "Description": "Lorem ipsum",
+    "IsActive": true,
+    "Communications": [
+        {
+            "Details": "questions@sampleagency.com.au",
+            "CommunicationType": 1
+        },
+        {
+            "Details": "03 1234 5678",
+            "CommunicationType": 3
+        }
+    ],
+    "WebSites": {
+        "homepage": "http://www.sampleagency.com.au",
+        "google+": "http://www.google.com.au/c/sampleagency"
+    },
+    "Logos": [
+        {
+            "Order": 1,
+            "Url": "http://www.google.com/a.png"
+        }
+    ],
+    "Images": [
+        {
+            "Order": 1,
+            "Url": "http://www.google.com/a.png"
+        }
+    ],
+    "Videos": null,
+    "UpdatedOn": "2014-04-08T23:12:05.6482215Z"
+}

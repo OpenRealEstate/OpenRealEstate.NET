@@ -4,11 +4,11 @@ using Xunit;
 
 namespace OpenRealEstate.Tests.Validators
 {
-    public class FranchiseValidatorFacts
+    public class FranchiseValidatorTests
     {
         private readonly FranchiseValidator _franchiseValidator;
 
-        public FranchiseValidatorFacts()
+        public FranchiseValidatorTests()
         {
             _franchiseValidator = new FranchiseValidator();
         }

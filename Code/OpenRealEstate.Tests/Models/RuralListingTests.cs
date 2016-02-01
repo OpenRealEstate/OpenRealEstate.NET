@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Shouldly;
+﻿using Shouldly;
 using Xunit;
 
 namespace OpenRealEstate.Tests.Models
 {
-    public class RuralListingFacts
+    public class RuralListingTests
     {
-        public class CopyFacts
+        public class CopyTests
         {
             [Fact]
             public void GivenAnExistingListingAndANewListingWithEverythingModified_Copy_CopiesOverTheData()

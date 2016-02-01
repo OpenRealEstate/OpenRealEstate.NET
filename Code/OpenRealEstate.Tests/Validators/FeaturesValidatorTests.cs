@@ -4,11 +4,11 @@ using Xunit;
 
 namespace OpenRealEstate.Tests.Validators
 {
-    public class FeaturesValidatorFacts
+    public class FeaturesValidatorTests
     {
         private readonly FeaturesValidator _featuresValidator;
 
-        public FeaturesValidatorFacts()
+        public FeaturesValidatorTests()
         {
             _featuresValidator = new FeaturesValidator();
         }

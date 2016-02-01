@@ -3,7 +3,7 @@ using Xunit;
 
 namespace OpenRealEstate.Tests.Models
 {
-    public class LandListingFacts
+    public class LandListingTests
     {
         [Fact]
         public void GivenAnExistingListingAndANewListingWithEverythingModified_Copy_CopiesOverTheData()

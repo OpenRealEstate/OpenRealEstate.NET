@@ -5,11 +5,11 @@ using Xunit;
 
 namespace OpenRealEstate.Tests.Validators
 {
-    public class CommunicationValidatorFacts
+    public class CommunicationValidatorTests
     {
         private readonly CommunicationValidator _communicationValidator;
 
-        public CommunicationValidatorFacts()
+        public CommunicationValidatorTests()
         {
             _communicationValidator = new CommunicationValidator();
         }

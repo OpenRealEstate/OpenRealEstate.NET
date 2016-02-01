@@ -9,6 +9,7 @@ using OpenRealEstate.Core.Models.Land;
 using OpenRealEstate.Core.Models.Rental;
 using OpenRealEstate.Core.Models.Residential;
 using OpenRealEstate.Core.Models.Rural;
+using OpenRealEstate.Services.Json;
 using OpenRealEstate.Services.RealEstateComAu;
 using Shouldly;
 using Xunit;
@@ -17,9 +18,9 @@ using LandCategoryType = OpenRealEstate.Core.Models.Land.CategoryType;
 
 namespace OpenRealEstate.Tests
 {
-    public class ReaXmlTransmorgrifierFacts
+    public class ReaXmlTransmorgrifierTests
     {
-        public class ConvertFacts
+        public class ConvertTests
         {
             #region Residential
 
@@ -626,7 +627,7 @@ namespace OpenRealEstate.Tests
 
                 var settings = new JsonSerializerSettings
                 {
-                    ContractResolver = new ModifiedDataContractResolver(),
+                    ContractResolver = new ListingContractResolver(),
                     Formatting = Formatting.Indented
                 };
 

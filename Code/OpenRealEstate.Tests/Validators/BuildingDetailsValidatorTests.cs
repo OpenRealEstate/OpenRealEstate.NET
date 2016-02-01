@@ -6,11 +6,11 @@ using Xunit;
 
 namespace OpenRealEstate.Tests.Validators
 {
-    public class BuildingDetailsValidatorFacts
+    public class BuildingDetailsValidatorTests
     {
         private readonly BuildingDetailsValidator _buildingDetailsValidator;
 
-        public BuildingDetailsValidatorFacts()
+        public BuildingDetailsValidatorTests()
         {
             _buildingDetailsValidator = new BuildingDetailsValidator();    
         }

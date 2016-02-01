@@ -5,9 +5,9 @@ using Xunit;
 
 namespace OpenRealEstate.Tests.Models
 {
-    public class AggregateRootFacts
+    public class AggregateRootTests
     {
-        public class CopyFacts
+        public class CopyTests
         {
             [Fact]
             public void GivenAnExistingListing_Copy_CopiesOverTheData()

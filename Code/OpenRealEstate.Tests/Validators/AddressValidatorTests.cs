@@ -5,11 +5,11 @@ using Xunit;
 
 namespace OpenRealEstate.Tests.Validators
 {
-    public class AddressValidatorFacts
+    public class AddressValidatorTests
     {
         private readonly AddressValidator _addressValidator;
 
-        public AddressValidatorFacts()
+        public AddressValidatorTests()
         {
             _addressValidator = new AddressValidator();    
         }

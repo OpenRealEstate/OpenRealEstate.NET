@@ -7,9 +7,9 @@ using Xunit;
 
 namespace OpenRealEstate.Tests
 {
-    public class AgentFacts
+    public class AgentTests
     {
-        public class DeserializationFacts
+        public class DeserializationTests
         {
             [Fact]
             public void GivenAnAgentJsonFileActiveJaneSmith_Deserialization_ValidatesAnAgent()

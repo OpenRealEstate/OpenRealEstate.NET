@@ -10,10 +10,10 @@ using Xunit;
 
 namespace OpenRealEstate.Tests
 {
-    public class ListingHelpersFacts
+    public class ListingHelpersTests
     {
-        public class CopyFacts
-        {
+        public class CopyTests
+        { 
             [Fact]
             public void GivenTwoResidentialListingsWhereOneIsEmpty_Copy_CopiesTheData()
             {

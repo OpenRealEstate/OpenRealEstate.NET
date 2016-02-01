@@ -5,11 +5,11 @@ using Xunit;
 
 namespace OpenRealEstate.Tests.Validators
 {
-    public class CarParkingValidatorFacts
+    public class CarParkingValidatorTests
     {
         private readonly CarParkingValidator _carParkingValidator;
 
-        public CarParkingValidatorFacts()
+        public CarParkingValidatorTests()
         {
             _carParkingValidator = new CarParkingValidator();
         }

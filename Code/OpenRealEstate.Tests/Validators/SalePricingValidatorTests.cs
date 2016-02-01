@@ -5,11 +5,11 @@ using Xunit;
 
 namespace OpenRealEstate.Tests.Validators
 {
-    public class SalePricingValidatorFacts
+    public class SalePricingValidatorTests
     {
         private readonly SalePricingValidator _salePricingValidator;
 
-        public SalePricingValidatorFacts()
+        public SalePricingValidatorTests()
         {
             _salePricingValidator = new SalePricingValidator();
         }

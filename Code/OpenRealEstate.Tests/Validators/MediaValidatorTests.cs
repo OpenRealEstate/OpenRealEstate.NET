@@ -5,11 +5,11 @@ using Xunit;
 
 namespace OpenRealEstate.Tests.Validators
 {
-    public class MediaValidatorFacts
+    public class MediaValidatorTests
     {
         private readonly MediaValidator _mediaValidator;
 
-        public MediaValidatorFacts()
+        public MediaValidatorTests()
         {
             _mediaValidator = new MediaValidator();
         }

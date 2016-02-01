@@ -5,11 +5,11 @@ using Xunit;
 
 namespace OpenRealEstate.Tests.Validators
 {
-    public class UnitOfMeasureValidatorFacts
+    public class UnitOfMeasureValidatorTests
     {
         private readonly UnitOfMeasureValidator _unitOfMeasureValidator;
 
-        public UnitOfMeasureValidatorFacts()
+        public UnitOfMeasureValidatorTests()
         {
             _unitOfMeasureValidator = new UnitOfMeasureValidator();
         }

@@ -17,9 +17,9 @@ using CategoryType = OpenRealEstate.Core.Models.Land.CategoryType;
 
 namespace OpenRealEstate.Tests.Validators
 {
-    public class ValidatorMediatorFacts
+    public class ValidatorMediatorTests
     {
-        public class ValidateFacts
+        public class ValidateTests
         {
             private static Listing GetListing(Type listingType)
             {

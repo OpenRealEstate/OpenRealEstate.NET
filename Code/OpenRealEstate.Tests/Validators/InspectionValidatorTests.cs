@@ -5,11 +5,11 @@ using Xunit;
 
 namespace OpenRealEstate.Tests.Validators
 {
-    public class InspectionValidatorFacts
+    public class InspectionValidatorTests
     {
         private readonly InspectionValidator _inspectionValidator;
 
-        public InspectionValidatorFacts()
+        public InspectionValidatorTests()
         {
             _inspectionValidator = new InspectionValidator();
         }

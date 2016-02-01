@@ -6,7 +6,7 @@ using Xunit;
 
 namespace OpenRealEstate.Tests.Validators
 {
-    public class LandDetailsValidatorFacts
+    public class LandDetailsValidatorTests
     {
         [Fact]
         public void GivenAnArea_Validate_ShouldNotHaveAValidationError()
