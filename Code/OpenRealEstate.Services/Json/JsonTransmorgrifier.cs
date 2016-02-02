@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using OpenRealEstate.Core.Models;
-using OpenRealEstate.Core;
 
 namespace OpenRealEstate.Services.Json
 {

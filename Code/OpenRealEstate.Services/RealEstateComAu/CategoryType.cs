@@ -1,5 +1,4 @@
 ﻿using System.Xml.Linq;
-using OpenRealEstate.Core;
 
 namespace OpenRealEstate.Services.RealEstateComAu
 {

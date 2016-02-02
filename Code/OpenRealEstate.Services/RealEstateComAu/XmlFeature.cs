@@ -1,5 +1,4 @@
-﻿using OpenRealEstate.Core;
-
+﻿
 namespace OpenRealEstate.Services.RealEstateComAu
 {
     public class XmlFeature

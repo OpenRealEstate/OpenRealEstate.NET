@@ -1,11 +1,11 @@
 ﻿using System;
 
 
-namespace OpenRealEstate.Core
+namespace OpenRealEstate.Services
 {
-    public static class Guard
+    internal static class Guard
     {
-        public static void AgainstNull(object obj)
+        internal static void AgainstNull(object obj)
         {
             if (obj == null)
             {
@@ -13,7 +13,7 @@ namespace OpenRealEstate.Core
             }
         }
 
-        public static void AgainstNullOrWhiteSpace(string stringObj)
+        internal static void AgainstNullOrWhiteSpace(string stringObj)
         {
             if (string.IsNullOrWhiteSpace(stringObj))
             {

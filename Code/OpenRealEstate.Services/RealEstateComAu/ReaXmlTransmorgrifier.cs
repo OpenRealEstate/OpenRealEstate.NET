@@ -13,7 +13,6 @@ using OpenRealEstate.Core.Models.Rental;
 using OpenRealEstate.Core.Models.Residential;
 using OpenRealEstate.Core.Models.Rural;
 using CategoryTypeHelpers = OpenRealEstate.Core.Models.Land.CategoryTypeHelpers;
-using OpenRealEstate.Core;
 
 namespace OpenRealEstate.Services.RealEstateComAu
 {
