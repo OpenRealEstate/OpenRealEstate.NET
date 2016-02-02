@@ -13,7 +13,7 @@ namespace OpenRealEstate.Services
 
         public static bool ParseYesTrueOrNoFalseToBool(this string value)
         {
-            Guard.AgainstNulls(value);
+            Guard.AgainstNullOrWhiteSpace(value);
 
             if (YesTrueSet.Contains(value))
             {
@@ -30,7 +30,7 @@ namespace OpenRealEstate.Services
 
         public static bool TryParseYesOrNoToBool(this string value, out bool result)
         {
-            Guard.AgainstNulls(value);
+            Guard.AgainstNullOrWhiteSpace(value);
 
             if (YesTrueSet.Contains(value))
             {
@@ -44,7 +44,7 @@ namespace OpenRealEstate.Services
        
         public static bool ParseOneYesZeroNoToBool(this string value)
         {
-            Guard.AgainstNulls(value);
+            Guard.AgainstNullOrWhiteSpace(value);
 
             if (value == "1" ||
                 YesTrueSet.Contains(value))

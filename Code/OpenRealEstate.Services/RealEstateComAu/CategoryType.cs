@@ -63,8 +63,8 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         public static CategoryType ToCategoryType(this XName name)
         {
-            Guard.AgainstNulls(name);
-            Guard.AgainstNulls(name.LocalName);
+            Guard.AgainstNull(name);
+            Guard.AgainstNullOrWhiteSpace(name.LocalName);
 
             switch (name.LocalName.ToUpperInvariant())
             {

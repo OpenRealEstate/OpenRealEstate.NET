@@ -3,9 +3,9 @@
 
 namespace OpenRealEstate.Core
 {
-    public class Guard
+    public static class Guard
     {
-        public static void AgainstNulls(object obj)
+        public static void AgainstNull(object obj)
         {
             if (obj == null)
             {
@@ -13,9 +13,9 @@ namespace OpenRealEstate.Core
             }
         }
 
-        public static void AgainstNulls(string stringObj)
+        public static void AgainstNullOrWhiteSpace(string stringObj)
         {
-            if (string.IsNullOrEmpty(stringObj))
+            if (string.IsNullOrWhiteSpace(stringObj))
             {
                 throw new ArgumentNullException(nameof(stringObj));
             }

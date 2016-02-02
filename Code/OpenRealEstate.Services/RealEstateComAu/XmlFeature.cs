@@ -6,8 +6,8 @@ namespace OpenRealEstate.Services.RealEstateComAu
     {
         public XmlFeature(string xmlField, string displayName, bool indoor, bool outdoor, bool eco)
         {
-            Guard.AgainstNulls(xmlField);
-            Guard.AgainstNulls(displayName);
+            Guard.AgainstNullOrWhiteSpace(xmlField);
+            Guard.AgainstNullOrWhiteSpace(displayName);
 
             XmlField = xmlField;
             DisplayName = displayName;

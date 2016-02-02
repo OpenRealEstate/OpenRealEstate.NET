@@ -7,8 +7,8 @@ namespace OpenRealEstate.Services
         public ParsedError(string exceptionMessage,
             string invalidData)
         {
-            Guard.AgainstNulls(exceptionMessage);
-            Guard.AgainstNulls(invalidData);
+            Guard.AgainstNullOrWhiteSpace(exceptionMessage);
+            Guard.AgainstNullOrWhiteSpace(invalidData);
 
             ExceptionMessage = exceptionMessage;
             InvalidData = invalidData;

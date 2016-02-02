@@ -12,7 +12,7 @@ namespace OpenRealEstate.Services.Json
             bool areBadCharactersRemoved = false,
             bool isClearAllIsModified = false)
         {
-            Guard.AgainstNulls(data);
+            Guard.AgainstNullOrWhiteSpace(data);
 
             Exception error = null;
             Listing listing = null;
