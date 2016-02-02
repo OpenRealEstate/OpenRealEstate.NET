@@ -1,13 +1,12 @@
-﻿using Shouldly;
-
+﻿
 namespace OpenRealEstate.Services.RealEstateComAu
 {
     public class XmlFeature
     {
         public XmlFeature(string xmlField, string displayName, bool indoor, bool outdoor, bool eco)
         {
-            xmlField.ShouldNotBeNullOrEmpty();
-            displayName.ShouldNotBeNullOrEmpty();
+            Guard.AgainstNullOrWhiteSpace(xmlField);
+            Guard.AgainstNullOrWhiteSpace(displayName);
 
             XmlField = xmlField;
             DisplayName = displayName;

@@ -36,10 +36,6 @@
       <HintPath>..\..\packages\Newtonsoft.Json.8.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Shouldly, Version=2.6.0.0, Culture=neutral, PublicKeyToken=6042cbcb05cbc941, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Shouldly.2.6.0\lib\net40\Shouldly.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConvertToResult.cs" />
+    <Compile Include="Guard.cs" />
     <Compile Include="ITransmorgrifier.cs" />
     <Compile Include="Json\JsonCreationConverter.cs" />
     <Compile Include="Json\JsonTransmorgrifier.cs" />
@@ -65,7 +62,9 @@
     <Compile Include="XElementExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OpenRealEstate.Core\OpenRealEstate.Core.csproj">

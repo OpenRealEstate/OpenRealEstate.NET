@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using OpenRealEstate.Core.Models;
-using Shouldly;
 
 namespace OpenRealEstate.Services.Json
 {
@@ -12,7 +11,7 @@ namespace OpenRealEstate.Services.Json
             bool areBadCharactersRemoved = false,
             bool isClearAllIsModified = false)
         {
-            data.ShouldNotBeNullOrEmpty();
+            Guard.AgainstNullOrWhiteSpace(data);
 
             Exception error = null;
             Listing listing = null;
