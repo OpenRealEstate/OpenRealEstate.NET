@@ -24,11 +24,12 @@ namespace OpenRealEstate.Tests
         public class ConvertToTests
         {
             [Theory]
-            [InlineData("Sample Data\\Transmorgrifiers\\Json\\Residential\\Residential-Current.json", typeof(ResidentialListing))]
-            [InlineData("Sample Data\\Transmorgrifiers\\Json\\Rental\\Rental-Current.json", typeof(RentalListing))]
-            [InlineData("Sample Data\\Transmorgrifiers\\Json\\Land\\Land-Current.json", typeof(LandListing))]
-            [InlineData("Sample Data\\Transmorgrifiers\\Json\\Rural\\Rural-Current.json", typeof(RuralListing))]
-            public void GivenSomeResidentialJson_ConvertTo_ReturnsAListing(string jsonPath, Type listingType)
+            [InlineData("Sample Data\\Transmorgrifiers\\Json\\Residential\\Residential-Current.json", typeof(ResidentialListing), 1)]
+            [InlineData("Sample Data\\Transmorgrifiers\\Json\\Residential\\Residential-Current.MultipleListings.json", typeof(ResidentialListing), 3)]
+            [InlineData("Sample Data\\Transmorgrifiers\\Json\\Rental\\Rental-Current.json", typeof(RentalListing), 1)]
+            [InlineData("Sample Data\\Transmorgrifiers\\Json\\Land\\Land-Current.json", typeof(LandListing), 1)]
+            [InlineData("Sample Data\\Transmorgrifiers\\Json\\Rural\\Rural-Current.json", typeof(RuralListing), 1)]
+            public void GivenSomeValidJson_ConvertTo_ReturnsAListing(string jsonPath, Type listingType, int listingCount)
             {
                 // Arrange.
                 var json = File.ReadAllText(jsonPath);
@@ -38,7 +39,7 @@ namespace OpenRealEstate.Tests
                 var result = transmorgrifier.ConvertTo(json);
 
                 // Assert.
-                result.Listings.Count.ShouldBe(1);
+                result.Listings.Count.ShouldBe(listingCount);
                 result.Listings.First().SourceData.ShouldNotBeNull();
                 var listing = result.Listings.First().Listing;
                 if (listingType == typeof(ResidentialListing))

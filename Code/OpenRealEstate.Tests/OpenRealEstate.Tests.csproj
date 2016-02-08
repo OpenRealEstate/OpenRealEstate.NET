@@ -33,12 +33,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FluentValidation, Version=6.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FluentValidation.6.0.2.0\lib\Net45\FluentValidation.dll</HintPath>
+    <Reference Include="FluentValidation, Version=6.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentValidation.6.1.0.0\lib\Net45\FluentValidation.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.8.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Shouldly, Version=2.6.0.0, Culture=neutral, PublicKeyToken=6042cbcb05cbc941, processorArchitecture=MSIL">
@@ -63,11 +63,14 @@
   <ItemGroup>
     <Compile Include="AgencyTests.cs" />
     <Compile Include="AgentTests.cs" />
+    <Compile Include="FakeListingsTests.cs" />
     <Compile Include="FranchiseTests.cs" />
+    <Compile Include="JsonConvertHelpersTests.cs" />
     <Compile Include="JsonTransmorgrifierTests.cs" />
     <Compile Include="ListingContractResolverTests.cs" />
     <Compile Include="ListingHelpersTests.cs" />
     <Compile Include="Models\AggregateRootTests.cs" />
+    <Compile Include="SingleOrArrayConverterTests.cs" />
     <Compile Include="TestHelperUtilities.cs" />
     <Compile Include="Models\LandListingTests.cs" />
     <Compile Include="Models\ListingTests.cs" />
@@ -124,6 +127,10 @@
       <Project>{E07F6317-2A69-445E-9BF7-8D084553FA68}</Project>
       <Name>OpenRealEstate.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\OpenRealEstate.FakeData\OpenRealEstate.FakeData.csproj">
+      <Project>{e4185089-392b-4216-9e24-4b2b9e4faafd}</Project>
+      <Name>OpenRealEstate.FakeData</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OpenRealEstate.Services\OpenRealEstate.Services.csproj">
       <Project>{629E585C-9CD6-4F0D-9074-769DF0CEF540}</Project>
       <Name>OpenRealEstate.Services</Name>
@@ -134,6 +141,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Sample Data\Transmorgrifiers\Json\Residential\Residential-Current.MultipleListings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Sample Data\Transmorgrifiers\Json\Rural\Rural-Current.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

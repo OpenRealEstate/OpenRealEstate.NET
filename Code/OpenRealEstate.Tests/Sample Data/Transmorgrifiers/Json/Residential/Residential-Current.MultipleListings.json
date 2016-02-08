@@ -1,0 +1,755 @@
+﻿[
+    {
+        "ListingType": "Residential",
+        "PropertyType": "Townhouse",
+        "Pricing": {
+            "SalePrice": 500000,
+            "SalePriceText": "Between $400,000 and $600,000",
+            "SoldPrice": 45432.99,
+            "SoldPriceText": "Nice Sale!",
+            "SoldOn": "2010-02-03T14:30:00",
+            "IsUnderOffer": true
+        },
+        "AuctionOn": "2009-02-04T18:30:00",
+        "CouncilRates": "$2000 per month",
+        "BuildingDetails": {
+            "Area": {
+                "Type": "square",
+                "Value": 40
+            },
+            "EnergyRating": 4.5
+        },
+        "AgencyId": "XNWXNW",
+        "StatusType": "Current",
+        "CreatedOn": "2009-01-01T12:30:00",
+        "Title": "SHOW STOPPER!!!",
+        "Description": "Don't pass up an opportunity like this! First to inspect will buy! Close to local amenities and schools. Features lavishly appointed bathrooms, modern kitchen, rustic outhouse.Don't pass up an opportunity like this! First to inspect will buy! Close to local amenities and schools. Features lavishly appointed bathrooms, modern kitchen, rustic outhouse.",
+        "Address": {
+            "StreetNumber": "2/39",
+            "Street": "Main Road",
+            "Suburb": "RICHMOND",
+            "Municipality": "Yarra",
+            "State": "vic",
+            "CountryIsoCode": "AU",
+            "Postcode": "3121",
+            "Latitude": 12.34,
+            "Longitude": 56.78901,
+            "IsStreetDisplayed": true
+        },
+        "Agents": [
+            {
+                "Name": "Princess Leia",
+                "Communications": [
+                    {
+                        "Details": "I.am.a.Princess@rebel.alliance",
+                        "CommunicationType": 1
+                    },
+                    {
+                        "Details": "0418 123 456",
+                        "CommunicationType": 2
+                    },
+                    {
+                        "Details": "05 1234 5678",
+                        "CommunicationType": 3
+                    }
+                ],
+                "Order": 1
+            },
+            {
+                "Name": "Han Solo",
+                "Communications": [
+                    {
+                        "Details": "scoundrel@rebel.alliance",
+                        "CommunicationType": 1
+                    },
+                    {
+                        "Details": "0418 555 666",
+                        "CommunicationType": 2
+                    },
+                    {
+                        "Details": "05 2222 3333",
+                        "CommunicationType": 3
+                    }
+                ],
+                "Order": 2
+            }
+        ],
+        "Images": [
+            {
+                "CreatedOn": "2009-01-01T12:30:00",
+                "Order": 1,
+                "Url": "http://www.photos.com.au/tmp/imageM.jpg",
+                "Tag": "aaa bbb"
+            },
+            {
+                "CreatedOn": "2009-01-01T12:30:00",
+                "Order": 2,
+                "Url": "http://www.photos.com.au/tmp/imageA.jpg",
+                "Tag": "aaa bbb"
+            }
+        ],
+        "FloorPlans": [
+            {
+                "CreatedOn": "2009-01-01T12:30:00",
+                "Order": 1,
+                "Url": "http://www.photos.com.au/tmp/floorplan1.gif",
+                "Tag": "aaa bbb"
+            },
+            {
+                "CreatedOn": "2009-01-01T12:30:00",
+                "Order": 2,
+                "Url": "http://www.photos.com.au/tmp/floorplan2.gif",
+                "Tag": "aaa bbb"
+            }
+        ],
+        "Videos": [
+            {
+                "CreatedOn": "2016-01-29T01:55:57.3395659Z",
+                "Order": 1,
+                "Url": "http://www.foo.tv/abcd.html",
+                "Tag": "aaa bbb"
+            },
+            {
+                "CreatedOn": "2016-01-29T01:55:57.3395659Z",
+                "Order": 2,
+                "Url": "http://www.foo.tv/qqqq.html",
+                "Tag": "aaa bbb"
+            }
+        ],
+        "Inspections": [
+            {
+                "OpensOn": "2009-01-21T11:00:00",
+                "ClosesOn": "2009-01-21T13:00:00"
+            },
+            {
+                "OpensOn": "2009-01-22T15:00:00",
+                "ClosesOn": "2009-01-22T15:30:00"
+            }
+        ],
+        "LandDetails": {
+            "Area": {
+                "Type": "square",
+                "Value": 80,
+                "ModifiedData": {
+                    "IsModified": true,
+                    "ModifiedProperties": [
+                        "Value",
+                        "Type"
+                    ],
+                    "ModifiedCollections": [ ]
+                }
+            },
+            "Frontage": {
+                "Type": "meter",
+                "Value": 20,
+                "ModifiedData": {
+                    "IsModified": true,
+                    "ModifiedProperties": [
+                        "Value",
+                        "Type"
+                    ],
+                    "ModifiedCollections": [ ]
+                }
+            },
+            "Depths": [
+                {
+                    "Side": "rear",
+                    "Type": "meter",
+                    "Value": 40,
+                    "ModifiedData": {
+                        "IsModified": true,
+                        "ModifiedProperties": [
+                            "Value",
+                            "Type",
+                            "Side"
+                        ],
+                        "ModifiedCollections": [ ]
+                    }
+                },
+                {
+                    "Side": "left",
+                    "Type": "meter",
+                    "Value": 60,
+                    "ModifiedData": {
+                        "IsModified": true,
+                        "ModifiedProperties": [
+                            "Value",
+                            "Type",
+                            "Side"
+                        ],
+                        "ModifiedCollections": [ ]
+                    }
+                },
+                {
+                    "Side": "right",
+                    "Type": "meter",
+                    "Value": 20,
+                    "ModifiedData": {
+                        "IsModified": true,
+                        "ModifiedProperties": [
+                            "Value",
+                            "Type",
+                            "Side"
+                        ],
+                        "ModifiedCollections": [ ]
+                    }
+                }
+            ],
+            "CrossOver": "left",
+            "ModifiedData": {
+                "IsModified": true,
+                "ModifiedProperties": [
+                    "Area",
+                    "Frontage",
+                    "CrossOver"
+                ],
+                "ModifiedCollections": [
+                    "Depths"
+                ]
+            }
+        },
+        "Features": {
+            "Bedrooms": 3,
+            "Bathrooms": 2,
+            "Ensuites": 1,
+            "LivingAreas": 4,
+            "Toilets": 5,
+            "CarParking": {
+                "Carports": 1,
+                "Garages": 2,
+                "OpenSpaces": 3
+            },
+            "Tags": [
+                "heating-other",
+                "hotWaterService-gas",
+                "poolinground",
+                "spainground",
+                "balcony",
+                "courtyard",
+                "shed",
+                "tennisCourt",
+                "secureParking",
+                "remoteGarage",
+                "pool",
+                "outdoorEnt",
+                "openFirePlace",
+                "fullyFenced",
+                "deck",
+                "alarmSystem",
+                "airConditioning",
+                "solarPanels",
+                "waterTank",
+                "houseAndLandPackage",
+                "isANewConstruction"
+            ]
+        },
+        "Links": [
+            "http://www.au.open2view.com/properties/314244/tour#floorplan",
+            "http://www.google.com/hello"
+        ],
+        "Id": "Residential-Current-ABCD1234",
+        "UpdatedOn": "2009-01-01T12:30:00"
+    },
+    {
+        "ListingType": "Residential",
+        "PropertyType": "Townhouse",
+        "Pricing": {
+            "SalePrice": 500000,
+            "SalePriceText": "Between $400,000 and $600,000",
+            "SoldPrice": 45432.99,
+            "SoldPriceText": "Nice Sale!",
+            "SoldOn": "2010-02-03T14:30:00",
+            "IsUnderOffer": true
+        },
+        "AuctionOn": "2009-02-04T18:30:00",
+        "CouncilRates": "$2000 per month",
+        "BuildingDetails": {
+            "Area": {
+                "Type": "square",
+                "Value": 40
+            },
+            "EnergyRating": 4.5
+        },
+        "AgencyId": "XNWXNW",
+        "StatusType": "Current",
+        "CreatedOn": "2009-01-01T12:30:00",
+        "Title": "SHOW STOPPER!!!",
+        "Description": "Don't pass up an opportunity like this! First to inspect will buy! Close to local amenities and schools. Features lavishly appointed bathrooms, modern kitchen, rustic outhouse.Don't pass up an opportunity like this! First to inspect will buy! Close to local amenities and schools. Features lavishly appointed bathrooms, modern kitchen, rustic outhouse.",
+        "Address": {
+            "StreetNumber": "2/39",
+            "Street": "Main Road",
+            "Suburb": "RICHMOND",
+            "Municipality": "Yarra",
+            "State": "vic",
+            "CountryIsoCode": "AU",
+            "Postcode": "3121",
+            "Latitude": 12.34,
+            "Longitude": 56.78901,
+            "IsStreetDisplayed": true
+        },
+        "Agents": [
+            {
+                "Name": "Princess Leia",
+                "Communications": [
+                    {
+                        "Details": "I.am.a.Princess@rebel.alliance",
+                        "CommunicationType": 1
+                    },
+                    {
+                        "Details": "0418 123 456",
+                        "CommunicationType": 2
+                    },
+                    {
+                        "Details": "05 1234 5678",
+                        "CommunicationType": 3
+                    }
+                ],
+                "Order": 1
+            },
+            {
+                "Name": "Han Solo",
+                "Communications": [
+                    {
+                        "Details": "scoundrel@rebel.alliance",
+                        "CommunicationType": 1
+                    },
+                    {
+                        "Details": "0418 555 666",
+                        "CommunicationType": 2
+                    },
+                    {
+                        "Details": "05 2222 3333",
+                        "CommunicationType": 3
+                    }
+                ],
+                "Order": 2
+            }
+        ],
+        "Images": [
+            {
+                "CreatedOn": "2009-01-01T12:30:00",
+                "Order": 1,
+                "Url": "http://www.photos.com.au/tmp/imageM.jpg",
+                "Tag": "aaa bbb"
+            },
+            {
+                "CreatedOn": "2009-01-01T12:30:00",
+                "Order": 2,
+                "Url": "http://www.photos.com.au/tmp/imageA.jpg",
+                "Tag": "aaa bbb"
+            }
+        ],
+        "FloorPlans": [
+            {
+                "CreatedOn": "2009-01-01T12:30:00",
+                "Order": 1,
+                "Url": "http://www.photos.com.au/tmp/floorplan1.gif",
+                "Tag": "aaa bbb"
+            },
+            {
+                "CreatedOn": "2009-01-01T12:30:00",
+                "Order": 2,
+                "Url": "http://www.photos.com.au/tmp/floorplan2.gif",
+                "Tag": "aaa bbb"
+            }
+        ],
+        "Videos": [
+            {
+                "CreatedOn": "2016-01-29T01:55:57.3395659Z",
+                "Order": 1,
+                "Url": "http://www.foo.tv/abcd.html",
+                "Tag": "aaa bbb"
+            },
+            {
+                "CreatedOn": "2016-01-29T01:55:57.3395659Z",
+                "Order": 2,
+                "Url": "http://www.foo.tv/qqqq.html",
+                "Tag": "aaa bbb"
+            }
+        ],
+        "Inspections": [
+            {
+                "OpensOn": "2009-01-21T11:00:00",
+                "ClosesOn": "2009-01-21T13:00:00"
+            },
+            {
+                "OpensOn": "2009-01-22T15:00:00",
+                "ClosesOn": "2009-01-22T15:30:00"
+            }
+        ],
+        "LandDetails": {
+            "Area": {
+                "Type": "square",
+                "Value": 80,
+                "ModifiedData": {
+                    "IsModified": true,
+                    "ModifiedProperties": [
+                        "Value",
+                        "Type"
+                    ],
+                    "ModifiedCollections": [ ]
+                }
+            },
+            "Frontage": {
+                "Type": "meter",
+                "Value": 20,
+                "ModifiedData": {
+                    "IsModified": true,
+                    "ModifiedProperties": [
+                        "Value",
+                        "Type"
+                    ],
+                    "ModifiedCollections": [ ]
+                }
+            },
+            "Depths": [
+                {
+                    "Side": "rear",
+                    "Type": "meter",
+                    "Value": 40,
+                    "ModifiedData": {
+                        "IsModified": true,
+                        "ModifiedProperties": [
+                            "Value",
+                            "Type",
+                            "Side"
+                        ],
+                        "ModifiedCollections": [ ]
+                    }
+                },
+                {
+                    "Side": "left",
+                    "Type": "meter",
+                    "Value": 60,
+                    "ModifiedData": {
+                        "IsModified": true,
+                        "ModifiedProperties": [
+                            "Value",
+                            "Type",
+                            "Side"
+                        ],
+                        "ModifiedCollections": [ ]
+                    }
+                },
+                {
+                    "Side": "right",
+                    "Type": "meter",
+                    "Value": 20,
+                    "ModifiedData": {
+                        "IsModified": true,
+                        "ModifiedProperties": [
+                            "Value",
+                            "Type",
+                            "Side"
+                        ],
+                        "ModifiedCollections": [ ]
+                    }
+                }
+            ],
+            "CrossOver": "left",
+            "ModifiedData": {
+                "IsModified": true,
+                "ModifiedProperties": [
+                    "Area",
+                    "Frontage",
+                    "CrossOver"
+                ],
+                "ModifiedCollections": [
+                    "Depths"
+                ]
+            }
+        },
+        "Features": {
+            "Bedrooms": 3,
+            "Bathrooms": 2,
+            "Ensuites": 1,
+            "LivingAreas": 4,
+            "Toilets": 5,
+            "CarParking": {
+                "Carports": 1,
+                "Garages": 2,
+                "OpenSpaces": 3
+            },
+            "Tags": [
+                "heating-other",
+                "hotWaterService-gas",
+                "poolinground",
+                "spainground",
+                "balcony",
+                "courtyard",
+                "shed",
+                "tennisCourt",
+                "secureParking",
+                "remoteGarage",
+                "pool",
+                "outdoorEnt",
+                "openFirePlace",
+                "fullyFenced",
+                "deck",
+                "alarmSystem",
+                "airConditioning",
+                "solarPanels",
+                "waterTank",
+                "houseAndLandPackage",
+                "isANewConstruction"
+            ]
+        },
+        "Links": [
+            "http://www.au.open2view.com/properties/314244/tour#floorplan",
+            "http://www.google.com/hello"
+        ],
+        "Id": "Residential-Current-ABCD1234",
+        "UpdatedOn": "2009-01-01T12:30:00"
+    },
+    {
+        "ListingType": "Residential",
+        "PropertyType": "Townhouse",
+        "Pricing": {
+            "SalePrice": 500000,
+            "SalePriceText": "Between $400,000 and $600,000",
+            "SoldPrice": 45432.99,
+            "SoldPriceText": "Nice Sale!",
+            "SoldOn": "2010-02-03T14:30:00",
+            "IsUnderOffer": true
+        },
+        "AuctionOn": "2009-02-04T18:30:00",
+        "CouncilRates": "$2000 per month",
+        "BuildingDetails": {
+            "Area": {
+                "Type": "square",
+                "Value": 40
+            },
+            "EnergyRating": 4.5
+        },
+        "AgencyId": "XNWXNW",
+        "StatusType": "Current",
+        "CreatedOn": "2009-01-01T12:30:00",
+        "Title": "SHOW STOPPER!!!",
+        "Description": "Don't pass up an opportunity like this! First to inspect will buy! Close to local amenities and schools. Features lavishly appointed bathrooms, modern kitchen, rustic outhouse.Don't pass up an opportunity like this! First to inspect will buy! Close to local amenities and schools. Features lavishly appointed bathrooms, modern kitchen, rustic outhouse.",
+        "Address": {
+            "StreetNumber": "2/39",
+            "Street": "Main Road",
+            "Suburb": "RICHMOND",
+            "Municipality": "Yarra",
+            "State": "vic",
+            "CountryIsoCode": "AU",
+            "Postcode": "3121",
+            "Latitude": 12.34,
+            "Longitude": 56.78901,
+            "IsStreetDisplayed": true
+        },
+        "Agents": [
+            {
+                "Name": "Princess Leia",
+                "Communications": [
+                    {
+                        "Details": "I.am.a.Princess@rebel.alliance",
+                        "CommunicationType": 1
+                    },
+                    {
+                        "Details": "0418 123 456",
+                        "CommunicationType": 2
+                    },
+                    {
+                        "Details": "05 1234 5678",
+                        "CommunicationType": 3
+                    }
+                ],
+                "Order": 1
+            },
+            {
+                "Name": "Han Solo",
+                "Communications": [
+                    {
+                        "Details": "scoundrel@rebel.alliance",
+                        "CommunicationType": 1
+                    },
+                    {
+                        "Details": "0418 555 666",
+                        "CommunicationType": 2
+                    },
+                    {
+                        "Details": "05 2222 3333",
+                        "CommunicationType": 3
+                    }
+                ],
+                "Order": 2
+            }
+        ],
+        "Images": [
+            {
+                "CreatedOn": "2009-01-01T12:30:00",
+                "Order": 1,
+                "Url": "http://www.photos.com.au/tmp/imageM.jpg",
+                "Tag": "aaa bbb"
+            },
+            {
+                "CreatedOn": "2009-01-01T12:30:00",
+                "Order": 2,
+                "Url": "http://www.photos.com.au/tmp/imageA.jpg",
+                "Tag": "aaa bbb"
+            }
+        ],
+        "FloorPlans": [
+            {
+                "CreatedOn": "2009-01-01T12:30:00",
+                "Order": 1,
+                "Url": "http://www.photos.com.au/tmp/floorplan1.gif",
+                "Tag": "aaa bbb"
+            },
+            {
+                "CreatedOn": "2009-01-01T12:30:00",
+                "Order": 2,
+                "Url": "http://www.photos.com.au/tmp/floorplan2.gif",
+                "Tag": "aaa bbb"
+            }
+        ],
+        "Videos": [
+            {
+                "CreatedOn": "2016-01-29T01:55:57.3395659Z",
+                "Order": 1,
+                "Url": "http://www.foo.tv/abcd.html",
+                "Tag": "aaa bbb"
+            },
+            {
+                "CreatedOn": "2016-01-29T01:55:57.3395659Z",
+                "Order": 2,
+                "Url": "http://www.foo.tv/qqqq.html",
+                "Tag": "aaa bbb"
+            }
+        ],
+        "Inspections": [
+            {
+                "OpensOn": "2009-01-21T11:00:00",
+                "ClosesOn": "2009-01-21T13:00:00"
+            },
+            {
+                "OpensOn": "2009-01-22T15:00:00",
+                "ClosesOn": "2009-01-22T15:30:00"
+            }
+        ],
+        "LandDetails": {
+            "Area": {
+                "Type": "square",
+                "Value": 80,
+                "ModifiedData": {
+                    "IsModified": true,
+                    "ModifiedProperties": [
+                        "Value",
+                        "Type"
+                    ],
+                    "ModifiedCollections": [ ]
+                }
+            },
+            "Frontage": {
+                "Type": "meter",
+                "Value": 20,
+                "ModifiedData": {
+                    "IsModified": true,
+                    "ModifiedProperties": [
+                        "Value",
+                        "Type"
+                    ],
+                    "ModifiedCollections": [ ]
+                }
+            },
+            "Depths": [
+                {
+                    "Side": "rear",
+                    "Type": "meter",
+                    "Value": 40,
+                    "ModifiedData": {
+                        "IsModified": true,
+                        "ModifiedProperties": [
+                            "Value",
+                            "Type",
+                            "Side"
+                        ],
+                        "ModifiedCollections": [ ]
+                    }
+                },
+                {
+                    "Side": "left",
+                    "Type": "meter",
+                    "Value": 60,
+                    "ModifiedData": {
+                        "IsModified": true,
+                        "ModifiedProperties": [
+                            "Value",
+                            "Type",
+                            "Side"
+                        ],
+                        "ModifiedCollections": [ ]
+                    }
+                },
+                {
+                    "Side": "right",
+                    "Type": "meter",
+                    "Value": 20,
+                    "ModifiedData": {
+                        "IsModified": true,
+                        "ModifiedProperties": [
+                            "Value",
+                            "Type",
+                            "Side"
+                        ],
+                        "ModifiedCollections": [ ]
+                    }
+                }
+            ],
+            "CrossOver": "left",
+            "ModifiedData": {
+                "IsModified": true,
+                "ModifiedProperties": [
+                    "Area",
+                    "Frontage",
+                    "CrossOver"
+                ],
+                "ModifiedCollections": [
+                    "Depths"
+                ]
+            }
+        },
+        "Features": {
+            "Bedrooms": 3,
+            "Bathrooms": 2,
+            "Ensuites": 1,
+            "LivingAreas": 4,
+            "Toilets": 5,
+            "CarParking": {
+                "Carports": 1,
+                "Garages": 2,
+                "OpenSpaces": 3
+            },
+            "Tags": [
+                "heating-other",
+                "hotWaterService-gas",
+                "poolinground",
+                "spainground",
+                "balcony",
+                "courtyard",
+                "shed",
+                "tennisCourt",
+                "secureParking",
+                "remoteGarage",
+                "pool",
+                "outdoorEnt",
+                "openFirePlace",
+                "fullyFenced",
+                "deck",
+                "alarmSystem",
+                "airConditioning",
+                "solarPanels",
+                "waterTank",
+                "houseAndLandPackage",
+                "isANewConstruction"
+            ]
+        },
+        "Links": [
+            "http://www.au.open2view.com/properties/314244/tour#floorplan",
+            "http://www.google.com/hello"
+        ],
+        "Id": "Residential-Current-ABCD1234",
+        "UpdatedOn": "2009-01-01T12:30:00"
+    }
+]
