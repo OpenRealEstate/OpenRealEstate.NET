@@ -10,14 +10,14 @@
         <projectUrl>https://github.com/OpenRealEstate/OpenRealEstate</projectUrl>
         <iconUrl>http://i.imgur.com/bR4Yf.jpg</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>A mediator to validation OpenRealEstate instances.</description>
+        <description>A nice library to validate OpenRealEstate instances.</description>
         <summary>Validation for the OpenRealEstate library.</summary>
         <copyright>2014</copyright>
         <language>en-AU</language>
         <tags>ore ore.net realestate openrealestate worlddomination worldomination unicorn magicalunicorn magical-unicorn</tags>
         <dependencies>
             <dependency id="OpenRealEstate.Core" version="[0.0.0, 1.0.0)" />
-            <dependency id="FluentValidation" version="[6.0.2, 7.0.0)" />
+            <dependency id="FluentValidation" version="[6.1.0, 7.0.0)" />
         </dependencies>
     </metadata>
     <files>
