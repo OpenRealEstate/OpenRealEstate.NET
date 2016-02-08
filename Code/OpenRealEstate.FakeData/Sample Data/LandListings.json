@@ -1,0 +1,716 @@
+﻿[
+    {
+        "ListingType": "Land",
+        "CategoryType": "Residential",
+        "Pricing": {
+            "SalePrice": 89000,
+            "SalePriceText": "$89,000",
+            "SoldPrice": null,
+            "SoldPriceText": null,
+            "SoldOn": null,
+            "IsUnderOffer": false
+        },
+        "AuctionOn": null,
+        "Estate": null,
+        "CouncilRates": null,
+        "AgencyId": "Office-1-1234",
+        "StatusType": "Current",
+        "CreatedOn": "2015-11-07T19:20:07",
+        "Title": "GREAT LOCATION ONLY METRES FROM THE BEACH!",
+        "Description": "Choose this easy to maintain 837m2 allotment to build your dream home where you are only metres from the enticing beach at Mission Beach - an easy walk to the Mission Beach village where you'll discover a wealth of cafes and restaurants, supermarket and gift stores.\n\n            All services - bitumen road and street lighting, power, town water, sewerage.\n\n            Only 5 Klms to the nearby school in Wongaling Beach.\n\n            If you require a good central location and long to live near the beach, make your lifestyle choice today while you can!\n\n            Hurry before sold - $89,000",
+        "Address": {
+            "StreetNumber": "Lot 27",
+            "Street": "Conch Street",
+            "Suburb": "Mission Beach",
+            "Municipality": "Cassowary Coast Regional Council",
+            "State": "QLD",
+            "CountryIsoCode": "AU",
+            "Postcode": "4852",
+            "Latitude": null,
+            "Longitude": null,
+            "IsStreetDisplayed": true
+        },
+        "Agents": [
+            {
+                "Name": "Luke Skywalker",
+                "Communications": [
+                    {
+                        "Details": "IHaveTheForce@rebel.alliance.pewpew",
+                        "CommunicationType": 1
+                    },
+                    {
+                        "Details": "0422 333 444",
+                        "CommunicationType": 2
+                    }
+                ],
+                "Order": 1
+            },
+            {
+                "Name": "Boba Fett",
+                "Communications": [
+                    {
+                        "Details": "slave1@bounty.hunters.gone.wild",
+                        "CommunicationType": 1
+                    },
+                    {
+                        "Details": "0401 111 222",
+                        "CommunicationType": 2
+                    }
+                ],
+                "Order": 2
+            }
+        ],
+        "Images": [
+            {
+                "CreatedOn": "2015-11-07T19:20:07",
+                "Order": 1,
+                "Url": "http://www.someImageServer.com.au/showImage?db=Platform_id=38afed54-c48f-4e5a-b3da-8a0b8bf6293b_width=800_height=600_resize=cp_revision=1",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T19:20:07",
+                "Order": 2,
+                "Url": "http://www.someImageServer.com.au/showImage?db=Platform_id=5fb3398b-6095-4069-9ae4-d372e5506cea_width=800_height=600_resize=cp_revision=1",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T19:20:07",
+                "Order": 3,
+                "Url": "http://www.someImageServer.com.au/showImage?db=Platform_id=f26a80f6-b18d-444d-97c9-28ee2336d796_width=800_height=600_resize=cp_revision=1",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T19:20:07",
+                "Order": 4,
+                "Url": "http://www.someImageServer.com.au/showImage?db=Platform_id=b39902dd-df17-494f-ad03-df7721f701a0_width=800_height=600_resize=cp_revision=1",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T19:20:07",
+                "Order": 5,
+                "Url": "http://www.someImageServer.com.au/showImage?db=Platform_id=4081daed-c3c1-436a-b77b-f7e7d984b15c_width=800_height=600_resize=cp_revision=1",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T19:20:07",
+                "Order": 6,
+                "Url": "http://www.someImageServer.com.au/showImage?db=Platform_id=fb7591c1-cc4e-4d24-a9e1-20a1fd30b251_width=800_height=600_resize=cp_revision=1",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T19:20:07",
+                "Order": 7,
+                "Url": "http://www.someImageServer.com.au/showImage?db=Platform_id=81b66754-fa90-4947-bb4f-4417276ad296_width=800_height=600_resize=cp_revision=1",
+                "Tag": null
+            }
+        ],
+        "FloorPlans": [ ],
+        "Videos": [ ],
+        "Inspections": [ ],
+        "LandDetails": {
+            "Area": {
+                "Type": "squareMeter",
+                "Value": 837
+            },
+            "Frontage": null,
+            "Depths": [ ],
+            "CrossOver": null
+        },
+        "Features": {
+            "Bedrooms": 0,
+            "Bathrooms": 0,
+            "Toilets": 0,
+            "CarParking": {
+                "Garages": 0,
+                "Carports": 0,
+                "OpenSpaces": 0,
+                "TotalCount": 0
+            },
+            "Ensuites": 0,
+            "LivingAreas": 0,
+            "Tags": [ ]
+        },
+        "Links": [ ],
+        "Id": "3c51837a-f03b-4d98-b7ec-b083d682e05e",
+        "UpdatedOn": "2015-11-07T19:20:07"
+    },
+    {
+        "ListingType": "Land",
+        "CategoryType": "Residential",
+        "Pricing": {
+            "SalePrice": 1400000,
+            "SalePriceText": "$170,000 - $200,000",
+            "SoldPrice": null,
+            "SoldPriceText": null,
+            "SoldOn": null,
+            "IsUnderOffer": false
+        },
+        "AuctionOn": null,
+        "Estate": null,
+        "CouncilRates": null,
+        "AgencyId": "Office-2-1234",
+        "StatusType": "Current",
+        "CreatedOn": "2015-11-08T06:27:00+11:00",
+        "Title": "Large Residential 1404sqm Block In Rural Setting!",
+        "Description": "An exciting opportunity exists here for a buyer to secure this attractive, near level parcel of land situated in the picturesque village of Balmoral.\n            Set back off the road, private and peaceful location.\n            Ample shade provided by the few beautiful, mature trees surrounding the block.\n            Private gated entry.\n            Set in a desirable community which offers that real village atmosphere.\n            Ideal for those wishing for a large block with a rural lifestyle to build there new home.\n            Located only a short distance away from the beautiful Southern Highlands, Tahmoor town Centre and motorways.\n            Easy reach to schools and transport.\n            If you want value for money than look no further as this is a rare opportunity and wont last long.",
+        "Address": {
+            "StreetNumber": "31A",
+            "Street": "Railway Parade",
+            "Suburb": "BALMORAL VILLAGE",
+            "Municipality": null,
+            "State": "NSW",
+            "CountryIsoCode": "AU",
+            "Postcode": "2571",
+            "Latitude": -34.311662,
+            "Longitude": 150.520388,
+            "IsStreetDisplayed": true
+        },
+        "Agents": [
+            {
+                "Name": "Princess Leia",
+                "Communications": [
+                    {
+                        "Details": "IAmAPrincess@rebel.alliance.pewpew",
+                        "CommunicationType": 1
+                    },
+                    {
+                        "Details": "1234 567 890",
+                        "CommunicationType": 2
+                    }
+                ],
+                "Order": 1
+            },
+            {
+                "Name": "Han Solo",
+                "Communications": [
+                    {
+                        "Details": "han.solo@rebel.alliance.pewpew",
+                        "CommunicationType": 1
+                    },
+                    {
+                        "Details": "0987 654 321",
+                        "CommunicationType": 2
+                    }
+                ],
+                "Order": 2
+            }
+        ],
+        "Images": [
+            {
+                "CreatedOn": "2015-11-08T06:27:00+11:00",
+                "Order": 1,
+                "Url": "http://www.someImageServer.com.au/showImage/photos/1446895198-29512-20151107_142418_resized.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-08T06:27:00+11:00",
+                "Order": 2,
+                "Url": "http://www.someImageServer.com.au/showImage/photos/1446895149-29499-20151107_142507_resized.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-08T06:27:00+11:00",
+                "Order": 3,
+                "Url": "http://www.someImageServer.com.au/showImage/photos/1446895173-6946-20151107_142426_resized.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-08T06:27:00+11:00",
+                "Order": 4,
+                "Url": "http://www.someImageServer.com.au/showImage/photos/1446895226-6962-20151107_142329_resized.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-08T06:27:00+11:00",
+                "Order": 5,
+                "Url": "http://www.someImageServer.com.au/showImage/photos/1446895251-29528-20151107_141904_resized.jpg",
+                "Tag": null
+            }
+        ],
+        "FloorPlans": [ ],
+        "Videos": [ ],
+        "Inspections": [ ],
+        "LandDetails": {
+            "Area": {
+                "Type": "squareMeter",
+                "Value": 1404
+            },
+            "Frontage": null,
+            "Depths": [ ],
+            "CrossOver": null
+        },
+        "Features": {
+            "Bedrooms": 0,
+            "Bathrooms": 0,
+            "Toilets": 0,
+            "CarParking": {
+                "Garages": 0,
+                "Carports": 0,
+                "OpenSpaces": 0,
+                "TotalCount": 0
+            },
+            "Ensuites": 0,
+            "LivingAreas": 0,
+            "Tags": [
+                "Close to Schools",
+                "Close to Shops",
+                "Close to Transport"
+            ]
+        },
+        "Links": [ ],
+        "Id": "8933350",
+        "UpdatedOn": "2015-11-08T06:27:00+11:00"
+    },
+    {
+        "ListingType": "Land",
+        "CategoryType": "Residential",
+        "Pricing": {
+            "SalePrice": 125000,
+            "SalePriceText": "$125,000",
+            "SoldPrice": null,
+            "SoldPriceText": null,
+            "SoldOn": null,
+            "IsUnderOffer": false
+        },
+        "AuctionOn": null,
+        "Estate": null,
+        "CouncilRates": null,
+        "AgencyId": "Office-1-1234",
+        "StatusType": "Current",
+        "CreatedOn": "2015-11-07T19:20:07",
+        "Title": "PRESTIGIOUS LAND DEVELOPMENT",
+        "Description": "One of the finest home sites in this prestigious development in an elevated area of Mission Beach.  Lot 65 is a generous 971m2.\n\n            A short 500m walk to the beach and a 400m walk to the shopping village, cafes, restaurants and bars. Undoubtedly the best valued blocks within walking distance to the beach in the Mission Beach Village.\n\n            A treed backdrop of native and flowering shrubs ensures your privacy at the rear.  Over 35 metres wide, allowing for you to design a home to suit the block with generous room  on either side of your home for vehicle access to the the rear yard to build your shed an install your pool.\n\n            This development has been designed to offer a tropical style living environment with generous land sizes to plan your home as well as being able to take full advantage of the sea breezes. Covenants apply to maintain the quality of this prestigious area where there's no time-frame in which to build!\n\n            $125,000 Contact Executive Agent Di Wagner on 0419 685 495 for more details.",
+        "Address": {
+            "StreetNumber": "Lot 65",
+            "Street": "Purtaboi Close",
+            "Suburb": "Mission Beach",
+            "Municipality": "Cassowary Coast Regional Council",
+            "State": "QLD",
+            "CountryIsoCode": "AU",
+            "Postcode": "4852",
+            "Latitude": null,
+            "Longitude": null,
+            "IsStreetDisplayed": true
+        },
+        "Agents": [
+            {
+                "Name": "Luke Skywalker",
+                "Communications": [
+                    {
+                        "Details": "IHaveTheForce@rebel.alliance.pewpew",
+                        "CommunicationType": 1
+                    },
+                    {
+                        "Details": "0422 333 444",
+                        "CommunicationType": 2
+                    }
+                ],
+                "Order": 1
+            },
+            {
+                "Name": "Boba Fett",
+                "Communications": [
+                    {
+                        "Details": "slave1@bounty.hunters.gone.wild",
+                        "CommunicationType": 1
+                    },
+                    {
+                        "Details": "0401 111 222",
+                        "CommunicationType": 2
+                    }
+                ],
+                "Order": 2
+            }
+        ],
+        "Images": [
+            {
+                "CreatedOn": "2015-11-07T19:20:07",
+                "Order": 1,
+                "Url": "http://www.someImageServer.com.au/showImage?db=Platform_id=77181680-f34b-48ca-a810-96cba14fff8f_width=800_height=600_resize=cp_revision=1",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T19:20:07",
+                "Order": 2,
+                "Url": "http://www.someImageServer.com.au/showImage?db=Platform_id=28eb8819-4d49-46a3-9d9a-60d2da82a305_width=800_height=600_resize=cp_revision=6",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T19:20:07",
+                "Order": 3,
+                "Url": "http://www.someImageServer.com.au/showImage?db=Platform_id=9c6b78d5-c1d2-41e1-9024-2a7883b12ed3_width=800_height=600_resize=cp_revision=2",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T19:20:07",
+                "Order": 4,
+                "Url": "http://www.someImageServer.com.au/showImage?db=Platform_id=8815aca7-2559-40b4-a90c-94e4475e3f5c_width=800_height=600_resize=cp_revision=6",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T19:20:07",
+                "Order": 5,
+                "Url": "http://www.someImageServer.com.au/showImage?db=Platform_id=8b05f23e-c789-4ab8-8cc1-d90d9d14c5cc_width=800_height=600_resize=cp_revision=6",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T19:20:07",
+                "Order": 6,
+                "Url": "http://www.someImageServer.com.au/showImage?db=Platform_id=5aa1c6b7-0827-41c4-bc04-86c8defa3c24_width=800_height=600_resize=cp_revision=1",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T19:20:07",
+                "Order": 7,
+                "Url": "http://www.someImageServer.com.au/showImage?db=Platform_id=8d7e40ee-0fde-4a33-945f-3e6f72ce1ebd_width=800_height=600_resize=cp_revision=1",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T19:20:07",
+                "Order": 8,
+                "Url": "http://www.someImageServer.com.au/showImage?db=Platform_id=7b69cf7e-0aec-4d75-af1c-961c4c58fd01_width=800_height=600_resize=cp_revision=6",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T19:20:07",
+                "Order": 9,
+                "Url": "http://www.someImageServer.com.au/showImage?db=Platform_id=81eca14c-528f-4a06-9b68-8e40aca4e7b8_width=800_height=600_resize=cp_revision=6",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T19:20:07",
+                "Order": 10,
+                "Url": "http://www.someImageServer.com.au/showImage?db=Platform_id=8f5ad2dd-0c35-4bf3-92c3-6c5abf8a8fed_width=800_height=600_resize=cp_revision=6",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T19:20:07",
+                "Order": 11,
+                "Url": "http://www.someImageServer.com.au/showImage?db=Platform_id=9be44667-3723-4e67-8fe2-ce7c0959d1c2_width=800_height=600_resize=cp_revision=6",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T19:20:07",
+                "Order": 12,
+                "Url": "http://www.someImageServer.com.au/showImage?db=Platform_id=7b22b147-2341-4c93-bb9d-4bf4bf55c023_width=800_height=600_resize=cp_revision=1",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T19:20:07",
+                "Order": 13,
+                "Url": "http://www.someImageServer.com.au/showImage?db=Platform_id=6e320139-49c1-48f2-882b-9eac9013c086_width=800_height=600_resize=cp_revision=1",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T19:20:07",
+                "Order": 15,
+                "Url": "http://www.someImageServer.com.au/showImage?db=Platform_id=00db48e0-4510-412f-9287-8d1cb7f894dc_width=800_height=600_resize=cp_revision=1",
+                "Tag": null
+            }
+        ],
+        "FloorPlans": [ ],
+        "Videos": [ ],
+        "Inspections": [ ],
+        "LandDetails": {
+            "Area": {
+                "Type": "squareMeter",
+                "Value": 971
+            },
+            "Frontage": null,
+            "Depths": [ ],
+            "CrossOver": null
+        },
+        "Features": {
+            "Bedrooms": 0,
+            "Bathrooms": 0,
+            "Toilets": 0,
+            "CarParking": {
+                "Garages": 0,
+                "Carports": 0,
+                "OpenSpaces": 0,
+                "TotalCount": 0
+            },
+            "Ensuites": 0,
+            "LivingAreas": 0,
+            "Tags": [ ]
+        },
+        "Links": [ ],
+        "Id": "1f4e2782-435c-4f00-b649-5abdd0864afc",
+        "UpdatedOn": "2015-11-07T19:20:07"
+    },
+    {
+        "ListingType": "Land",
+        "CategoryType": "Residential",
+        "Pricing": {
+            "SalePrice": 74999,
+            "SalePriceText": "$74,999",
+            "SoldPrice": null,
+            "SoldPriceText": null,
+            "SoldOn": null,
+            "IsUnderOffer": false
+        },
+        "AuctionOn": null,
+        "Estate": null,
+        "CouncilRates": null,
+        "AgencyId": "Office-2-1234",
+        "StatusType": "Current",
+        "CreatedOn": "2015-11-07T12:16:25",
+        "Title": "Seaside block at great price",
+        "Description": "Located in  the popular, peaceful seaside village of The Pines, this 874sqm block is situated only a 200m walk from the safe beach. Being elevated on the seaward end the block presents a number of building options, depending on what your budget can afford. A second storey on the elevated section would allow good sea-views. Power runs past the block.\n            Facing North, The Pines beach escapes most of the winter bluster and is naturally air-conditioned during the hot summer Northerlies.\n            The boat ramp affords easy access for boat fishermen to the Whiting grounds offshore and the calm waters provide safe swimming and beach fishing for young and old.\n            The Pines store is only a short walk and Corny Point is 10 minutes by car.\n            All that the Bottom end of Yorke Peninsula offers is only a short drive away.\n            Imagine those balmy summer evenings on the beach enjoying the wonderful views that nature provides, the smell of Whiting cooking after another successful day out on the water, or socialising with new friends made in this friendly village.\n            The current owner is keen to sell.\n\n            RLA102485",
+        "Address": {
+            "StreetNumber": "15",
+            "Street": "Ti-Tree road",
+            "Suburb": "The Pines",
+            "Municipality": null,
+            "State": "SA",
+            "CountryIsoCode": "AU",
+            "Postcode": "5577",
+            "Latitude": null,
+            "Longitude": null,
+            "IsStreetDisplayed": true
+        },
+        "Agents": [
+            {
+                "Name": "Princess Leia",
+                "Communications": [
+                    {
+                        "Details": "IAmAPrincess@rebel.alliance.pewpew",
+                        "CommunicationType": 1
+                    },
+                    {
+                        "Details": "1234 567 890",
+                        "CommunicationType": 2
+                    }
+                ],
+                "Order": 1
+            },
+            {
+                "Name": "Han Solo",
+                "Communications": [
+                    {
+                        "Details": "han.solo@rebel.alliance.pewpew",
+                        "CommunicationType": 1
+                    },
+                    {
+                        "Details": "0987 654 321",
+                        "CommunicationType": 2
+                    }
+                ],
+                "Order": 2
+            }
+        ],
+        "Images": [
+            {
+                "CreatedOn": "2011-11-16T01:43:41",
+                "Order": 1,
+                "Url": "http://www.someImageServer.com.au/showImage/520-LMO2287-Yorke-Peninsula.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2011-11-13T23:46:27",
+                "Order": 2,
+                "Url": "http://www.someImageServer.com.au/showImage/016/806/381-LMO2287-Ti-Tree-road-The-Pines-Yorke-Peninsula-South-Australia-Australia.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2011-11-13T23:46:27",
+                "Order": 3,
+                "Url": "http://www.someImageServer.com.au/showImage/016/806/389-LMO2287-Ti-Tree-road-The-Pines-Yorke-Peninsula-South-Australia-Australia.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2011-11-13T23:46:27",
+                "Order": 4,
+                "Url": "http://www.someImageServer.com.au/showImage/016/806/397-LMO2287-Ti-Tree-road-The-Pines-Yorke-Peninsula-South-Australia-Australia.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2011-11-13T23:46:27",
+                "Order": 5,
+                "Url": "http://www.someImageServer.com.au/showImage/015/715/690-LMO2287-Ti-Tree-road-The-Pines-Yorke-Peninsula-South-Australia-Australia.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2011-11-13T23:46:27",
+                "Order": 6,
+                "Url": "http://www.someImageServer.com.au/showImage/015/715/730-LMO2287-Ti-Tree-road-The-Pines-Yorke-Peninsula-South-Australia-Australia.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2011-11-13T23:46:27",
+                "Order": 7,
+                "Url": "http://www.someImageServer.com.au/showImage/015/715/738-LMO2287-Ti-Tree-road-The-Pines-Yorke-Peninsula-South-Australia-Australia.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2011-11-13T23:46:27",
+                "Order": 8,
+                "Url": "http://www.someImageServer.com.au/showImage/015/715/682-LMO2287-Ti-Tree-road-The-Pines-Yorke-Peninsula-South-Australia-Australia.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2011-11-13T23:48:01",
+                "Order": 9,
+                "Url": "http://www.someImageServer.com.au/showImage/016/806/405-LMO2287-Ti-Tree-road-The-Pines-Yorke-Peninsula-South-Australia-Australia.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2011-11-13T23:47:48",
+                "Order": 10,
+                "Url": "http://www.someImageServer.com.au/showImage/016/806/488-LMO2287-Ti-Tree-road-The-Pines-Yorke-Peninsula-South-Australia-Australia.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2011-11-16T01:43:55",
+                "Order": 11,
+                "Url": "http://www.someImageServer.com.au/showImage/016/806/373-LMO2287-Ti-Tree-road-The-Pines-Yorke-Peninsula-South-Australia-Australia.jpg",
+                "Tag": null
+            }
+        ],
+        "FloorPlans": [ ],
+        "Videos": [ ],
+        "Inspections": [ ],
+        "LandDetails": {
+            "Area": {
+                "Type": "squareMeter",
+                "Value": 874
+            },
+            "Frontage": null,
+            "Depths": [ ],
+            "CrossOver": null
+        },
+        "Features": null,
+        "Links": [ ],
+        "Id": "LMO2287",
+        "UpdatedOn": "2015-11-07T12:16:25"
+    },
+    {
+        "ListingType": "Land",
+        "CategoryType": "Residential",
+        "Pricing": {
+            "SalePrice": 89000,
+            "SalePriceText": "$89,000",
+            "SoldPrice": null,
+            "SoldPriceText": null,
+            "SoldOn": null,
+            "IsUnderOffer": false
+        },
+        "AuctionOn": null,
+        "Estate": null,
+        "CouncilRates": null,
+        "AgencyId": "Office-2-1234",
+        "StatusType": "Current",
+        "CreatedOn": "2015-11-07T19:20:07",
+        "Title": "GREAT BLOCK IN SUPER LOCATION!",
+        "Description": "Lot 28 Conch Street, Mission Beach\n\n            Only metres from the enticing beach at Mission Beach is this easy to maintain 838m2 allotment with an easy walk to the Mission Beach village from this area of Mission Beach where you discover a wealth of cafes and restaurants, supermarket and gift stores.\n\n            All services - bitumen road and street lighting, power, town water, sewerage.\n\n            Only 5 Klms to the nearby school in Wongaling Beach.\n\n            If you require a good central location and long to live near the beach, make your lifestyle choice today.\n\n            Hurry before sold - $89,000",
+        "Address": {
+            "StreetNumber": "Lot 28",
+            "Street": "Conch Street",
+            "Suburb": "Mission Beach",
+            "Municipality": "Cassowary Coast Regional Council",
+            "State": "QLD",
+            "CountryIsoCode": "AU",
+            "Postcode": "4852",
+            "Latitude": null,
+            "Longitude": null,
+            "IsStreetDisplayed": true
+        },
+        "Agents": [
+            {
+                "Name": "Princess Leia",
+                "Communications": [
+                    {
+                        "Details": "IAmAPrincess@rebel.alliance.pewpew",
+                        "CommunicationType": 1
+                    },
+                    {
+                        "Details": "1234 567 890",
+                        "CommunicationType": 2
+                    }
+                ],
+                "Order": 1
+            },
+            {
+                "Name": "Han Solo",
+                "Communications": [
+                    {
+                        "Details": "han.solo@rebel.alliance.pewpew",
+                        "CommunicationType": 1
+                    },
+                    {
+                        "Details": "0987 654 321",
+                        "CommunicationType": 2
+                    }
+                ],
+                "Order": 2
+            }
+        ],
+        "Images": [
+            {
+                "CreatedOn": "2015-11-07T19:20:07",
+                "Order": 1,
+                "Url": "http://www.someImageServer.com.au/showImage?db=Platform_id=289aa174-2f57-46b5-be7a-176bc5a4a7f7_width=800_height=600_resize=cp_revision=1",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T19:20:07",
+                "Order": 2,
+                "Url": "http://www.someImageServer.com.au/showImage?db=Platform_id=41074962-2849-4d18-8a2e-475f35dfe6c6_width=800_height=600_resize=cp_revision=1",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T19:20:07",
+                "Order": 3,
+                "Url": "http://www.someImageServer.com.au/showImage?db=Platform_id=70e2f96e-8fa4-43c9-9078-46c16fc09635_width=800_height=600_resize=cp_revision=1",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T19:20:07",
+                "Order": 4,
+                "Url": "http://www.someImageServer.com.au/showImage?db=Platform_id=64cb7a01-ea72-4dba-a897-daa96bb75cda_width=800_height=600_resize=cp_revision=1",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T19:20:07",
+                "Order": 5,
+                "Url": "http://www.someImageServer.com.au/showImage?db=Platform_id=9f4bd1c6-60da-42a6-bf4e-9ffa59307bb0_width=800_height=600_resize=cp_revision=1",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T19:20:07",
+                "Order": 6,
+                "Url": "http://www.someImageServer.com.au/showImage?db=Platform_id=9ffde613-38cd-4728-8565-9a9d3ca63493_width=800_height=600_resize=cp_revision=1",
+                "Tag": null
+            }
+        ],
+        "FloorPlans": [ ],
+        "Videos": [ ],
+        "Inspections": [ ],
+        "LandDetails": {
+            "Area": {
+                "Type": "squareMeter",
+                "Value": 838
+            },
+            "Frontage": null,
+            "Depths": [ ],
+            "CrossOver": null
+        },
+        "Features": {
+            "Bedrooms": 0,
+            "Bathrooms": 0,
+            "Toilets": 0,
+            "CarParking": {
+                "Garages": 0,
+                "Carports": 0,
+                "OpenSpaces": 0,
+                "TotalCount": 0
+            },
+            "Ensuites": 0,
+            "LivingAreas": 0,
+            "Tags": [ ]
+        },
+        "Links": [ ],
+        "Id": "ef09f9fb-ecb0-412a-b63f-7779903b8a69",
+        "UpdatedOn": "2015-11-07T19:20:07"
+    }
+]

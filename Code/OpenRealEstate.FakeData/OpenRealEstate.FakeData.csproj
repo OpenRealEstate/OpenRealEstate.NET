@@ -56,11 +56,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Data\LandListings.json" />
-    <None Include="Data\RentalListings.json" />
-    <None Include="Data\ResidentialListings.json" />
-    <None Include="Data\RuralListings.json" />
     <None Include="packages.config" />
+    <None Include="Sample Data\LandListings.json" />
+    <None Include="Sample Data\RentalListings.json" />
+    <None Include="Sample Data\ResidentialListings.json" />
+    <None Include="Sample Data\RuralListings.json" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OpenRealEstate.Core\OpenRealEstate.Core.csproj">

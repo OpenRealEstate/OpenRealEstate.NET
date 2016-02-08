@@ -1,0 +1,1131 @@
+﻿[
+    {
+        "ListingType": "Rural",
+        "CategoryType": "Other",
+        "Pricing": {
+            "SalePrice": 440000.0,
+            "SalePriceText": "$440,000",
+            "SoldPrice": null,
+            "SoldPriceText": null,
+            "SoldOn": null,
+            "IsUnderOffer": false
+        },
+        "AuctionOn": null,
+        "RuralFeatures": null,
+        "CouncilRates": null,
+        "BuildingDetails": {
+            "Area": {
+                "Type": "squareMeter",
+                "Value": 92.0
+            },
+            "EnergyRating": null
+        },
+        "AgencyId": "Office-1-1234",
+        "StatusType": "Current",
+        "CreatedOn": "2015-11-07T21:50:22",
+        "Title": "self-sufficient life close to coast",
+        "Description": "A truly unique property, extremely private yet just minutes to all services and amenities, large organic fruit and vegetable garden supplying food almost all year round. Room for stock in the clean open pastures. Walking tracks through private forest, beautiful east coast beaches just minutes away.\n\nThe details \n- 75 acres on 2 titles with ocean views\n- extremely private, 1.4km from the main road, at the end of a small lane off a no-through road. The house is reached via a 100m driveway through forest which opens out to lovely gardens and pasture.\n- approx. 30 acres of the property are pasture & bush; balance protected by a forest covenant.\n- abundant wildlife. \n- only 5 mins to the gorgeous & vibrant town of St Marys with school to grade 10, child care centre, medical centre/hospital, community car service, public library, on-line centre, pub, supermarkets, bank, post office, chemist, health food shop, cafes, clothing/other shops, alternative health services. Men's shed, woodcraft guild, choir & many other arts/community groups. Access to school swimming pool.\n- short drive to beautiful east coast surf beaches. Great beach & river fishing & kayaking. Lots of good walking nearby. \n- 30 mins to the larger town of St Helens. 1¼hrs to Launceston airport, an extra 15 min to Launceston itself.  About 2½hrs to Hobart.\n\nExtensively & lovingly renovated north-east facing home with\n- new roof, weatherboards & plasterwork\n- new double-glazed windows and doors\n- insulated walls/floor/ceiling\n- grid-connect solar power, & solar hot water \n- heating by a Nectre wood heater with oven \n- floors are original polished timber\n- open plan living area (lounge/kitchen/dining)\n- mosaic tiling features throughout\n- all internal doors are original Baltic pine, stripped back & restored \n- built-ins in 2 bedrooms\n- large linen press \n- large built-in bookshelf\n- large built-in window seat which doubles as wood box\n- kitchen has double sink, big drawers, pantry, Electrolux induction cooktop, Westinghouse oven, solid large slab of brown-top stringy bark timber for the counter\n- bathroom has a shower, bathtub, mosaic tiling & another slab of brown-top stringy bark for the top of the vanity\n- separate toilet\n- laundry\n- 2 verandas\n- paving and sandstone landscaping with gardens around the house.\n\n Outside\n- many original outbuildings, including small bungalow with veranda next to the house (could be converted to B and B STCA), garden shed, carports, woodshed, stables, etc. \n- 220sqm fully-enclosed bio-dynamic food production area. All beds with drip-irrigation. Fruit trees are espaliered on semi-dwarf root stock & all heritage varieties. They include apples, plums, a fig, pears, quince & cherries. Also blueberries, raspberries, strawberries, gooseberry. 8 long vegetable growing beds. \n- large compost bins, a dam, a 26,000 litre house water tank, plus smaller tank off the bungalow, 2 x 14 000 litre tanks to gravity-feed food production area & house gardens. These tanks are also connected to buried waterline encircling the house for fire-fighting purposes if necessary.\n- electric-fenced garden around the house includes herb garden, many specialty plants, native sections, huge range of bulbs.  \n- extending out to the paddocks the are specimen trees such as Scarlet ash, silver birch, stone pines, walnuts, etc & large areas of revegetation of native species.",
+        "Address": {
+            "StreetNumber": "22",
+            "Street": "Denneys Rd",
+            "Suburb": "ST MARYS",
+            "Municipality": null,
+            "State": "TAS",
+            "CountryIsoCode": "AU",
+            "Postcode": "7215",
+            "Latitude": -41.551563,
+            "Longitude": 148.19576800000004,
+            "IsStreetDisplayed": true
+        },
+        "Agents": [
+            {
+                "Name": "Luke Skywalker",
+                "Communications": [
+                    {
+                        "Details": "IHaveTheForce@rebel.alliance.pewpew",
+                        "CommunicationType": 1
+                    },
+                    {
+                        "Details": "0422 333 444",
+                        "CommunicationType": 2
+                    }
+                ],
+                "Order": 1
+            },
+            {
+                "Name": "Boba Fett",
+                "Communications": [
+                    {
+                        "Details": "slave1@bounty.hunters.gone.wild",
+                        "CommunicationType": 1
+                    },
+                    {
+                        "Details": "0401 111 222",
+                        "CommunicationType": 2
+                    }
+                ],
+                "Order": 2
+            }
+
+        ],
+        "Images": [
+            {
+                "CreatedOn": "2015-11-07T13:57:26",
+                "Order": 1,
+                "Url": "http://www.someImageServer.com.au/showImage/1db58007ebd50a43d306042096ebd6110eb5ffc8",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:57:26",
+                "Order": 2,
+                "Url": "http://www.someImageServer.com.au/showImage/de702bf3f6bea5af99d151e35abd7d68330f9edf",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:57:26",
+                "Order": 3,
+                "Url": "http://www.someImageServer.com.au/showImage/7daf57bb27fa0a1ca79693b1afd3ec2c50c8e954",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:57:26",
+                "Order": 4,
+                "Url": "http://www.someImageServer.com.au/showImage/394308d48c6781fb101eaf1a61bae7d964c4e165",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:57:26",
+                "Order": 5,
+                "Url": "http://www.someImageServer.com.au/showImage/e83c976167f5257172882758d337dd7b8325b27e",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:57:26",
+                "Order": 6,
+                "Url": "http://www.someImageServer.com.au/showImage/7ea855493072106df343f9ac643370dd324ecc46",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:57:26",
+                "Order": 7,
+                "Url": "http://www.someImageServer.com.au/showImage/110d19f28d8743a8c98e334034b1f0906707e796",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:57:26",
+                "Order": 8,
+                "Url": "http://www.someImageServer.com.au/showImage/49fd57baf6dd92538613a449a1aacd226ca5d863",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:57:26",
+                "Order": 9,
+                "Url": "http://www.someImageServer.com.au/showImage/214b8584763b43ff2c94346dc79bdd99a8eac64a",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:57:26",
+                "Order": 10,
+                "Url": "http://www.someImageServer.com.au/showImage/df276a3b5cd4425771c2fad8df79f35999db442d",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:57:26",
+                "Order": 11,
+                "Url": "http://www.someImageServer.com.au/showImage/1ae33cf6f4564012a6a94a0786bec1686eb78f45",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:57:26",
+                "Order": 12,
+                "Url": "http://www.someImageServer.com.au/showImage/3baf8c31c33c90ebce54c2b337528f0f9bc382bf",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:57:26",
+                "Order": 13,
+                "Url": "http://www.someImageServer.com.au/showImage/164c0590479a31cedd35ff97952a51976e2eb81c",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:57:26",
+                "Order": 15,
+                "Url": "http://www.someImageServer.com.au/showImage/ec746d83011e26453d3395b9956f49d2b8fd5779",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:57:26",
+                "Order": 16,
+                "Url": "http://www.someImageServer.com.au/showImage/8f137dd6da6ebd714b224f55085fd542726e8f51",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:57:26",
+                "Order": 17,
+                "Url": "http://www.someImageServer.com.au/showImage/964998744995e08ba2b63d45c0a39d12469dcc89",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:57:26",
+                "Order": 18,
+                "Url": "http://www.someImageServer.com.au/showImage/f074f1805e276b7a84feca1b62468007cef02dad",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:57:26",
+                "Order": 19,
+                "Url": "http://www.someImageServer.com.au/showImage/367df3dae8a8853dc81a7aa39de650bd23b2eb80",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:57:26",
+                "Order": 20,
+                "Url": "http://www.someImageServer.com.au/showImage/b73b8a6ee40b4540d294648b660fcece0ccaa70f",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:57:26",
+                "Order": 21,
+                "Url": "http://www.someImageServer.com.au/showImage/144eb68fdaeb790beb2e0a341ce6fe8f3f71d2db",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:57:26",
+                "Order": 22,
+                "Url": "http://www.someImageServer.com.au/showImage/75aefa26828d862464fa23b9a3d65e41fbe036c3",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:57:26",
+                "Order": 23,
+                "Url": "http://www.someImageServer.com.au/showImage/2d0ccb27f076695303d2abeea207017eeffd61d6",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:57:26",
+                "Order": 24,
+                "Url": "http://www.someImageServer.com.au/showImage/9fa1ea034a7f8ae3aa0f00b20db7141e85945640",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:57:26",
+                "Order": 25,
+                "Url": "http://www.someImageServer.com.au/showImage/d7cf1d58d784e00d3d76a076a5f98bb505f2fc10",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:57:26",
+                "Order": 26,
+                "Url": "http://www.someImageServer.com.au/showImage/e6200c4f46fe78e791c7f115e2f0fec5cb6bd1da",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:57:26",
+                "Order": 27,
+                "Url": "http://www.someImageServer.com.au/showImage/206afdea6deab11d86e30109acd59c678563984d",
+                "Tag": null
+            }
+        ],
+        "FloorPlans": [ ],
+        "Videos": [ ],
+        "Inspections": [ ],
+        "LandDetails": {
+            "Area": {
+                "Type": "acre",
+                "Value": 75.0
+            },
+            "Frontage": null,
+            "Depths": [ ],
+            "CrossOver": null
+        },
+        "Features": {
+            "Bedrooms": 3,
+            "Bathrooms": 1,
+            "Toilets": 0,
+            "CarParking": {
+                "Garages": 0,
+                "Carports": 3,
+                "OpenSpaces": 0,
+                "TotalCount": 3
+            },
+            "Ensuites": 0,
+            "LivingAreas": 0,
+            "Tags": [ ]
+        },
+        "Links": [ ],
+        "Id": "2501414",
+        "UpdatedOn": "2015-11-07T21:50:22"
+    },
+    {
+        "ListingType": "Rural",
+        "CategoryType": "Lifestyle",
+        "Pricing": {
+            "SalePrice": 400000.0,
+            "SalePriceText": "$429,000",
+            "SoldPrice": null,
+            "SoldPriceText": null,
+            "SoldOn": null,
+            "IsUnderOffer": false
+        },
+        "AuctionOn": null,
+        "RuralFeatures": {
+            "Fencing": null,
+            "AnnualRainfall": null,
+            "SoilTypes": null,
+            "Improvements": null,
+            "Irrigation": null,
+            "CarryingCapacity": null,
+            "Services": null
+        },
+        "CouncilRates": null,
+        "BuildingDetails": {
+            "Area": null,
+            "EnergyRating": null
+        },
+        "AgencyId": "Office-1-1234",
+        "StatusType": "Current",
+        "CreatedOn": "2015-11-07T20:39:00+11:00",
+        "Title": "Start your Rural Dream HERE!",
+        "Description": "Located approx 10 minutes from Kyogle in a quiet valley, this stunning property is 32 acres of usable land with access to 2 creeks for all your water needs.\n            Look out over the property from the beautifully presented brick & tile homestead with 3 good size bedrooms, open plan kitchen/dining & lounge room featuring newly laid bamboo flooring. Surrounding the home are lovingly established gardens & a shade house perfect for those with a green thumb or who just love the outdoors.\n            Ample water is provided with 45000L of rain water and a separate 7000L for the gardens.Other improvements include a 6 x 6m double lock up garage, a 9 x 7m machinery shed & a set of stock yards to make cattle handling a breeze.\n            Ideal for a cattle or horses, an inspection is a must to appreciate the true beauty of this property.",
+        "Address": {
+            "StreetNumber": "640",
+            "Street": "Ettrick Road, Ettrick Via",
+            "Suburb": "KYOGLE",
+            "Municipality": null,
+            "State": "NSW",
+            "CountryIsoCode": "AU",
+            "Postcode": "2474",
+            "Latitude": -28.641508,
+            "Longitude": 152.924778,
+            "IsStreetDisplayed": true
+        },
+        "Agents": [
+            {
+                "Name": "Luke Skywalker",
+                "Communications": [
+                    {
+                        "Details": "IHaveTheForce@rebel.alliance.pewpew",
+                        "CommunicationType": 1
+                    },
+                    {
+                        "Details": "0422 333 444",
+                        "CommunicationType": 2
+                    }
+                ],
+                "Order": 1
+            },
+            {
+                "Name": "Boba Fett",
+                "Communications": [
+                    {
+                        "Details": "slave1@bounty.hunters.gone.wild",
+                        "CommunicationType": 1
+                    },
+                    {
+                        "Details": "0401 111 222",
+                        "CommunicationType": 2
+                    }
+                ],
+                "Order": 2
+            }
+
+        ],
+        "Images": [
+            {
+                "CreatedOn": "2015-11-07T20:39:00+11:00",
+                "Order": 1,
+                "Url": "http://www.someImageServer.com.au/showImage/1397518171-16286-dsc_7243a.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T20:39:00+11:00",
+                "Order": 2,
+                "Url": "http://www.someImageServer.com.au/showImage/1397518025-8572-dsc_7156.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T20:39:00+11:00",
+                "Order": 3,
+                "Url": "http://www.someImageServer.com.au/showImage/1397518201-18319-dsc_7253a.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T20:39:00+11:00",
+                "Order": 4,
+                "Url": "http://www.someImageServer.com.au/showImage/1397518001-7202-dsc_7142.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T20:39:00+11:00",
+                "Order": 5,
+                "Url": "http://www.someImageServer.com.au/showImage/1397518212-19035-dsc_7318.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T20:39:00+11:00",
+                "Order": 6,
+                "Url": "http://www.someImageServer.com.au/showImage/1397518166-15397-dsc_7215a.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T20:39:00+11:00",
+                "Order": 7,
+                "Url": "http://www.someImageServer.com.au/showImage/1397527624-17930-dsc_7222.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T20:39:00+11:00",
+                "Order": 8,
+                "Url": "http://www.someImageServer.com.au/showImage/1397527647-18217-dsc_7268.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T20:39:00+11:00",
+                "Order": 9,
+                "Url": "http://www.someImageServer.com.au/showImage/1397518046-9373-dsc_7169.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T20:39:00+11:00",
+                "Order": 10,
+                "Url": "http://www.someImageServer.com.au/showImage/1397518050-9667-dsc_7173.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T20:39:00+11:00",
+                "Order": 11,
+                "Url": "http://www.someImageServer.com.au/showImage/1397518049-10210-dsc_7183.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T20:39:00+11:00",
+                "Order": 12,
+                "Url": "http://www.someImageServer.com.au/showImage/1397518123-14090-dsc_7202.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T20:39:00+11:00",
+                "Order": 13,
+                "Url": "http://www.someImageServer.com.au/showImage/1397550180-28015-IMG_0551.JPG",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T20:39:00+11:00",
+                "Order": 15,
+                "Url": "http://www.someImageServer.com.au/showImage/1397550213-2872...81102913_20151107095126_800x600.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:20:37",
+                "Order": 19,
+                "Url": "http://www.someImageServer.com.au/showImage019_Open2view_ID3837_1569115077_20151107095342_800x600.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:20:37",
+                "Order": 20,
+                "Url": "http://www.someImageServer.com.au/showImage018_Open2view_ID3837_2006385941_20151107095355_800x600.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T10:02:17",
+                "Order": 21,
+                "Url": "http://www.someImageServer.com.au/showImage020_Open2view_ID3837_4374832199_20151107095619_800x600.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T10:02:17",
+                "Order": 22,
+                "Url": "http://www.someImageServer.com.au/showImage021_Open2view_ID3837_2152540912_20151107095611_800x600.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T10:02:17",
+                "Order": 23,
+                "Url": "http://www.someImageServer.com.au/showImage022_Open2view_ID3837_6960380366_20151107095937_800x600.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T10:02:17",
+                "Order": 24,
+                "Url": "http://www.someImageServer.com.au/showImage023_Open2view_ID3837_2890865728_20151107095930_800x600.jpg",
+                "Tag": null
+            }
+        ],
+        "FloorPlans": [
+            {
+                "CreatedOn": "2015-11-07T10:02:17",
+                "Order": 1,
+                "Url": "http://www.someImageServer.com.au/showImage/025_Open2view_ID3837_9291349049_20151107093354.jpg",
+                "Tag": null
+            }
+        ],
+        "Videos": [ ],
+        "Inspections": [ ],
+        "LandDetails": {
+            "Area": null,
+            "Frontage": null,
+            "Depths": [ ],
+            "CrossOver": null
+        },
+        "Features": {
+            "Bedrooms": 3,
+            "Bathrooms": 2,
+            "Toilets": 2,
+            "CarParking": {
+                "Garages": 5,
+                "Carports": 0,
+                "OpenSpaces": 0,
+                "TotalCount": 5
+            },
+            "Ensuites": 0,
+            "LivingAreas": 2,
+            "Tags": [
+                "hotWaterService-electric",
+                "splitSystemHeating",
+                "splitSystemAirCon",
+                "shed",
+                "secureParking",
+                "rumpusRoom",
+                "payTV",
+                "outdoorEnt",
+                "fullyFenced",
+                "floorboards",
+                "dishwasher",
+                "builtInRobes",
+                "broadband",
+                "waterTank"
+            ]
+        },
+        "Links": [ ],
+        "Id": "R2-625096",
+        "UpdatedOn": "2015-11-07T04:11:09"
+    },
+    {
+        "ListingType": "Rural",
+        "CategoryType": "Lifestyle",
+        "Pricing": {
+            "SalePrice": 150000.0,
+            "SalePriceText": "registrations of interest",
+            "SoldPrice": null,
+            "SoldPriceText": null,
+            "SoldOn": null,
+            "IsUnderOffer": false
+        },
+        "AuctionOn": null,
+        "RuralFeatures": {
+            "Fencing": null,
+            "AnnualRainfall": null,
+            "SoilTypes": null,
+            "Improvements": null,
+            "Irrigation": null,
+            "CarryingCapacity": null,
+            "Services": null
+        },
+        "CouncilRates": null,
+        "BuildingDetails": null,
+        "AgencyId": "Office-2-1234",
+        "StatusType": "Current",
+        "CreatedOn": "2015-11-07T13:10:00",
+        "Title": "A Very Rare Coastal Opportunity",
+        "Description": "It's a nature lover's paradise.  Very tightly held coastal land that rarely comes onto the market.  Comprising 3.64 hectares with a fantastic wide frontage of 203 metres facing Long Beach on Lacepede Bay.  The beautiful undulating land with moderate covering of coastal vegetation with an elevated dune ridge running parallel with the coast line, offering serene ocean views.  Power running past land on Toop North Road.  Only a short drive to town centre.  Enjoy the privacy and serenity this location offers and still only a short drive to the town centre.\n\n            RLA 165253",
+        "Address": {
+            "StreetNumber": "Section 50",
+            "Street": "Toop North Road",
+            "Suburb": "Kingston Se",
+            "Municipality": null,
+            "State": "SA",
+            "CountryIsoCode": "AU",
+            "Postcode": "5275",
+            "Latitude": -36.815444,
+            "Longitude": 139.858435,
+            "IsStreetDisplayed": true
+        },
+        "Agents": [
+            {
+                "Name": "Princess Leia",
+                "Communications": [
+                    {
+                        "Details": "IAmAPrincess@rebel.alliance.pewpew",
+                        "CommunicationType": 1
+                    },
+                    {
+                        "Details": "1234 567 890",
+                        "CommunicationType": 2
+                    }
+                ],
+                "Order": 1
+            },
+            {
+                "Name": "Han Solo",
+                "Communications": [
+                    {
+                        "Details": "han.solo@rebel.alliance.pewpew",
+                        "CommunicationType": 1
+                    },
+                    {
+                        "Details": "0987 654 321",
+                        "CommunicationType": 2
+                    }
+                ],
+                "Order": 2
+            }
+        ],
+        "Images": [
+            {
+                "CreatedOn": "2015-11-07T13:10:00",
+                "Order": 1,
+                "Url": "http://www.someImageServer.com.au/showImageS1310-1445919386-25795-DSC_2635-Copy.JPG",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:10:00",
+                "Order": 2,
+                "Url": "http://www.someImageServer.com.au/showImageS1310-1445919369-25666-DSC_2625.JPG",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:10:00",
+                "Order": 3,
+                "Url": "http://www.someImageServer.com.au/showImageS1310-1445919373-25707-DSC_2629.JPG",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:10:00",
+                "Order": 4,
+                "Url": "http://www.someImageServer.com.au/showImageS1310-1445919378-25734-DSC_2631.JPG",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:10:00",
+                "Order": 5,
+                "Url": "http://www.someImageServer.com.au/showImageS1310-1445919382-25760-DSC_2633.JPG",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:10:00",
+                "Order": 6,
+                "Url": "http://www.someImageServer.com.au/showImageS1310-1445919390-25815-DSC_2636.JPG",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:10:00",
+                "Order": 7,
+                "Url": "http://www.someImageServer.com.au/showImageS1310-1444877278-11188-property_map7.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:10:00",
+                "Order": 8,
+                "Url": "http://www.someImageServer.com.au/showImageS1310-1444877265-2382-Plan.jpg",
+                "Tag": null
+            }
+        ],
+        "FloorPlans": [ ],
+        "Videos": [ ],
+        "Inspections": [ ],
+        "LandDetails": {
+            "Area": {
+                "Type": "hectare",
+                "Value": 4.0
+            },
+            "Frontage": null,
+            "Depths": [ ],
+            "CrossOver": null
+        },
+        "Features": {
+            "Bedrooms": 0,
+            "Bathrooms": 0,
+            "Toilets": 0,
+            "CarParking": {
+                "Garages": 0,
+                "Carports": 0,
+                "OpenSpaces": 0,
+                "TotalCount": 0
+            },
+            "Ensuites": 0,
+            "LivingAreas": 0,
+            "Tags": [ ]
+        },
+        "Links": [ ],
+        "Id": "1387954",
+        "UpdatedOn": "2015-11-07T13:10:00"
+    },
+    {
+        "ListingType": "Rural",
+        "CategoryType": "Other",
+        "Pricing": {
+            "SalePrice": 645000.0,
+            "SalePriceText": "$700,000",
+            "SoldPrice": null,
+            "SoldPriceText": null,
+            "SoldOn": null,
+            "IsUnderOffer": false
+        },
+        "AuctionOn": null,
+        "RuralFeatures": null,
+        "CouncilRates": null,
+        "BuildingDetails": {
+            "Area": null,
+            "EnergyRating": null
+        },
+        "AgencyId": "Office-2-1234",
+        "StatusType": "Current",
+        "CreatedOn": "2015-11-07T13:37:50",
+        "Title": "MAGNIFICENT CATTLE YARDS  PLUS 3,321 ACRES",
+        "Description": "Situation:  26 kms north west of Miles and 53 kms south of Wandoan\n\nRainfall:  Approx 640mm per annum\n\nArea & Tenure:  Freehold 1,344.87 Hectares (3,321.8 acres), Lots 50 & 51 on AU41 Parish of Bartsch, Country of Auburn, Western Downs Regional Council\n\nServices:  Power & phone connected, mail service twice weekly, school bus either to Drillham Primary School (5kms) or Miles Primary & High School  to Year 12(7kms)\n\nHealth Status:  Tick Free\n\nCountry:  \"Rakaia\" has a mixture of country ranging from approx 200 acres of Brigalow, Belah valley to loamy Gum, Wilga, Box creek type soils running back to Ironbark, Spotted Gum, Pine & Lancewood country.  It is estimated that 700 to 800 acres has been cleared & raked at different times with the balance being naturally timbered\n\nWater:  Watered by 7 dams, bore equipped with a windmill pumping to a 10,000 gallon concrete tanks and troughs.  The Nine Mile Creek runs through the property\n\nFencing:  Subdivided into 7 paddocks with internal fencing mainly 7 wire electric & timber post being in good condition\n\nYards:  Excellent set of timber cattle yards featuring drafting pound, race, loading ramp, large holding yards and water connected\n\nHomestead:  Comfortable 4 bedroom timber home set in a fenced garden area overlooking the entrance of the property\n\nImprovements: \n*  2 bay carport with attached workshop being enclosed on 3 sides, power connected\n*  Large hay/machinery shed\n*  Old diary used as storage\n\nCarrying Capacity: Sellers estimate to run 70 to 90 breeders\n\nRemarks: Rarely do large parcels of land become available such as \"Rakaia\".  Positioned between Miles & Wandoan the property would be ideally suited for the rural investor working in the resources industry.",
+        "Address": {
+            "StreetNumber": "658",
+            "Street": "Mount Myrtle Road",
+            "Suburb": "Miles",
+            "Municipality": null,
+            "State": "QLD",
+            "CountryIsoCode": "AU",
+            "Postcode": "4415",
+            "Latitude": -26.6578734,
+            "Longitude": 150.1843769,
+            "IsStreetDisplayed": true
+        },
+        "Agents": [
+            {
+                "Name": "Princess Leia",
+                "Communications": [
+                    {
+                        "Details": "IAmAPrincess@rebel.alliance.pewpew",
+                        "CommunicationType": 1
+                    },
+                    {
+                        "Details": "1234 567 890",
+                        "CommunicationType": 2
+                    }
+                ],
+                "Order": 1
+            },
+            {
+                "Name": "Han Solo",
+                "Communications": [
+                    {
+                        "Details": "han.solo@rebel.alliance.pewpew",
+                        "CommunicationType": 1
+                    },
+                    {
+                        "Details": "0987 654 321",
+                        "CommunicationType": 2
+                    }
+                ],
+                "Order": 2
+            }
+        ],
+        "Images": [
+            {
+                "CreatedOn": "2015-11-07T13:31:18",
+                "Order": 1,
+                "Url": "http://www.someImageServer.com.au/showImage/ae5e05318d3a713197aaeb944c99e031f8b57293",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:31:18",
+                "Order": 2,
+                "Url": "http://www.someImageServer.com.au/showImage/405c9326877e6470bd6b0004041a0dd509da4748",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:31:18",
+                "Order": 3,
+                "Url": "http://www.someImageServer.com.au/showImage/01abc5f074192a614c529de647f1eaf76fec8ddb",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:31:18",
+                "Order": 4,
+                "Url": "http://www.someImageServer.com.au/showImage/365e4a7a15a41b66de15bfe25163840124f26735",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:31:18",
+                "Order": 5,
+                "Url": "http://www.someImageServer.com.au/showImage/0744a6e8e1ffba45bb7b2c86dc90108931893d67",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:31:18",
+                "Order": 6,
+                "Url": "http://www.someImageServer.com.au/showImage/556c89a3306e4e8ffea592367e253489039f7607",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:31:18",
+                "Order": 7,
+                "Url": "http://www.someImageServer.com.au/showImage/6847bb352698aa5ac33fc69b6de1b56d713a2ba2",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:31:18",
+                "Order": 8,
+                "Url": "http://www.someImageServer.com.au/showImage/de3e87b0d8a7e930fddb6c3bde96d162a7481d60",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:31:18",
+                "Order": 9,
+                "Url": "http://www.someImageServer.com.au/showImage/1a3e9a27949b239cb9082da1286e6f8e8fce1cab",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:31:18",
+                "Order": 10,
+                "Url": "http://www.someImageServer.com.au/showImage/f7eb7de0589af08d95b626c1ee99e1fcd24967cd",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:31:18",
+                "Order": 11,
+                "Url": "http://www.someImageServer.com.au/showImage/51e091ee53fcc0a882b6c01b3ff38e203527731b",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:31:18",
+                "Order": 12,
+                "Url": "http://www.someImageServer.com.au/showImage/4b7fabeb16668cf523e95955c4989c878f43a79d",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:31:18",
+                "Order": 13,
+                "Url": "http://www.someImageServer.com.au/showImage/818f7d1d5d787f6648db9d6998caf38cc8c3cca9",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:31:18",
+                "Order": 15,
+                "Url": "http://www.someImageServer.com.au/showImage/16ac6f94c69ff590065853485129316283cef06a",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:31:18",
+                "Order": 16,
+                "Url": "http://www.someImageServer.com.au/showImage/93909bbf37a702ad8584925c63cab7dece6bedd4",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:31:18",
+                "Order": 17,
+                "Url": "http://www.someImageServer.com.au/showImage/ea89d01e5724d54fd9a09a91a14fc30a05184ea6",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:31:18",
+                "Order": 18,
+                "Url": "http://www.someImageServer.com.au/showImage/d96766183286acebe6448babea68c7743b917f52",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:31:18",
+                "Order": 19,
+                "Url": "http://www.someImageServer.com.au/showImage/7518d33a847c5d7c32e72aca0bdc60a721c1da47",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:31:18",
+                "Order": 20,
+                "Url": "http://www.someImageServer.com.au/showImage/f63dd9f292175281ecb5746c741a50b0b209c093",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:31:18",
+                "Order": 21,
+                "Url": "http://www.someImageServer.com.au/showImage/72e2d5f2c6c56e68bc34dc055dfc86d4e25a64f6",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:31:18",
+                "Order": 22,
+                "Url": "http://www.someImageServer.com.au/showImage/a281da2331959c985971199eb981bf25d3e995a0",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:31:18",
+                "Order": 23,
+                "Url": "http://www.someImageServer.com.au/showImage/80b80f1c80a20b9d78c2053d4db3e1c90a759a74",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:31:18",
+                "Order": 24,
+                "Url": "http://www.someImageServer.com.au/showImage/d14769d3ca334654296511c66464e7fa161c0a00",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:31:18",
+                "Order": 25,
+                "Url": "http://www.someImageServer.com.au/showImage/5b38ac3f255de66b73463a472b7a2433b7eb625d",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:31:18",
+                "Order": 26,
+                "Url": "http://www.someImageServer.com.au/showImage/4e7c92d72ddd8caf55b8f59a5459c6eb85617295",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2015-11-07T13:31:18",
+                "Order": 27,
+                "Url": "http://www.someImageServer.com.au/showImage/4fe1f2c38b669c45b035f9667f3e7e1b6d1c7f72",
+                "Tag": null
+            }
+        ],
+        "FloorPlans": [ ],
+        "Videos": [ ],
+        "Inspections": [ ],
+        "LandDetails": {
+            "Area": {
+                "Type": "hectare",
+                "Value": 1345.0
+            },
+            "Frontage": null,
+            "Depths": [ ],
+            "CrossOver": null
+        },
+        "Features": {
+            "Bedrooms": 4,
+            "Bathrooms": 1,
+            "Toilets": 0,
+            "CarParking": {
+                "Garages": 2,
+                "Carports": 0,
+                "OpenSpaces": 0,
+                "TotalCount": 2
+            },
+            "Ensuites": 0,
+            "LivingAreas": 0,
+            "Tags": [ ]
+        },
+        "Links": [ ],
+        "Id": "2506442",
+        "UpdatedOn": "2015-11-07T13:37:50"
+    },
+    {
+        "ListingType": "Rural",
+        "CategoryType": "Unknown",
+        "Pricing": {
+            "SalePrice": 1200000.0,
+            "SalePriceText": "$1,200,000",
+            "SoldPrice": null,
+            "SoldPriceText": null,
+            "SoldOn": null,
+            "IsUnderOffer": false
+        },
+        "AuctionOn": null,
+        "RuralFeatures": null,
+        "CouncilRates": null,
+        "BuildingDetails": null,
+        "AgencyId": "Office-1-1234",
+        "StatusType": "Current",
+        "CreatedOn": "2014-04-22T11:33:30",
+        "Title": "Six Strata Units",
+        "Description": "Looking for a lifestyle change or an investment opportunity? Then this could be worth looking at.\n            Set on an elevated 3,924m2 site on the outskirts of Victor Harbor \"Sea View Apartments\" offers a comfortable 2 story home with 3 bedrooms, 2 bathrooms and 2 living areas plus a balcony with panoramic sea views overlooking Victor Harbor plus 5 single story income producing 2 bedroom strata titled units which are well presented, clean and inviting. The 5 single story units are semi detached and offer an open plan air conditioned kitchen/meals/lounge room plus 2 bedrooms, separate bathroom and carport.\n            Located in the Fleurieu Peninsula's premier holiday destination and opposite the Victor Harbor Golf club consolidates this as a very appealing place to visit and stay.\n            All the units currently have long term tenancies but would be ideal for the weekend escape if you wanted to run the property as a live on site motel style complex. Extras include the separate communal laundry, children's playground, and access to bore water as well as mains water and a separate lock up garage.\n            With excellent potential this could be the life changing opportunity you need. Also being classed as 6 strata titled units it creates the opportunity to sell the units off individually in the future.\n\n            To find out more about this exciting opportunity please contact John Mowling on 0407 311 976.\n\n            RLA47423",
+        "Address": {
+            "StreetNumber": "Lot 1",
+            "Street": "Inman Valley Road",
+            "Suburb": "VICTOR HARBOR",
+            "Municipality": null,
+            "State": "SA",
+            "CountryIsoCode": "AU",
+            "Postcode": "5211",
+            "Latitude": 0.0,
+            "Longitude": 0.0,
+            "IsStreetDisplayed": true
+        },
+        "Agents": [
+            {
+                "Name": "Luke Skywalker",
+                "Communications": [
+                    {
+                        "Details": "IHaveTheForce@rebel.alliance.pewpew",
+                        "CommunicationType": "Email"
+                    },
+                    {
+                        "Details": "0422 333 444",
+                        "CommunicationType": "Mobile"
+                    }
+                ],
+                "Order": 1
+            }
+        ],
+        "Images": [
+            {
+                "CreatedOn": "2014-04-22T11:33:30",
+                "Order": 1,
+                "Url": "http://www.SomeImageServer.com.au/Property/Pictures/06979507.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2014-04-22T11:33:30",
+                "Order": 2,
+                "Url": "http://www.SomeImageServer.com.au/Property/Pictures/07874385.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2014-04-22T11:33:30",
+                "Order": 3,
+                "Url": "http://www.SomeImageServer.com.au/Property/Pictures/06979534.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2014-04-22T11:33:30",
+                "Order": 4,
+                "Url": "http://www.SomeImageServer.com.au/Property/Pictures/06979509.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2014-04-22T11:33:30",
+                "Order": 5,
+                "Url": "http://www.SomeImageServer.com.au/Property/Pictures/06979510.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2014-04-22T11:33:30",
+                "Order": 6,
+                "Url": "http://www.SomeImageServer.com.au/Property/Pictures/06979511.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2014-04-22T11:33:30",
+                "Order": 7,
+                "Url": "http://www.SomeImageServer.com.au/Property/Pictures/06979513.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2014-04-22T11:33:30",
+                "Order": 8,
+                "Url": "http://www.SomeImageServer.com.au/Property/Pictures/06979512.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2014-04-22T11:33:30",
+                "Order": 9,
+                "Url": "http://www.SomeImageServer.com.au/Property/Pictures/06979514.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2014-04-22T11:33:30",
+                "Order": 10,
+                "Url": "http://www.SomeImageServer.com.au/Property/Pictures/06979516.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2014-04-22T11:33:30",
+                "Order": 11,
+                "Url": "http://www.SomeImageServer.com.au/Property/Pictures/06979508.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2014-04-22T11:33:30",
+                "Order": 12,
+                "Url": "http://www.SomeImageServer.com.au/Property/Pictures/06979517.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2014-04-22T11:33:30",
+                "Order": 13,
+                "Url": "http://www.SomeImageServer.com.au/Property/Pictures/06979519.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2014-04-22T11:33:30",
+                "Order": 15,
+                "Url": "http://www.SomeImageServer.com.au/Property/Pictures/06979523.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2014-04-22T11:33:30",
+                "Order": 16,
+                "Url": "http://www.SomeImageServer.com.au/Property/Pictures/06979527.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2014-04-22T11:33:30",
+                "Order": 17,
+                "Url": "http://www.SomeImageServer.com.au/Property/Pictures/07874384.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2014-04-22T11:33:30",
+                "Order": 18,
+                "Url": "http://www.SomeImageServer.com.au/Property/Pictures/06979525.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2014-04-22T11:33:30",
+                "Order": 19,
+                "Url": "http://www.SomeImageServer.com.au/Property/Pictures/07874391.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2014-04-22T11:33:30",
+                "Order": 20,
+                "Url": "http://www.SomeImageServer.com.au/Property/Pictures/06979526.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2014-04-22T11:33:30",
+                "Order": 21,
+                "Url": "http://www.SomeImageServer.com.au/Property/Pictures/07874389.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2014-04-22T11:33:30",
+                "Order": 22,
+                "Url": "http://www.SomeImageServer.com.au/Property/Pictures/07874386.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2014-04-22T11:33:30",
+                "Order": 23,
+                "Url": "http://www.SomeImageServer.com.au/Property/Pictures/07874388.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2014-04-22T11:33:30",
+                "Order": 24,
+                "Url": "http://www.SomeImageServer.com.au/Property/Pictures/07874387.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2014-04-22T11:33:30",
+                "Order": 25,
+                "Url": "http://www.SomeImageServer.com.au/Property/Pictures/06979530.jpg",
+                "Tag": null
+            },
+            {
+                "CreatedOn": "2014-04-22T11:33:30",
+                "Order": 26,
+                "Url": "http://www.SomeImageServer.com.au/Property/Pictures/06979531.jpg",
+                "Tag": null
+            }
+        ],
+        "FloorPlans": [
+            {
+                "CreatedOn": "2014-04-22T11:33:30",
+                "Order": 1,
+                "Url": "http://www.SomeImageServer.com.au/Property/Pictures/06979535.gif",
+                "Tag": null
+            }
+        ],
+        "Videos": [ ],
+        "Inspections": [ ],
+        "LandDetails": {
+            "Area": {
+                "Type": "hectare",
+                "Value": 0.39
+            },
+            "Frontage": null,
+            "Depths": [ ],
+            "CrossOver": null
+        },
+        "Features": null,
+        "Links": [ ],
+        "Id": "2309",
+        "UpdatedOn": "2014-04-22T11:33:30"
+    }
+]
