@@ -81,9 +81,6 @@ namespace OpenRealEstate.Services.Json
 
         private static void MergeConvertToResults(ConvertToResult source, ConvertToResult destination)
         {
-            source.ShouldNotBeNull();
-            destination.ShouldNotBeNull();
-
             if (source.Listings != null &&
                 source.Listings.Any())
             {
