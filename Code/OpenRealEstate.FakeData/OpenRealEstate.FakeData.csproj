@@ -46,7 +46,6 @@
   <ItemGroup>
     <Compile Include="Customizations\AddressCustomization.cs" />
     <Compile Include="Customizations\ListingCompositeCustomization.cs" />
-    <Compile Include="FakeRuralListings.cs" />
     <Compile Include="FakeListings.cs" />
     <Compile Include="ResidentialListingCustomization.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -57,9 +56,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Data\RuralListings.json" />
     <None Include="Data\LandListings.json" />
     <None Include="Data\RentalListings.json" />
+    <None Include="Data\ResidentialListings.json" />
+    <None Include="Data\RuralListings.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -73,9 +73,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <None Include="Data\ResidentialListings.json" />
-  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
