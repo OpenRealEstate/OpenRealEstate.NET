@@ -1,5 +1,4 @@
 ﻿using System.Xml.Linq;
-using Shouldly;
 
 namespace OpenRealEstate.Services.RealEstateComAu
 {
@@ -63,8 +62,8 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         public static CategoryType ToCategoryType(this XName name)
         {
-            name.ShouldNotBeNull();
-            name.LocalName.ShouldNotBeNullOrEmpty();
+            Guard.AgainstNull(name);
+            Guard.AgainstNullOrWhiteSpace(name.LocalName);
 
             switch (name.LocalName.ToUpperInvariant())
             {

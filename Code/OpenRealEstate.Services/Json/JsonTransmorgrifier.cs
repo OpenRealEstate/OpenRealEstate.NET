@@ -4,7 +4,6 @@ using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using OpenRealEstate.Core.Models;
-using Shouldly;
 
 namespace OpenRealEstate.Services.Json
 {
@@ -23,7 +22,7 @@ namespace OpenRealEstate.Services.Json
             bool areBadCharactersRemoved = false,
             bool isClearAllIsModified = false)
         {
-            data.ShouldNotBeNullOrEmpty();
+            Guard.AgainstNullOrWhiteSpace(data);
 
             var result = new ConvertToResult();
 

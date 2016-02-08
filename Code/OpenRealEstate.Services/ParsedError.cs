@@ -1,5 +1,4 @@
-﻿using Shouldly;
-
+﻿
 namespace OpenRealEstate.Services
 {
     public class ParsedError
@@ -7,8 +6,8 @@ namespace OpenRealEstate.Services
         public ParsedError(string exceptionMessage,
             string invalidData)
         {
-            exceptionMessage.ShouldNotBeNull();
-            invalidData.ShouldNotBeNull();
+            Guard.AgainstNullOrWhiteSpace(exceptionMessage);
+            Guard.AgainstNullOrWhiteSpace(invalidData);
 
             ExceptionMessage = exceptionMessage;
             InvalidData = invalidData;
