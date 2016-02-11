@@ -43,17 +43,5 @@ namespace OpenRealEstate.Tests.Validators
         {
             _mediaValidator.ShouldHaveValidationErrorFor(media => media.Order, -1);
         }
-
-        [Fact]
-        public void GivenACreatedOn_Validate_ShouldNotHaveAValidationError()
-        {
-            _mediaValidator.ShouldNotHaveValidationErrorFor(media => media.CreatedOn, DateTime.UtcNow);
-        }
-
-        [Fact]
-        public void GivenNoCreatedOn_Validate_ShouldHaveAValidationError()
-        {
-            _mediaValidator.ShouldHaveValidationErrorFor(media => media.CreatedOn, (DateTime?)null);
-        }
     }
 }
