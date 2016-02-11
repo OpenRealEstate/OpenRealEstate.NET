@@ -810,6 +810,34 @@ namespace OpenRealEstate.Tests
                 result.Errors.First().ExceptionMessage.ShouldBe("Failed to parse the value '3334' into a byte.");
             }
 
+            [Fact]
+            public void GivenTheFileREAResidentialCurrentWithNoModTimeInImagesAndFloorPlans_Convert_ReturnsAResidentialCurrentListing()
+            {
+                // Arrange.
+                var reaXml =
+                    File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current-WithNoModTimeInImagesAndFloorPlans.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.ShouldNotBeNull();
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBeNull();
+                result.Errors.ShouldBeNull();
+                AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
+                    tags:
+                        new[]
+                        {
+                            "houseAndLandPackage", "solarPanels", "waterTank", "hotWaterService-gas", "heating-other",
+                            "balcony", "shed", "courtyard", "isANewConstruction"
+                        },
+                    videoUrls: new[] { "http://www.foo.tv/abcd.html" },
+                    isImageModTimeProvided: false,
+                    isFloorPlanModTimeProvided: false);
+            }
+
             private static void AssertResidentialCurrentListing(ResidentialListing listing,
                 PropertyType expectedPropertyType = PropertyType.House,
                 byte expectedBedroomsCount = 4,
@@ -820,7 +848,9 @@ namespace OpenRealEstate.Tests
                 IList<string> videoUrls = null,
                 string streetNumber = "2/39",
                 bool isModified = true,
-                Action<IList<ListingAgent>, bool> assertAgents = null)
+                Action<IList<ListingAgent>, bool> assertAgents = null,
+                bool isImageModTimeProvided = true,
+                bool isFloorPlanModTimeProvided = true)
             {
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Residential-Current-ABCD1234");
@@ -848,9 +878,17 @@ namespace OpenRealEstate.Tests
                     bathroomCount: 2,
                     ensuitesCount: 2);
 
-                AssertImages(listing.Images, imageUrls);
+                var imageModTime = isImageModTimeProvided
+                    ? new DateTime(2009, 1, 1, 12, 30, 0)
+                    : (DateTime?) null;
 
-                AssertFloorPlans(listing.FloorPlans, floorplanUrls);
+                AssertImages(listing.Images, imageUrls, imageModTime);
+
+                var floorPlanModTime = isFloorPlanModTimeProvided
+                   ? new DateTime(2009, 1, 1, 12, 30, 0)
+                   : (DateTime?)null;
+
+                AssertFloorPlans(listing.FloorPlans, floorplanUrls, floorPlanModTime);
 
                 if (videoUrls != null)
                 {
@@ -1693,10 +1731,18 @@ namespace OpenRealEstate.Tests
             }
 
             private static void AssertImages(IList<Media> images,
-                IList<string> imageUrls)
+                IList<string> imageUrls,
+                DateTime? modTime = null)
             {
                 images.Count.ShouldBe(2);
-                images[0].CreatedOn.ShouldBe(new DateTime(2009, 1, 1, 12, 30, 0));
+                if (modTime == null)
+                {
+                    images[0].CreatedOn.ShouldBeNull();
+                }
+                else
+                {
+                    images[0].CreatedOn.ShouldBe(modTime.Value);
+                }
                 images[0].Order.ShouldBe(1);
                 images[0].Url.ShouldBe(imageUrls == null
                     ? "http://www.realestate.com.au/tmp/imageM.jpg"
@@ -1708,10 +1754,18 @@ namespace OpenRealEstate.Tests
             }
 
             private static void AssertFloorPlans(IList<Media> floorPlans,
-                IList<string> floorplanUrls)
+                IList<string> floorplanUrls,
+                DateTime? modTime = null)
             {
                 floorPlans.Count.ShouldBe(2);
-                floorPlans[0].CreatedOn.ShouldBe(new DateTime(2009, 1, 1, 12, 30, 0));
+                if (modTime == null)
+                {
+                    floorPlans[0].CreatedOn.ShouldBeNull();
+                }
+                else
+                {
+                    floorPlans[0].CreatedOn.ShouldBe(modTime.Value);
+                }
                 floorPlans[0].Url.ShouldBe(floorplanUrls == null
                     ? "http://www.realestate.com.au/tmp/floorplan1.gif"
                     : floorplanUrls[0]);

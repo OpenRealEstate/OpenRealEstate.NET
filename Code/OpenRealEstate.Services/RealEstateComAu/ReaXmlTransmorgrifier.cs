@@ -934,28 +934,30 @@ namespace OpenRealEstate.Services.RealEstateComAu
         private static IList<Media> ConvertMediaXmlDataToMedia(IEnumerable<XElement> mediaElements, 
             Func<string, int> orderConverstionFunction)
         {
-            // Note: Image 'urls' can either be via a Uri (yay!) or
-            //       a file name because the xml was provided in a zip file with
-            //       the images (booooo! hiss!!!)
+            // Note 1: Image 'urls' can either be via a Uri (yay!) or
+            //         a file name because the xml was provided in a zip file with
+            //         the images (booooo! hiss!!!)
+            // Note 2: Not all image's might have a last mod time.
             var media = (from x in mediaElements
-                          let url = x.AttributeValueOrDefault("url")
-                          let file = x.AttributeValueOrDefault("file")
-                          let order = x.AttributeValueOrDefault("id")
-                          let createdOn = x.AttributeValueOrDefault("modTime")
-                          where (!string.IsNullOrWhiteSpace(url) ||
-                                 !string.IsNullOrWhiteSpace(file)) &&
-                                !string.IsNullOrWhiteSpace(order) &&
-                                !string.IsNullOrWhiteSpace(createdOn)
-                          select new Media
-                          {
-                              CreatedOn = ParseReaDateTime(createdOn),
-                              Url = string.IsNullOrWhiteSpace(url)
-                                  ? string.IsNullOrWhiteSpace(file)
-                                      ? null
-                                      : file
-                                  : url,
-                              Order = orderConverstionFunction(order)
-                          }).ToList();
+                let url = x.AttributeValueOrDefault("url")
+                let file = x.AttributeValueOrDefault("file")
+                let order = x.AttributeValueOrDefault("id")
+                let createdOn = x.AttributeValueOrDefault("modTime")
+                where (!string.IsNullOrWhiteSpace(url) ||
+                       !string.IsNullOrWhiteSpace(file)) &&
+                      !string.IsNullOrWhiteSpace(order)
+                select new Media
+                {
+                    CreatedOn = string.IsNullOrWhiteSpace(createdOn)
+                        ? (DateTime?) null
+                        : ParseReaDateTime(createdOn),
+                    Url = string.IsNullOrWhiteSpace(url)
+                        ? string.IsNullOrWhiteSpace(file)
+                            ? null
+                            : file
+                        : url,
+                    Order = orderConverstionFunction(order)
+                }).ToList();
 
             return media.Any()
                 ? media

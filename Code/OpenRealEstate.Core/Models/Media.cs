@@ -12,7 +12,7 @@ namespace OpenRealEstate.Core.Models
         private const string UrlName = "Url";
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly DateTimeNotified _createdOn;
+        private readonly DateTimeNullableNotified _createdOn;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly Int32Notified _order;
@@ -25,7 +25,7 @@ namespace OpenRealEstate.Core.Models
 
         public Media()
         {
-            _createdOn = new DateTimeNotified(CreatedOnName);
+            _createdOn = new DateTimeNullableNotified(CreatedOnName);
             _createdOn.PropertyChanged += ModifiedData.OnPropertyChanged;
 
             _order = new Int32Notified(OrderName);
@@ -38,7 +38,7 @@ namespace OpenRealEstate.Core.Models
             _url.PropertyChanged += ModifiedData.OnPropertyChanged;
         }
 
-        public DateTime CreatedOn {
+        public DateTime? CreatedOn {
             get { return _createdOn.Value; }
             set { _createdOn.Value = value; }
         }

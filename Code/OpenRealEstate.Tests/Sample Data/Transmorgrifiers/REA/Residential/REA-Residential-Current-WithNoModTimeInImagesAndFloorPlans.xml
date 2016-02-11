@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE propertyList SYSTEM "http://reaxml.realestate.com.au/propertyList.dtd">
+<propertyList date="2009-01-01-12:30:00" username="xmluser" password="xmlpassword">
+    <!-- Current listing -->
+    <residential modTime="2009-01-01-12:30:00" status="current">
+        <agentID>XNWXNW</agentID>
+        <uniqueID>Residential-Current-ABCD1234</uniqueID>
+        <authority value="auction" />
+        <auction>2009-02-04T18:30</auction>
+        <underOffer value="no" />
+        <councilRates>$2000 per month</councilRates>
+        <isHomeLandPackage value="yes"></isHomeLandPackage>
+        <newConstruction>1</newConstruction>
+        <listingAgent>
+            <name>Mr. John Doe</name>
+            <telephone type="BH">05 1234 5678</telephone>
+            <telephone type="mobile">0418 123 456</telephone>
+            <email>jdoe@somedomain.com.au</email>
+            <twitterURL>https://www.twitter.com/JohnDoe</twitterURL>
+        </listingAgent>
+        <price display="yes">500000</price>
+        <priceView>Between $400,000 and $600,000</priceView>
+        <address display="yes">
+            <subNumber>2</subNumber>
+            <streetNumber>39</streetNumber>
+            <street>Main Road</street>
+            <suburb display="yes">RICHMOND</suburb>
+            <state>vic</state>
+            <postcode>3121</postcode>
+            <country>AUS</country>
+        </address>
+        <municipality>Yarra</municipality>
+        <streetDirectory type="melways">
+            <page>44</page>
+            <reference>G7</reference>
+        </streetDirectory>
+        <category name="House" />
+        <headline>SHOW STOPPER!!!</headline>
+        <description>Don't pass up an opportunity like this! First to inspect will buy! Close to local amenities and schools. Features lavishly appointed bathrooms, modern kitchen, rustic outhouse.Don't pass up an opportunity like this! First to inspect will buy! Close to local amenities and schools. Features lavishly appointed bathrooms, modern kitchen, rustic outhouse.</description>
+        <features>
+            <bedrooms>4</bedrooms>
+            <bathrooms>2</bathrooms>
+            <ensuite>2</ensuite>
+            <garages>3</garages>
+            <carports>2</carports>
+            <remoteGarage>yes</remoteGarage>
+            <secureParking>yes</secureParking>
+            <airConditioning>1</airConditioning>
+            <alarmSystem>1</alarmSystem>
+            <vacuumSystem>no</vacuumSystem>
+            <intercom>no</intercom>
+            <pool type="inground">yes</pool>
+            <spa type="inground">no</spa>
+            <tennisCourt>yes</tennisCourt>
+            <balcony>yes</balcony>
+            <deck>yes</deck>
+            <courtyard>yes</courtyard>
+            <outdoorEnt>yes</outdoorEnt>
+            <shed>yes</shed>
+            <fullyFenced>yes</fullyFenced>
+            <openFirePlace>1</openFirePlace>
+            <heating type="other" />
+            <hotWaterService type="gas" />
+            <otherFeatures>balcony, courtyard, shed</otherFeatures>
+        </features>
+        <landDetails>
+            <area unit="square">80</area>
+            <frontage unit="meter">20</frontage>
+            <depth unit="meter" side="rear">40</depth>
+            <depth unit="meter" side="left">60</depth>
+            <depth unit="meter" side="right">20</depth>
+            <crossOver value="left" />
+        </landDetails>
+        <buildingDetails>
+            <area unit="square">40</area>
+            <newlyBuilt value="yes" />
+            <energyRating>4.5</energyRating>
+        </buildingDetails>
+        <inspectionTimes>
+            <inspection>21-Jan-2009 11:00am to 1:00pm</inspection>
+            <inspection>22-Jan-2009 3:00pm to 3:30pm</inspection>
+        </inspectionTimes>
+        <vendorDetails>
+            <name>Mr. John Doe</name>
+            <telephone type="BH">05 1234 5678</telephone>
+        </vendorDetails>
+        <externalLink href="http%3A%2F%2Fwww%2Eau%2Eopen2view%2Ecom%2Fproperties%2F314244%2Ftour%23floorplan" />
+        <externalLink href="http://www.google.com/hello" />
+        <images>
+            <img id="m" url="http://www.realestate.com.au/tmp/imageM.jpg" format="jpg" />
+            <img id="a" url="http://www.realestate.com.au/tmp/imageA.jpg" format="jpg" />
+        </images>
+        <objects>
+            <floorplan id="1" url="http://www.realestate.com.au/tmp/floorplan1.gif"
+                       format="gif" />
+            <floorplan id="2" url="http://www.realestate.com.au/tmp/floorplan2.gif"
+                       format="gif" />
+        </objects>
+        <videoLink href="http://www.foo.tv/abcd.html"/>
+        <ecoFriendly>
+            <solarPanels>1</solarPanels>
+            <solarHotWater>0</solarHotWater>
+            <waterTank>1</waterTank>
+            <greyWaterSystem>0</greyWaterSystem>
+        </ecoFriendly>
+    </residential>
+</propertyList>
