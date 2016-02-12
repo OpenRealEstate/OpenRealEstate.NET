@@ -131,13 +131,11 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\OpenRealEstate.Tests\Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current-WithBadInspectionTime.xml">
+      <Link>Content\REA\Residential\REA-Residential-Current-WithBadInspectionTime.xml</Link>
+    </Content>
     <Content Include="..\OpenRealEstate.Tests\Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current.xml">
       <Link>Content\REA\Residential\REA-Residential-Current.xml</Link>
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\OpenRealEstate.Tests\Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-CurrentBadInspectionTime.xml">
-      <Link>Content\REA\Residential\REA-Residential-CurrentBadInspectionTime.xml</Link>
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

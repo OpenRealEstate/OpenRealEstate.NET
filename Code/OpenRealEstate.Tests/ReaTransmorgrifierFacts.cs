@@ -170,7 +170,7 @@ namespace OpenRealEstate.Tests
                 // Arrange.
                 var reaXml =
                     File.ReadAllText(
-                        "Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-CurrentBadInspectionTime.xml");
+                        "Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current-WithBadInspectionTime.xml");
                 var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
 
                 // Act.
@@ -836,6 +836,25 @@ namespace OpenRealEstate.Tests
                     videoUrls: new[] { "http://www.foo.tv/abcd.html" },
                     isImageModTimeProvided: false,
                     isFloorPlanModTimeProvided: false);
+            }
+
+            [Fact]
+            public void GivenTheFileREAResidentialCurrentWithAnInvalidModTimeInImagesAndFloorPlans_Convert_ReturnsSomeInvalidData()
+            {
+                // Arrange.
+                var reaXml =
+                    File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current-WithBadModTimeInImagesAndFloorPlans.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.ShouldNotBeNull();
+                result.Listings.ShouldBeNull();
+                result.UnhandledData.ShouldBeNull();
+                result.Errors.Count.ShouldBe(1);
+                result.Errors.First().ExceptionMessage.ShouldBe("Invalid date/time trying to be parsed. Attempted the value: '2016-02-1112:50:05' but that format is invalid.");
             }
 
             private static void AssertResidentialCurrentListing(ResidentialListing listing,

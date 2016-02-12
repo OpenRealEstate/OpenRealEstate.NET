@@ -243,7 +243,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-CurrentBadInspectionTime.xml">
+    <None Include="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current-WithBadInspectionTime.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -474,6 +474,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current-WithNoModTimeInImagesAndFloorPlans.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current-WithBadModTimeInImagesAndFloorPlans.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

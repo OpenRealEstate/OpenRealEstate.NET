@@ -1,0 +1,99 @@
+<residential modTime="2014-05-05-10:31" status="current">
+    <agentID>24121</agentID>
+    <uniqueID>ABCDE</uniqueID>
+    <authority value="auction"></authority>
+    <underOffer value="no"></underOffer>
+    <isHomeLandPackage value="yes"></isHomeLandPackage>
+    <listingAgent id="1">
+        <name>Tony Lucas</name>
+        <telephone type="mobile">0418 264 035</telephone>
+        <telephone type="BH">02 8347 6401</telephone>
+        <email>tony@rhmaroubra.com.au</email>
+    </listingAgent>
+    <price display="yes">600000</price>
+    <priceView>AUCTION</priceView>
+    <address display="yes">
+        <subNumber></subNumber>
+        <streetNumber>1</streetNumber>
+        <street>Smith Avenue</street>
+        <suburb display="yes">MAROUBRA</suburb>
+        <state>NSW</state>
+        <postcode>2035</postcode>
+        <latitude>-33.3</latitude>
+        <longitude>151.2</longitude>
+    </address>
+    <category name="Unit"></category>
+    <headline>Large Art Deco Unit</headline>
+    <description>
+        Perfectly located only minutes from both Maroubra Junction and Ma
+        roubra beach, schools, transport and all amenities is this character filled apar
+        tment in a small security block of four units with its own side entrance. The un
+        it is spacious throughout and offers two bedrooms with built ins, large living a
+        rea extending into the sunroom, modern kitchen with Caesar stone bench tops, adj
+        acent dining area, bathroom with bath tub,  high ornate ceilings, polished timbe
+        r floors, car space, court yard and large common rear garden area. Currently lea
+        sed to excellent tenants for $565 per week until 15/02/2015. This presents an id
+        eal opportunity to invest now and live later.
+    </description>
+    <features>
+        <bedrooms>3</bedrooms>
+        <bathrooms>1</bathrooms>
+        <garages>0</garages>
+        <carports>1</carports>
+        <airConditioning>0</airConditioning>
+        <alarmSystem>0</alarmSystem>
+        <pool>0</pool>
+        <openSpaces>0</openSpaces>
+        <toilets>0</toilets>
+        <otherFeatures></otherFeatures>
+    </features>
+    <landDetails>
+        <area unit="squareMeter"></area>
+    </landDetails>
+    <buildingDetails>
+        <area unit="squareMeter"></area>
+    </buildingDetails>
+    <inspectionTimes>
+        <inspection> 12:00AM to 12:00AM</inspection>
+        <inspection>08-May-2014 12:00PM to 12:45PM</inspection>
+        <inspection>10-May-2014 12:00PM to 12:45PM</inspection>
+        <inspection>15-May-2014 12:00PM to 12:45PM</inspection>
+        <inspection>17-May-2014 12:00PM to 12:45PM</inspection>
+        <inspection>22-May-2014 12:00PM to 12:45PM</inspection>
+        <inspection>24-May-2014 12:00PM to 12:45PM</inspection>
+        <inspection>29-May-2014 12:00PM to 12:45PM</inspection>
+        <inspection>31-May-2014 12:00PM to 12:45PM</inspection>
+    </inspectionTimes>
+    <auction date="2014-05-31-13:00"></auction>
+    <externalLink href=""></externalLink>
+    <videoLink href=""></videoLink>
+    <objects>
+        <floorplan id="1" modTime="2014-05-05-10:28" url="http://s3-ap-southeast-2.amazonaws.com/mydesktop.aunz/rahoma/photos/1398751552-11007-RS18494_U2at30Mons-web.jpg"></floorplan>
+        <img id="m" modTime="2014-05-05-10:28" url="http://s3-ap-southeast-2.amazonaws.com/mydesktop.aunz/rahoma/photos/1398751557-11407-RS18495_PROPERTYNAME-1-web.jpg"></img>
+        <img id="a" modTime="2014-05-05-10:28" url="http://s3-ap-southeast-2.amazonaws.com/mydesktop.aunz/rahoma/photos/1398751563-11751-RS18496_PROPERTYNAME-2-web.jpg"></img>
+        <img id="b" modTime="2014-05-05-10:28" url="http://s3-ap-southeast-2.amazonaws.com/mydesktop.aunz/rahoma/photos/1398751570-12093-RS18497_PROPERTYNAME-3-web.jpg"></img>
+        <img id="c" modTime="2014-05-05-10:28" url="http://s3-ap-southeast-2.amazonaws.com/mydesktop.aunz/rahoma/photos/1398751574-12585-RS18498_PROPERTYNAME-4-web.jpg"></img>
+        <img id="d" modTime="2014-05-05-10:28" url="http://s3-ap-southeast-2.amazonaws.com/mydesktop.aunz/rahoma/photos/1398751578-12871-RS18499_PROPERTYNAME-5-web.jpg"></img>
+        <img id="e" modTime="2014-05-05-10:28" url="http://s3-ap-southeast-2.amazonaws.com/mydesktop.aunz/rahoma/photos/1398751583-13161-RS18500_PROPERTYNAME-6-web.jpg"></img>
+        <img id="f" modTime="2014-05-05-10:28" url="http://s3-ap-southeast-2.amazonaws.com/mydesktop.aunz/rahoma/photos/1398751587-13539-RS18501_PROPERTYNAME-7-web.jpg"></img>
+        <img id="g" modTime="2014-05-05-10:28" url="http://s3-ap-southeast-2.amazonaws.com/mydesktop.aunz/rahoma/photos/1398751592-13930-RS18502_PROPERTYNAME-8-web.jpg"></img>
+        <img id="h" modTime="2014-05-05-10:28" url="http://s3-ap-southeast-2.amazonaws.com/mydesktop.aunz/rahoma/photos/1398751597-14256-RS18503_PROPERTYNAME-9-web.jpg"></img>
+        <img id="i" modTime="2014-05-05-10:28" url="http://s3-ap-southeast-2.amazonaws.com/mydesktop.aunz/rahoma/photos/1398751602-14537-RS18504_PROPERTYNAME-10-web.jpg"></img>
+        <img id="j"></img>
+        <img id="k"></img>
+        <img id="l"></img>
+        <img id="n"></img>
+        <img id="o"></img>
+        <img id="p"></img>
+        <img id="q"></img>
+        <img id="r"></img>
+        <img id="s"></img>
+        <img id="t"></img>
+        <img id="u"></img>
+        <img id="v"></img>
+        <img id="w"></img>
+        <img id="x"></img>
+        <img id="y"></img>
+        <img id="z"></img>
+    </objects>
+</residential>

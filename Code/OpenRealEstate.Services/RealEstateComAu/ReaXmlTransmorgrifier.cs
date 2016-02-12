@@ -322,7 +322,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             return listing;
         }
 
-        private static DateTime? ToDateTime(string reaDateTime)
+        private static DateTime ToDateTime(string reaDateTime)
         {
             // REFERENCE: http://reaxml.realestate.com.au/docs/reaxml1-xml-format.html#datetime
             /*
@@ -336,23 +336,31 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 YYYYMMDD-hhmmss
                 YYYYMMDDThhmm
                 YYYYMMDDThhmmss
-             */
+
+            // FFS REA!!!! URGH!!!!!!!! :( 
+            // Stick to fricking ISO8061 with yyyy-MM-ddTHH:mm:ss 
+            // ONE FORMAT TO RULE THEM ALL.
+            // (not that hard, peeps).
+            */
             var formats = new[]
             {
                 "yyyy-MM-dd",
+                "yyyy-MM-dd-HH:mm",
+                "yyyy-MM-ddTHH:mm",
+                "yyyy-MM-dd-HH:mm:",
                 "yyyy-MM-dd-HH:mm:ss",
                 "yyyy-MM-ddTHH:mm:ss",
-                "yyyy-MM-dd-HH:mm:",
-                "yyyy-MM-ddTHH:mm:ss",
+                "yyyy-MM-dd-hh:mm:sstt", // 2015-12-15-01:18:52PM
                 "yyyyMMdd-HHmmss",
+                "yyyyMMDD-HHmmss",
                 "yyyyMMddTHHmmss",
+                "yyyyMMDDTHHmm",
                 "yyyyMMdd-HHmm",
                 "yyyyMMddTHHmm",
                 "yyyyMMdd",
                 "o",
                 "s"
             };
-
 
             DateTime result;
             if (DateTime.TryParseExact(reaDateTime,
@@ -369,7 +377,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 return result;
             }
 
-            return null;
+            throw new Exception($"Invalid date/time trying to be parsed. Attempted the value: '{reaDateTime}' but that format is invalid.");
         }
 
         #region Common listing methods
@@ -381,7 +389,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             Guard.AgainstNull(listing);
             Guard.AgainstNull(document);
 
-            listing.UpdatedOn = ParseReaDateTime(document.AttributeValue("modTime"));
+            listing.UpdatedOn = ToDateTime(document.AttributeValue("modTime"));
 
             // We have no idea if this was created before this date, but we need to set a date
             // so we'll default it to this.
@@ -950,7 +958,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 {
                     CreatedOn = string.IsNullOrWhiteSpace(createdOn)
                         ? (DateTime?) null
-                        : ParseReaDateTime(createdOn),
+                        : ToDateTime(createdOn),
                     Url = string.IsNullOrWhiteSpace(url)
                         ? string.IsNullOrWhiteSpace(file)
                             ? null
@@ -1136,7 +1144,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             }
 
             return (!string.IsNullOrWhiteSpace(auction))
-                ? ToDateTime(auction)
+                ? (DateTime?)ToDateTime(auction)
                 : null;
         }
 
@@ -1223,42 +1231,52 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 .ToList();
         }
 
-        /// <summary>
-        /// REA Specific DateTime parsing.
-        /// </summary>
-        private static DateTime ParseReaDateTime(string someDateTime)
-        {
-            Guard.AgainstNullOrWhiteSpace(someDateTime);
+        ///// <summary>
+        ///// REA Specific DateTime parsing.
+        ///// </summary>
+        //private static DateTime ParseReaDateTime(string someDateTime)
+        //{
+        //    Guard.AgainstNullOrWhiteSpace(someDateTime);
 
-            // FFS REA!!!! URGH!!!!!!!! :( 
-            // Stick to fricking ISO8061 with yyyy-MM-ddTHH:mm:ss 
-            // ONE FORMAT TO RULE THEM ALL.
-            // (not that hard, peeps).
-            var reaDateTimeFormats = new[]
-            {
-                "yyyy-MM-dd",
-                "yyyy-MM-dd-HH:mm",
-                "yyyy-MM-dd-HH:mm:ss",
-                "yyyy-MM-dd-hh:mm:sstt", // 2015-12-15-01:18:52PM
-                "yyyy-MM-ddTHH:mm",
-                "yyyy-MM-ddTHH:mm:ss",
-                "yyyyMMdd",
-                "yyyyMMdd-HHmm",
-                "yyyyMMDD-HHmmss",
-                "yyyyMMDDTHHmm",
-                "yyyyMMddTHHmmss"
-            };
+        //    // FFS REA!!!! URGH!!!!!!!! :( 
+        //    // Stick to fricking ISO8061 with yyyy-MM-ddTHH:mm:ss 
+        //    // ONE FORMAT TO RULE THEM ALL.
+        //    // (not that hard, peeps).
+        //    var reaDateTimeFormats = new[]
+        //    {
+        //        "yyyy-MM-dd",
+        //        "yyyy-MM-dd-HH:mm",
+        //        "yyyy-MM-dd-HH:mm:ss",
+        //        "yyyy-MM-dd-hh:mm:sstt", // 2015-12-15-01:18:52PM
+        //        "yyyy-MM-ddTHH:mm",
+        //        "yyyy-MM-ddTHH:mm:ss",
+        //        "yyyyMMdd",
+        //        "yyyyMMdd-HHmm",
+        //        "yyyyMMDD-HHmmss",
+        //        "yyyyMMDDTHHmm",
+        //        "yyyyMMddTHHmmss"
+        //    };
 
-            DateTime resultDateTime;
+        //    DateTime resultDateTime;
 
-            if (!DateTime.TryParse(someDateTime, out resultDateTime))
-            {
-                DateTime.TryParseExact(someDateTime.Trim(), reaDateTimeFormats, CultureInfo.InvariantCulture,
-                    DateTimeStyles.None, out resultDateTime);
-            }
+        //    if (!DateTime.TryParse(someDateTime, out resultDateTime))
+        //    {
+        //        DateTime.TryParseExact(someDateTime.Trim(), reaDateTimeFormats, CultureInfo.InvariantCulture,
+        //            DateTimeStyles.None, out resultDateTime);
+        //    }
 
-            return resultDateTime;
-        }
+        //    return resultDateTime;
+        //}
+
+        //private static DateTime? ParseReaDateTimeNullable(string someDateTime)
+        //{
+        //    Guard.AgainstNullOrWhiteSpace(someDateTime);
+
+        //    var result = ParseReaDateTime(someDateTime);
+        //    return result == DateTime.MinValue
+        //        ? (DateTime?)null
+        //        : result;
+        //}
 
         private static string ConvertCountryToIsoCode(string country)
         {
