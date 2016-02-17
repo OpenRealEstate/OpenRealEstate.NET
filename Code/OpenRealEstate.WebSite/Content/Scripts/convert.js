@@ -55,7 +55,7 @@ function displayListingResult(isConvertingReaXmlToJson, data) {
         } 
 
         // Split the pieces of the viewModel up.
-        var jsonListings = data.listings == null ? '': JSON.stringify(data.listings);
+        var jsonListings = data.listingsJson == null ? '': data.listingsJson;
         var message = 'Residential Count: ' + data.residentialCount + '.<br/>Rental Count: ' + data.rentalCount + '.<br/>Rural Count: ' + data.ruralCount + '.<br/>Land Count: ' + data.landCount + '.<br/><br/>';
 
         $('#openREJson').text(jsonListings);

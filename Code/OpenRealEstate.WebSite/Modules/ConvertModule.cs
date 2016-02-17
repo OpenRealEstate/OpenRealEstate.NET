@@ -5,10 +5,15 @@ using System.Linq;
 using System.Text;
 using Nancy;
 using OpenRealEstate.Core.Models;
+using OpenRealEstate.Core.Models.Land;
+using OpenRealEstate.Core.Models.Rental;
+using OpenRealEstate.Core.Models.Residential;
+using OpenRealEstate.Core.Models.Rural;
 using OpenRealEstate.Services;
 using OpenRealEstate.Validation;
 using OpenRealEstate.WebSite.Models;
 using OpenRealEstate.WebSite.ViewModels;
+using Shouldly;
 
 namespace OpenRealEstate.WebSite.Modules
 {
@@ -70,52 +75,45 @@ namespace OpenRealEstate.WebSite.Modules
                     }
                 }
 
-                var viewModel = new ConvertViewModel();
+                var listings = new List<Listing>();
+                var validationErrors = new Dictionary<string, string>();
                 foreach (var convertToResult in results)
                 {
-                    CopyToViewModel(convertToResult, viewModel);
+                    ExtractData(convertToResult, listings, validationErrors);
                 }
+
+                var viewModel = new ConvertViewModel
+                {
+                    ListingsJson = Services.Json.JsonConvertHelpers.SerializeObject(listings),
+                    ResidentialCount = listings.OfType<ResidentialListing>().Count(),
+                    RentalCount = listings.OfType<RentalListing>().Count(),
+                    LandCount = listings.OfType<LandListing>().Count(),
+                    RuralCount = listings.OfType<RuralListing>().Count()
+                };
 
                 return Response.AsJson(viewModel);
             }
             catch (Exception exception)
             {
                 return Response.AsText(
-                    string.Format("Failed to convert the ReaXml to OpenRealEstate json. File: {0}. Error message: {1}.",
-                        string.IsNullOrEmpty(lastFile)
-                            ? "--no filename--"
-                            : lastFile,
-                        exception.InnerException != null
-                            ? exception.InnerException.Message
-                            : exception.Message))
+                    $"Failed to convert the ReaXml to OpenRealEstate json. File: {(string.IsNullOrEmpty(lastFile) ? "--no filename--" : lastFile)}. Error message: {exception.InnerException?.Message ?? exception.Message}.")
                     .WithStatusCode(HttpStatusCode.InternalServerError);
             }
         }
 
-        private static void CopyToViewModel(KeyValuePair<string, ConvertToResult> convertToResultKeyValuePair,
-            ConvertViewModel viewModel)
+        private static void ExtractData(KeyValuePair<string, ConvertToResult> convertToResultKeyValuePair,
+            IList<Listing> listingsResult, 
+            IDictionary<string, string> validationErrorsResult)
         {
-            if (convertToResultKeyValuePair.Value == null)
-            {
-                throw new ArgumentNullException("convertToResultKeyValuePair");
-            }
-
-            if (viewModel == null)
-            {
-                throw new ArgumentNullException("viewModel");
-            }
+            convertToResultKeyValuePair.ShouldNotBeNull();
+            listingsResult.ShouldNotBeNull();
+            validationErrorsResult.ShouldNotBeNull();
 
             var errors = new List<ValidationError>();
 
-            var listings = convertToResultKeyValuePair.Value.Listings != null
-                ? convertToResultKeyValuePair.Value.Listings.Select(x => x.Listing).ToList()
-                : null;
-            var invalidData = convertToResultKeyValuePair.Value.Errors != null
-                ? convertToResultKeyValuePair.Value.Errors.Select(x => x.ExceptionMessage).ToList()
-                : null;
-            var unhandledData = convertToResultKeyValuePair.Value.UnhandledData != null
-                ? convertToResultKeyValuePair.Value.UnhandledData.Select(x => x).ToList()
-                : null;
+            var listings = convertToResultKeyValuePair.Value.Listings?.Select(x => x.Listing).ToList();
+            var invalidData = convertToResultKeyValuePair.Value.Errors?.Select(x => x.ExceptionMessage).ToList();
+            var unhandledData = convertToResultKeyValuePair.Value.UnhandledData?.Select(x => x).ToList();
 
             if (listings != null &&
                 listings.Any())
@@ -130,33 +128,22 @@ namespace OpenRealEstate.WebSite.Modules
                         errors.AddRange(ValidationError.ConvertToValidationErrors(listing.ToString(),
                             validationResults.Errors));
                     }
+
+                    listingsResult.Add(listing);
                 }
-
-                if (viewModel.Listings == null)
-                {
-                    viewModel.Listings = new List<Listing>();
-                }
-
-                viewModel.Listings.AddRange(listings);
-            }
-
-            if (viewModel.ValidationErrors == null)
-            {
-                viewModel.ValidationErrors = new Dictionary<string, string>();
             }
 
             if (invalidData != null &&
                 invalidData.Any())
             {
-                CreateError(viewModel.ValidationErrors, convertToResultKeyValuePair.Key, invalidData);
+                CreateError(validationErrorsResult, convertToResultKeyValuePair.Key, invalidData);
             }
 
-            if (unhandledData != null && 
+            if (unhandledData != null &&
                 unhandledData.Any())
             {
-                var errorList = new [] {string.Format("Found: {0} unhandled data segments", unhandledData.Count)};
-                CreateError(viewModel.ValidationErrors, convertToResultKeyValuePair.Key,
-                    errorList);
+                var errorList = new[] {$"Found: {unhandledData.Count} unhandled data segments"};
+                CreateError(validationErrorsResult, convertToResultKeyValuePair.Key, errorList);
             }
 
             if (errors.Any())
@@ -164,16 +151,16 @@ namespace OpenRealEstate.WebSite.Modules
                 var convertedErrors = ConvertErrorsToDictionary(convertToResultKeyValuePair.Key, errors);
                 foreach (var convertedError in convertedErrors)
                 {
-                    viewModel.ValidationErrors.Add(convertedError);
+                    validationErrorsResult.Add(convertedError);
                 }
             }
         }
-
+        
         private static void CreateError(IDictionary<string, string> validationErrors, string key, IEnumerable<string> values)
         {
             foreach (var value in values)
             {
-                var uniqueKey = string.Format("{0}_{1}", key, Guid.NewGuid());
+                var uniqueKey = $"{key}_{Guid.NewGuid()}";
                 validationErrors.Add(uniqueKey, value);
             }
         }
