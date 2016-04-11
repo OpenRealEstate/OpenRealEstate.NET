@@ -88,7 +88,8 @@ namespace OpenRealEstate.WebSite.Modules
                     ResidentialCount = listings.OfType<ResidentialListing>().Count(),
                     RentalCount = listings.OfType<RentalListing>().Count(),
                     LandCount = listings.OfType<LandListing>().Count(),
-                    RuralCount = listings.OfType<RuralListing>().Count()
+                    RuralCount = listings.OfType<RuralListing>().Count(),
+                    ValidationErrors = validationErrors
                 };
 
                 return Response.AsJson(viewModel);

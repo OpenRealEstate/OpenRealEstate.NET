@@ -55,13 +55,16 @@ function displayListingResult(isConvertingReaXmlToJson, data) {
         } 
 
         // Split the pieces of the viewModel up.
-        var jsonListings = data.listingsJson == null ? '': data.listingsJson;
+        var json = JSON.parse(data.listingsJson);
+        
+        var jsonListings = json == null ||
+                           json.length <= 0
+                           ? ''
+                           : json;
         var message = 'Residential Count: ' + data.residentialCount + '.<br/>Rental Count: ' + data.rentalCount + '.<br/>Rural Count: ' + data.ruralCount + '.<br/>Land Count: ' + data.landCount + '.<br/><br/>';
 
-        $('#openREJson').text(jsonListings);
-        console.log(JSON.stringify(jsonListings));
+        $('#openREJson').text(data.listingsJson);
         $('#jsonCode').text(JSON.stringify(jsonListings));
-
         $('#message').html(message);
         
     } else {
