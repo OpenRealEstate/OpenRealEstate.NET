@@ -79,6 +79,7 @@
     <Compile Include="Models\RuralListingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReaTransmorgrifierFacts.cs" />
+    <Compile Include="Validators\LinksValidatorTests.cs" />
     <Compile Include="Validators\BuildingDetailsValidatorTests.cs" />
     <Compile Include="Validators\AddressValidatorTests.cs" />
     <Compile Include="Validators\AgencyValidatorTests.cs" />

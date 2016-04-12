@@ -55,6 +55,7 @@
     <Compile Include="InspectionValidator.cs" />
     <Compile Include="LandDetailsValidator.cs" />
     <Compile Include="Land\LandListingValidator.cs" />
+    <Compile Include="LinksValidator.cs" />
     <Compile Include="ListingAgentValidator.cs" />
     <Compile Include="ListingValidator.cs" />
     <Compile Include="MediaValidator.cs" />
