@@ -23,7 +23,7 @@ namespace OpenRealEstate.Validation
                 .WithMessage("Invalid 'StatusType'. Please choose any status except Unknown.");
             RuleFor(listing => listing.CreatedOn).NotEqual(DateTime.MinValue)
                 .WithMessage(
-                    "A valid 'UpdatedOn' is required. Please use a date/time value that is in this decade or so.");
+                    "A valid 'CreatedOn' is required. Please use a date/time value that is in this decade or so.");
 
             // Minimum data required to have a listing.
             RuleSet(MinimumRuleSetKey, () =>

@@ -286,10 +286,15 @@ namespace OpenRealEstate.Tests.Validators.Residential
             [InlineData("Http://www.SomeDomain.com")]
             [InlineData("https://www.SomeDomain.com")]
             [InlineData("http://www.SomeDomain.com.au")]
+            [InlineData(null)]
             public void GivenAValidUri_Validate_ShouldNotHaveAValidationError(string uri)
             {
                 // Arrange.
-                var links = new ReadOnlyCollection<string>(new[] {uri});
+                // NOTE: We don't want to check for an empty string here, because that
+                //       is contained in the 'bad' checks below.
+                var links = uri == null
+                    ? null
+                    : new ReadOnlyCollection<string>(new[] {uri});
 
                 // Act & Assert.
 
