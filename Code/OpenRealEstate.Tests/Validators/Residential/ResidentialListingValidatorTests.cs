@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using FluentValidation;
@@ -14,9 +15,9 @@ using Xunit;
 
 namespace OpenRealEstate.Tests.Validators.Residential
 {
-    public class ResidentialListingValidatorFacts
+    public class ResidentialListingValidatorTests
     {
-        public class RuleSetFacts
+        public class RuleSetTests
         {
             private static ResidentialListing CreateListing(string fileName = null)
             {
@@ -185,11 +186,11 @@ namespace OpenRealEstate.Tests.Validators.Residential
             }
         }
 
-        public class SimpleValidationFacts
+        public class SimpleValidationTests
         {
             private readonly ResidentialListingValidator _validator;
 
-            public SimpleValidationFacts()
+            public SimpleValidationTests()
             {
                 _validator = new ResidentialListingValidator();
             }
@@ -279,6 +280,69 @@ namespace OpenRealEstate.Tests.Validators.Residential
                 validator.ShouldHaveValidationErrorFor(listing => listing.Links.ToList(),
                     links,
                     ResidentialListingValidator.MinimumRuleSet);
+            }
+
+            [Theory]
+            [InlineData("Http://www.SomeDomain.com")]
+            [InlineData("https://www.SomeDomain.com")]
+            [InlineData("http://www.SomeDomain.com.au")]
+            public void GivenAValidUri_Validate_ShouldNotHaveAValidationError(string uri)
+            {
+                // Arrange.
+                var links = new ReadOnlyCollection<string>(new[] {uri});
+
+                // Act & Assert.
+
+                // NOTE: ShouldNotHaveValidationErrorFor has a bug in it: https://github.com/JeremySkinner/FluentValidation/issues/238
+
+                //_validator.ShouldNotHaveValidationErrorFor(x => x.Links, 
+                //    links,
+                //    ResidentialListingValidator.MinimumRuleSet);
+
+                var listing = new ResidentialListing
+                {
+                    Links = links
+                };
+
+                var result = _validator.Validate(listing,
+                    ruleSet: ResidentialListingValidator.MinimumRuleSet);
+
+                // Assert.
+                result.Errors.ShouldNotContain(x =>
+                    x.ErrorMessage == $"Link '{uri}' must be a valid URI. eg: http://www.SomeWebSite.com.au");
+            }
+
+            [Theory]
+            [InlineData("Httpasd://www.SomeDomain.com")]
+            [InlineData("aasdasd")]
+            [InlineData("")]
+            [InlineData("ftp://www.a.b.c.com")]
+            [InlineData("Htttd://www.SomeDomain.com")] // 3x t's in http.
+            [InlineData("www.SomeDomain.com")] // No scheme.
+            [InlineData("!2134242")]
+            public void GivenAnInvalidUri_Validate_ShouldHaveAValidationError(string uri)
+            {
+                // Arrange.
+                var links = new ReadOnlyCollection<string>(new[] { uri });
+
+                // Act & Assert.
+                
+                // NOTE: ShouldHaveValidationErrorFor has a bug in it: https://github.com/JeremySkinner/FluentValidation/issues/238
+
+                //_validator.ShouldHaveValidationErrorFor(l => l.Links, 
+                //    links, 
+                //    ResidentialListingValidator.MinimumRuleSet);
+
+                var listing = new ResidentialListing
+                {
+                    Links = links
+                };
+
+                var result = _validator.Validate(listing,
+                    ruleSet: ResidentialListingValidator.MinimumRuleSet);
+
+                // Assert.
+                result.Errors.ShouldContain(x => x.ErrorMessage == $"Link '{uri}' must be a valid URI. eg: http://www.SomeWebSite.com.au");
             }
         }
     }

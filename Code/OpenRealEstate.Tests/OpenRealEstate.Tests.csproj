@@ -33,16 +33,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FluentValidation, Version=6.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FluentValidation.6.1.0.0\lib\Net45\FluentValidation.dll</HintPath>
+    <Reference Include="FluentValidation, Version=6.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentValidation.6.2.1.0\lib\Net45\FluentValidation.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Shouldly, Version=2.6.0.0, Culture=neutral, PublicKeyToken=6042cbcb05cbc941, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Shouldly.2.6.0\lib\net40\Shouldly.dll</HintPath>
+    <Reference Include="Shouldly, Version=2.7.0.0, Culture=neutral, PublicKeyToken=6042cbcb05cbc941, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Shouldly.2.7.0\lib\net40\Shouldly.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -79,7 +79,6 @@
     <Compile Include="Models\RuralListingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReaTransmorgrifierFacts.cs" />
-    <Compile Include="Validators\LinksValidatorTests.cs" />
     <Compile Include="Validators\BuildingDetailsValidatorTests.cs" />
     <Compile Include="Validators\AddressValidatorTests.cs" />
     <Compile Include="Validators\AgencyValidatorTests.cs" />
@@ -96,7 +95,7 @@
     <Compile Include="Validators\Rental\RentalListingValidatorFacts.cs" />
     <Compile Include="Validators\Rental\RentalPricingValidatorFacts.cs" />
     <Compile Include="Validators\ResidentialListingValidatorTests.cs" />
-    <Compile Include="Validators\Residential\ResidentialListingValidatorFacts.cs" />
+    <Compile Include="Validators\Residential\ResidentialListingValidatorTests.cs" />
     <Compile Include="Validators\Rural\RuralListingValidatorFacts.cs" />
     <Compile Include="Validators\SalePricingValidatorTests.cs" />
     <Compile Include="Validators\UnitOfMeasureValidatorTests.cs" />
