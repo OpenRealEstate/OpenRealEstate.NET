@@ -24,7 +24,7 @@ namespace OpenRealEstate.FakeData
             return fixture.Build<T>()
                 .With(x => x.Id, $"listing-{fixture.Create<int>()}")
                 .With(x => x.AgencyId, $"Agency-{fixture.Create<string>().Substring(0, 6)}")
-                .With(x => x.StatusType, StatusType.Current)
+                .With(x => x.StatusType, StatusType.Available)
                 .Create();
         }
 

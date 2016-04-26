@@ -122,7 +122,7 @@ namespace OpenRealEstate.WebSite.Modules
                 foreach (var listing in listings)
                 {
                     // We only do strict validation (the bare minimum needed to store a listing) if this is current.
-                    var validationResults = ValidatorMediator.Validate(listing, listing.StatusType == StatusType.Current);
+                    var validationResults = ValidatorMediator.Validate(listing, listing.StatusType == StatusType.Available);
                     if (validationResults.Errors != null &&
                         validationResults.Errors.Any())
                     {

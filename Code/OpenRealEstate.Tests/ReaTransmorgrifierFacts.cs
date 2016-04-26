@@ -25,7 +25,7 @@ namespace OpenRealEstate.Tests
             #region Residential
 
             [Fact]
-            public void GivenTheFileREAResidentialCurrent_Convert_ReturnsAResidentialCurrentListing()
+            public void GivenTheFileREAResidentialCurrent_Convert_ReturnsAResidentialAvailableListing()
             {
                 // Arrange.
                 var reaXml =
@@ -40,7 +40,7 @@ namespace OpenRealEstate.Tests
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBeNull();
                 result.Errors.ShouldBeNull();
-                AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
+                AssertResidentialAvailableListing(result.Listings.First().Listing as ResidentialListing,
                     tags:
                         new[]
                         {
@@ -105,7 +105,7 @@ namespace OpenRealEstate.Tests
             }
 
             [Fact]
-            public void GivenTheFileREAResidentialWithdawn_Convert_ReturnsAResidentialWithdawnListing()
+            public void GivenTheFileREAResidentialWithdawn_Convert_ReturnsAResidentialRemovedListing()
             {
                 // Arrange.
                 var reaXml =
@@ -122,11 +122,11 @@ namespace OpenRealEstate.Tests
                 var listing = result.Listings.First().Listing;
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Residential-Withdrawn-ABCD1234");
-                listing.StatusType.ShouldBe(StatusType.Withdrawn);
+                listing.StatusType.ShouldBe(StatusType.Removed);
             }
 
             [Fact]
-            public void GivenTheFileREAResidentialOffMarket_Convert_ReturnsAResidentialOffMarketListing()
+            public void GivenTheFileREAResidentialOffMarket_Convert_ReturnsAResidentialRemovedListing()
             {
                 // Arrange.
                 var reaXml =
@@ -143,11 +143,32 @@ namespace OpenRealEstate.Tests
                 var listing = result.Listings.First().Listing;
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Residential-OffMarket-ABCD1234");
-                listing.StatusType.ShouldBe(StatusType.OffMarket);
+                listing.StatusType.ShouldBe(StatusType.Removed);
             }
 
             [Fact]
-            public void GivenTheFileREASegmentResidentialCurrent_Convert_ReturnsAResidentialCurrentListing()
+            public void GivenTheFileREAResidentialDeleted_Convert_ReturnsAResidentialRemovedListing()
+            {
+                // Arrange.
+                var reaXml =
+                    File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Deleted.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBeNull();
+
+                var listing = result.Listings.First().Listing;
+                listing.AgencyId.ShouldBe("XNWXNW");
+                listing.Id.ShouldBe("Residential-Deleted-ABCD1234");
+                listing.StatusType.ShouldBe(StatusType.Removed);
+            }
+
+            [Fact]
+            public void GivenTheFileREASegmentResidentialCurrent_Convert_ReturnsAResidentialAvailableListing()
             {
                 // Arrange.
                 var reaXml =
@@ -161,7 +182,7 @@ namespace OpenRealEstate.Tests
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBeNull();
-                AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing);
+                AssertResidentialAvailableListing(result.Listings.First().Listing as ResidentialListing);
             }
 
             [Fact]
@@ -207,7 +228,7 @@ namespace OpenRealEstate.Tests
             }
 
             [Fact]
-            public void GivenTheFileREAResidentialCurrentBedroomIsStudio_Convert_ReturnsAResidentialCurrentListing()
+            public void GivenTheFileREAResidentialCurrentBedroomIsStudio_Convert_ReturnsAResidentialAvailableListing()
             {
                 // Arrange.
                 var reaXml =
@@ -222,13 +243,13 @@ namespace OpenRealEstate.Tests
                 result.ShouldNotBeNull();
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBeNull();
-                AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
+                AssertResidentialAvailableListing(result.Listings.First().Listing as ResidentialListing,
                     PropertyType.Studio,
                     0);
             }
 
             [Fact]
-            public void GivenTheFileREAResidentialCurrentWithAllFeatures_Convert_ReturnsAResidentialCurrentListing()
+            public void GivenTheFileREAResidentialCurrentWithAllFeatures_Convert_ReturnsAResidentialAvailableListing()
             {
                 // Arrange.
                 var reaXml =
@@ -243,7 +264,7 @@ namespace OpenRealEstate.Tests
                 result.ShouldNotBeNull();
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBeNull();
-                AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
+                AssertResidentialAvailableListing(result.Listings.First().Listing as ResidentialListing,
                     PropertyType.House,
                     4,
                     XmlFeatureHelpers.OtherFeatureNames);
@@ -290,7 +311,7 @@ namespace OpenRealEstate.Tests
                 result.UnhandledData.ShouldBeNull();
                 result.Errors.ShouldBeNull();
 
-                AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
+                AssertResidentialAvailableListing(result.Listings.First().Listing as ResidentialListing,
                     tags:
                         new[]
                         {
@@ -317,7 +338,7 @@ namespace OpenRealEstate.Tests
                 result.UnhandledData.ShouldBeNull();
                 result.Errors.ShouldBeNull();
 
-                AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
+                AssertResidentialAvailableListing(result.Listings.First().Listing as ResidentialListing,
                     tags:
                         new[]
                         {
@@ -344,7 +365,7 @@ namespace OpenRealEstate.Tests
                 result.UnhandledData.ShouldBeNull();
                 result.Errors.ShouldBeNull();
 
-                AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
+                AssertResidentialAvailableListing(result.Listings.First().Listing as ResidentialListing,
                     tags:
                         new[]
                         {
@@ -371,7 +392,7 @@ namespace OpenRealEstate.Tests
                 result.UnhandledData.ShouldBeNull();
                 result.Errors.ShouldBeNull();
 
-                AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
+                AssertResidentialAvailableListing(result.Listings.First().Listing as ResidentialListing,
                     tags:
                         new[]
                         {
@@ -384,7 +405,7 @@ namespace OpenRealEstate.Tests
 
             [Fact]
             public void
-                GivenTheFileREAResidentialCurrentWithNoStreetNumberButASubNumber_Convert_ReturnsAResidentialCurrentListing
+                GivenTheFileREAResidentialCurrentWithNoStreetNumberButASubNumber_Convert_ReturnsAResidentialAvailableListing
                 ()
             {
                 // Arrange.
@@ -401,7 +422,7 @@ namespace OpenRealEstate.Tests
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBeNull();
                 result.Errors.ShouldBeNull();
-                AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
+                AssertResidentialAvailableListing(result.Listings.First().Listing as ResidentialListing,
                     tags:
                         new[]
                         {
@@ -413,7 +434,7 @@ namespace OpenRealEstate.Tests
 
             [Fact]
             public void
-                GivenTheFileREAResidentialCurrentWithAStreetNumberAndASubNumber_Convert_ReturnsAResidentialCurrentListing
+                GivenTheFileREAResidentialCurrentWithAStreetNumberAndASubNumber_Convert_ReturnsAResidentialAvailableListing
                 ()
             {
                 // Arrange.
@@ -430,7 +451,7 @@ namespace OpenRealEstate.Tests
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBeNull();
                 result.Errors.ShouldBeNull();
-                AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
+                AssertResidentialAvailableListing(result.Listings.First().Listing as ResidentialListing,
                     tags:
                         new[]
                         {
@@ -442,7 +463,7 @@ namespace OpenRealEstate.Tests
 
             [Fact]
             public void
-                GivenTheFileREAResidentialCurrentWithAStreetNumberAndASingleSubNumber_Convert_ReturnsAResidentialCurrentListing
+                GivenTheFileREAResidentialCurrentWithAStreetNumberAndASingleSubNumber_Convert_ReturnsAResidentialAvailableListing
                 ()
             {
                 // Arrange.
@@ -459,7 +480,7 @@ namespace OpenRealEstate.Tests
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBeNull();
                 result.Errors.ShouldBeNull();
-                AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
+                AssertResidentialAvailableListing(result.Listings.First().Listing as ResidentialListing,
                     tags:
                         new[]
                         {
@@ -470,7 +491,7 @@ namespace OpenRealEstate.Tests
 
             [Fact]
             public void
-                GivenTheFileREAResidentialCurrentWithAStreetNumberAndASingleSubNumberWithACustomDelimeter_Convert_ReturnsAResidentialCurrentListing
+                GivenTheFileREAResidentialCurrentWithAStreetNumberAndASingleSubNumberWithACustomDelimeter_Convert_ReturnsAResidentialAvailableListing
                 ()
             {
                 // Arrange.
@@ -490,7 +511,7 @@ namespace OpenRealEstate.Tests
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBeNull();
                 result.Errors.ShouldBeNull();
-                AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
+                AssertResidentialAvailableListing(result.Listings.First().Listing as ResidentialListing,
                     tags:
                         new[]
                         {
@@ -517,7 +538,7 @@ namespace OpenRealEstate.Tests
                 result.UnhandledData.ShouldBeNull();
                 result.Errors.ShouldBeNull();
 
-                AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
+                AssertResidentialAvailableListing(result.Listings.First().Listing as ResidentialListing,
                     tags:
                         new[]
                         {
@@ -550,7 +571,7 @@ namespace OpenRealEstate.Tests
 
             [Fact]
             public void
-                GivenTheFileREAResidentialCurrent_ConvertWithIsClearAllIsModified_ReturnsAResidentialCurrentListing()
+                GivenTheFileREAResidentialCurrent_ConvertWithIsClearAllIsModified_ReturnsAResidentialAvailableListing()
             {
                 // Arrange.
                 var reaXml =
@@ -565,7 +586,7 @@ namespace OpenRealEstate.Tests
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBeNull();
                 result.Errors.ShouldBeNull();
-                AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
+                AssertResidentialAvailableListing(result.Listings.First().Listing as ResidentialListing,
                     tags:
                         new[]
                         {
@@ -577,7 +598,7 @@ namespace OpenRealEstate.Tests
             }
 
             [Fact]
-            public void GivenTheFileREAResidentialCurrentWithASingleAgentName_Convert_ReturnsAResidentialCurrentListing()
+            public void GivenTheFileREAResidentialCurrentWithASingleAgentName_Convert_ReturnsAResidentialAvailableListing()
             {
                 // Arrange.
                 var reaXml =
@@ -600,7 +621,7 @@ namespace OpenRealEstate.Tests
                         listingAgents.First().Name.ShouldBe("Mr. John Doe");
                         listingAgents.First().Order.ShouldBe(1);
                     };
-                AssertResidentialCurrentListing(listing,
+                AssertResidentialAvailableListing(listing,
                     tags:
                         new[]
                         {
@@ -615,7 +636,7 @@ namespace OpenRealEstate.Tests
             InlineData("REA-Residential-Current.xml"),
             InlineData("REA-Residential-Current-WithFloorPlansMissing.xml"),
             InlineData("REA-Residential-Sold.xml")]
-            public void GivenTheFileREAResidentialCurrent_ConvertThenSaveThenCovertAgain_ReturnsAResidentialCurrentListing(string fileName)
+            public void GivenTheFileREAResidentialCurrent_ConvertThenSaveThenCovertAgain_ReturnsAResidentialAvailableListing(string fileName)
             {
                 // Arrange.
                 var reaXml =
@@ -663,7 +684,7 @@ namespace OpenRealEstate.Tests
             }
 
             [Fact]
-            public void GivenTheFileREAResidentialCurrentMinimum_Convert_ReturnsAResidentialCurrentListing()
+            public void GivenTheFileREAResidentialCurrentMinimum_Convert_ReturnsAResidentialAvailableListing()
             {
                 // Arrange.
                 var reaXml =
@@ -687,7 +708,7 @@ namespace OpenRealEstate.Tests
             }
 
             [Fact]
-            public void GivenTheFileREAResidentialCurrentWithEnsuiteIsTrue_Convert_ReturnsAResidentialCurrentListing()
+            public void GivenTheFileREAResidentialCurrentWithEnsuiteIsTrue_Convert_ReturnsAResidentialAvailableListing()
             {
                 // Arrange.
                 var reaXml =
@@ -706,7 +727,7 @@ namespace OpenRealEstate.Tests
             }
 
             [Fact]
-            public void GivenTheFileREAResidentialCurrentWithEnsuiteIsFalse_Convert_ReturnsAResidentialCurrentListing()
+            public void GivenTheFileREAResidentialCurrentWithEnsuiteIsFalse_Convert_ReturnsAResidentialAvailableListing()
             {
                 // Arrange.
                 var reaXml =
@@ -725,7 +746,7 @@ namespace OpenRealEstate.Tests
             }
 
             [Fact]
-            public void GivenTheFileREAResidentialCurrentWithDuplicateAgents_Convert_ReturnsAResidentialCurrentListing()
+            public void GivenTheFileREAResidentialCurrentWithDuplicateAgents_Convert_ReturnsAResidentialAvailableListing()
             {
                 // Arrange.
                 var reaXml =
@@ -754,7 +775,7 @@ namespace OpenRealEstate.Tests
                         listingAgents[1].Communications.Count.ShouldBe(2);
                     };
 
-                AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
+                AssertResidentialAvailableListing(result.Listings.First().Listing as ResidentialListing,
                     tags:
                         new[]
                         {
@@ -766,7 +787,7 @@ namespace OpenRealEstate.Tests
             }
 
             [Fact]
-            public void GivenTheFileREAResidentialCurrentWithEmptyImagesAndFloorplans_Convert_ReturnsAResidentialCurrentListing()
+            public void GivenTheFileREAResidentialCurrentWithEmptyImagesAndFloorplans_Convert_ReturnsAResidentialAvailableListing()
             {
                 // Arrange.
                 var reaXml =
@@ -781,7 +802,7 @@ namespace OpenRealEstate.Tests
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBeNull();
                 result.Errors.ShouldBeNull();
-                AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
+                AssertResidentialAvailableListing(result.Listings.First().Listing as ResidentialListing,
                     tags:
                         new[]
                         {
@@ -811,7 +832,7 @@ namespace OpenRealEstate.Tests
             }
 
             [Fact]
-            public void GivenTheFileREAResidentialCurrentWithNoModTimeInImagesAndFloorPlans_Convert_ReturnsAResidentialCurrentListing()
+            public void GivenTheFileREAResidentialCurrentWithNoModTimeInImagesAndFloorPlans_Convert_ReturnsAResidentialAvailableListing()
             {
                 // Arrange.
                 var reaXml =
@@ -826,7 +847,7 @@ namespace OpenRealEstate.Tests
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBeNull();
                 result.Errors.ShouldBeNull();
-                AssertResidentialCurrentListing(result.Listings.First().Listing as ResidentialListing,
+                AssertResidentialAvailableListing(result.Listings.First().Listing as ResidentialListing,
                     tags:
                         new[]
                         {
@@ -857,7 +878,7 @@ namespace OpenRealEstate.Tests
                 result.Errors.First().ExceptionMessage.ShouldBe("Invalid date/time trying to be parsed. Attempted the value: '2016-02-1112:50:05' but that format is invalid.");
             }
 
-            private static void AssertResidentialCurrentListing(ResidentialListing listing,
+            private static void AssertResidentialAvailableListing(ResidentialListing listing,
                 PropertyType expectedPropertyType = PropertyType.House,
                 byte expectedBedroomsCount = 4,
                 IList<string> tags = null,
@@ -873,7 +894,7 @@ namespace OpenRealEstate.Tests
             {
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Residential-Current-ABCD1234");
-                listing.StatusType.ShouldBe(StatusType.Current);
+                listing.StatusType.ShouldBe(StatusType.Available);
                 listing.PropertyType.ShouldBe(expectedPropertyType);
                 listing.CouncilRates.ShouldBe("$2000 per month");
                 listing.Links[0].ShouldBe("http://www.au.open2view.com/properties/314244/tour#floorplan");
@@ -941,7 +962,7 @@ namespace OpenRealEstate.Tests
             #region Rental
 
             [Fact]
-            public void GivenTheFileREARentalCurrent_Convert_ReturnsARentalCurrentListing()
+            public void GivenTheFileREARentalCurrent_Convert_ReturnsARentalAvailableListing()
             {
                 // Arrange.
                 var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Rental\\REA-Rental-Current.xml");
@@ -982,7 +1003,7 @@ namespace OpenRealEstate.Tests
             }
 
             [Fact]
-            public void GivenTheFileREARentalWithdrawn_Convert_ReturnsARentalWithdrawnListing()
+            public void GivenTheFileREARentalWithdrawn_Convert_ReturnsARentalRemovedListing()
             {
                 // Arrange.
                 var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Rental\\REA-Rental-Withdrawn.xml");
@@ -997,11 +1018,11 @@ namespace OpenRealEstate.Tests
                 var listing = result.Listings.First().Listing;
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Rental-Withdrawn-ABCD1234");
-                listing.StatusType.ShouldBe(StatusType.Withdrawn);
+                listing.StatusType.ShouldBe(StatusType.Removed);
             }
 
             [Fact]
-            public void GivenTheFileREARentalOffMarket_Convert_ReturnsARentalOffMarketListing()
+            public void GivenTheFileREARentalOffMarket_Convert_ReturnsARentalRemovedListing()
             {
                 // Arrange.
                 var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Rental\\REA-Rental-OffMarket.xml");
@@ -1016,11 +1037,11 @@ namespace OpenRealEstate.Tests
                 var listing = result.Listings.First().Listing;
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Rental-OffMarket-ABCD1234");
-                listing.StatusType.ShouldBe(StatusType.OffMarket);
+                listing.StatusType.ShouldBe(StatusType.Removed);
             }
 
             [Fact]
-            public void GivenTheFileREASegmentRentalCurrent_Convert_ReturnsARentalCurrentListing()
+            public void GivenTheFileREASegmentRentalCurrent_Convert_ReturnsARentalAvailableListing()
             {
                 // Arrange.
                 var reaXml =
@@ -1038,7 +1059,7 @@ namespace OpenRealEstate.Tests
             }
 
             [Fact]
-            public void GivenTheFileREARentalCurrentWithNoBond_Convert_ReturnsARentalCurrentListing()
+            public void GivenTheFileREARentalCurrentWithNoBond_Convert_ReturnsARentalAvailableListing()
             {
                 // Arrange.
                 var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Rental\\REA-Rental-Current-WithNoBond.xml");
@@ -1067,7 +1088,7 @@ namespace OpenRealEstate.Tests
             {
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Rental-Current-ABCD1234");
-                listing.StatusType.ShouldBe(StatusType.Current);
+                listing.StatusType.ShouldBe(StatusType.Available);
                 listing.PropertyType.ShouldBe(PropertyType.House);
 
                 AssertAddress(listing.Address, "39");
@@ -1118,7 +1139,7 @@ namespace OpenRealEstate.Tests
             #region Land
 
             [Fact]
-            public void GivenTheFileREALandCurrent_Convert_ReturnsALandCurrentListing()
+            public void GivenTheFileREALandCurrent_Convert_ReturnsALandAvailableListing()
             {
                 // Arrange.
                 var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Land\\REA-Land-Current.xml");
@@ -1130,13 +1151,13 @@ namespace OpenRealEstate.Tests
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBeNull();
-                AssertLandCurrentListing(result.Listings.First().Listing as LandListing,
+                AssertLandAvailableListing(result.Listings.First().Listing as LandListing,
                     tags: new[] {"fullyFenced"},
                     carParking: new CarParking());
             }
 
             [Fact]
-            public void GivenTheFileREALandCurrentIncompleteLandDetails_Convert_ReturnsALandCurrentListing()
+            public void GivenTheFileREALandCurrentIncompleteLandDetails_Convert_ReturnsALandAvailableListing()
             {
                 // Arrange.
                 var reaXml =
@@ -1192,7 +1213,7 @@ namespace OpenRealEstate.Tests
             }
 
             [Fact]
-            public void GivenTheFileREALandWithdawn_Convert_ReturnsALandWithdawnListing()
+            public void GivenTheFileREALandWithdawn_Convert_ReturnsALandRemovedListing()
             {
                 // Arrange.
                 var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Land\\REA-Land-Withdrawn.xml");
@@ -1208,11 +1229,11 @@ namespace OpenRealEstate.Tests
                 var listing = result.Listings.First().Listing;
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Land-Withdrawn-ABCD1234");
-                listing.StatusType.ShouldBe(StatusType.Withdrawn);
+                listing.StatusType.ShouldBe(StatusType.Removed);
             }
 
             [Fact]
-            public void GivenTheFileREALandOffMarket_Convert_ReturnsALandOffMarketListing()
+            public void GivenTheFileREALandOffMarket_Convert_ReturnsALandRemovedListing()
             {
                 // Arrange.
                 var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Land\\REA-Land-OffMarket.xml");
@@ -1228,11 +1249,11 @@ namespace OpenRealEstate.Tests
                 var listing = result.Listings.First().Listing;
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Land-OffMarket-ABCD1234");
-                listing.StatusType.ShouldBe(StatusType.OffMarket);
+                listing.StatusType.ShouldBe(StatusType.Removed);
             }
 
             [Fact]
-            public void GivenTheFileReaLandCurrentMissingLandCategory_Convert_ReturnsALandCurrentListing()
+            public void GivenTheFileReaLandCurrentMissingLandCategory_Convert_ReturnsALandAvailableListing()
             {
                 // Arrange.
                 var reaXml =
@@ -1246,13 +1267,13 @@ namespace OpenRealEstate.Tests
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBeNull();
-                AssertLandCurrentListing(result.Listings.First().Listing as LandListing, 
+                AssertLandAvailableListing(result.Listings.First().Listing as LandListing, 
                     LandCategoryType.Unknown,
                     carParking: new CarParking());
             }
 
             [Fact]
-            public void GivenTheFileREALandCurrentWithASubNumberButNoStreetNumber_Convert_ReturnsALandCurrentListing()
+            public void GivenTheFileREALandCurrentWithASubNumberButNoStreetNumber_Convert_ReturnsALandAvailableListing()
             {
                 // Arrange.
                 var reaXml =
@@ -1266,13 +1287,13 @@ namespace OpenRealEstate.Tests
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBeNull();
-                AssertLandCurrentListing(result.Listings.First().Listing as LandListing,
+                AssertLandAvailableListing(result.Listings.First().Listing as LandListing,
                     tags: new[] {"fullyFenced"},
                     streetNumber: "12",
                     carParking: new CarParking());
             }
 
-            private static void AssertLandCurrentListing(LandListing listing,
+            private static void AssertLandAvailableListing(LandListing listing,
                 LandCategoryType landCategoryType = LandCategoryType.Residential,
                 IList<string> tags = null,
                 string streetNumber = "LOT 12/39",
@@ -1281,7 +1302,7 @@ namespace OpenRealEstate.Tests
             {
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Land-Current-ABCD1234");
-                listing.StatusType.ShouldBe(StatusType.Current);
+                listing.StatusType.ShouldBe(StatusType.Available);
                 listing.CategoryType.ShouldBe(landCategoryType);
 
                 listing.Agents.Count.ShouldBe(1);
@@ -1344,7 +1365,7 @@ namespace OpenRealEstate.Tests
             #region Rural
 
             [Fact]
-            public void GivenTheFileREARuralCurrent_Convert_ReturnsARurualCurrentListing()
+            public void GivenTheFileREARuralCurrent_Convert_ReturnsARurualAvailableListing()
             {
                 // Arrange.
                 var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Rural\\REA-Rural-Current.xml");
@@ -1357,7 +1378,7 @@ namespace OpenRealEstate.Tests
                 result.ShouldNotBeNull();
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBeNull();
-                AssertRuralCurrentListing(result.Listings.First().Listing as RuralListing,
+                AssertRuralAvailableListing(result.Listings.First().Listing as RuralListing,
                     new[]
                     {
                         "hotWaterService-gas", "heating-other", "balcony", "shed", "courtyard", "fullyFenced", "outdoorEnt",
@@ -1401,7 +1422,7 @@ namespace OpenRealEstate.Tests
             }
 
             [Fact]
-            public void GivenTheFileREARuralWithdawn_Convert_ReturnsARuralWithdawnListing()
+            public void GivenTheFileREARuralWithdawn_Convert_ReturnsARuralRemovedListing()
             {
                 // Arrange.
                 var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Rural\\REA-Rural-Withdrawn.xml");
@@ -1417,11 +1438,11 @@ namespace OpenRealEstate.Tests
                 var listing = result.Listings.First().Listing;
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Rural-Withdrawn-ABCD1234");
-                listing.StatusType.ShouldBe(StatusType.Withdrawn);
+                listing.StatusType.ShouldBe(StatusType.Removed);
             }
 
             [Fact]
-            public void GivenTheFileREARuralOffMarket_Convert_ReturnsARuralOffMarketListing()
+            public void GivenTheFileREARuralOffMarket_Convert_ReturnsARuralRemovedListing()
             {
                 // Arrange.
                 var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Rural\\REA-Rural-OffMarket.xml");
@@ -1437,17 +1458,17 @@ namespace OpenRealEstate.Tests
                 var listing = result.Listings.First().Listing;
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Rural-OffMarket-ABCD1234");
-                listing.StatusType.ShouldBe(StatusType.OffMarket);
+                listing.StatusType.ShouldBe(StatusType.Removed);
             }
 
-            private static void AssertRuralCurrentListing(RuralListing listing,
+            private static void AssertRuralAvailableListing(RuralListing listing,
                 IList<string> tags = null,
                 bool isModified = true,
                 byte bedroomsCount = 0)
             {
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Rural-Current-ABCD1234");
-                listing.StatusType.ShouldBe(StatusType.Current);
+                listing.StatusType.ShouldBe(StatusType.Available);
                 listing.CategoryType.ShouldBe(CategoryType.Cropping);
                 listing.AuctionOn.ShouldBe(new DateTime(2009, 01, 24, 14, 30, 00));
                 listing.CouncilRates.ShouldBe("$2,200 per annum");

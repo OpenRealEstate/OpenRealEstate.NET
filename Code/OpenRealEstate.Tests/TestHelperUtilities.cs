@@ -198,7 +198,7 @@ namespace OpenRealEstate.Tests
             listing.Title = "SHOW STOPPER!!!";
             listing.Description =
                 "Don't pass up an opportunity like this! First to inspect will buy! Close to local amenities and schools. Features lavishly appointed bathrooms, modern kitchen, rustic outhouse.Don't pass up an opportunity like this! First to inspect will buy! Close to local amenities and schools. Features lavishly appointed bathrooms, modern kitchen, rustic outhouse.";
-            listing.StatusType = StatusType.Current;
+            listing.StatusType = StatusType.Available;
 
             listing.Address = CreateAddress();
             listing.Features = CreateFeatures();
