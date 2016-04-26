@@ -1,19 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenRealEstate.Core.Models;
-using OpenRealEstate.Core.Models.Land;
-using OpenRealEstate.Core.Models.Rental;
-using OpenRealEstate.Core.Models.Residential;
-using OpenRealEstate.Core.Models.Rural;
+using OpenRealEstate.Core;
+using OpenRealEstate.Core.Land;
+using OpenRealEstate.Core.Rental;
+using OpenRealEstate.Core.Residential;
+using OpenRealEstate.Core.Rural;
 using OpenRealEstate.Services.RealEstateComAu;
 using OpenRealEstate.Validation;
 using Shouldly;
 using Xunit;
-using CategoryType = OpenRealEstate.Core.Models.Land.CategoryType;
+using LandCategoryType = OpenRealEstate.Core.Land.CategoryType;
 
 namespace OpenRealEstate.Tests.Validators
 {
@@ -55,7 +52,7 @@ namespace OpenRealEstate.Tests.Validators
 
                 var reaXml = File.ReadAllText(fileName);
                 var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
-                return reaXmlTransmorgrifier.ConvertTo(reaXml).Listings.First().Listing;
+                return reaXmlTransmorgrifier.Parse(reaXml).Listings.First().Listing;
             }
 
             [Fact]
@@ -191,7 +188,7 @@ namespace OpenRealEstate.Tests.Validators
                 var listing = (LandListing)GetListing(typeof(LandListing));
                 listing.Id = null;
                 listing.AgencyId = null;
-                listing.CategoryType = CategoryType.Unknown; // That's allowed, now :(
+                listing.CategoryType = LandCategoryType.Unknown; // That's allowed, now :(
 
                 // Arrange.
                 var result = ValidatorMediator.Validate(listing, true);

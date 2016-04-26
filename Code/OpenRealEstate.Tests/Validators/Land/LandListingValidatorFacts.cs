@@ -1,7 +1,7 @@
 ﻿using System;
 using FluentValidation.TestHelper;
-using OpenRealEstate.Core.Models;
-using OpenRealEstate.Core.Models.Land;
+using OpenRealEstate.Core;
+using OpenRealEstate.Core.Land;
 using OpenRealEstate.Validation;
 using OpenRealEstate.Validation.Land;
 using Xunit;

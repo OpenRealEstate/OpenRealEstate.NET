@@ -1,7 +1,7 @@
 ﻿using System;
 using FluentValidation;
-using OpenRealEstate.Core.Models;
-using OpenRealEstate.Core.Models.Residential;
+using OpenRealEstate.Core;
+using OpenRealEstate.Core.Residential;
 
 namespace OpenRealEstate.Validation.Residential
 {

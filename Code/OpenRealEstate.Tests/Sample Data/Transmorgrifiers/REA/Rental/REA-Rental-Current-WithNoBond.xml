@@ -9,16 +9,15 @@
         <listingAgent>
             <name>Mr. John Doe</name>
             <telephone type="BH">05 1234 5678</telephone>
+            <telephone type="mobile">0418 123 456</telephone>
             <email>jdoe@somedomain.com.au</email>
-            <twitterURL>http://www.twitter.com/#!/JoeAtSomeDomain</twitterURL>
-            <facebookURL>http://www.facebook.com/pages/SomeDomain</facebookURL>
-            <linkedInURL> http://au.linkedin.com/pub/john-doe/37/599/39a</linkedInURL>
+            <twitterURL>https://www.twitter.com/JohnDoe</twitterURL>
         </listingAgent>
         <dateAvailable>2009-01-26-12:30:00</dateAvailable>
         <rent period="week">350</rent>
         <newConstruction>true</newConstruction>
         <address display="yes">
-            <streetNumber>39</streetNumber>
+            <streetNumber>2/39</streetNumber>
             <street>Main Road</street>
             <suburb display="yes">RICHMOND</suburb>
             <state>vic</state>
@@ -65,21 +64,24 @@
             <otherFeatures>balcony, courtyard</otherFeatures>
         </features>
         <landDetails>
-            <area unit="square">60</area>
-            <frontage unit="meter">15</frontage>
+            <area unit="square">80</area>
+            <frontage unit="meter">20</frontage>
             <depth unit="meter" side="rear">40</depth>
+            <depth unit="meter" side="left">60</depth>
+            <depth unit="meter" side="right">20</depth>
             <crossOver value="left" />
         </landDetails>
         <buildingDetails>
-            <area unit="square">25</area>
+            <area unit="square">40</area>
             <newlyBuilt value="yes" />
             <energyRating>4.5</energyRating>
         </buildingDetails>
         <inspectionTimes>
             <inspection>21-Jan-2009 11:00am to 1:00pm</inspection>
-            <inspection>22-Jan-2009 11:00am to 1:00pm</inspection>
+            <inspection>22-Jan-2009 3:00pm to 3:30pm</inspection>
         </inspectionTimes>
         <externalLink href="http%3A%2F%2Fwww%2Eau%2Eopen2view%2Ecom%2Fproperties%2F314244%2Ftour%23floorplan" />
+        <externalLink href="http://www.google.com/hello" />
         <images>
             <img id="m" modTime="2009-01-01-12:30:00" url="http://www.realestate.com.au/tmp/imageM.jpg" format="jpg" />
             <img id="a" modTime="2009-01-01-12:30:00" url="http://www.realestate.com.au/tmp/imageA.jpg" format="jpg" />
@@ -90,5 +92,12 @@
             <floorplan id="2" modTime="2009-01-01-12:30:00" url="http://www.realestate.com.au/tmp/floorplan2.gif"
                        format="gif" />
         </objects>
+        <videoLink href="http://www.foo.tv/abcd.html"/>
+        <ecoFriendly>
+            <solarPanels>1</solarPanels>
+            <solarHotWater>0</solarHotWater>
+            <waterTank>1</waterTank>
+            <greyWaterSystem>0</greyWaterSystem>
+        </ecoFriendly>
     </rental>
 </propertyList>

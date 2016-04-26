@@ -88,28 +88,8 @@
         <externalLink href="http%3A%2F%2Fwww%2Eau%2Eopen2view%2Ecom%2Fproperties%2F314244%2Ftour%23floorplan" />
         <externalLink href="http://www.google.com/hello" />
         <images>
-            <img id="m" modTime="2009-01-01-12:30:00" url="http://www.realestate.com.au/tmp/imageM.jpg" format="jpg" />
-            <img id="a" modTime="2009-01-01-12:30:00" url="http://www.realestate.com.au/tmp/imageA.jpg" format="jpg" />
-            <img id="b"/>
-            <img id="c"/>
-            <img id="d"/>
-            <img id="e"/>
-            <img id="f"/>
-            <img id="g"/>
-            <img id="h"/>
-            <img id="i"/>
-            <img id="j"/>
         </images>
-        <objects>
-            <floorplan id="1" modTime="2009-01-01-12:30:00" url="http://www.realestate.com.au/tmp/floorplan1.gif"
-                       format="gif" />
-            <floorplan id="2" modTime="2009-01-01-12:30:00" url="http://www.realestate.com.au/tmp/floorplan2.gif"
-                       format="gif" />
-            <floorplan id="3"/>
-            <floorplan id="4"/>
-            <floorplan id="5"/>
-            <floorplan id="6"/>
-        </objects>
+        <objects></objects>
         <videoLink href="http://www.foo.tv/abcd.html"/>
         <ecoFriendly>
             <solarPanels>1</solarPanels>

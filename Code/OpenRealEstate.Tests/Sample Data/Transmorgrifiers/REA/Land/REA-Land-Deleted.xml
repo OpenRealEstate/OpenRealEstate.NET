@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE propertyList SYSTEM "http://reaxml.realestate.com.au/propertyList.dtd">
+<propertyList date="2009-01-01-12:30:00" username="xmluser" password="xmlpassword">
+    <!-- Deleted Listing -->
+    <land modTime="2009-01-01-12:30:00" status="deleted">
+        <agentID>XNWXNW</agentID>
+        <uniqueID>Land-Deleted-ABCD1234</uniqueID>
+    </land>
+</propertyList>

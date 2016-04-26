@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using OpenRealEstate.Core.Models;
-using OpenRealEstate.Core.Models.Residential;
+﻿using OpenRealEstate.Core;
+using OpenRealEstate.Core.Residential;
 using Ploeh.AutoFixture;
 
 namespace OpenRealEstate.FakeData

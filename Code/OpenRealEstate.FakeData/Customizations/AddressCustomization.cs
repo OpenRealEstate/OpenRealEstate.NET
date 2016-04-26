@@ -1,4 +1,4 @@
-﻿using OpenRealEstate.Core.Models;
+﻿using OpenRealEstate.Core;
 using Ploeh.AutoFixture;
 
 namespace OpenRealEstate.FakeData.Customizations
@@ -7,7 +7,6 @@ namespace OpenRealEstate.FakeData.Customizations
     {
         public void Customize(IFixture fixture)
         {
-            //fixture.Customize<Address>(c => c.With(a => a.IsStreetDisplayed, true));
             fixture.Customize<Address>(c =>
                 c.With(address => address.IsStreetDisplayed, true)
                     .With(address => address.CountryIsoCode, "AU")

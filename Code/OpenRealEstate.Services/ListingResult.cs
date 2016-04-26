@@ -1,4 +1,4 @@
-﻿using OpenRealEstate.Core.Models;
+﻿using OpenRealEstate.Core;
 
 namespace OpenRealEstate.Services
 {
@@ -9,10 +9,7 @@ namespace OpenRealEstate.Services
 
         public override string ToString()
         {
-            return string.Format("Type: {0}",
-                Listing == null
-                    ? "-null -"
-                    : Listing.GetType().ToString());
+            return $"Type: {Listing?.GetType().ToString() ?? "-null -"}";
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
-using OpenRealEstate.Core.Models;
+using OpenRealEstate.Core;
 
 namespace OpenRealEstate.Services.Json
 {
@@ -8,7 +8,6 @@ namespace OpenRealEstate.Services.Json
     {
         private static JsonSerializerSettings JsonSerializerSettings => new JsonSerializerSettings
         {
-            ContractResolver = new ListingContractResolver(),
             Converters = new JsonConverter[] { new Newtonsoft.Json.Converters.StringEnumConverter() },
             Formatting = Formatting.Indented
         };

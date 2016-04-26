@@ -1,17 +1,19 @@
-﻿namespace OpenRealEstate.Services
+﻿using OpenRealEstate.Core;
+
+namespace OpenRealEstate.Services
 {
     public interface ITransmorgrifier
     {
         /// <summary>
-        /// Converts some given data into a listing instance.
+        /// Parses and converts some given data into a listing instance.
         /// </summary>
         /// <param name="data">some data source, like Xml data or json data.</param>
+        /// <param name="existingListing">An optional destination listing which will extract any data, into.</param>
         /// <param name="areBadCharactersRemoved">Help clean up the data.</param>
-        /// <param name="isClearAllIsModified">After the data is loaded, do we clear all IsModified fields so it looks like the listing(s) are all ready to be used and/or compared against other listings.</param>
-        /// <returns>List of listings and any unhandled data.</returns>
+        /// <returns>List of listings, unhandled data and/or errors.</returns>
         /// <remarks>Why does <code>isClearAllIsModified</code> default to <code>false</code>? Because when you generally load some data into a new listing instance, you want to see which properties </remarks>
-        ConvertToResult ConvertTo(string data,
-            bool areBadCharactersRemoved = false,
-            bool isClearAllIsModified = false);
+        ParsedResult Parse(string data,
+            Listing existingListing = null,
+            bool areBadCharactersRemoved = false);
     }
 }

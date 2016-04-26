@@ -3,14 +3,14 @@ using System.IO;
 using System.Linq;
 using FluentValidation;
 using FluentValidation.TestHelper;
-using OpenRealEstate.Core.Models;
-using OpenRealEstate.Core.Models.Rural;
+using OpenRealEstate.Core;
+using OpenRealEstate.Core.Rural;
 using OpenRealEstate.Services.RealEstateComAu;
 using OpenRealEstate.Validation;
 using OpenRealEstate.Validation.Rural;
 using Shouldly;
 using Xunit;
-using CategoryType = OpenRealEstate.Core.Models.Rural.CategoryType;
+using RuralCategoryType = OpenRealEstate.Core.Rural.CategoryType;
 
 namespace OpenRealEstate.Tests.Validators.Rural
 {
@@ -23,7 +23,7 @@ namespace OpenRealEstate.Tests.Validators.Rural
                 var xml = File.ReadAllText(fileName 
                     ?? "Sample Data\\Transmorgrifiers\\REA\\Rural\\REA-Rural-Current.xml");
                 var transmogrifier = new ReaXmlTransmorgrifier();
-                return transmogrifier.ConvertTo(xml).Listings.First().Listing as RuralListing;
+                return transmogrifier.Parse(xml).Listings.First().Listing as RuralListing;
             }
 
             [Fact]
@@ -117,7 +117,7 @@ namespace OpenRealEstate.Tests.Validators.Rural
             public void GivenACategoryType_Validate_ShouldNotHaveAValidationError()
             {
                 _validator.ShouldNotHaveValidationErrorFor(listing => listing.CategoryType, 
-                    CategoryType.Cropping,
+                    RuralCategoryType.Cropping,
                     RuralListingValidator.MinimumRuleSet);
             }
 
@@ -125,7 +125,7 @@ namespace OpenRealEstate.Tests.Validators.Rural
             public void GivenAnUnknownCategoryType_Validate_ShouldHaveAValidationError()
             {
                 _validator.ShouldHaveValidationErrorFor(listing => listing.CategoryType,
-                    CategoryType.Unknown,
+                    RuralCategoryType.Unknown,
                     RuralListingValidator.MinimumRuleSet);
             }
 

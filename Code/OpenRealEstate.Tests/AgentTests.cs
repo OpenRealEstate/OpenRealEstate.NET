@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
-using OpenRealEstate.Core.Models;
+using OpenRealEstate.Core;
 using Shouldly;
 using Xunit;
 

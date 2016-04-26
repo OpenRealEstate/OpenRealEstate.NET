@@ -1,4 +1,4 @@
-﻿using OpenRealEstate.Core.Models.Residential;
+﻿using OpenRealEstate.Core.Residential;
 using OpenRealEstate.FakeData;
 using OpenRealEstate.Services.Json;
 using Shouldly;

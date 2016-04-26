@@ -7,18 +7,27 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
-using OpenRealEstate.Core.Models;
-using OpenRealEstate.Core.Models.Land;
-using OpenRealEstate.Core.Models.Rental;
-using OpenRealEstate.Core.Models.Residential;
-using OpenRealEstate.Core.Models.Rural;
-using CategoryTypeHelpers = OpenRealEstate.Core.Models.Land.CategoryTypeHelpers;
+using OpenRealEstate.Core;
+using OpenRealEstate.Core.Land;
+using OpenRealEstate.Core.Rental;
+using OpenRealEstate.Core.Residential;
+using OpenRealEstate.Core.Rural;
+using CategoryTypeHelpers = OpenRealEstate.Core.Land.CategoryTypeHelpers;
 
 namespace OpenRealEstate.Services.RealEstateComAu
 {
     public class ReaXmlTransmorgrifier : ITransmorgrifier
     {
-        private static readonly IList<string> ValidRootNodes = new List<string> { "propertyList", "residential", "rental", "rural", "land" };
+        private static readonly IList<string> ValidRootNodes = new List<string>
+        {
+            "propertyList", "residential", "rental", "rural", "land"
+        };
+
+        private static readonly string[] ValidElementNodes =
+        {
+            "residential", "rental", "land", "rural"
+        };
+
         private CultureInfo _defaultCultureInfo;
 
         public ReaXmlTransmorgrifier()
@@ -27,97 +36,184 @@ namespace OpenRealEstate.Services.RealEstateComAu
         }
 
         /// <summary>
-        /// Converts some given data into a listing instance.
+        /// Parses and converts some given data into a listing instance.
         /// </summary>
         /// <param name="data">some data source, like Xml data or json data.</param>
+        /// <param name="existingListing">An optional destination listing which will extract any data, into.</param>
         /// <param name="areBadCharactersRemoved">Help clean up the data.</param>
-        /// <param name="isClearAllIsModified">After the data is loaded, do we clear all IsModified fields so it looks like the listing(s) are all ready to be used and/or compared against other listings.</param>
-        /// /// <returns>List of listings and any unhandled data.</returns>
-        public ConvertToResult ConvertTo(string data, 
-            bool areBadCharactersRemoved = false,
-            bool isClearAllIsModified = false)
+        /// <returns>List of listings, unhandled data and/or errors.</returns>
+        /// <remarks>Why does <code>isClearAllIsModified</code> default to <code>false</code>? Because when you generally load some data into a new listing instance, you want to see which properties </remarks>
+        public ParsedResult Parse(string data,
+            Listing existingListing = null,
+            bool areBadCharactersRemoved = false)
         {
             Guard.AgainstNullOrWhiteSpace(data);
 
-            // Remove any BOM if one exists.
-            // REF: http://stackoverflow.com/questions/5098757/how-to-tell-asciiencoding-class-not-to-decode-the-byte-order-mark
-            data = RemoveByteOrderMark(data);
-
-            var validationErrorMessage = ValidateXmlString(data);
-            if (!string.IsNullOrWhiteSpace(validationErrorMessage))
+            var cleanedResult = CleanUpReaXmlData(data, areBadCharactersRemoved);
+            if (cleanedResult.Item2.Any())
             {
-                if (!areBadCharactersRemoved)
+                // We have an error, so we need to quit now.
+                return new ParsedResult
                 {
-                    return new ConvertToResult
-                    {
-                        Errors = new List<ParsedError>
-                    {
-                        new ParsedError(validationErrorMessage, "The entire data source.")}
-                    };
-                }
-
-                // Some bad data occurs, so lets clean any bad data out.
-                data = RemoveInvalidXmlChars(data);
+                    Errors = cleanedResult.Item2
+                };
             }
 
+            // Okay - so we have some valid (and possibly cleaned?) XML data.
             // Now split it up into the known listing types.
             SplitElementResult elements;
 
             try
             {
-                elements = SplitReaXmlIntoElements(data);
+                elements = SplitReaXmlIntoElements(cleanedResult.Item1);
             }
             catch (Exception exception)
             {
-                return new ConvertToResult
-                {
-                    Errors = new List<ParsedError>
-                    {
-                        new ParsedError(exception.Message, 
-                            "Failed to parse the provided xml data because it contains some invalid data. Pro Tip: This is usually because a character is not encoded. Like an ampersand.")
-                    }
-                };
+                var error = new ParsedError(exception.Message,
+                    "Failed to parse the provided xml data because it contains some invalid data. Pro Tip: This is usually because a character is not encoded. Like an ampersand.");
+                return new ParsedResult(error);
             }
-            
-            if (!elements.KnownXmlData.Any() &&
-                !elements.UnknownXmlData.Any())
+
+            // Do I have _anything_ ?
+            if (elements == null)
             {
+                // Nope - nothing to convert but also no errors :(
                 return null;
             }
 
-            // Finally, we convert each segment into a listing.
+            // Parsed results...
             var successfullyParsedListings = new ConcurrentBag<ListingResult>();
             var invalidData = new ConcurrentBag<ParsedError>();
 
-            Parallel.ForEach(elements.KnownXmlData, element =>
+            if (elements.KnownElements.Any())
             {
-                try
+                // Are we trying to copy REA Xml data into an existing listing?
+                if (existingListing != null)
                 {
-                    successfullyParsedListings.Add(new ListingResult
+                    // I can only copy over XML data from _one_ element into another listing.
+                    // If I have multiple elements then I need to fail, now-and-early.
+                    // Otherwise, which element do I use, to copy into?
+                    if (elements.KnownElements.Count != 1)
                     {
-                        Listing = ConvertFromReaXml(element, DefaultCultureInfo, AddressDelimeter, isClearAllIsModified),
-                        SourceData = element.ToString()
-                    });
-                }
-                catch (Exception exception)
-                {
-                    invalidData.Add(new ParsedError(exception.Message, element.ToString()));
-                }
-            });
+                        // Yep - we're trying to parse a single REA Xml element into an existing listing
+                        // but we have more than one REA Xml element! Oh noes!
+                        return new ParsedResult(
+                            new ParsedError(
+                                $"You can only parse a single REA Xml element when you wish to update existing Listing instance. Currently, the REA Xml data contains {elements.KnownElements.Count} element(s). How to fix: please only provide one REA Xml to parse when updating an existing Listing instance.",
+                                null));
+                    }
 
-            return new ConvertToResult
+                    // 1x REA Xml element.
+                    // 1x existing listing.
+                    // => Parse the REA Xml element into this existing listing.
+                    ParseReaXmlElement(successfullyParsedListings,
+                        invalidData,
+                        elements.KnownElements.First(),
+                        existingListing);
+                }
+                else
+                {
+                    // We don't have an existing listing BUT we have some element(s)...
+                    // 1+ REA Xml elements.
+                    // -no- existing listing.
+                    // => Parse mutliple elements into newly created listing instances.
+                    ParseReaXmlElements(successfullyParsedListings,
+                        invalidData,
+                        elements.KnownElements);
+                }
+            }
+
+            // Ok. so we're finally finished parsing the xml.
+            // What do we have?
+            // We have either:
+            //     - Possibly some listings.
+            //     - Possibly some errors during _individual_ REA Xml segments.
+            return new ParsedResult
             {
-                Listings = successfullyParsedListings.Any()
-                    ? successfullyParsedListings.ToList()
-                    : null,
-                UnhandledData = elements.UnknownXmlData != null &&
-                                elements.UnknownXmlData.Any()
-                    ? elements.UnknownXmlData.Select(x => x.ToString()).ToList()
-                    : null,
-                Errors = invalidData.Any()
-                    ? invalidData.ToList()
-                    : null
+                Listings = successfullyParsedListings.ToList(),
+                UnhandledData = elements.UnknownElements.Select(x => x.ToString()).ToList(),
+                Errors = invalidData.ToList()
             };
+        }
+
+        private static Tuple<string, List<ParsedError>> CleanUpReaXmlData(string data,
+            bool areBadCharactersRemoved)
+        {
+            Guard.AgainstNullOrWhiteSpace(data);
+
+            var errors = new List<ParsedError>();
+
+            // Remove any BOM if one exists.
+            // REF: http://stackoverflow.com/questions/5098757/how-to-tell-asciiencoding-class-not-to-decode-the-byte-order-mark
+            data = RemoveByteOrderMark(data);
+
+            // Any validation errors in the xml?
+            var validationErrorMessage = ValidateXmlString(data);
+            if (!string.IsNullOrWhiteSpace(validationErrorMessage))
+            {
+                // Yep - we do have some validation errors.
+                // But, can we try again and remove any bad characters?
+                if (!areBadCharactersRemoved)
+                {
+                    // Nope - oh well. We're being strict so lets just quit now with an error.
+                    errors.Add(new ParsedError(validationErrorMessage, "The entire data source."));
+                    //return new Tuple<string, List<ParsedError>>(null, errors);
+                }
+                else
+                {
+                    // Some bad data occurs but we are allowed to try and clean any bad data out :)
+                    data = RemoveInvalidXmlChars(data);
+                }
+            }
+
+            // We only return the nice data when we don't have any errors.
+            return new Tuple<string, List<ParsedError>>(errors.Any()
+                ? null
+                : data,
+                errors);
+        }
+
+        private void ParseReaXmlElement(ConcurrentBag<ListingResult> successfullyParsedListings,
+            ConcurrentBag<ParsedError> invalidData,
+            XElement element,
+            Listing existingListing = null)
+        {
+            Guard.AgainstNull(successfullyParsedListings);
+            Guard.AgainstNull(invalidData);
+            Guard.AgainstNull(element);
+
+            try
+            {
+                var listing = ParseReaXml(element,
+                    existingListing,
+                    DefaultCultureInfo,
+                    AddressDelimeter);
+                successfullyParsedListings.Add(new ListingResult
+                {
+                    Listing = listing,
+                    SourceData = element.ToString()
+                });
+            }
+            catch (Exception exception)
+            {
+                invalidData.Add(new ParsedError(exception.Message, element.ToString()));
+            }
+        }
+
+        private void ParseReaXmlElements(ConcurrentBag<ListingResult> successfullyParsedListings,
+            ConcurrentBag<ParsedError> invalidData,
+            IList<XElement> elements)
+        {
+            Guard.AgainstNull(successfullyParsedListings);
+            Guard.AgainstNull(invalidData);
+            Guard.AgainstNull(elements);
+
+            Parallel.ForEach(elements, element =>
+            {
+                ParseReaXmlElement(successfullyParsedListings,
+                    invalidData,
+                    element);
+            });
         }
 
         public CultureInfo DefaultCultureInfo
@@ -217,39 +313,31 @@ namespace OpenRealEstate.Services.RealEstateComAu
             // Prepare the xml data we're given.
             EnsureXmlHasRootNode(ref document);
 
-            var knownNodes = new[]
-            {
-                "residential",
-                "rental",
-                "land",
-                "rural"
-            };
+            // Split the elements into ones we know and car parse, or unknowns/unhandled elements.
+            var knownElements = document?.Root?.Elements()
+                .Where(x => ValidElementNodes
+                    .Any(node => string.Compare(node, x.Name.LocalName, true, CultureInfo.InvariantCulture) == 0))
+                .ToList();
 
-            return document.Root == null
+            var unknownElements = document?.Root?.Elements()
+                .Where(x => ValidElementNodes
+                    .All(node => string.Compare(node, x.Name.LocalName, true, CultureInfo.InvariantCulture) != 0))
+                .ToList();
+
+            return knownElements == null &&
+                unknownElements == null
                 ? null
                 : new SplitElementResult
                 {
-                    KnownXmlData = document.Root.Elements()
-                        .Where(
-                            x =>
-                                knownNodes.Any(
-                                    node =>
-                                        string.Compare(node, x.Name.LocalName, true, CultureInfo.InvariantCulture) == 0))
-                        .ToList(),
-                    UnknownXmlData = document.Root.Elements()
-                        .Where(
-                            x =>
-                                knownNodes.All(
-                                    node =>
-                                        string.Compare(node, x.Name.LocalName, true, CultureInfo.InvariantCulture) != 0))
-                        .ToList()
+                    KnownElements = knownElements,
+                    UnknownElements = unknownElements 
                 };
         }
 
-        private static Listing ConvertFromReaXml(XElement document, 
+        private static Listing ParseReaXml(XElement document,
+            Listing existingListing, 
             CultureInfo cultureInfo,
-            string addressDelimeter,
-            bool isClearAllIsModified)
+            string addressDelimeter)
         {
             Guard.AgainstNull(document);
 
@@ -257,7 +345,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             var categoryType = document.Name.ToCategoryType();
 
             // We can only handle a subset of all the category types.
-            var listing = CreateListing(categoryType);
+            var listing = existingListing ?? CreateListing(categoryType);
             if (listing == null)
             {
                 // TODO: Add logging message.
@@ -288,10 +376,6 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 ExtractRuralData(listing as RuralListing, document, cultureInfo);
             }
 
-            if (isClearAllIsModified)
-            {
-                listing.ClearAllIsModified();
-            }
             return listing;
         }
 
@@ -403,67 +487,45 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 listing.StatusType = StatusTypeHelpers.ToStatusType(status);
             }
 
-            listing.Title = document.ValueOrDefault("headline");
-            listing.Description = document.ValueOrDefault("description");
+            document.ValueOrDefaultIfExists(title => listing.Title = title, "headline");
+            document.ValueOrDefaultIfExists(description => listing.Description = description, "description");
 
-            listing.Address = ExtractAddress(document, addressDelimeter);
-            
-            var agents = ExtractAgent(document);
-            if (agents != null &&
-                agents.Any())
-            {
-                listing.AddAgents(agents);
-            }
-
-            var inspections = ExtractInspectionTimes(document);
-            if (inspections != null &&
-                inspections.Any())
-            {
-                listing.AddInspections(inspections);
-            }
-
-            var images = ExtractImages(document);
-            if (images != null &&
-                images.Any())
-            {
-                listing.AddImages(images);
-            }
-            
-            var floorPlans = ExtractFloorPlans(document);
-            if (floorPlans != null &&
-                floorPlans.Any())
-            {
-                listing.AddFloorPlans(floorPlans);
-            }
-            
-            var videos = ExtractVideos(document);
-            if (videos != null 
-                && videos.Any())
-            {
-                listing.AddVideos(videos);
-            }
-            listing.Features = ExtractFeatures(document);
-            listing.LandDetails = ExtractLandDetails(document);
-
-            var links = ExtractExternalLinks(document);
-            if (links != null &&
-                links.Any())
-            {
-                listing.AddLinks(links);
-            }
+            ExtractAddress(document, listing, addressDelimeter);
+            ExtractAgents(document, listing);
+            ExtractInspectionTimes(document, listing);
+            ExtractImages(document, listing);
+            ExtractFloorPlans(document, listing);
+            ExtractVideos(document, listing);
+            ExtractFeatures(document, listing);
+            ExtractLandDetails(document, listing);
+            ExtractExternalLinks(document, listing);
         }
 
-        private static Address ExtractAddress(XElement document, string addressDelimeter)
+        // NOTE: if an Address element exist, then it is assumed
+        //       that _all_ the required info will be there, not just 
+        //       _some_ info.
+        //       As such, this means I'm going to just hard-set the 
+        //       element values, not set-if-element-exist.
+        //       WHY? Some of our properties require a mix of multi-REA-elements.
+        //       eg. Lot / Sub numbers...
+        private static void ExtractAddress(XElement document, 
+            Listing listing,
+            string addressDelimeter)
         {
             Guard.AgainstNull(document);
+            Guard.AgainstNull(listing);
 
             var addressElement = document.Element("address");
             if (addressElement == null)
             {
-                return null;
+                return;
             }
 
-            var address = new Address();
+            // Have we created an address before?
+            if (listing.Address == null)
+            {
+                listing.Address = new Address();
+            }
 
             // Land and CommericalLand should only provide lot numbers. 
             var lotNumber = addressElement.ValueOrDefault("lotNumber");
@@ -471,7 +533,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             var streetNumber = addressElement.ValueOrDefault("streetNumber");
 
             // LOGIC:
-            // So, we're trying to create a streetnumber value that contains the rea values
+            // So, we're trying to create a streetnumber value that contains the REA values
             //     Sub Number
             //     Lot Number
             //     Street Number
@@ -492,7 +554,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 ? string.Empty
                 : lotNumber.IndexOf("lot", StringComparison.InvariantCultureIgnoreCase) > 0
                     ? lotNumber
-                    : string.Format("LOT {0}", lotNumber);
+                    : $"LOT {lotNumber}";
 
             // Sub number and Street number logic: A sub number can exist -before- the street number.
             // A street number might NOT exist, so a sub number is all by itself.
@@ -503,9 +565,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             //   eg. 45f/231 15
             // So we don't put a delimeter in there, but a space. Urgh! confusing, so sowwy.
 
-            var subNumberLotNumber = string.Format("{0} {1}",
-                subNumber,
-                lotNumberResult).Trim();
+            var subNumberLotNumber = $"{subNumber} {lotNumberResult}".Trim();
 
             // We only have a delimeter if we have a sub-or-lot number **and**
             // a street number.
@@ -519,41 +579,36 @@ namespace OpenRealEstate.Services.RealEstateComAu
                         ? string.Empty
                         : addressDelimeter;
 
-            address.StreetNumber = string.Format("{0}{1}{2}",
-                subNumberLotNumber,
-                delimeter,
-                streetNumber).Trim();
+            listing.Address.StreetNumber = $"{subNumberLotNumber}{delimeter}{streetNumber}".Trim();
 
-            address.Street = addressElement.ValueOrDefault("street");
-            address.Suburb = addressElement.ValueOrDefault("suburb");
-            address.State = addressElement.ValueOrDefault("state");
+            listing.Address.Street = addressElement.ValueOrDefault("street");
+            listing.Address.Suburb = addressElement.ValueOrDefault("suburb");
+            listing.Address.State = addressElement.ValueOrDefault("state");
 
             // REA Xml Rule: Country is ommited == default to Australia.
             // Reference: http://reaxml.realestate.com.au/docs/reaxml1-xml-format.html#country
             var country = addressElement.ValueOrDefault("country");
-            address.CountryIsoCode = !string.IsNullOrEmpty(country)
-                ? ConvertCountryToIsoCode(country)
+            listing.Address.CountryIsoCode = !string.IsNullOrEmpty(country)
+                ? ParseCountryToIsoCode(country)
                 : "AU";
 
-            address.Postcode = addressElement.ValueOrDefault("postcode");
+            listing.Address.Postcode = addressElement.ValueOrDefault("postcode");
 
             var isStreetDisplayedText = addressElement.AttributeValueOrDefault("display");
-            address.IsStreetDisplayed = string.IsNullOrWhiteSpace(isStreetDisplayedText) ||
+            listing.Address.IsStreetDisplayed = string.IsNullOrWhiteSpace(isStreetDisplayedText) ||
                                         addressElement.AttributeBoolValueOrDefault("display");
 
 
             // Technically, the <municipality/> element is not a child of the <address/> element.
             // But I feel that it's sensible to still parse for it, in here.
-            address.Municipality = document.ValueOrDefault("municipality");
+            document.ValueOrDefaultIfExists(municipality => listing.Address.Municipality = municipality, "municipality");
 
             // Finally - Lat/Longs. These are -not- part of the REA XML standard.
             // ~BUT~ some multi-loaders are sticking this data into some xml!
-            ExtractLatitudeLongitudes(document, address);
-
-            return address;
+            ExtractLatitudeLongitudes(document, listing.Address);
         }
 
-        private static void ExtractLatitudeLongitudes(XElement document, Address address)
+        private static void ExtractLatitudeLongitudes(XContainer document, Address address)
         {
             Guard.AgainstNull(document);
             Guard.AgainstNull(address);
@@ -573,14 +628,17 @@ namespace OpenRealEstate.Services.RealEstateComAu
             }
         }
 
-        private static IList<ListingAgent> ExtractAgent(XElement document)
+        // NOTE: This is a extracting a collection. As such, we hard-copy the resultant collection
+        //       over to the listing. No guessing or matching.
+        private static void ExtractAgents(XContainer document, Listing listing)
         {
             Guard.AgainstNull(document);
+            Guard.AgainstNull(listing);
 
             var agentElements = document.Elements("listingAgent").ToArray();
             if (!agentElements.Any())
             {
-                return null;
+                return;
             }
 
             var agents = new List<ListingAgent>();
@@ -602,7 +660,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 };
 
                 var orderValue = agentElement.AttributeValueOrDefault("id");
-                int order = 0;
+                var order = 0;
                 if (!string.IsNullOrWhiteSpace(orderValue) &&
                     int.TryParse(orderValue, out order))
                 {
@@ -641,10 +699,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                     });
                 }
 
-                if (communications.Any())
-                {
-                    agent.AddCommunications(communications);
-                }
+                agent.Communications = communications;
 
                 // Don't add this agent, if the name already exists in the list.
                 if (!agents.Any(x => x.Name.Equals(agent.Name, StringComparison.InvariantCultureIgnoreCase)))
@@ -654,40 +709,37 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 }
             }
 
-            var counter = 0;
             if (agents.Any())
             {
-                var orderedAgents = new List<ListingAgent>();
-                foreach (var agent in agents.OrderBy(x => x.Order))
-                {
-                    var orderedAgent = new ListingAgent
-                    {
-                        Name = agent.Name,
-                        Order = ++counter
-                    };
-                    if (agent.Communications.Any())
-                    {
-                        orderedAgent.AddCommunications(agent.Communications);
-                    }
-                    orderedAgents.Add(orderedAgent);
-                }
+                var order = 0;
 
-                return orderedAgents;
+                // Order the results :)
+                listing.Agents = agents
+                    .Select(x => new ListingAgent
+                    {
+                        Name = x.Name,
+                        Order = ++order,
+                        Communications = x.Communications
+                    })
+                    .OrderBy(x => x.Order).ToList();
             }
-
-            return null;
         }
 
-        private static Features ExtractFeatures(XElement document)
+        // NOTE: If this element exist, then we hard-copy everything.
+        //       We don't guess which features are now provided.
+        private static void ExtractFeatures(XContainer document, Listing listing)
         {
             Guard.AgainstNull(document);
+            Guard.AgainstNull(listing);
 
             var featuresElement = document.Element("features");
             if (featuresElement == null)
             {
-                return null;
+                // No features element, so just move along...
+                return;
             }
 
+            // Have we made any features yet?
             var tags = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
             // NOTE: Bedrooms can be a number -or- the value 'STUDIO'.
@@ -756,13 +808,10 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 Ensuites = featuresElement.BoolOrByteValueOrDefault("ensuite"),
                 Toilets = featuresElement.BoolOrByteValueOrDefault("toilets"),
                 LivingAreas = featuresElement.BoolOrByteValueOrDefault("livingAreas"),
+                Tags = tags.ToList()
             };
-            if (tags.Any())
-            {
-                finalFeatures.AddTags(tags);
-            }
 
-            return finalFeatures;
+            listing.Features = finalFeatures;
         }
 
         private static void ExtractFeatureWithTextValues(XElement document, 
@@ -827,20 +876,23 @@ namespace OpenRealEstate.Services.RealEstateComAu
             return new HashSet<string>(suppliedFeatures);
         }
 
-        private static IList<Inspection> ExtractInspectionTimes(XElement document)
+        // NOTE: This is a extracting a collection. As such, we hard-copy the resultant collection
+        //       over to the listing. No guessing or matching.
+        private static void ExtractInspectionTimes(XContainer document, Listing listing)
         {
             Guard.AgainstNull(document);
+            Guard.AgainstNull(listing);
 
             var inspectionTimes = document.Element("inspectionTimes");
             if (inspectionTimes == null)
             {
-                return null;
+                return;
             }
 
             var inspectionElements = inspectionTimes.Elements("inspection").ToList();
             if (!inspectionElements.Any())
             {
-                return null;
+                return;
             }
 
             var inspections = new List<Inspection>();
@@ -867,8 +919,8 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
                 DateTime inspectionStartsOn, inspectionEndsOn;
 
-                DateTime.TryParse(string.Format("{0} {1}", data[0], data[1]), out inspectionStartsOn);
-                DateTime.TryParse(string.Format("{0} {1}", data[0], data[3]), out inspectionEndsOn);
+                DateTime.TryParse($"{data[0]} {data[1]}", out inspectionStartsOn);
+                DateTime.TryParse($"{data[0]} {data[3]}", out inspectionEndsOn);
 
                 if (inspectionStartsOn == DateTime.MinValue ||
                     inspectionEndsOn == DateTime.MinValue)
@@ -892,54 +944,60 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 }
             }
 
-            return inspections.Any()
-                ? inspections.OrderBy(x => x.OpensOn).ToList()
-                : null;
+            listing.Inspections = inspections.OrderBy(x => x.OpensOn).ToList();
         }
 
-        private static IList<Media> ExtractImages(XElement document)
+        // NOTE: This is a extracting a collection. As such, we hard-copy the resultant collection
+        //       over to the listing. No guessing or matching.
+        private static void ExtractImages(XContainer document, Listing listing)
         {
             Guard.AgainstNull(document);
+            Guard.AgainstNull(listing);
 
             // Images can go in either <images> or <objects>. Only idiots are putting them in <objects>
             // Generally, <objects> is reservered for floorplans. :/
             var imageElement = document.Element("images") ?? document.Element("objects");
             if (imageElement == null)
             {
-                return null;
+                return;
             }
 
             var imagesElements = imageElement.Elements("img").ToArray();
             if (!imagesElements.Any())
             {
-                return null;
+                return;
             }
 
-            return ConvertMediaXmlDataToMedia(imagesElements, ConvertImageOrderToNumber);
+            listing.Images = ParseMediaXmlDataToMedia(imagesElements, ConvertImageOrderToNumber)
+                .ToList();
         }
 
-        private static IList<Media> ExtractFloorPlans(XElement document)
+        // NOTE: This is a extracting a collection. As such, we hard-copy the resultant collection
+        //       over to the listing. No guessing or matching.
+        private static void ExtractFloorPlans(XContainer document, Listing listing)
         {
             Guard.AgainstNull(document);
+            Guard.AgainstNull(listing);
 
             // NOTE: The idea is that <images> will contain images while <objects> will only be for floorplans.
             //       Yes, some listings put their images in <objects>, but this is handled elsewhere.
             var objectElement = document.Element("objects");
             if (objectElement == null)
             {
-                return null;
+                return;
             }
 
             var floorPlanElements = objectElement.Elements("floorplan").ToArray();
             if (!floorPlanElements.Any())
             {
-                return null;
+                return;
             }
 
-            return ConvertMediaXmlDataToMedia(floorPlanElements, Convert.ToInt32);
+            listing.FloorPlans = ParseMediaXmlDataToMedia(floorPlanElements, Convert.ToInt32)
+                .ToList();
         }
 
-        private static IList<Media> ConvertMediaXmlDataToMedia(IEnumerable<XElement> mediaElements, 
+        private static IEnumerable<Media> ParseMediaXmlDataToMedia(IEnumerable<XElement> mediaElements, 
             Func<string, int> orderConverstionFunction)
         {
             // Note 1: Image 'urls' can either be via a Uri (yay!) or
@@ -972,48 +1030,67 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 : null;
         }
 
-        private static IList<Media> ExtractVideos(XElement document)
+        // NOTE: This is a extracting a collection. As such, we hard-copy the resultant collection
+        //       over to the listing. No guessing or matching.
+        private static void ExtractVideos(XElement document, Listing listing)
         {
             Guard.AgainstNull(document);
+            Guard.AgainstNull(listing);
 
-            var videoUrl = document.ValueOrDefault("videoLink", "href");
-            return string.IsNullOrWhiteSpace(videoUrl)
-                ? null
-                : new List<Media>
+            // What we need to do, if the element is found.
+            var action = new Action<string>(videoUrl =>
+            {
+                var media = new List<Media>();
+                if (!string.IsNullOrWhiteSpace(videoUrl))
                 {
-                    new Media
+                    media.Add(new Media
                     {
-                        CreatedOn = DateTime.UtcNow,
+                        CreatedOn = null, // We don't have this data in the REA Xml file.
                         Order = 1,
                         Url = videoUrl
-                    }
-                };
+                    });
+                }
+
+                listing.Videos = media;
+            });
+
+            document.ValueOrDefaultIfExists(action, "videoLink", "href");
         }
 
-        private static PropertyType ExtractResidentialAndRentalPropertyType(XElement document)
+        private static void ExtractResidentialAndRentalPropertyType(XElement document, IPropertyType listing)
         {
-            var propertyType = PropertyType.Unknown;
+            Guard.AgainstNull(listing);
 
-            var category = document.ValueOrDefault("category", "name");
-            if (!string.IsNullOrWhiteSpace(category))
-            {
-                propertyType = PropertyTypeHelpers.ToPropertyType(category);
-            }
-
-            return propertyType;
+            document.ValueOrDefaultIfExists(
+                propertyType => listing.PropertyType = PropertyTypeHelpers.ToPropertyType(propertyType),
+                "category",
+                "name");
         }
 
-        private static SalePricing ExtractSalePricing(XElement document, CultureInfo cultureInfo)
+        private static void ExtractSalePricing(XElement document,
+            ISalePricing listing,
+            CultureInfo cultureInfo)
         {
             Guard.AgainstNull(document);
+            Guard.AgainstNull(listing);
 
-            var salePricing = new SalePricing();
+            if (document.Element("price") == null &&
+                document.Element("priceView") == null &&
+                document.Element("soldDetails") == null)
+            {
+                // No pricing elements - move along!
+                return;
+            }
 
-            ExtractSalePrice(document, salePricing, cultureInfo);
-            
-            ExtractSoldDetails(document, salePricing);
+            // Do we have an existing sale pricing?
+            if (listing.Pricing == null)
+            {
+                listing.Pricing = new SalePricing();
+            }
 
-            return salePricing;
+            ExtractSalePrice(document, listing.Pricing, cultureInfo);
+
+            ExtractSoldDetails(document, listing.Pricing);
         }
 
         /* Eg xml.
@@ -1022,15 +1099,50 @@ namespace OpenRealEstate.Services.RealEstateComAu
              <priceView>Between $400,000 and $600,000</priceView>
            />
         */
-        private static void ExtractSalePrice(XElement document, 
+
+        private static void ExtractSalePrice(XElement document,
             SalePricing salePricing,
             CultureInfo cultureInfo)
         {
             Guard.AgainstNull(document);
             Guard.AgainstNull(salePricing);
 
-            salePricing.SalePrice = document.MoneyValueOrDefault(cultureInfo, "price");
+            document.MoneyValueOrDefaultIfExists(salePrice => salePricing.SalePrice = salePrice,
+                cultureInfo,
+                "price");
 
+            // ### MASSIVE NOTICE ###
+            // This is where shit gets real. :/
+            // <Price> and <PriceView> are optional. :/
+            // If we have a <PriceView> .. we need to do all our normal hardcore crazy tests and shit.
+            // Otherwise, we need to just work off the <Price> .. _if_ we have one.
+
+            var priceViewElement = document.Element("priceView");
+            var priceElement = document.Element("price");
+            if (priceViewElement != null)
+            {
+                // We have a priceView element.
+                // We also assume that if we have a priceView element, we have a price element.
+                CalculateSalePriceWhenPriceViewElementExists(document, salePricing);
+            }
+            else if (priceElement != null)
+            {
+                // We don't have a priceView element, but we do have a price element.. so we can calc the
+                // display text, still.
+                CalculateSalePriceWhenPriceElementExists(document, salePricing);
+            }
+
+            document.ValueOrDefaultIfExists(isUnderOffer =>
+            {
+                salePricing.IsUnderOffer = !string.IsNullOrWhiteSpace(isUnderOffer) &&
+                                           isUnderOffer.ParseOneYesZeroNoToBool();
+            },
+                "underOffer",
+                "value");
+        }
+
+        private static void CalculateSalePriceWhenPriceViewElementExists(XElement document, SalePricing salePricing)
+        {
             var salePriceText = document.ValueOrDefault("priceView");
             var displayAttributeValue = document.ValueOrDefault("price", "display");
             var isDisplay = string.IsNullOrWhiteSpace(displayAttributeValue) ||
@@ -1056,6 +1168,28 @@ namespace OpenRealEstate.Services.RealEstateComAu
                                        isUnderOffer.ParseOneYesZeroNoToBool();
         }
 
+        private static void CalculateSalePriceWhenPriceElementExists(XElement document, SalePricing salePricing)
+        {
+            var displayAttributeValue = document.ValueOrDefault("price", "display");
+            var isDisplay = string.IsNullOrWhiteSpace(displayAttributeValue) ||
+                            displayAttributeValue.ParseOneYesZeroNoToBool();
+
+            // NOTE 1: If Display="no" then we do not display anything for the price, regardless
+            //       of any other data provided. Otherwise, make a decision.
+            // NOTE 2: If -NO- saleprice is provided (eg. this is _very_ common when we get
+            //         an SOLD or LEASED, etc) then we should leave the sale price text alone.
+            //         So only do the sale-price-text checks if we have a value set AND
+            //         it's ok to display a value.
+            // NOTE 3: display='no' means NO price is displayed, even if there's a priceText.
+            salePricing.SalePriceText = isDisplay 
+                ? salePricing.SalePrice.ToString("C0")
+                : null;
+
+            var isUnderOffer = document.ValueOrDefault("underOffer", "value");
+            salePricing.IsUnderOffer = !string.IsNullOrWhiteSpace(isUnderOffer) &&
+                                       isUnderOffer.ParseOneYesZeroNoToBool();
+        }
+
         /* Eg xml.
            <residential ...
              <soldDetails>
@@ -1064,28 +1198,33 @@ namespace OpenRealEstate.Services.RealEstateComAu
              </soldDetails>
            />
         */
-        private static void ExtractSoldDetails(XElement document, SalePricing salePricing)
+        private static void ExtractSoldDetails(XContainer document, SalePricing salePricing)
         {
             Guard.AgainstNull(document);
             Guard.AgainstNull(salePricing);
 
             var soldDetails = document.Element("soldDetails");
-            if (soldDetails != null)
+            if (soldDetails == null)
             {
-                // SoldPrice could be price or soldPrice. Thanks REA for such a great schema.
-                var soldPrice = soldDetails.Element("price") ??
-                                soldDetails.Element("soldPrice");
-                if (soldPrice != null)
-                {
-                    ExtractSoldPrice(soldPrice, salePricing);
-                }
+                // No element so move along...
+                return;
+            }
 
-                var soldDate = soldDetails.Element("date") ??
-                               soldDetails.Element("soldDate");
-                if (soldDate != null)
-                {
-                    ExtractSoldOn(soldDate, salePricing);
-                }
+            // Yay! we have some sold details...
+
+            // SoldPrice could be price or soldPrice. Thanks REA for such a great schema.
+            var soldPrice = soldDetails.Element("price") ??
+                            soldDetails.Element("soldPrice");
+            if (soldPrice != null)
+            {
+                ExtractSoldPrice(soldPrice, salePricing);
+            }
+
+            var soldDate = soldDetails.Element("date") ??
+                           soldDetails.Element("soldDate");
+            if (soldDate != null)
+            {
+                ExtractSoldOn(soldDate, salePricing);
             }
         }
 
@@ -1127,40 +1266,44 @@ namespace OpenRealEstate.Services.RealEstateComAu
             }
         }
 
-        private static DateTime? ExtractAuction(XElement document)
+        private static void ExtractAuction(XElement document, IAuctionOn listing)
         {
             Guard.AgainstNull(document);
+            Guard.AgainstNull(listing);
 
-            var auction = document.ValueOrDefault("auction");
-
-            // NOTE: The REA documentation is vague as to the 100% specification on this.
-            // So i'm going to assume the following (in order)
-            // 1. <auction>date-time-in-here</auction>
-            // 2. <auction date="date-time-in-here"></auction>
-            // ** YET ANOTHER FRICKING EXAMPLE OF WHY THIS SCHEMA AND XML ARE F'ING CRAP **
-            if (string.IsNullOrWhiteSpace(auction))
+            var action = new Action<string>(auction =>
             {
-                auction = document.ValueOrDefault("auction", "date");
-            }
+                // NOTE: The REA documentation is vague as to the 100% specification on this.
+                // So i'm going to assume the following (in order)
+                // 1. <auction>date-time-in-here</auction>
+                // 2. <auction date="date-time-in-here"></auction>
+                // ** YET ANOTHER FRICKING EXAMPLE OF WHY THIS SCHEMA AND XML ARE F'ING CRAP **
+                if (string.IsNullOrWhiteSpace(auction))
+                {
+                    auction = document.ValueOrDefault("auction", "date");
+                }
 
-            return (!string.IsNullOrWhiteSpace(auction))
-                ? (DateTime?)ToDateTime(auction)
-                : null;
+                listing.AuctionOn = !string.IsNullOrWhiteSpace(auction)
+                    ? (DateTime?) ToDateTime(auction)
+                    : null;
+            });
+
+            document.ValueOrDefaultIfExists(action, "auction");
         }
 
-        private static BuildingDetails ExtractBuildingDetails(XElement document)
+        private static void ExtractBuildingDetails(XContainer document, IBuildingDetails listing)
         {
             Guard.AgainstNull(document);
 
             var buildingDetailsElement = document.Element("buildingDetails");
             if (buildingDetailsElement == null)
             {
-                return null;
+                return;
             }
 
             var energyRating = buildingDetailsElement.DecimalValueOrDefault("energyRating");
 
-            return new BuildingDetails
+            listing.BuildingDetails = new BuildingDetails
             {
                 Area = buildingDetailsElement.UnitOfMeasureOrDefault("area", "unit"),
                 EnergyRating = energyRating <= 0
@@ -1169,21 +1312,24 @@ namespace OpenRealEstate.Services.RealEstateComAu
             };
         }
 
-        private static LandDetails ExtractLandDetails(XElement document)
+        private static void ExtractLandDetails(XContainer document, Listing listing)
         {
             Guard.AgainstNull(document);
+            Guard.AgainstNull(listing);
 
             var landDetailsElement = document.Element("landDetails");
             if (landDetailsElement == null)
             {
-                return null;
+                // Element not found - move along.
+                return;
             }
 
             var details = new LandDetails
             {
                 Area = landDetailsElement.UnitOfMeasureOrDefault("area", "unit"),
                 Frontage = landDetailsElement.UnitOfMeasureOrDefault("frontage", "unit"),
-                CrossOver = landDetailsElement.ValueOrDefault("crossOver", "value")
+                CrossOver = landDetailsElement.ValueOrDefault("crossOver", "value"),
+                Depths = new List<Depth>()
             };
 
             var depthElements = landDetailsElement.Elements("depth").ToArray();
@@ -1206,25 +1352,27 @@ namespace OpenRealEstate.Services.RealEstateComAu
                             Side = depthSide
                         };
 
-                        details.AddDepths(new[] {depth});
+                        details.Depths.Add(depth);
                     }
                 }
             }
-            
-            return details;
+
+            listing.LandDetails = details;
         }
 
-        private static IList<string> ExtractExternalLinks(XElement document)
+        private static void ExtractExternalLinks(XContainer document, Listing listing)
         {
             Guard.AgainstNull(document);
+            Guard.AgainstNull(listing);
 
             var elements = document.Elements("externalLink").ToArray();
             if (!elements.Any())
             {
-                return null;
+                // Nothing to see here.
+                return;
             }
 
-            return (from e in elements
+            listing.Links = (from e in elements
                 let externalLink = e.AttributeValueOrDefault("href")
                 where !string.IsNullOrWhiteSpace(externalLink)
                 select Uri.UnescapeDataString(externalLink.Trim()))
@@ -1278,7 +1426,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
         //        : result;
         //}
 
-        private static string ConvertCountryToIsoCode(string country)
+        private static string ParseCountryToIsoCode(string country)
         {
             Guard.AgainstNullOrWhiteSpace(country);
 
@@ -1312,23 +1460,27 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         #region Residential Listing methods
 
-        private static void ExtractResidentialData(ResidentialListing residentialListing, 
+        private static void ExtractResidentialData(ResidentialListing residentialListing,
             XElement document, 
             CultureInfo cultureInfo)
         {
             Guard.AgainstNull(residentialListing);
             Guard.AgainstNull(document);
 
-            residentialListing.PropertyType = ExtractResidentialAndRentalPropertyType(document);
-            residentialListing.Pricing = ExtractSalePricing(document, cultureInfo);
-            residentialListing.AuctionOn = ExtractAuction(document);
-            residentialListing.BuildingDetails = ExtractBuildingDetails(document);
-            residentialListing.CouncilRates = document.ValueOrDefault("councilRates");
+            // Create interfaces for PropertyType, SalePrice, etc.
+            // Update the Res and Rental.
+            // replace action iwth IPropertyType, ISalePricing, etc.
+
+            ExtractResidentialAndRentalPropertyType(document, residentialListing);
+            ExtractSalePricing(document, residentialListing, cultureInfo);
+            ExtractAuction(document, residentialListing);
+            ExtractBuildingDetails(document, residentialListing);
+            document.ValueOrDefaultIfExists(councilRates => residentialListing.CouncilRates  = councilRates, "councilRates");
             ExtractHomeAndLandPackage(document, residentialListing);
             ExtractResidentialNewConstruction(document, residentialListing);
         }
 
-        private static void ExtractHomeAndLandPackage(XElement document, ResidentialListing residentialListing)
+        private static void ExtractHomeAndLandPackage(XContainer document, Listing residentialListing)
         {
             Guard.AgainstNull(document);
             Guard.AgainstNull(residentialListing);
@@ -1346,9 +1498,8 @@ namespace OpenRealEstate.Services.RealEstateComAu
                     residentialListing.Features = new Features();
                 }
 
-                residentialListing.Features.AddTags(new[] {"houseAndLandPackage"});
-            };
-
+                residentialListing.Features.Tags.Add("houseAndLandPackage");
+            }
         }
 
         private static void ExtractResidentialNewConstruction(XElement document, ResidentialListing listing)
@@ -1366,7 +1517,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 listing.Features= new Features();
             }
 
-            listing.Features.AddTags(new[] {"isANewConstruction"});
+            listing.Features.Tags.Add("isANewConstruction");
         }
 
         #endregion
@@ -1384,10 +1535,10 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 rentalListing.AvailableOn = ToDateTime(dateAvailble);
             }
 
-            rentalListing.PropertyType = ExtractResidentialAndRentalPropertyType(document);
+            ExtractResidentialAndRentalPropertyType(document, rentalListing);
             rentalListing.Pricing = ExtractRentalPricing(document, cultureInfo);
-            rentalListing.Features = ExtractFeatures(document);
-            rentalListing.BuildingDetails = ExtractBuildingDetails(document);
+            ExtractFeatures(document, rentalListing);
+            ExtractBuildingDetails(document, rentalListing);
             ExtractRentalNewConstruction(document, rentalListing);
         }
 
@@ -1455,7 +1606,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             return rentalPricing;
         }
 
-        private static void ExtractRentalNewConstruction(XElement document, RentalListing listing)
+        private static void ExtractRentalNewConstruction(XElement document, Listing listing)
         {
             Guard.AgainstNull(document);
             Guard.AgainstNull(listing);
@@ -1470,7 +1621,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 listing.Features = new Features();
             }
 
-            listing.Features.AddTags(new[] {"isANewConstruction"});
+            listing.Features.Tags.Add("isANewConstruction");
         }
 
         #endregion
@@ -1483,18 +1634,17 @@ namespace OpenRealEstate.Services.RealEstateComAu
             Guard.AgainstNull(document);
 
             landListing.CategoryType = ExtractLandCategoryType(document);
-            landListing.Pricing = ExtractSalePricing(document, cultureInfo);
-            landListing.AuctionOn = ExtractAuction(document);
+            ExtractSalePricing(document, landListing, cultureInfo);
+            ExtractAuction(document, landListing);
             landListing.Estate = ExtractLandEstate(document);
-            landListing.AuctionOn = ExtractAuction(document);
             landListing.CouncilRates = document.ValueOrDefault("councilRates");
         }
 
-        private static Core.Models.Land.CategoryType ExtractLandCategoryType(XElement xElement)
+        private static Core.Land.CategoryType ExtractLandCategoryType(XElement xElement)
         {
             var category = xElement.ValueOrDefault("landCategory", "name");
             return string.IsNullOrWhiteSpace(category)
-                ? Core.Models.Land.CategoryType.Unknown
+                ? Core.Land.CategoryType.Unknown
                 : CategoryTypeHelpers.ToCategoryType(category);
         }
 
@@ -1524,31 +1674,31 @@ namespace OpenRealEstate.Services.RealEstateComAu
             Guard.AgainstNull(document);
 
             ruralListing.CategoryType = ExtractRuralCategoryType(document);
-            ruralListing.Pricing = ExtractSalePricing(document, cultureInfo);
-            ruralListing.AuctionOn = ExtractAuction(document);
+            ExtractSalePricing(document, ruralListing, cultureInfo);
+            ExtractAuction(document, ruralListing);
             ruralListing.RuralFeatures = ExtractRuralFeatures(document);
             ruralListing.CouncilRates = ExtractRuralCouncilRates(document);
-            ruralListing.BuildingDetails = ExtractBuildingDetails(document);
+            ExtractBuildingDetails(document, ruralListing);
             ExtractRuralNewConstruction(document, ruralListing);
         }
 
-        private static Core.Models.Rural.CategoryType ExtractRuralCategoryType(XElement document)
+        private static Core.Rural.CategoryType ExtractRuralCategoryType(XContainer document)
         {
             Guard.AgainstNull(document);
 
             var categoryElement = document.Element("ruralCategory");
             if (categoryElement == null)
             {
-                return Core.Models.Rural.CategoryType.Unknown;
+                return Core.Rural.CategoryType.Unknown;
             }
 
             var categoryValue = categoryElement.AttributeValueOrDefault("name");
             return string.IsNullOrWhiteSpace(categoryValue)
-                ? Core.Models.Rural.CategoryType.Unknown
-                : Core.Models.Rural.CategoryTypeHelpers.ToCategoryType(categoryValue);
+                ? Core.Rural.CategoryType.Unknown
+                : Core.Rural.CategoryTypeHelpers.ToCategoryType(categoryValue);
         }
 
-        private static RuralFeatures ExtractRuralFeatures(XElement document)
+        private static RuralFeatures ExtractRuralFeatures(XContainer document)
         {
             Guard.AgainstNull(document);
             var ruralFeaturesElement = document.Element("ruralFeatures");
@@ -1569,7 +1719,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             };
         }
 
-        private static string ExtractRuralCouncilRates(XElement document)
+        private static string ExtractRuralCouncilRates(XContainer document)
         {
             Guard.AgainstNull(document);
             var ruralFeaturesElement = document.Element("ruralFeatures");
@@ -1578,7 +1728,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 : ruralFeaturesElement.ValueOrDefault("councilRates");
         }
 
-        private static void ExtractRuralNewConstruction(XElement document, RuralListing listing)
+        private static void ExtractRuralNewConstruction(XElement document, Listing listing)
         {
             Guard.AgainstNull(document);
             Guard.AgainstNull(listing);
@@ -1593,15 +1743,15 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 listing.Features = new Features();
             }
 
-            listing.Features.AddTags(new[] {"isANewConstruction"});
+            listing.Features.Tags.Add("isANewConstruction");
         }
 
         #endregion
 
         private class SplitElementResult
         {
-            public IList<XElement> KnownXmlData { get; set; }
-            public IList<XElement> UnknownXmlData { get; set; }
+            public IList<XElement> KnownElements { get; set; }
+            public IList<XElement> UnknownElements { get; set; }
         }
     }
 }

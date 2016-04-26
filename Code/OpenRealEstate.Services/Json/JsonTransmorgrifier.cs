@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using OpenRealEstate.Core.Models;
+using OpenRealEstate.Core;
 
 namespace OpenRealEstate.Services.Json
 {
@@ -14,17 +14,24 @@ namespace OpenRealEstate.Services.Json
             Converters = new JsonConverter[]
             {
                 new ListingConverter()
-            },
-            ContractResolver = new ListingContractResolver()
+            }
         };
 
-        public ConvertToResult ConvertTo(string data,
-            bool areBadCharactersRemoved = false,
-            bool isClearAllIsModified = false)
+        /// <summary>
+        /// Parses and converts some given data into a listing instance.
+        /// </summary>
+        /// <param name="data">some data source, like Xml data or json data.</param>
+        /// <param name="existingListing">An optional destination listing which will extract any data, into.</param>
+        /// <param name="areBadCharactersRemoved">Help clean up the data.</param>
+        /// <returns>List of listings, unhandled data and/or errors.</returns>
+        /// <remarks>Why does <code>isClearAllIsModified</code> default to <code>false</code>? Because when you generally load some data into a new listing instance, you want to see which properties </remarks>
+        public ParsedResult Parse(string data,
+            Listing existingListing = null,
+            bool areBadCharactersRemoved = false)
         {
             Guard.AgainstNullOrWhiteSpace(data);
 
-            var result = new ConvertToResult();
+            var result = new ParsedResult();
 
             JToken token;
 
@@ -38,24 +45,27 @@ namespace OpenRealEstate.Services.Json
                 return result;
             }
 
+            // Do we have a single listing or an array of listings?
             if (token is JArray)
             {
+                // We have multiple listings...
                 foreach (var item in token.Children())
                 {
-                    var convertToResult = ParseObject(item.ToString());
-                    MergeConvertToResults(convertToResult, result);
+                    var parsedResult = ParseObject(item.ToString());
+                    MergeParsedResults(parsedResult, result);
                 }
             }
             else
             {
-                var convertToResult = ParseObject(data);
-                MergeConvertToResults(convertToResult, result);
+                // We have just a single listing ...
+                var parsedResult = ParseObject(data);
+                MergeParsedResults(parsedResult, result);
             }
 
             return result;
         }
 
-        private static ConvertToResult ParseObject(string json)
+        private static ParsedResult ParseObject(string json)
         {
             Listing listing = null;
             Exception error = null;
@@ -68,7 +78,7 @@ namespace OpenRealEstate.Services.Json
                 error = exception;
             }
 
-            return new ConvertToResult
+            return new ParsedResult
             {
                 Listings = listing == null
                     ? null
@@ -79,7 +89,7 @@ namespace OpenRealEstate.Services.Json
             };
         }
 
-        private static void MergeConvertToResults(ConvertToResult source, ConvertToResult destination)
+        private static void MergeParsedResults(ParsedResult source, ParsedResult destination)
         {
             if (source.Listings != null &&
                 source.Listings.Any())

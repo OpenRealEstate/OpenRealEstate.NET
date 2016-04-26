@@ -1,108 +1,113 @@
 ﻿using System;
-using System.CodeDom;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using OpenRealEstate.Core.Models;
-using OpenRealEstate.Core.Models.Land;
-using OpenRealEstate.Core.Models.Rental;
-using OpenRealEstate.Core.Models.Residential;
-using OpenRealEstate.Core.Models.Rural;
+using OpenRealEstate.Core.Land;
+using OpenRealEstate.Core.Rental;
+using OpenRealEstate.Core.Residential;
+using OpenRealEstate.Core.Rural;
 using OpenRealEstate.Services.Json;
+using OpenRealEstate.Tests.Transmorgrifiers.REA;
 using Shouldly;
 using Xunit;
-using Xunit.Extensions;
 
 namespace OpenRealEstate.Tests
 {
     public class JsonTransmorgrifierTests
     {
-        public class ConvertToTests
+        public class ParseTests : TestHelperUtilities
         {
             [Theory]
-            [InlineData("Sample Data\\Transmorgrifiers\\Json\\Residential\\Residential-Current.json", typeof(ResidentialListing), 1)]
-            [InlineData("Sample Data\\Transmorgrifiers\\Json\\Residential\\Residential-Current.MultipleListings.json", typeof(ResidentialListing), 3)]
-            [InlineData("Sample Data\\Transmorgrifiers\\Json\\Rental\\Rental-Current.json", typeof(RentalListing), 1)]
-            [InlineData("Sample Data\\Transmorgrifiers\\Json\\Land\\Land-Current.json", typeof(LandListing), 1)]
-            [InlineData("Sample Data\\Transmorgrifiers\\Json\\Rural\\Rural-Current.json", typeof(RuralListing), 1)]
-            public void GivenSomeValidJson_ConvertTo_ReturnsAListing(string jsonPath, Type listingType, int listingCount)
+            [InlineData(typeof(ResidentialListing), 1)]
+            [InlineData(typeof(ResidentialListing), 3)]
+            [InlineData(typeof(RentalListing), 1)]
+            [InlineData(typeof(LandListing), 1)]
+            [InlineData(typeof(RuralListing), 1)]
+            public void GivenSomeValidJson_Parse_ReturnsAListing(Type listingType, int listingCount)
             {
                 // Arrange.
-                var json = File.ReadAllText(jsonPath);
+                var existingListing = CreateListings(listingType, listingCount);
+                var json = JsonConvertHelpers.SerializeObject(existingListing);
                 var transmorgrifier = new JsonTransmorgrifier();
 
                 // Act.
-                var result = transmorgrifier.ConvertTo(json);
+                var result = transmorgrifier.Parse(json);
 
                 // Assert.
                 result.Listings.Count.ShouldBe(listingCount);
-                result.Listings.First().SourceData.ShouldNotBeNull();
-                var listing = result.Listings.First().Listing;
-                if (listingType == typeof(ResidentialListing))
+                result.UnhandledData.Count.ShouldBe(0);
+                result.Errors.Count.ShouldBe(0);
+
+                for (var i = 0; i < result.Listings.Count; i++)
                 {
-                    TestHelperUtilities.AssertResidentialListing(listing as ResidentialListing,
-                        TestHelperUtilities.ResidentialListing());
-                }
-                else if (listingType == typeof(RentalListing))
-                {
-                    TestHelperUtilities.AssertRentalListing(listing as RentalListing, 
-                        TestHelperUtilities.RentalListing());
-                }
-                else if (listingType == typeof(LandListing))
-                {
-                    TestHelperUtilities.AssertLandListing(listing as LandListing,
-                        TestHelperUtilities.LandListing());
-                }
-                else if (listingType == typeof(RuralListing))
-                {
-                    TestHelperUtilities.AssertRuralListing(listing as RuralListing,
-                        TestHelperUtilities.RuralListing());
-                }
-                else
-                {
-                    throw new Exception($"Failed to assert the suggested type: '{listingType}'.");
+                    if (listingType == typeof(ResidentialListing))
+                    {
+                        ResidentialListingAssertHelpers.AssertResidentialListing(
+                            (ResidentialListing) result.Listings[i].Listing,
+                            (ResidentialListing) existingListing[i]);
+                    }
+                    else if (listingType == typeof(RentalListing))
+                    {
+                        RentalListingAssertHelpers.AssertRuralListing(
+                            (RentalListing) result.Listings[i].Listing,
+                            (RentalListing) existingListing[i]);
+                    }
+                    else if (listingType == typeof(LandListing))
+                    {
+                        LandListingAssertHelpers.AssertLandListing(
+                            (LandListing) result.Listings[i].Listing,
+                            (LandListing) existingListing[i]);
+                    }
+                    else if (listingType == typeof(RuralListing))
+                    {
+                        RuralListingAssertHelpers.AssertRuralListing(
+                            (RuralListing) result.Listings[i].Listing,
+                            (RuralListing) existingListing[i]);
+                    }
+                    else
+                    {
+                        throw new Exception($"Failed to assert the suggested type: '{listingType}'.");
+                    }
                 }
             }
 
             [Fact]
-            public void GivenSomeIllegalJson_ConvertTo_ReturnsAndError()
+            public void GivenSomeIllegalJson_Parse_ReturnsAndError()
             {
                 // Arrange.
                 const string json = "sadsdf";
                 var transmorgrifier = new JsonTransmorgrifier();
 
                 // Act.
-                var result = transmorgrifier.ConvertTo(json);
+                var result = transmorgrifier.Parse(json);
 
                 // Assert.
-                result.Listings.ShouldBeNull();
-                result.UnhandledData.ShouldBeNull();
+                result.Listings.Count.ShouldBe(0);
+                result.UnhandledData.Count.ShouldBe(0);
                 result.Errors.Count.ShouldBe(1);
-                result.Errors.First().ExceptionMessage.ShouldBe("Unexpected character encountered while parsing value: s. Path '', line 0, position 0.");
+                result.Errors.First()
+                    .ExceptionMessage.ShouldBe(
+                        "Unexpected character encountered while parsing value: s. Path '', line 0, position 0.");
                 result.Errors.First().InvalidData.ShouldNotBeNullOrWhiteSpace();
             }
 
             [Fact]
-            public void GivenSomeJsonWithAnMissingListingType_ConvertTo_ReturnsAnError()
+            public void GivenSomeJsonWithAnMissingListingType_Parse_ReturnsAnError()
             {
                 // Arrange.
-                var json = File.ReadAllText($"Sample Data\\Transmorgrifiers\\Json\\Residential\\Residential-Current.json")
-                    .Replace("\"Residential\",", "\"blah\",");
-                
+                var existingListing = CreateListings(typeof(ResidentialListing), 1);
+                var json = JsonConvertHelpers.SerializeObject(existingListing).Replace("\"Residential\",", "\"blah\",");
+
                 var transmorgrifier = new JsonTransmorgrifier();
 
                 // Act.
-                var result = transmorgrifier.ConvertTo(json);
+                var result = transmorgrifier.Parse(json);
 
                 // Assert.
-                result.Listings.ShouldBeNull();
-                result.UnhandledData.ShouldBeNull();
+                result.Listings.Count.ShouldBe(0);
+                result.UnhandledData.Count.ShouldBe(0);
                 result.Errors.Count.ShouldBe(1);
-                result.Errors.First().ExceptionMessage.ShouldBe("Invalid value found in the expected field 'ListingType'. Only the following values (ie. listing types) as supported: residential, rental, land or rural.");
+                result.Errors.First()
+                    .ExceptionMessage.ShouldBe(
+                        "Invalid value found in the expected field 'ListingType'. Only the following values (ie. listing types) as supported: residential, rental, land or rural.");
                 result.Errors.First().InvalidData.ShouldNotBeNullOrWhiteSpace();
             }
         }

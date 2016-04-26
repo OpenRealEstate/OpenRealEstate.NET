@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using OpenRealEstate.Core.Models;
+using OpenRealEstate.Core;
 
 namespace OpenRealEstate.Core.Filters
 {
@@ -10,7 +10,7 @@ namespace OpenRealEstate.Core.Filters
         {
             if (string.IsNullOrWhiteSpace(id))
             {
-                throw new ArgumentNullException("id");
+                throw new ArgumentNullException(nameof(id));
             }
 
             return value.Where(x => x.Id == id);

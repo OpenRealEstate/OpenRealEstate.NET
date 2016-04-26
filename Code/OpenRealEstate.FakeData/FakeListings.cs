@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using OpenRealEstate.Core.Models;
-using OpenRealEstate.Core.Models.Land;
-using OpenRealEstate.Core.Models.Rental;
-using OpenRealEstate.Core.Models.Residential;
-using OpenRealEstate.Core.Models.Rural;
+using OpenRealEstate.Core;
+using OpenRealEstate.Core.Land;
+using OpenRealEstate.Core.Rental;
+using OpenRealEstate.Core.Residential;
+using OpenRealEstate.Core.Rural;
 using OpenRealEstate.FakeData.Customizations;
-using OpenRealEstate.FakeData.Properties;
-using OpenRealEstate.Services.Json;
 using Ploeh.AutoFixture;
 
 namespace OpenRealEstate.FakeData
@@ -24,23 +21,22 @@ namespace OpenRealEstate.FakeData
             return fixture.Build<T>()
                 .With(x => x.Id, $"listing-{fixture.Create<int>()}")
                 .With(x => x.AgencyId, $"Agency-{fixture.Create<string>().Substring(0, 6)}")
-                .With(x => x.StatusType, StatusType.Current)
+                .With(x => x.StatusType, StatusType.Available)
                 .Create();
         }
 
         public static IList<T> CreateFakeListings<T>(int numberOfFakeListings = 20) where T : Listing, new()
         {
-            var fixedListings = CreateFixedListings<T>();
-            if (numberOfFakeListings < fixedListings.Count)
+            if (numberOfFakeListings <= 0)
             {
-                throw new Exception(
-                    $"You requested {numberOfFakeListings} listings, but there are {numberOfFakeListings} created. The requested _total_ number of fake listings has to be equal or greater then the number of fixed, fake listings. In this case, you need to request at least {numberOfFakeListings} listings.");
+                throw new ArgumentOutOfRangeException(nameof(numberOfFakeListings),
+                    "You need at least ONE fake listing to be requested.");
             }
 
-            var listings = new List<T>();
-            listings.AddRange(fixedListings);
+            var listings = new List<T> {CreateFixedListing<T>()};
 
-            for (var i = 0; i < numberOfFakeListings - fixedListings.Count; i++)
+            // Start at 1 because the first listing should be the hard-coded one.
+            for (var i = 1; i < numberOfFakeListings; i++)
             {
                 listings.Add(CreateAFakeListing<T>());
             }
@@ -48,58 +44,156 @@ namespace OpenRealEstate.FakeData
             return listings;
         }
 
-        public static IEnumerable<ResidentialListing> CreateFixedResidentialListings()
+        public static ResidentialListing CreateAFakeResidentialListing(string id = "Residential-Current-ABCD1234",
+            PropertyType propertyType = PropertyType.House,
+            string councilRates = "$2000 per month")
         {
-            return CreateFixedListings<ResidentialListing>(Resources.ResidentialListingsJson);
-        }
-
-        public static IEnumerable<RentalListing> CreateFixedRentalListings()
-        {
-            return CreateFixedListings<RentalListing>(Resources.RentalListingsJson);
-        }
-
-        public static IEnumerable<LandListing> CreateFixedLandListings()
-        {
-            return CreateFixedListings<LandListing>(Resources.LandListingsJson);
-        }
-
-        public static IEnumerable<RuralListing> CreateFixedRuralListings()
-        {
-            return CreateFixedListings<RuralListing>(Resources.RuralListingsJson);
-        }
-
-        public static IList<T> CreateFixedListings<T>() where T : Listing, new()
-        {
-            if (typeof (T) == typeof (ResidentialListing))
+            var listing = new ResidentialListing
             {
-                return CreateFixedResidentialListings().Cast<T>().ToList();
+                Id = id
+            };
+
+            FakeCommonListingHelpers.SetCommonListingData(listing);
+            FakeCommonListingHelpers.SetBuildingDetails(listing);
+            FakeCommonListingHelpers.SetSalePrice(listing);
+
+            listing.PropertyType = propertyType;
+            listing.AuctionOn = new DateTime(2009, 2, 4, 18, 30, 0);
+            listing.CouncilRates = councilRates;
+
+            return listing;
+        }
+
+        public static RentalListing CreateAFakeRentalListing(string id = "Rental-Current-ABCD1234",
+            PropertyType propertyType = PropertyType.House)
+        {
+            var listing = new RentalListing()
+            {
+                Id = id
+            };
+
+            FakeCommonListingHelpers.SetCommonListingData(listing);
+            var updatedTags = listing.Features.Tags.ToList();
+            updatedTags.Remove("houseAndLandPackage");
+            listing.Features.Tags = updatedTags.AsReadOnly();
+
+            FakeCommonListingHelpers.SetBuildingDetails(listing);
+            SetRentalPricing(listing);
+
+            listing.AvailableOn = new DateTime(2009, 1, 26, 12, 30, 00);
+            listing.PropertyType = propertyType;
+
+            return listing;
+        }
+
+        public static LandListing CreateAFakeLandListing(string id = "Land-Current-ABCD1234",
+            PropertyType propertyType = PropertyType.House)
+        {
+            var listing = new LandListing
+            {
+                Id = id
+            };
+
+            FakeCommonListingHelpers.SetCommonListingData(listing);
+            listing.Address.StreetNumber = "LOT 12/39";
+            listing.Features.Bedrooms = 0;
+            listing.Features.Bathrooms = 0;
+            listing.Features.Ensuites = 0;
+            listing.Features.CarParking = new CarParking();
+            listing.Features.Tags = new List<string>().AsReadOnly();
+
+            FakeCommonListingHelpers.SetSalePrice(listing);
+            SetLandEstate(listing);
+            listing.AuctionOn = new DateTime(2009, 1, 24, 12, 30, 00);
+            listing.CategoryType = Core.Land.CategoryType.Residential;
+            listing.CouncilRates = "$2000 per month";
+
+            return listing;
+        }
+
+        public static RuralListing CreateAFakeRuralListing(string id = "Rural-Current-ABCD1234",
+            PropertyType propertyType = PropertyType.House)
+        {
+            var listing = new RuralListing()
+            {
+                Id = id
+            };
+
+            FakeCommonListingHelpers.SetCommonListingData(listing);
+            var updatedTags = listing.Features.Tags.ToList();
+            updatedTags.Remove("houseAndLandPackage");
+            updatedTags.Remove("isANewConstruction");
+            listing.Features.Tags = updatedTags.AsReadOnly();
+
+            FakeCommonListingHelpers.SetBuildingDetails(listing);
+            FakeCommonListingHelpers.SetSalePrice(listing);
+
+            SetRuralFeatures(listing);
+
+            listing.AuctionOn = new DateTime(2009, 1, 24, 14, 30, 00);
+            listing.CategoryType = Core.Rural.CategoryType.Cropping;
+            listing.CouncilRates = "$2,200 per annum";
+
+
+            return listing;
+        }
+
+        private static T CreateFixedListing<T>() where T : Listing, new()
+        {
+            if (typeof(T) == typeof(ResidentialListing))
+            {
+                return CreateAFakeResidentialListing() as T;
             }
 
-            if (typeof (T) == typeof (RentalListing))
+            if (typeof(T) == typeof(RentalListing))
             {
-                return CreateFixedRentalListings().Cast<T>().ToList();
+                return CreateAFakeRentalListing() as T;
             }
 
-            if (typeof (T) == typeof (LandListing))
+            if (typeof(T) == typeof(LandListing))
             {
-                return CreateFixedLandListings().Cast<T>().ToList();
+                return CreateAFakeLandListing() as T;
             }
 
-            if (typeof (T) == typeof (RuralListing))
+            if (typeof(T) == typeof(RuralListing))
             {
-                return CreateFixedRuralListings().Cast<T>().ToList();
+                return CreateAFakeRuralListing() as T;
             }
 
-            throw new Exception($"The type '{typeof (T)}' was not handled.");
+            throw new Exception($"The type '{typeof(T)}' was not handled.");
         }
 
-        private static IEnumerable<T> CreateFixedListings<T>(byte[] resourceData) where T : Listing, new()
+        private static void SetRentalPricing(RentalListing listing)
         {
-            var json = new StreamReader(new MemoryStream(resourceData), true).ReadToEnd();
+            listing.Pricing = new RentalPricing
+            {
+                PaymentFrequencyType = PaymentFrequencyType.Weekly,
+                RentalPrice = 350,
+                RentalPriceText = "$350",
+                Bond = 999
+            };
+        }
 
-            var jsonTransmorgrifier = new JsonTransmorgrifier();
-            var listings = jsonTransmorgrifier.ConvertTo(json);
-            return listings.Listings.Select(x => x.Listing).Cast<T>();
+        private static void SetLandEstate(LandListing listing)
+        {
+            listing.Estate = new LandEstate
+            {
+                Name = "Panorama",
+                Stage = "5"
+            };
+        }
+
+        private static void SetRuralFeatures(RuralListing listing)
+        {
+            listing.RuralFeatures = new RuralFeatures
+            {
+                AnnualRainfall = "250 mm per annum",
+                CarryingCapacity = "400 Deer or 100 head of breeding Cattle",
+                Fencing = "Boundary and internal fencing all in good condition",
+                Improvements = "Shearing shed, barn and machinery shed.",
+                Irrigation = "Electric pump from dam and bore.",
+                Services = "Power, telephone, airstrip, school bus, mail."
+            };
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 using FluentValidation;
-using OpenRealEstate.Core.Models;
+using OpenRealEstate.Core;
 
 namespace OpenRealEstate.Validation
 {

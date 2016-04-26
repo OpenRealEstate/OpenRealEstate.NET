@@ -1,11 +1,11 @@
 ﻿using System;
 using FluentValidation;
 using FluentValidation.Results;
-using OpenRealEstate.Core.Models;
-using OpenRealEstate.Core.Models.Land;
-using OpenRealEstate.Core.Models.Rental;
-using OpenRealEstate.Core.Models.Residential;
-using OpenRealEstate.Core.Models.Rural;
+using OpenRealEstate.Core;
+using OpenRealEstate.Core.Land;
+using OpenRealEstate.Core.Rental;
+using OpenRealEstate.Core.Residential;
+using OpenRealEstate.Core.Rural;
 using OpenRealEstate.Validation.Land;
 using OpenRealEstate.Validation.Rental;
 using OpenRealEstate.Validation.Residential;

@@ -1,5 +1,5 @@
 ﻿using FluentValidation.TestHelper;
-using OpenRealEstate.Core.Models;
+using OpenRealEstate.Core;
 using OpenRealEstate.Validation;
 using Xunit;
 

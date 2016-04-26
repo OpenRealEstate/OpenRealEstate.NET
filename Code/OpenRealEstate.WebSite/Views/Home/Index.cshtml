@@ -4,7 +4,7 @@
 }
 
 @section scripts {
-    <script src="/Content/Scripts/convert.js"></script>
+    <script src="/Content/Scripts/parse.js"></script>
 }
 
     <div>
@@ -37,7 +37,7 @@
     
     <p>
         Or browse for some files...<br/>
-        <form action="/convert/files" method="POST" enctype="multipart/form-data">
+        <form action="/parse/files" method="POST" enctype="multipart/form-data">
             <input name="upload" id="upload" type="file" size="40" multiple /><br/>
             <button type="button" onclick="uploadFiles();">Process File(s)</button>
         </form>    

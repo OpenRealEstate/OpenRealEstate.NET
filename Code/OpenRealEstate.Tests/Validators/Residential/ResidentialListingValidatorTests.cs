@@ -5,8 +5,8 @@ using System.IO;
 using System.Linq;
 using FluentValidation;
 using FluentValidation.TestHelper;
-using OpenRealEstate.Core.Models;
-using OpenRealEstate.Core.Models.Residential;
+using OpenRealEstate.Core;
+using OpenRealEstate.Core.Residential;
 using OpenRealEstate.Services.RealEstateComAu;
 using OpenRealEstate.Validation;
 using OpenRealEstate.Validation.Residential;
@@ -24,7 +24,7 @@ namespace OpenRealEstate.Tests.Validators.Residential
                 var xml = File.ReadAllText(fileName
                                            ?? "Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current.xml");
                 var transmogrifier = new ReaXmlTransmorgrifier();
-                return transmogrifier.ConvertTo(xml).Listings.First().Listing as ResidentialListing;
+                return transmogrifier.Parse(xml).Listings.First().Listing as ResidentialListing;
             }
 
             [Fact]
@@ -200,7 +200,7 @@ namespace OpenRealEstate.Tests.Validators.Residential
                 var xml = File.ReadAllText(fileName
                                            ?? "Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current.xml");
                 var transmogrifier = new ReaXmlTransmorgrifier();
-                return transmogrifier.ConvertTo(xml).Listings.First().Listing as ResidentialListing;
+                return transmogrifier.Parse(xml).Listings.First().Listing as ResidentialListing;
             }
 
             [Fact]

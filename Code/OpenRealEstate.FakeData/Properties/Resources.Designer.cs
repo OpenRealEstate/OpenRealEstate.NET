@@ -59,45 +59,5 @@ namespace OpenRealEstate.FakeData.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] LandListingsJson {
-            get {
-                object obj = ResourceManager.GetObject("LandListingsJson", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] RentalListingsJson {
-            get {
-                object obj = ResourceManager.GetObject("RentalListingsJson", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] ResidentialListingsJson {
-            get {
-                object obj = ResourceManager.GetObject("ResidentialListingsJson", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] RuralListingsJson {
-            get {
-                object obj = ResourceManager.GetObject("RuralListingsJson", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
     }
 }

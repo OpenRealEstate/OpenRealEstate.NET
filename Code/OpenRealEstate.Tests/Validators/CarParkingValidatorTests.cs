@@ -1,4 +1,4 @@
-﻿using OpenRealEstate.Core.Models;
+﻿using OpenRealEstate.Core;
 using OpenRealEstate.Validation;
 using Shouldly;
 using Xunit;

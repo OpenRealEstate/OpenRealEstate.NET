@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using FluentValidation;
-using OpenRealEstate.Core.Models;
+using OpenRealEstate.Core;
 
 namespace OpenRealEstate.Validation
 {

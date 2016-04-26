@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<land modTime="2009-01-01-12:30:00" status="current">
+    <agentID>XNWXNW</agentID>
+    <uniqueID>Land-Current-ABCD1234</uniqueID>
+    <authority value="auction" />
+    <underOffer value="no" />
+    <councilRates>$2000 per month</councilRates>
+    <listingAgent>
+        <name>Mr. John Doe</name>
+        <telephone type="BH">05 1234 5678</telephone>
+        <telephone type="mobile">0418 123 456</telephone>
+        <email>jdoe@somedomain.com.au</email>
+    </listingAgent>
+    <price display="yes" plusSAV="no">500000</price>
+    <priceView>Between $400,000 and $600,000</priceView>
+    <address display="yes">
+        <lotNumber>12</lotNumber>
+        <streetNumber>39</streetNumber>
+        <street>Main Road</street>
+        <suburb display="yes">RICHMOND</suburb>
+        <state>vic</state>
+        <postcode>3121</postcode>
+        <country>AUS</country>
+    </address>
+    <municipality>Yarra</municipality>
+    <estate>
+        <name>Panorama</name>
+        <stage>5</stage>
+    </estate>
+    <streetDirectory type="melways">
+        <page>44</page>
+        <reference>G7</reference>
+    </streetDirectory>
+    <landCategory name="Residential" />
+    <headline>SHOW STOPPER!!!</headline>
+    <description>Don't pass up an opportunity like this! First to inspect will buy! Close to local amenities and schools. Features lavishly appointed bathrooms, modern kitchen, rustic outhouse.Don't pass up an opportunity like this! First to inspect will buy! Close to local amenities and schools. Features lavishly appointed bathrooms, modern kitchen, rustic outhouse.</description>
+    <features>
+        <fullyFenced>yes</fullyFenced>
+    </features>
+    <landDetails>
+        <area unit="square">80</area>
+        <frontage unit="meter">20</frontage>
+        <depth unit="meter" side="rear">40</depth>
+        <depth unit="meter" side="left">60</depth>
+        <depth unit="meter" side="right">20</depth>
+        <crossOver value="left" />
+    </landDetails>
+    <inspectionTimes>
+        <inspection>21-Jan-2009 11:00am to 1:00pm</inspection>
+        <inspection>22-Jan-2009 3:00pm to 3:30pm</inspection>
+    </inspectionTimes>
+    <auction date="2009-01-24-12:30:00" />
+    <vendorDetails>
+        <name>Mr. John Doe</name>
+        <telephone type="BH">05 1234 5678</telephone>
+    </vendorDetails>
+    <externalLink href="http%3A%2F%2Fwww%2Eau%2Eopen2view%2Ecom%2Fproperties%2F314244%2Ftour%23floorplan" />
+    <externalLink href="http://www.google.com/hello" />
+    <images>
+        <img id="m" modTime="2009-01-01-12:30:00" url="http://www.realestate.com.au/tmp/imageM.jpg" format="jpg" />
+        <img id="a" modTime="2009-01-01-12:30:00" url="http://www.realestate.com.au/tmp/imageA.jpg" format="jpg" />
+    </images>
+    <objects>
+        <floorplan id="1" modTime="2009-01-01-12:30:00" url="http://www.realestate.com.au/tmp/floorplan1.gif"
+                   format="gif" />
+        <floorplan id="2" modTime="2009-01-01-12:30:00" url="http://www.realestate.com.au/tmp/floorplan2.gif"
+                   format="gif" />
+    </objects>
+    <videoLink href="http://www.foo.tv/abcd.html"/>
+    <ecoFriendly>
+        <solarPanels>1</solarPanels>
+        <solarHotWater>0</solarHotWater>
+        <waterTank>1</waterTank>
+        <greyWaterSystem>0</greyWaterSystem>
+    </ecoFriendly>
+</land>

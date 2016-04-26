@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using OpenRealEstate.Core.Models.Rental;
+using OpenRealEstate.Core.Rental;
 
 namespace OpenRealEstate.Validation.Rental
 {

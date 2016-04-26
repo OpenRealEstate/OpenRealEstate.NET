@@ -218,7 +218,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\ReaXmlSample.xml" />
-    <Content Include="Content\Scripts\convert.js" />
+    <Content Include="Content\Scripts\parse.js" />
     <None Include="Content\Scripts\jquery\jquery-2.1.3.intellisense.js" />
     <Content Include="Content\Scripts\jquery\jquery-2.1.3.js" />
     <Content Include="Content\Scripts\jquery\jquery-2.1.3.min.js" />
@@ -233,10 +233,10 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Models\CustomJsonSerializer.cs" />
     <Compile Include="Models\ValidationError.cs" />
-    <Compile Include="Modules\ConvertModule.cs" />
+    <Compile Include="Modules\ParseModule.cs" />
     <Compile Include="Modules\HomeModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\ConvertViewModel.cs" />
+    <Compile Include="ViewModels\ParsedViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Customizations\AddressCustomization.cs" />
     <Compile Include="Customizations\ListingCompositeCustomization.cs" />
+    <Compile Include="FakeCommonListingHelpers.cs" />
     <Compile Include="FakeListings.cs" />
     <Compile Include="ResidentialListingCustomization.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -57,10 +58,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Sample Data\LandListings.json" />
-    <None Include="Sample Data\RentalListings.json" />
-    <None Include="Sample Data\ResidentialListings.json" />
-    <None Include="Sample Data\RuralListings.json" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OpenRealEstate.Core\OpenRealEstate.Core.csproj">

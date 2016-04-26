@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using FluentValidation.TestHelper;
-using OpenRealEstate.Core.Models;
+using OpenRealEstate.Core;
 using OpenRealEstate.Validation;
 using Shouldly;
 using Xunit;
@@ -34,16 +34,16 @@ namespace OpenRealEstate.Tests.Validators
             // Arrange.
             var listingAgent = new ListingAgent
             {
-                Name = "a"
-            };
-            listingAgent.AddCommunications(new List<Communication>
-            {
-                new Communication
+                Name = "a",
+                Communications = new List<Communication>
                 {
-                    CommunicationType = CommunicationType.Email,
-                    Details = "a"
+                    new Communication
+                    {
+                        CommunicationType = CommunicationType.Email,
+                        Details = "a"
+                    }
                 }
-            });
+            };
 
             // Act.
             _validator.ShouldHaveChildValidator(agent => agent.Communications, typeof (CommunicationValidator));
@@ -62,14 +62,14 @@ namespace OpenRealEstate.Tests.Validators
             {
                 Name = "a"
             };
-            listingAgent.AddCommunications(new List<Communication>
+            listingAgent.Communications = new List<Communication>
             {
                 new Communication
                 {
                     CommunicationType = CommunicationType.Unknown,
                     Details = "a"
                 }
-            });
+            };
 
             // Act.
             _validator.ShouldHaveChildValidator(agent => agent.Communications, typeof(CommunicationValidator));

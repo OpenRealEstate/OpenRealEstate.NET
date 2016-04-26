@@ -3,8 +3,8 @@ using System.IO;
 using System.Linq;
 using FluentValidation;
 using FluentValidation.TestHelper;
-using OpenRealEstate.Core.Models;
-using OpenRealEstate.Core.Models.Rental;
+using OpenRealEstate.Core;
+using OpenRealEstate.Core.Rental;
 using OpenRealEstate.Services.RealEstateComAu;
 using OpenRealEstate.Validation.Rental;
 using Shouldly;
@@ -49,7 +49,7 @@ namespace OpenRealEstate.Tests.Validators.Rental
                 var xml = File.ReadAllText(fileName
                                            ?? "Sample Data\\Transmorgrifiers\\REA\\Rental\\REA-Rental-Current.xml");
                 var transmogrifier = new ReaXmlTransmorgrifier();
-                return transmogrifier.ConvertTo(xml).Listings.First().Listing as RentalListing;
+                return transmogrifier.Parse(xml).Listings.First().Listing as RentalListing;
             }
             
             [Fact]

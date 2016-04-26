@@ -1,13 +1,18 @@
 ﻿using System;
 using Newtonsoft.Json.Linq;
-using OpenRealEstate.Core.Models;
-using OpenRealEstate.Core.Models.Land;
-using OpenRealEstate.Core.Models.Rental;
-using OpenRealEstate.Core.Models.Residential;
-using OpenRealEstate.Core.Models.Rural;
+using OpenRealEstate.Core;
+using OpenRealEstate.Core.Land;
+using OpenRealEstate.Core.Rental;
+using OpenRealEstate.Core.Residential;
+using OpenRealEstate.Core.Rural;
 
 namespace OpenRealEstate.Services.Json
 {
+    // NOTE: This converter is used mainly for _DESERIALIZATION_ of some json.
+    //       So .. given some json .. how do we know which type of concrete
+    //       'listing' class should be create?
+    //        That is what this class (and specificially, the overrided method) does.
+
     public class ListingConverter : JsonCreationConverter<Listing>
     {
         protected override Listing Create(Type objectType, JObject jObject)
