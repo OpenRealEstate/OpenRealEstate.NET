@@ -476,7 +476,7 @@ namespace OpenRealEstate.Tests.Transmorgrifiers.REA
                 {
                     Name = "Princess Leia",
                     Order = 1,
-                    Communications = (new List<Communication>
+                    Communications = new List<Communication>
                     {
                         new Communication
                         {
@@ -488,13 +488,13 @@ namespace OpenRealEstate.Tests.Transmorgrifiers.REA
                             CommunicationType = CommunicationType.Mobile,
                             Details = "1234 1234"
                         }
-                    }).AsReadOnly()
+                    }
                 },
                 new ListingAgent
                 {
                     Name = "Han Solo",
                     Order = 2,
-                    Communications = (new List<Communication>
+                    Communications = new List<Communication>
                     {
                         new Communication
                         {
@@ -506,11 +506,11 @@ namespace OpenRealEstate.Tests.Transmorgrifiers.REA
                             CommunicationType = CommunicationType.Mobile,
                             Details = "0987 0987"
                         }
-                    }).AsReadOnly()
+                    }
                 }
             };
             var expectedListing = FakeListings.CreateAFakeResidentialListing();
-            expectedListing.Agents = agents.AsReadOnly();
+            expectedListing.Agents = agents;
             var reaXml = File.ReadAllText(FakeDataFolder + "REA-Residential-Current-WithDuplicateAgents.xml");
             var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
 
@@ -528,8 +528,8 @@ namespace OpenRealEstate.Tests.Transmorgrifiers.REA
         {
             // Arrange.
             var expectedListing = FakeListings.CreateAFakeResidentialListing();
-            expectedListing.Images = new List<Media>().AsReadOnly();
-            expectedListing.FloorPlans = new List<Media>().AsReadOnly() ;
+            expectedListing.Images = new List<Media>();
+            expectedListing.FloorPlans = new List<Media>();
             var reaXml = File.ReadAllText(FakeDataFolder + "REA-Residential-Current-WithEmptyImagesAndFloorplans.xml");
             var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
 

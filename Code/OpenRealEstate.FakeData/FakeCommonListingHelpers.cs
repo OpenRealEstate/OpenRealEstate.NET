@@ -7,7 +7,7 @@ namespace OpenRealEstate.FakeData
 {
     internal static class FakeCommonListingHelpers
     {
-        internal static readonly string[] DefaultTags =
+        internal static readonly HashSet<string> DefaultTags = new HashSet<string>
         {
             "houseAndLandPackage", "solarPanels", "waterTank", "hotWaterService-gas", "heating-other",
             "balcony", "shed", "courtyard", "isANewConstruction"
@@ -46,7 +46,7 @@ namespace OpenRealEstate.FakeData
             byte garages = 3,
             byte openSpaces = 0,
             byte toilets = 0,
-            string[] tags = null)
+            HashSet<string> tags = null)
         {
             listing.Features = new Features
             {
@@ -61,7 +61,7 @@ namespace OpenRealEstate.FakeData
                     OpenSpaces = openSpaces
                 },
                 Toilets = toilets,
-                Tags = tags?.ToList().AsReadOnly()
+                Tags = tags
             };
         }
 
@@ -94,8 +94,7 @@ namespace OpenRealEstate.FakeData
 
         internal static void SetAgents(Listing listing)
         {
-            var agents = new List<ListingAgent> {CreateAFakeListingAgent()};
-            listing.Agents = agents.AsReadOnly();
+            listing.Agents = new List<ListingAgent> {CreateAFakeListingAgent()};
         }
 
         internal static ListingAgent CreateAFakeListingAgent(string name = "Mr. John Doe",
@@ -133,13 +132,12 @@ namespace OpenRealEstate.FakeData
                     workCommunication
                 }
                     .ToList()
-                    .AsReadOnly()
             };
         }
 
         internal static void SetFloorPlans(Listing listing)
         {
-            var floorPlans = new List<Media>
+            listing.FloorPlans = new List<Media>
             {
                 new Media
                 {
@@ -154,13 +152,11 @@ namespace OpenRealEstate.FakeData
                     Order = 2
                 }
             };
-
-            listing.FloorPlans = floorPlans.AsReadOnly();
         }
 
         internal static void SetImages(Listing listing)
         {
-            var images = new List<Media>
+            listing.Images = new List<Media>
             {
                 new Media
                 {
@@ -175,13 +171,11 @@ namespace OpenRealEstate.FakeData
                     Order = 2
                 }
             };
-
-            listing.Images = images.AsReadOnly();
         }
 
         internal static void SetInspections(Listing listing)
         {
-            var inspections = new List<Inspection>
+            listing.Inspections = new List<Inspection>
             {
                 new Inspection
                 {
@@ -194,8 +188,6 @@ namespace OpenRealEstate.FakeData
                     ClosesOn = new DateTime(2009, 1, 22, 15, 30, 00)
                 }
             };
-
-            listing.Inspections = inspections.AsReadOnly();
         }
 
         internal static void SetLandDetails(Listing listing)
@@ -211,25 +203,23 @@ namespace OpenRealEstate.FakeData
             {
                 Area = new UnitOfMeasure {Type = "square", Value = 80},
                 CrossOver = "left",
-                Depths = depths.AsReadOnly(),
+                Depths = depths,
                 Frontage = new UnitOfMeasure {Type = "meter", Value = 20}
             };
         }
 
         internal static void SetLinks(Listing listing)
         {
-            var links = new List<string>
+            listing.Links = new List<string>
             {
                 "http://www.au.open2view.com/properties/314244/tour#floorplan",
                 "http://www.google.com/hello"
             };
-
-            listing.Links = links.AsReadOnly();
         }
 
         internal static void SetVideos(Listing listing)
         {
-            var videos = new List<Media>
+            listing.Videos = new List<Media>
             {
                 new Media
                 {
@@ -237,8 +227,6 @@ namespace OpenRealEstate.FakeData
                     Order = 1,
                 }
             };
-
-            listing.Videos = videos.AsReadOnly();
         }
 
         internal static void SetBuildingDetails(IBuildingDetails listing )

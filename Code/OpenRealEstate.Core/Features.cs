@@ -6,7 +6,7 @@ namespace OpenRealEstate.Core
     {
         public Features()
         {
-            Tags = new List<string>();
+            Tags = new HashSet<string>();
         }
 
         public byte Bedrooms { get; set; }
@@ -21,6 +21,6 @@ namespace OpenRealEstate.Core
 
         public byte LivingAreas { get; set; }
 
-        public IList<string> Tags { get; set; }
+        public HashSet<string> Tags { get; set; }
     }
 }

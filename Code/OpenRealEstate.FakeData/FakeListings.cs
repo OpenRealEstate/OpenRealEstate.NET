@@ -73,9 +73,7 @@ namespace OpenRealEstate.FakeData
             };
 
             FakeCommonListingHelpers.SetCommonListingData(listing);
-            var updatedTags = listing.Features.Tags.ToList();
-            updatedTags.Remove("houseAndLandPackage");
-            listing.Features.Tags = updatedTags.AsReadOnly();
+            listing.Features.Tags.Remove("houseAndLandPackage");
 
             FakeCommonListingHelpers.SetBuildingDetails(listing);
             SetRentalPricing(listing);
@@ -100,13 +98,20 @@ namespace OpenRealEstate.FakeData
             listing.Features.Bathrooms = 0;
             listing.Features.Ensuites = 0;
             listing.Features.CarParking = new CarParking();
-            listing.Features.Tags = new List<string>().AsReadOnly();
 
             FakeCommonListingHelpers.SetSalePrice(listing);
             SetLandEstate(listing);
             listing.AuctionOn = new DateTime(2009, 1, 24, 12, 30, 00);
             listing.CategoryType = Core.Land.CategoryType.Residential;
             listing.CouncilRates = "$2000 per month";
+
+            listing.Features.Tags.Remove("houseAndLandPackage");
+            listing.Features.Tags.Remove("isANewConstruction");
+            listing.Features.Tags.Remove("hotWaterService-gas");
+            listing.Features.Tags.Remove("heating-other");
+            listing.Features.Tags.Remove("balcony");
+            listing.Features.Tags.Remove("shed");
+            listing.Features.Tags.Remove("courtyard");
 
             return listing;
         }
@@ -120,10 +125,8 @@ namespace OpenRealEstate.FakeData
             };
 
             FakeCommonListingHelpers.SetCommonListingData(listing);
-            var updatedTags = listing.Features.Tags.ToList();
-            updatedTags.Remove("houseAndLandPackage");
-            updatedTags.Remove("isANewConstruction");
-            listing.Features.Tags = updatedTags.AsReadOnly();
+            listing.Features.Tags.Remove("houseAndLandPackage");
+            listing.Features.Tags.Remove("isANewConstruction");
 
             FakeCommonListingHelpers.SetBuildingDetails(listing);
             FakeCommonListingHelpers.SetSalePrice(listing);

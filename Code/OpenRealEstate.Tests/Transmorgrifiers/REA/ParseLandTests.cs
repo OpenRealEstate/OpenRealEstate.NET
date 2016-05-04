@@ -109,7 +109,7 @@ namespace OpenRealEstate.Tests.Transmorgrifiers.REA
             // Arrange.
             var expectedListing = FakeListings.CreateAFakeLandListing();
             expectedListing.LandDetails.CrossOver = null;
-            expectedListing.LandDetails.Depths = new List<Depth>().AsReadOnly();
+            expectedListing.LandDetails.Depths = new List<Depth>();
             var reaXml = File.ReadAllText(FakeDataFolder + "REA-Land-Current-IncompleteLandDetails.xml");
             var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
 

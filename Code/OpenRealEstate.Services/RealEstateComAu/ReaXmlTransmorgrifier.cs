@@ -808,7 +808,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 Ensuites = featuresElement.BoolOrByteValueOrDefault("ensuite"),
                 Toilets = featuresElement.BoolOrByteValueOrDefault("toilets"),
                 LivingAreas = featuresElement.BoolOrByteValueOrDefault("livingAreas"),
-                Tags = tags.ToList()
+                Tags = tags
             };
 
             listing.Features = finalFeatures;
