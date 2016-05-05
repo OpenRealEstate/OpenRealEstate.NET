@@ -48,7 +48,6 @@
     <Compile Include="Customizations\ListingCompositeCustomization.cs" />
     <Compile Include="FakeCommonListingHelpers.cs" />
     <Compile Include="FakeListings.cs" />
-    <Compile Include="ResidentialListingCustomization.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
