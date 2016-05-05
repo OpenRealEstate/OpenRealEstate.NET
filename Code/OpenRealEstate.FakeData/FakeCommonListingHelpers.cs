@@ -32,6 +32,7 @@ namespace OpenRealEstate.FakeData
 
             listing.AgencyId = "XNWXNW";
             listing.CreatedOn = new DateTime(2009, 1, 1, 12, 30, 00);
+            listing.UpdatedOn = listing.CreatedOn;
             listing.StatusType = statusType;
             listing.Description = description;
             listing.Title = title;
