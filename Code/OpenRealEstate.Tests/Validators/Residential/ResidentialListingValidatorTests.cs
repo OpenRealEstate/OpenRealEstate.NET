@@ -27,33 +27,60 @@ namespace OpenRealEstate.Tests.Validators.Residential
                 return transmogrifier.Parse(xml).Listings.First().Listing as ResidentialListing;
             }
 
-            [Fact]
-            public void GivenTheFileREAResidentialCurrentXml_Validate_ShouldNotHaveValidationErrors()
+            [Theory]
+            [InlineData("default")]
+            [InlineData(ResidentialListingValidator.MinimumRuleSet)]
+            [InlineData(ResidentialListingValidator.StrictRuleSet)]
+            public void GivenTheFileREAResidentialCurrentXml_Validate_ShouldNotHaveValidationErrors(string ruleSet)
             {
                 // Arrange.
                 var validator = new ResidentialListingValidator();
                 var listing = CreateListing();
 
                 // Act.
-                var result = validator.Validate(listing, ruleSet: ResidentialListingValidator.MinimumRuleSet);
+                var result = validator.Validate(listing, ruleSet: ruleSet);
 
                 // Assert.
                 result.Errors.Count.ShouldBe(0);
             }
 
-            [Fact]
-            public void GivenAnIncompleteListingAndAMinimumRuleSet_Validate_ShouldHaveValidationErrors()
+            [Theory]
+            [InlineData("default", 5)] // Aggregate root x2 + Listing x3.
+            [InlineData(ResidentialListingValidator.MinimumRuleSet, 12)] // default + 9
+            [InlineData(ResidentialListingValidator.StrictRuleSet, 13)] // Minimum + 1
+            public void GivenAnIncompleteListingAndARuleSet_Validate_ShouldHaveValidationErrors(string ruleSet, int numberOfErrors)
             {
                 // Arrange.
                 var validator = new ResidentialListingValidator();
+                var listing = CreateListing();
+                listing.Id = null;
+                listing.UpdatedOn = DateTime.MinValue;
+                listing.AgencyId = null;
+                listing.StatusType = StatusType.Unknown;
+                listing.CreatedOn = DateTime.MinValue;
+                listing.Agents.First().Name = null; // Not legit.
+                listing.Images.First().Url = null; // Not legit.
+                listing.FloorPlans.First().Url = null; // Not legit.
+                listing.Videos.First().Url = null; // Not legit.
+                listing.Inspections.First().OpensOn = DateTime.MinValue; // Not legit.
+                listing.LandDetails.Area.Value = -1; // Not legit.
+
+                // The sum of the 3 carparking properties can't exceed 255 (a byte).
+                listing.Features.CarParking.Carports = 200;
+                listing.Features.CarParking.Garages = 200;
+
+                listing.Links = new List<string>
+                {
+                    "http://aa.bb.cc/dd/ee?ff=ggg", // Legit.
+                    "sdfdsfsdfdf" // Not legit.
+                };
 
                 // Act.
-                var result = validator.Validate(new ResidentialListing(),
-                    ruleSet: ResidentialListingValidator.MinimumRuleSet);
+                var result = validator.Validate(listing, ruleSet: ruleSet);
 
                 // Assert.
                 result.ShouldNotBeNull();
-                result.Errors.Count.ShouldBe(8);
+                result.Errors.Count.ShouldBe(numberOfErrors);
             }
 
             [Fact]
@@ -343,8 +370,7 @@ namespace OpenRealEstate.Tests.Validators.Residential
                     Links = links
                 };
 
-                var result = _validator.Validate(listing,
-                    ruleSet: ResidentialListingValidator.MinimumRuleSet);
+                var result = _validator.Validate(listing, ruleSet: ResidentialListingValidator.StrictRuleSet);
 
                 // Assert.
                 result.Errors.ShouldContain(x => x.ErrorMessage == $"Link '{uri}' must be a valid URI. eg: http://www.SomeWebSite.com.au");

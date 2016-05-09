@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using FluentValidation;
 using OpenRealEstate.Core;
@@ -11,6 +9,8 @@ namespace OpenRealEstate.Validation
     {
         public const string MinimumRuleSet = "default," + MinimumRuleSetKey;
         protected const string MinimumRuleSetKey = "Minimum";
+        protected const string StrictRuleSetKey = "Strict";
+        public const string StrictRuleSet = MinimumRuleSet + "," + StrictRuleSetKey;
 
         public ListingValidator()
         {
@@ -31,8 +31,8 @@ namespace OpenRealEstate.Validation
                 // Required.
                 RuleFor(listing => listing.Title).NotEmpty();
                 RuleFor(listing => listing.Address).NotNull().SetValidator(new AddressValidator());
-            
-                // Optional.
+
+                // Required where it exists.
                 RuleFor(listing => listing.Agents).SetCollectionValidator(new ListingAgentValidator());
                 RuleFor(listing => listing.Images).SetCollectionValidator(new MediaValidator());
                 RuleFor(listing => listing.FloorPlans).SetCollectionValidator(new MediaValidator());
@@ -40,6 +40,11 @@ namespace OpenRealEstate.Validation
                 RuleFor(listing => listing.Inspections).SetCollectionValidator(new InspectionValidator());
                 RuleFor(listing => listing.LandDetails).SetValidator(new LandDetailsValidator());
                 RuleFor(listing => listing.Features).SetValidator(new FeaturesValidator());
+            });
+
+            RuleSet(StrictRuleSetKey, () =>
+            {
+                // Required where it exists.
                 RuleForEach(listing => listing.Links)
                     .Must(LinkMustBeAUri)
                     .When(listing => listing.Links != null &&
@@ -56,11 +61,9 @@ namespace OpenRealEstate.Validation
             }
 
             Uri result;
-            var x = Uri.TryCreate(link, UriKind.Absolute, out result) &&
+            return Uri.TryCreate(link, UriKind.Absolute, out result) &&
                    (result.Scheme == Uri.UriSchemeHttp ||
                     result.Scheme == Uri.UriSchemeHttps);
-
-            return x;
         }
     }
 }
