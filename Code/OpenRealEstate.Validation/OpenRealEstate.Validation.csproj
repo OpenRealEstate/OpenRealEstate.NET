@@ -66,6 +66,7 @@
     <Compile Include="SalePricingValidator.cs" />
     <Compile Include="UnitOfMeasureValidator.cs" />
     <Compile Include="ValidatorMediator.cs" />
+    <Compile Include="ListingValidatorRuleSet.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OpenRealEstate.Core\OpenRealEstate.Core.csproj">

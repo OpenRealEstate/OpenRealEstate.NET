@@ -35,7 +35,7 @@ namespace OpenRealEstate.Tests.Validators.Rural
                 
                 // Act.
                 var result = validator.Validate(listing,
-                    ruleSet: RuralListingValidator.MinimumRuleSet);
+                    ruleSet: RuralListingValidator.NormalRuleSet);
 
                 // Assert.
                 result.Errors.Count.ShouldBe(0);
@@ -51,7 +51,7 @@ namespace OpenRealEstate.Tests.Validators.Rural
 
                 // Act.
                 var result = validator.Validate(listing,
-                    ruleSet: RuralListingValidator.MinimumRuleSet);
+                    ruleSet: RuralListingValidator.NormalRuleSet);
 
                 // Assert.
                 result.Errors.Count.ShouldBe(0);
@@ -67,7 +67,7 @@ namespace OpenRealEstate.Tests.Validators.Rural
 
                 // Act.
                 var result = validator.Validate(listing,
-                    ruleSet: RuralListingValidator.MinimumRuleSet);
+                    ruleSet: RuralListingValidator.NormalRuleSet);
 
                 // Assert.
                 result.Errors.Count.ShouldBe(0);
@@ -83,7 +83,7 @@ namespace OpenRealEstate.Tests.Validators.Rural
 
             //    // Act.
             //    var result = validator.Validate(listing,
-            //        ruleSet: RuralListingValidator.MinimumRuleSet);
+            //        ruleSet: RuralListingValidator.NormalRuleSet);
 
             //    // Assert.
             //    result.Errors.Count.ShouldBe(0);
@@ -118,7 +118,7 @@ namespace OpenRealEstate.Tests.Validators.Rural
             {
                 _validator.ShouldNotHaveValidationErrorFor(listing => listing.CategoryType, 
                     RuralCategoryType.Cropping,
-                    RuralListingValidator.MinimumRuleSet);
+                    RuralListingValidator.NormalRuleSet);
             }
 
             [Fact]
@@ -126,7 +126,7 @@ namespace OpenRealEstate.Tests.Validators.Rural
             {
                 _validator.ShouldHaveValidationErrorFor(listing => listing.CategoryType,
                     RuralCategoryType.Unknown,
-                    RuralListingValidator.MinimumRuleSet);
+                    RuralListingValidator.NormalRuleSet);
             }
 
             [Fact]

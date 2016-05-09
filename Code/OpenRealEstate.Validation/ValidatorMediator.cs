@@ -15,44 +15,52 @@ namespace OpenRealEstate.Validation
 {
     public static class ValidatorMediator
     {
-        public static ValidationResult Validate(Listing listing, bool isTheMinimumDataToStoreAListing = true)
+        public static ValidationResult Validate(Listing listing, ListingValidatorRuleSet ruleSet)
         {
+            return Validate(listing, ruleSet.ToDescription());
+        }
+        
+        public static ValidationResult Validate(Listing listing, string ruleSet = ResidentialListingValidator.NormalRuleSet)
+        {
+            if (listing == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             if (listing is ResidentialListing)
             {
                 var validator = new ResidentialListingValidator();
-                return isTheMinimumDataToStoreAListing
-                    ? validator.Validate((ResidentialListing)listing, ruleSet: ResidentialListingValidator.MinimumRuleSet)
-                    : validator.Validate((ResidentialListing)listing);
+                return string.IsNullOrWhiteSpace(ruleSet)
+                    ? validator.Validate((ResidentialListing)listing)
+                    : validator.Validate((ResidentialListing)listing, ruleSet: ruleSet);
             }
 
             if (listing is RentalListing)
             {
                 var validator = new RentalListingValidator();
-                return isTheMinimumDataToStoreAListing
-                    ? validator.Validate((RentalListing)listing, ruleSet: RentalListingValidator.MinimumRuleSet)
-                    : validator.Validate((RentalListing)listing);
+                return string.IsNullOrWhiteSpace(ruleSet)
+                    ? validator.Validate((RentalListing) listing)
+                    : validator.Validate((RentalListing) listing, ruleSet: ruleSet);
             }
 
             if (listing is RuralListing)
             {
                 var validator = new RuralListingValidator();
-                return isTheMinimumDataToStoreAListing
-                    ? validator.Validate((RuralListing)listing, ruleSet: RuralListingValidator.MinimumRuleSet)
-                    : validator.Validate((RuralListing)listing);;
+                return string.IsNullOrWhiteSpace(ruleSet)
+                    ? validator.Validate((RuralListing) listing)
+                    : validator.Validate((RuralListing) listing, ruleSet: ruleSet);
             }
 
             if (listing is LandListing)
             {
                 var validator = new LandListingValidator();
-                return isTheMinimumDataToStoreAListing
-                    ? validator.Validate((LandListing)listing, ruleSet: LandListingValidator.MinimumRuleSet)
-                    : validator.Validate((LandListing)listing);
+                return string.IsNullOrWhiteSpace(ruleSet)
+                    ? validator.Validate((LandListing) listing)
+                    : validator.Validate((LandListing) listing, ruleSet: ruleSet);
             }
 
             var errorMessage =
-                string.Format(
-                    "Tried to validate an unhandled Listing type: {0}. Only Residental, Rental, Rural and Land listing types are supported.",
-                    listing.GetType());
+                $"Tried to validate an unhandled Listing type: {listing.GetType()}. Only Residental, Rental, Rural and Land listing types are supported.";
             throw new Exception(errorMessage);
         }
     }

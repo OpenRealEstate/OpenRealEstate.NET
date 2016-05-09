@@ -7,16 +7,16 @@ namespace OpenRealEstate.Validation
 {
     public class ListingValidator<T> : AggregateRootValidator<T> where T : Listing
     {
-        public const string MinimumRuleSet = "default," + MinimumRuleSetKey;
-        protected const string MinimumRuleSetKey = "Minimum";
+        public const string NormalRuleSet = "default," + NormalRuleSetKey;
+        public const string StrictRuleSet = NormalRuleSet + "," + StrictRuleSetKey;
+        protected const string NormalRuleSetKey = "Normal";
         protected const string StrictRuleSetKey = "Strict";
-        public const string StrictRuleSet = MinimumRuleSet + "," + StrictRuleSetKey;
 
         public ListingValidator()
         {
             ValidatorOptions.CascadeMode = CascadeMode.StopOnFirstFailure;
 
-            // Required.
+            // Minimum required data required to have a listing.
             RuleFor(listing => listing.AgencyId).NotEmpty()
                 .WithMessage("Every listing needs at least one 'AgencyId'. eg. FancyPants-1234a or 456123, etc.");
             RuleFor(listing => listing.StatusType).NotEqual(StatusType.Unknown)
@@ -25,8 +25,8 @@ namespace OpenRealEstate.Validation
                 .WithMessage(
                     "A valid 'CreatedOn' is required. Please use a date/time value that is in this decade or so.");
 
-            // Minimum data required to have a listing.
-            RuleSet(MinimumRuleSetKey, () =>
+            // Normal rules to check, when we have a property to check.
+            RuleSet(NormalRuleSetKey, () =>
             {
                 // Required.
                 RuleFor(listing => listing.Title).NotEmpty();
@@ -42,6 +42,7 @@ namespace OpenRealEstate.Validation
                 RuleFor(listing => listing.Features).SetValidator(new FeaturesValidator());
             });
 
+            // Strictest of rules to check existing properties.
             RuleSet(StrictRuleSetKey, () =>
             {
                 // Required where it exists.

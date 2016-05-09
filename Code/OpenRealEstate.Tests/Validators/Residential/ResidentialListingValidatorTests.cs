@@ -29,7 +29,7 @@ namespace OpenRealEstate.Tests.Validators.Residential
 
             [Theory]
             [InlineData("default")]
-            [InlineData(ResidentialListingValidator.MinimumRuleSet)]
+            [InlineData(ResidentialListingValidator.NormalRuleSet)]
             [InlineData(ResidentialListingValidator.StrictRuleSet)]
             public void GivenTheFileREAResidentialCurrentXml_Validate_ShouldNotHaveValidationErrors(string ruleSet)
             {
@@ -46,7 +46,7 @@ namespace OpenRealEstate.Tests.Validators.Residential
 
             [Theory]
             [InlineData("default", 5)] // Aggregate root x2 + Listing x3.
-            [InlineData(ResidentialListingValidator.MinimumRuleSet, 12)] // default + 9
+            [InlineData(ResidentialListingValidator.NormalRuleSet, 12)] // default + 9
             [InlineData(ResidentialListingValidator.StrictRuleSet, 13)] // Minimum + 1
             public void GivenAnIncompleteListingAndARuleSet_Validate_ShouldHaveValidationErrors(string ruleSet, int numberOfErrors)
             {
@@ -92,7 +92,7 @@ namespace OpenRealEstate.Tests.Validators.Residential
                 listing.Address.Suburb = null;
 
                 // Act.
-                var result = validator.Validate(listing, ruleSet: ResidentialListingValidator.MinimumRuleSet);
+                var result = validator.Validate(listing, ruleSet: ResidentialListingValidator.NormalRuleSet);
 
                 // Assert.
                 result.Errors.ShouldContain(x => x.PropertyName == "Address.Suburb");
@@ -107,7 +107,7 @@ namespace OpenRealEstate.Tests.Validators.Residential
                 listing.Address.Street = string.Empty;
 
                 // Act.
-                var result = validator.Validate(listing, ruleSet: ResidentialListingValidator.MinimumRuleSet);
+                var result = validator.Validate(listing, ruleSet: ResidentialListingValidator.NormalRuleSet);
 
                 // Assert.
                 result.Errors.ShouldContain(x => x.PropertyName == "Address.Street");
@@ -122,7 +122,7 @@ namespace OpenRealEstate.Tests.Validators.Residential
                 listing.Agents.First().Name = string.Empty;
 
                 // Act.
-                var result = validator.Validate(listing, ruleSet: ResidentialListingValidator.MinimumRuleSet);
+                var result = validator.Validate(listing, ruleSet: ResidentialListingValidator.NormalRuleSet);
 
                 // Assert.
                 result.Errors.ShouldContain(x => x.PropertyName == "Agents[0].Name");
@@ -150,7 +150,7 @@ namespace OpenRealEstate.Tests.Validators.Residential
                 var listing = CreateListing("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Sold.xml");
 
                 // Act.
-                var result = validator.Validate(listing, ruleSet: ResidentialListingValidator.MinimumRuleSet);
+                var result = validator.Validate(listing, ruleSet: ResidentialListingValidator.NormalRuleSet);
 
                 // Assert.
                 result.Errors.Count.ShouldBe(3);
@@ -178,7 +178,7 @@ namespace OpenRealEstate.Tests.Validators.Residential
                 var listing = CreateListing("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Withdrawn.xml");
 
                 // Act.
-                var result = validator.Validate(listing, ruleSet: ResidentialListingValidator.MinimumRuleSet);
+                var result = validator.Validate(listing, ruleSet: ResidentialListingValidator.NormalRuleSet);
 
                 // Assert.
                 result.Errors.Count.ShouldBe(3);
@@ -206,7 +206,7 @@ namespace OpenRealEstate.Tests.Validators.Residential
                 var listing = CreateListing("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-OffMarket.xml");
 
                 // Act.
-                var result = validator.Validate(listing, ruleSet: ResidentialListingValidator.MinimumRuleSet);
+                var result = validator.Validate(listing, ruleSet: ResidentialListingValidator.NormalRuleSet);
 
                 // Assert.
                 result.Errors.Count.ShouldBe(3);
@@ -235,7 +235,7 @@ namespace OpenRealEstate.Tests.Validators.Residential
             {
                 _validator.ShouldNotHaveValidationErrorFor(listing => listing.PropertyType, 
                     PropertyType.Townhouse, 
-                    ResidentialListingValidator.MinimumRuleSet);
+                    ResidentialListingValidator.NormalRuleSet);
             }
 
             [Fact]
@@ -243,7 +243,7 @@ namespace OpenRealEstate.Tests.Validators.Residential
             {
                 _validator.ShouldHaveValidationErrorFor(x => x.PropertyType, 
                     PropertyType.Unknown, 
-                    ResidentialListingValidator.MinimumRuleSet);
+                    ResidentialListingValidator.NormalRuleSet);
             }
 
             [Fact]
@@ -251,7 +251,7 @@ namespace OpenRealEstate.Tests.Validators.Residential
             {
                 _validator.ShouldNotHaveValidationErrorFor(listing => listing.AuctionOn, 
                     DateTime.UtcNow,
-                    ResidentialListingValidator.MinimumRuleSet);
+                    ResidentialListingValidator.NormalRuleSet);
             }
 
             [Fact]
@@ -259,7 +259,7 @@ namespace OpenRealEstate.Tests.Validators.Residential
             {
                 _validator.ShouldHaveValidationErrorFor(listing => listing.AuctionOn, 
                     DateTime.MinValue,
-                    ResidentialListingValidator.MinimumRuleSet);
+                    ResidentialListingValidator.NormalRuleSet);
             }
 
             [Fact]
@@ -267,7 +267,7 @@ namespace OpenRealEstate.Tests.Validators.Residential
             {
                 _validator.ShouldNotHaveValidationErrorFor(listing => listing.AuctionOn, 
                     (DateTime?) null,
-                    ResidentialListingValidator.MinimumRuleSet);
+                    ResidentialListingValidator.NormalRuleSet);
             }
 
             [Fact(Skip = "Shouldly doesn't like ReadOnlyCollections")]
@@ -286,7 +286,7 @@ namespace OpenRealEstate.Tests.Validators.Residential
                 // This fails because shouldly doesn't like ReadOnly collections.
                 //validator.ShouldNotHaveValidationErrorFor(listing => listing.Links,
                 //    links.AsReadOnly(),
-                //    ResidentialListingValidator.MinimumRuleSet);
+                //    ResidentialListingValidator.NormalRuleSet);
             }
 
             [Fact(Skip = "Shouldly doesn't like ReadOnlyCollections")]
@@ -306,7 +306,7 @@ namespace OpenRealEstate.Tests.Validators.Residential
                 // This fails because shouldly doesn't like ReadOnly collections.
                 validator.ShouldHaveValidationErrorFor(listing => listing.Links.ToList(),
                     links,
-                    ResidentialListingValidator.MinimumRuleSet);
+                    ResidentialListingValidator.NormalRuleSet);
             }
 
             [Theory]
@@ -329,7 +329,7 @@ namespace OpenRealEstate.Tests.Validators.Residential
 
                 //_validator.ShouldNotHaveValidationErrorFor(x => x.Links, 
                 //    links,
-                //    ResidentialListingValidator.MinimumRuleSet);
+                //    ResidentialListingValidator.NormalRuleSet);
 
                 var listing = new ResidentialListing
                 {
@@ -337,7 +337,7 @@ namespace OpenRealEstate.Tests.Validators.Residential
                 };
 
                 var result = _validator.Validate(listing,
-                    ruleSet: ResidentialListingValidator.MinimumRuleSet);
+                    ruleSet: ResidentialListingValidator.NormalRuleSet);
 
                 // Assert.
                 result.Errors.ShouldNotContain(x =>
@@ -363,7 +363,7 @@ namespace OpenRealEstate.Tests.Validators.Residential
 
                 //_validator.ShouldHaveValidationErrorFor(l => l.Links, 
                 //    links, 
-                //    ResidentialListingValidator.MinimumRuleSet);
+                //    ResidentialListingValidator.NormalRuleSet);
 
                 var listing = new ResidentialListing
                 {
