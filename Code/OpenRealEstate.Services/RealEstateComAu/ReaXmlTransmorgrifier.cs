@@ -279,19 +279,13 @@ namespace OpenRealEstate.Services.RealEstateComAu
         {
             Guard.AgainstNull(document);
 
-            var rootNode = document.Root == null
-                ? null
-                : document.Root.Name.LocalName;
+            var rootNode = document.Root?.Name.LocalName;
 
             if (string.IsNullOrWhiteSpace(rootNode) ||
                 !ValidRootNodes.Contains(document.Root.Name.LocalName))
             {
                 var errorMessage =
-                    string.Format(
-                        "Unable to parse the xml data provided. Currently, only a <propertyList/> or listing segments <residential/> / <rental/> / <land/> / <rural/>. Root node found: '{0}'.",
-                        document.Root == null
-                            ? "-no root node"
-                            : document.Root.Name.LocalName);
+                    $"Unable to parse the xml data provided. Currently, only a <propertyList/> or listing segments <residential/> / <rental/> / <land/> / <rural/>. Root node found: '{(document.Root == null ? "-no root node" : document.Root.Name.LocalName)}'.";
                 throw new Exception(errorMessage);
             }
 
@@ -660,7 +654,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 };
 
                 var orderValue = agentElement.AttributeValueOrDefault("id");
-                var order = 0;
+                int order;
                 if (!string.IsNullOrWhiteSpace(orderValue) &&
                     int.TryParse(orderValue, out order))
                 {
@@ -1004,7 +998,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             //         a file name because the xml was provided in a zip file with
             //         the images (booooo! hiss!!!)
             // Note 2: Not all image's might have a last mod time.
-            var media = (from x in mediaElements
+            return (from x in mediaElements
                 let url = x.AttributeValueOrDefault("url")
                 let file = x.AttributeValueOrDefault("file")
                 let order = x.AttributeValueOrDefault("id")
@@ -1024,10 +1018,6 @@ namespace OpenRealEstate.Services.RealEstateComAu
                         : url,
                     Order = orderConverstionFunction(order)
                 }).ToList();
-
-            return media.Any()
-                ? media
-                : null;
         }
 
         // NOTE: This is a extracting a collection. As such, we hard-copy the resultant collection
@@ -1723,9 +1713,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
         {
             Guard.AgainstNull(document);
             var ruralFeaturesElement = document.Element("ruralFeatures");
-            return ruralFeaturesElement == null
-                ? null
-                : ruralFeaturesElement.ValueOrDefault("councilRates");
+            return ruralFeaturesElement?.ValueOrDefault("councilRates");
         }
 
         private static void ExtractRuralNewConstruction(XElement document, Listing listing)
