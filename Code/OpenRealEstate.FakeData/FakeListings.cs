@@ -17,10 +17,14 @@ namespace OpenRealEstate.FakeData
             var fixture = new Fixture()
                 .Customize(new ListingCompositeCustomization());
 
+            var random = new Random();
+
             return fixture.Build<T>()
                 .With(x => x.Id, $"listing-{fixture.Create<int>()}")
                 .With(x => x.AgencyId, $"Agency-{fixture.Create<string>().Substring(0, 6)}")
                 .With(x => x.StatusType, StatusType.Available)
+                .With(x => x.CreatedOn, DateTime.Now - new TimeSpan(0, random.Next(1, 24 * 7), 0, 0))
+                .With(x => x.UpdatedOn, DateTime.Now - new TimeSpan(0, random.Next(1, 24 * 7), 0, 0))
                 .Create();
         }
 
