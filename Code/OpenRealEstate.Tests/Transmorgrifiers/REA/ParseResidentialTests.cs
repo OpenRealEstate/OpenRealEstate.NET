@@ -186,7 +186,7 @@ namespace OpenRealEstate.Tests.Transmorgrifiers.REA
         [InlineData("REA-Residential-Sold-DisplayAttributeIsRange.xml", "Value 'range' is out of range. It should only be 0/1/yes/no.\r\nParameter name: value")]
         [InlineData("REA-Residential-Current-WithABadBedroomNumber.xml", "Failed to parse the value '4.5' into an int. Is it a valid number? Does it contain decimal point values?")]
         [InlineData("REA-Residential-Current-WithTooManyBedrooms.xml", "Failed to parse the value '3334' into a byte.")]
-        [InlineData("REA-Residential-Current-WithBadModTimeInImagesAndFloorPlans.xml", "Invalid date/time trying to be parsed. Attempted the value: '2016-02-1112:50:05' but that format is invalid.")]
+        [InlineData("REA-Residential-Current-WithBadModTimeInImagesAndFloorPlans.xml", "Invalid date/time trying to be parsed. Attempted the value: '2016-02-1112:50:05' but that format is invalid. Element/Attribute: <img modTime='..'/>")]
         public void GivenAnReaFileWithSomeTypeOfBadData_Parse_ReturnsAParsedError(string fileName,
             string errorMessage)
         {

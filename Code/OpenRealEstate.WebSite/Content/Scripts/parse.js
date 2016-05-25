@@ -48,7 +48,7 @@ function displayListingResult(isConvertingReaXmlToJson, data) {
 
             var errorMessage = '<br>Errors have occurred.<br/><br/>';
             $.each(errors, function(index, error) {
-                errorMessage = errorMessage + error.Key + ' - error: ' + error.Value + '<br/>';
+                errorMessage = errorMessage + escapeHTML(error.Key) + ' - error: ' + escapeHTML(error.Value) + '<br/>';
             });
 
             $('#errorMessage').html(errorMessage);
@@ -70,6 +70,10 @@ function displayListingResult(isConvertingReaXmlToJson, data) {
     } else {
         $('#reaxmltext').html(data);
     }
+}
+
+function escapeHTML(html) {
+    return html.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
 function getSampleReaXml(fileName) {

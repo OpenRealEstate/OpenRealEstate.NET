@@ -400,7 +400,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             return listing;
         }
 
-        private static DateTime ToDateTime(string reaDateTime)
+        private static DateTime ToDateTime(string reaDateTime, string elementName = null)
         {
             // REFERENCE: http://reaxml.realestate.com.au/docs/reaxml1-xml-format.html#datetime
             /*
@@ -428,6 +428,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 "yyyy-MM-dd-HH:mm:",
                 "yyyy-MM-dd-HH:mm:ss",
                 "yyyy-MM-ddTHH:mm:ss",
+                "yyyy-MM-ddTH:mm:ss", // 2016-05-21T9:33:49 (Notice the single 'hour' that is not 24 hour format?)
                 "yyyy-MM-dd-hh:mm:sstt", // 2015-12-15-01:18:52PM
                 "yyyyMMdd-HHmmss",
                 "yyyyMMDD-HHmmss",
@@ -455,7 +456,11 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 return result;
             }
 
-            throw new Exception($"Invalid date/time trying to be parsed. Attempted the value: '{reaDateTime}' but that format is invalid.");
+            var errorMessage =
+                AppendElementOrAttributeToErrorMessage(
+                    $"Invalid date/time trying to be parsed. Attempted the value: '{reaDateTime}' but that format is invalid.",
+                    elementName);
+            throw new Exception(errorMessage);
         }
 
         #region Common listing methods
@@ -467,7 +472,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             Guard.AgainstNull(listing);
             Guard.AgainstNull(document);
 
-            listing.UpdatedOn = ToDateTime(document.AttributeValue("modTime"));
+            listing.UpdatedOn = ToDateTime(document.AttributeValue("modTime"), "<root modTime>");
 
             // We have no idea if this was created before this date, but we need to set a date
             // so we'll default it to this.
@@ -962,7 +967,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 return;
             }
 
-            listing.Images = ParseMediaXmlDataToMedia(imagesElements, ConvertImageOrderToNumber)
+            listing.Images = ParseMediaXmlDataToMedia(imagesElements, ConvertImageOrderToNumber, "img")
                 .ToList();
         }
 
@@ -987,12 +992,13 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 return;
             }
 
-            listing.FloorPlans = ParseMediaXmlDataToMedia(floorPlanElements, Convert.ToInt32)
+            listing.FloorPlans = ParseMediaXmlDataToMedia(floorPlanElements, Convert.ToInt32, "floorplan")
                 .ToList();
         }
 
         private static IEnumerable<Media> ParseMediaXmlDataToMedia(IEnumerable<XElement> mediaElements, 
-            Func<string, int> orderConverstionFunction)
+            Func<string, int> orderConverstionFunction,
+            string elementName = null)
         {
             // Note 1: Image 'urls' can either be via a Uri (yay!) or
             //         a file name because the xml was provided in a zip file with
@@ -1010,7 +1016,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 {
                     CreatedOn = string.IsNullOrWhiteSpace(createdOn)
                         ? (DateTime?) null
-                        : ToDateTime(createdOn),
+                        : ToDateTime(createdOn, $"<{elementName} modTime='..'/>"),
                     Url = string.IsNullOrWhiteSpace(url)
                         ? string.IsNullOrWhiteSpace(file)
                             ? null
@@ -1252,7 +1258,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             var soldOnText = document.ValueOrDefault();
             if (!string.IsNullOrWhiteSpace(soldOnText))
             {
-                salePricing.SoldOn = ToDateTime(soldOnText);
+                salePricing.SoldOn = ToDateTime(soldOnText, "<soldDetails><date/><soldDetails>");
             }
         }
 
@@ -1274,7 +1280,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 }
 
                 listing.AuctionOn = !string.IsNullOrWhiteSpace(auction)
-                    ? (DateTime?) ToDateTime(auction)
+                    ? (DateTime?) ToDateTime(auction, "<auction/> or <auction date=''/>")
                     : null;
             });
 
@@ -1446,6 +1452,17 @@ namespace OpenRealEstate.Services.RealEstateComAu
             return character == 'M' ? 1 : character - 63;
         }
 
+        private static string AppendElementOrAttributeToErrorMessage(string errorMessage,
+            string elementOrAttributeName = null)
+        {
+            if (!string.IsNullOrWhiteSpace(elementOrAttributeName))
+            {
+                errorMessage += $" Element/Attribute: {elementOrAttributeName}";
+            }
+
+            return errorMessage;
+        }
+
         #endregion
 
         #region Residential Listing methods
@@ -1522,7 +1539,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             var dateAvailble = document.ValueOrDefault("dateAvailable");
             if (!string.IsNullOrWhiteSpace(dateAvailble))
             {
-                rentalListing.AvailableOn = ToDateTime(dateAvailble);
+                rentalListing.AvailableOn = ToDateTime(dateAvailble, "<rental><dateAvailable/><rental>");
             }
 
             ExtractResidentialAndRentalPropertyType(document, rentalListing);
