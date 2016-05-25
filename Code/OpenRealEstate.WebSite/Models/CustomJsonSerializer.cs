@@ -4,7 +4,7 @@ using Newtonsoft.Json.Serialization;
 
 namespace OpenRealEstate.WebSite.Models
 {
-    public class CustomJsonSerializer : JsonSerializer
+    public sealed class CustomJsonSerializer : JsonSerializer
     {
         public CustomJsonSerializer()
         {
