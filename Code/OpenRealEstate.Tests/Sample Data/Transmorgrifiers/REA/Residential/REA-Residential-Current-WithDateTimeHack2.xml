@@ -1,0 +1,115 @@
+<rental modTime="2016-05-26-9:31:30" status="current">
+    <agentID>EVIEWFRANK</agentID>
+    <uniqueID>54972</uniqueID>
+    <listingAgent id="1">
+        <name>Clare LaFontaine</name>
+        <telephone type="mobile">0428 165 597</telephone>
+        <email>enquiries.frankston@eview.com.au</email>
+    </listingAgent>
+    <dateAvailable>2016-04-28T12:30:00</dateAvailable>
+    <rent period="week">395</rent>
+    <bond>1716</bond>
+    <holiday value="no" />
+    <address display="yes">
+        <streetNumber>38</streetNumber>
+        <street>Moreton Street</street>
+        <suburb>FRANKSTON NORTH</suburb>
+        <state>VIC</state>
+        <postcode>3200</postcode>
+    </address>
+    <category name="House" />
+    <headline>NEWLY RENOVATED GEM WITH FLEXIBLE FLOOR PLAN</headline>
+    <description>
+        This immaculately renovated home is just waiting for you to call it your home.
+
+        Features
+        Master bedroom with ensuite
+        Further three bedrooms (fourth bedroom can be uses as Parents retreat or second living area)
+        Beautiful family bathroom
+        Brand new kitchen with new stainless steel appliances and stone bench tops
+        Light filled and modern open plan living and dining area
+        Ducted heating
+        Air conditioning
+        New blinds
+        Single carport with more off street parking
+
+        Positioned close to shops, schools and bus stop at the front door so be quick and book your inspection today.
+
+        PLEASE NOTE: Subdivision will start at the back of the property. During this time water and electricity will be included/paid by owner.
+    </description>
+    <features>
+        <bedrooms>4</bedrooms>
+        <bathrooms>2</bathrooms>
+        <garages>0</garages>
+        <carports>1</carports>
+        <airConditioning>0</airConditioning>
+        <pool>0</pool>
+        <alarmSystem>0</alarmSystem>
+        <intercom>0</intercom>
+        <spa>0</spa>
+        <openFirePlace>0</openFirePlace>
+        <tennisCourt>0</tennisCourt>
+        <toilets>0</toilets>
+        <remoteGarage>0</remoteGarage>
+        <secureParking>0</secureParking>
+        <study>0</study>
+        <dishwasher>0</dishwasher>
+        <builtInRobes>1</builtInRobes>
+        <gym>0</gym>
+        <workshop>0</workshop>
+        <rumpusRoom>0</rumpusRoom>
+        <floorboards>1</floorboards>
+        <broadband>0</broadband>
+        <payTV>0</payTV>
+        <ductedHeating>1</ductedHeating>
+        <ductedCooling>0</ductedCooling>
+        <splitsystemHeating>0</splitsystemHeating>
+        <hydronicHeating>0</hydronicHeating>
+        <splitsystemAircon>0</splitsystemAircon>
+        <reverseCycleAircon>0</reverseCycleAircon>
+        <evaporativeCooling>0</evaporativeCooling>
+        <vacuumSystem>0</vacuumSystem>
+        <poolInGround>0</poolInGround>
+        <poolAboveGround>0</poolAboveGround>
+        <balcony>0</balcony>
+        <deck>0</deck>
+        <courtyard>0</courtyard>
+        <outdoorEnt>0</outdoorEnt>
+        <shed>0</shed>
+        <fullyFenced>0</fullyFenced>
+        <insideSpa>0</insideSpa>
+        <outsideSpa>0</outsideSpa>
+    </features>
+    <buildingDetails>
+        <area unit="squareMeter" of="total">0</area>
+    </buildingDetails>
+    <inspectionTimes />
+    <images>
+        <img id="m" modTime="2016-05-26T9:31:30" url="http://www.realestateit.com.au/LISTING_IMAGES/15-54972/28-4-2016-16-595_54972_Moreton38-8.jpg" />
+        <img id="a" modTime="2016-05-26T9:31:30" url="http://www.realestateit.com.au/LISTING_IMAGES/15-54972/28-4-2016-16-590_54972_Moreton38-5.jpg" />
+        <img id="b" modTime="2016-05-26T9:31:30" url="http://www.realestateit.com.au/LISTING_IMAGES/15-54972/28-4-2016-16-593_54972_Moreton38-7.jpg" />
+        <img id="c" modTime="2016-05-26T9:31:30" url="http://www.realestateit.com.au/LISTING_IMAGES/15-54972/28-4-2016-16-591_54972_Moreton38-6.jpg" />
+        <img id="d" modTime="2016-05-26T9:31:30" url="http://www.realestateit.com.au/LISTING_IMAGES/15-54972/28-4-2016-16-597_54972_pm.jpg" />
+        <img id="e" modTime="2016-05-26T9:31:30" url="http://www.realestateit.com.au/LISTING_IMAGES/15-54972/28-4-2016-16-5856_54972_Moreton38-3.jpg" />
+        <img id="f" modTime="2016-05-26T9:31:30" url="http://www.realestateit.com.au/LISTING_IMAGES/15-54972/28-4-2016-16-5855_54972_Moreton38-2.jpg" />
+        <img id="g" modTime="2016-05-26T9:31:30" url="http://www.realestateit.com.au/LISTING_IMAGES/15-54972/28-4-2016-16-5853_54972_Moreton38-1.jpg" />
+        <img id="h" modTime="2016-05-26T9:31:30" url="http://www.realestateit.com.au/LISTING_IMAGES/15-54972/28-4-2016-16-5858_54972_Moreton38-4.jpg" />
+        <img id="i" modTime="2016-05-26T9:31:30" url="" />
+        <img id="j" modTime="2016-05-26T9:31:30" url="" />
+        <img id="k" modTime="2016-05-26T9:31:30" url="" />
+        <img id="l" modTime="2016-05-26T9:31:30" url="" />
+        <img id="n" modTime="2016-05-26T9:31:30" url="" />
+        <img id="o" modTime="2016-05-26T9:31:30" url="" />
+        <img id="p" modTime="2016-05-26T9:31:30" url="" />
+        <img id="q" modTime="2016-05-26T9:31:30" url="" />
+        <img id="r" modTime="2016-05-26T9:31:30" url="" />
+        <img id="s" modTime="2016-05-26T9:31:30" url="" />
+        <img id="t" modTime="2016-05-26T9:31:30" url="" />
+        <img id="u" modTime="2016-05-26T9:31:30" url="" />
+        <img id="v" modTime="2016-05-26T9:31:30" url="" />
+        <img id="w" modTime="2016-05-26T9:31:30" url="" />
+        <img id="x" modTime="2016-05-26T9:31:30" url="" />
+        <img id="y" modTime="2016-05-26T9:31:30" url="" />
+        <img id="z" modTime="2016-05-26T9:31:30" url="" />
+    </images>
+</rental>
