@@ -857,6 +857,28 @@ namespace OpenRealEstate.Tests
                 result.Errors.First().ExceptionMessage.ShouldBe("Invalid date/time trying to be parsed. Attempted the value: '2016-02-1112:50:05' but that format is invalid.");
             }
 
+            [Theory]
+            [InlineData("REA-Residential-Current-WithDateTimeHack1.xml")]
+            [InlineData("REA-Residential-Current-WithDateTimeHack2.xml")]
+            [InlineData("REA-Residential-Current-WithDateTimeHack3.xml")]
+            public void GivenTheFileREAResidentialCurrentWithDateTimeHack_Convert_ReturnsAResidentialCurrentListing(string filename)
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText($"Sample Data\\Transmorgrifiers\\REA\\Residential\\{filename}");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.ShouldNotBeNull();
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBeNull();
+                result.Errors.ShouldBeNull();
+                var expectedDateTime = new DateTime(2016, 5, 26, 9, 31, 30);
+                result.Listings.First().Listing.UpdatedOn.ShouldBe(expectedDateTime);
+            }
+
             private static void AssertResidentialCurrentListing(ResidentialListing listing,
                 PropertyType expectedPropertyType = PropertyType.House,
                 byte expectedBedroomsCount = 4,

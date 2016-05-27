@@ -350,7 +350,10 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 "yyyy-MM-dd-HH:mm:",
                 "yyyy-MM-dd-HH:mm:ss",
                 "yyyy-MM-ddTHH:mm:ss",
-                "yyyy-MM-dd-hh:mm:sstt", // 2015-12-15-01:18:52PM
+                "yyyy-MM-ddTH:mm:ss", // 2016-05-21T9:33:49 (Notice the single 'hour' that is not 24 hour format?)
+                "yyyy-MM-dd-H:mm:ss", // 2016-05-26-9:41:29 (Another back hack from people. Single hour. GRR!)
+                "yyyy-MM-dd-HH:mm:ss", // 2016-05-26-16:41:29 (Another back hack from people. 24 hour. GRR!)
+                "yyyy-MM-dd-HH:mm:sstt", // 2015-12-15-01:18:52PM
                 "yyyyMMdd-HHmmss",
                 "yyyyMMDD-HHmmss",
                 "yyyyMMddTHHmmss",
