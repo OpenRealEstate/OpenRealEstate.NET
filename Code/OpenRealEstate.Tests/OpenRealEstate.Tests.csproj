@@ -69,6 +69,7 @@
     <Compile Include="JsonTransmorgrifierTests.cs" />
     <Compile Include="TestHelperUtilities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TimeZoneInfoHelperTests.cs" />
     <Compile Include="Transmorgrifiers\REA\ReaXmlTransmorgrifierTests.cs" />
     <Compile Include="Transmorgrifiers\REA\BuildingDetailsAssertHelpers.cs" />
     <Compile Include="Transmorgrifiers\REA\ListingAssertHelpers.cs" />
