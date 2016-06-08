@@ -316,39 +316,6 @@ namespace OpenRealEstate.Tests.Validators.Residential
                 result.Errors.ShouldNotContain(x =>
                     x.ErrorMessage == $"Link '{uri}' must be a valid URI. eg: http://www.SomeWebSite.com.au");
             }
-
-            [Theory]
-            [InlineData("Httpasd://www.SomeDomain.com")]
-            [InlineData("aasdasd")]
-            [InlineData("")]
-            [InlineData("ftp://www.a.b.c.com")]
-            [InlineData("Htttd://www.SomeDomain.com")] // 3x t's in http.
-            [InlineData("www.SomeDomain.com")] // No scheme.
-            [InlineData("!2134242")]
-            public void GivenAnInvalidUri_Validate_ShouldHaveAValidationError(string uri)
-            {
-                // Arrange.
-                var links = new ReadOnlyCollection<string>(new[] { uri });
-
-                // Act & Assert.
-                
-                // NOTE: ShouldHaveValidationErrorFor has a bug in it: https://github.com/JeremySkinner/FluentValidation/issues/238
-
-                //_validator.ShouldHaveValidationErrorFor(l => l.Links, 
-                //    links, 
-                //    ResidentialListingValidator.MinimumRuleSet);
-
-                var listing = new ResidentialListing
-                {
-                    Links = links
-                };
-
-                var result = _validator.Validate(listing,
-                    ruleSet: ResidentialListingValidator.MinimumRuleSet);
-
-                // Assert.
-                result.Errors.ShouldContain(x => x.ErrorMessage == $"Link '{uri}' must be a valid URI. eg: http://www.SomeWebSite.com.au");
-            }
         }
     }
 }
