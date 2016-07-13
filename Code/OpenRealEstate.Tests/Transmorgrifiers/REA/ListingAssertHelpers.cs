@@ -49,8 +49,10 @@ namespace OpenRealEstate.Tests.Transmorgrifiers.REA
             source.Suburb.ShouldBe(destination.Suburb);
             source.Municipality.ShouldBe(destination.Municipality);
             source.State.ShouldBe(destination.State);
-            destination.CountryIsoCode.ShouldBe(destination.CountryIsoCode);
+            source.CountryIsoCode.ShouldBe(destination.CountryIsoCode);
             source.Postcode.ShouldBe(destination.Postcode);
+            source.Latitude.ShouldBe(destination.Latitude);
+            source.Longitude.ShouldBe(destination.Longitude);
         }
 
         public static void AssertAgents(IList<ListingAgent> source, IList<ListingAgent> destination)

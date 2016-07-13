@@ -558,5 +558,23 @@ namespace OpenRealEstate.Tests.Transmorgrifiers.REA
             // Assert.
             AssertResidentialListing(result, expectedListing);
         }
+
+        [Fact]
+        public void GivenTheFileREAResidentialCurrentWithEmptyLatLongValues_Parse_ReturnsAResidentialAvailableListing
+            ()
+        {
+            // Arrange.
+            var expectedListing = FakeListings.CreateAFakeResidentialListing();
+            expectedListing.Address.Latitude = null;
+            expectedListing.Address.Longitude = null;
+            var reaXml = File.ReadAllText(FakeDataFolder + "REA-Residential-Current-WithEmptyLatitudeLongitude.xml");
+            var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+            // Act.
+            var result = reaXmlTransmorgrifier.Parse(reaXml);
+
+            // Assert.
+            AssertResidentialListing(result, expectedListing);
+        }
     }
 }

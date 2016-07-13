@@ -614,14 +614,14 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
             var latitudeElement = document.Descendants("Latitude").FirstOrDefault() ??
                                   document.Descendants("latitude").FirstOrDefault();
-            if (latitudeElement != null)
+            if (!string.IsNullOrWhiteSpace(latitudeElement?.Value))
             {
                 address.Latitude = latitudeElement.DecimalValueOrDefault();
             }
 
             var longitudeElement = document.Descendants("Longitude").FirstOrDefault() ??
                                    document.Descendants("longitude").FirstOrDefault();
-            if (latitudeElement != null)
+            if (!string.IsNullOrWhiteSpace(longitudeElement?.Value))
             {
                 address.Longitude = longitudeElement.DecimalValueOrDefault();
             }
