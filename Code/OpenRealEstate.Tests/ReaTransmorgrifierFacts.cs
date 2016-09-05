@@ -955,6 +955,7 @@ namespace OpenRealEstate.Tests
                 listing.Pricing.SoldPriceText.ShouldBe(isSoldPriceVisibile
                     ? soldPrice.Value.ToString("C0")
                     : null);
+                listing.Pricing.ModifiedData.ModifiedProperties.Contains("SoldPriceText").ShouldBe(true);
                 listing.Pricing.SoldOn.ShouldBe(new DateTime(2009, 01, 10, 12, 30, 00));
             }
 
@@ -1691,6 +1692,7 @@ namespace OpenRealEstate.Tests
             {
                 pricing.SalePrice.ShouldBe(500000m);
                 pricing.SalePriceText.ShouldBe(salePriceText);
+                pricing.ModifiedData.ModifiedProperties.Contains("SalePriceText").ShouldBe(true);
                 pricing.IsUnderOffer.ShouldBe(false);
             }
 

@@ -1034,6 +1034,12 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
             salePricing.SalePrice = document.MoneyValueOrDefault(cultureInfo, "price");
 
+            // This forces this property to be 'modified'. Otherwise, if we are asked to hide/not-display
+            // the sale price, then setting null over null means the property is not changed, so that null value will
+            // never be used/set _outside_ of this instance. 
+            // ie. a consumer will not think this value has changed and ignore it. BAD.
+            salePricing.SalePriceText = string.Empty;
+
             var salePriceText = document.ValueOrDefault("priceView");
             var displayAttributeValue = document.ValueOrDefault("price", "display");
             var isDisplay = string.IsNullOrWhiteSpace(displayAttributeValue) ||
@@ -1100,7 +1106,13 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
             salePricing.SoldPrice = document.DecimalValueOrDefault();
 
-            // NOTE 1: no display price assumes a 'YES' and that the price -is- to be displayed.
+            // This forces this property to be 'modified'. Otherwise, if we are asked to hide/not-display
+            // the sale price, then setting null over null means the property is not changed, so that null value will
+            // never be used/set _outside_ of this instance. 
+            // ie. a consumer will not think this value has changed and ignore it. BAD.
+            salePricing.SoldPriceText = string.Empty; 
+                                                      
+            // NOTE 1: no/missing display price assumes a 'YES' and that the price -is- to be displayed.
             // NOTE 2: A _display attribute_ value of 'range' can only valid for commerical properties ...
             //         and .. we don't handle commerical. So it will end up throwing an exception
             //         which is legit in this case.
