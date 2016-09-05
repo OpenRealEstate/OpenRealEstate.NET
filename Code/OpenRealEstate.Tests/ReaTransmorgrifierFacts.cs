@@ -1692,8 +1692,15 @@ namespace OpenRealEstate.Tests
             {
                 pricing.SalePrice.ShouldBe(500000m);
                 pricing.SalePriceText.ShouldBe(salePriceText);
-                pricing.ModifiedData.ModifiedProperties.Contains("SalePriceText").ShouldBe(true);
                 pricing.IsUnderOffer.ShouldBe(false);
+
+                // If we haven't cleared out all the modified properties, check that the SalePriceText
+                // has been modified - for our edge case test if a person sets the value and later hides it,
+                // they won't know to hide it if this isn't modified.
+                if (pricing.ModifiedData.IsModified)
+                {
+                    pricing.ModifiedData.ModifiedProperties.Contains("SalePriceText").ShouldBe(true);
+                }
             }
 
             private static void AssertInspections(IList<Inspection> inspections)
