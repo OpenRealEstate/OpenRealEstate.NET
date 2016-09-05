@@ -40,27 +40,7 @@ namespace OpenRealEstate.Validation
                 RuleFor(listing => listing.Inspections).SetCollectionValidator(new InspectionValidator());
                 RuleFor(listing => listing.LandDetails).SetValidator(new LandDetailsValidator());
                 RuleFor(listing => listing.Features).SetValidator(new FeaturesValidator());
-                RuleForEach(listing => listing.Links)
-                    .Must(LinkMustBeAUri)
-                    .When(listing => listing.Links != null &&
-                                     listing.Links.Any())
-                    .WithMessage("Link '{PropertyValue}' must be a valid URI. eg: http://www.SomeWebSite.com.au");
             });
-        }
-
-        private static bool LinkMustBeAUri(string link)
-        {
-            if (string.IsNullOrWhiteSpace(link))
-            {
-                return false;
-            }
-
-            Uri result;
-            var x = Uri.TryCreate(link, UriKind.Absolute, out result) &&
-                   (result.Scheme == Uri.UriSchemeHttp ||
-                    result.Scheme == Uri.UriSchemeHttps);
-
-            return x;
         }
     }
 }
