@@ -64,7 +64,7 @@ namespace OpenRealEstate.Tests
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBeNull();
-                AssertResidentialSoldListing(result.Listings.First().Listing as ResidentialListing);
+                AssertResidentialSoldListing(result.Listings.First().Listing as ResidentialListing, "$580,000");
             }
 
             // NOTE: no display attribute for the sold-data element means a 'yes', please show the value.
@@ -83,7 +83,7 @@ namespace OpenRealEstate.Tests
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBeNull();
-                AssertResidentialSoldListing(result.Listings.First().Listing as ResidentialListing);
+                AssertResidentialSoldListing(result.Listings.First().Listing as ResidentialListing, "$580,000");
             }
 
             [Fact]
@@ -101,7 +101,7 @@ namespace OpenRealEstate.Tests
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBeNull();
-                AssertResidentialSoldListing(result.Listings.First().Listing as ResidentialListing, false);
+                AssertResidentialSoldListing(result.Listings.First().Listing as ResidentialListing, "Contact Agent");
             }
 
             [Fact]
@@ -324,7 +324,7 @@ namespace OpenRealEstate.Tests
                             "houseAndLandPackage", "solarPanels", "waterTank", "hotWaterService-gas", "heating-other",
                             "balcony", "shed", "courtyard", "isANewConstruction"
                         },
-                    salePriceText: null);
+                    salePriceText: "Contact Agent");
             }
 
             [Fact]
@@ -351,7 +351,7 @@ namespace OpenRealEstate.Tests
                             "houseAndLandPackage", "solarPanels", "waterTank", "hotWaterService-gas", "heating-other",
                             "balcony", "shed", "courtyard", "isANewConstruction"
                         },
-                    salePriceText: null);
+                    salePriceText: "Contact Agent");
             }
 
             [Fact]
@@ -944,17 +944,14 @@ namespace OpenRealEstate.Tests
             }
 
             private static void AssertResidentialSoldListing(ResidentialListing listing,
-                bool isSoldPriceVisibile = true)
+                string soldPriceText)
             {
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Residential-Sold-ABCD1234");
                 listing.StatusType.ShouldBe(StatusType.Sold);
 
-                decimal? soldPrice = 580000m;
-                listing.Pricing.SoldPrice.ShouldBe(soldPrice);
-                listing.Pricing.SoldPriceText.ShouldBe(isSoldPriceVisibile
-                    ? soldPrice.Value.ToString("C0")
-                    : null);
+                listing.Pricing.SoldPrice.ShouldBe(580000m);
+                listing.Pricing.SoldPriceText.ShouldBe(soldPriceText);
                 listing.Pricing.ModifiedData.ModifiedProperties.Contains("SoldPriceText").ShouldBe(true);
                 listing.Pricing.SoldOn.ShouldBe(new DateTime(2009, 01, 10, 12, 30, 00));
             }
@@ -1194,7 +1191,7 @@ namespace OpenRealEstate.Tests
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBeNull();
-                AssertLandSoldListing(result.Listings.First().Listing as LandListing);
+                AssertLandSoldListing(result.Listings.First().Listing as LandListing, "$85,000");
             }
 
             [Fact]
@@ -1211,7 +1208,7 @@ namespace OpenRealEstate.Tests
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBeNull();
-                AssertLandSoldListing(result.Listings.First().Listing as LandListing, false);
+                AssertLandSoldListing(result.Listings.First().Listing as LandListing, "Contact Agent");
             }
 
             [Fact]
@@ -1348,17 +1345,14 @@ namespace OpenRealEstate.Tests
             }
 
             private static void AssertLandSoldListing(LandListing listing,
-                bool isSoldPriceVisibile = true)
+                string soldPriceText)
             {
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Land-Sold-ABCD1234");
                 listing.StatusType.ShouldBe(StatusType.Sold);
 
-                decimal? soldPrice = 85000m;
-                listing.Pricing.SoldPrice.ShouldBe(soldPrice);
-                listing.Pricing.SoldPriceText.ShouldBe(isSoldPriceVisibile
-                    ? soldPrice.Value.ToString("C0")
-                    : null);
+                listing.Pricing.SoldPrice.ShouldBe(85000m);
+                listing.Pricing.SoldPriceText.ShouldBe(soldPriceText);
                 listing.Pricing.SoldOn.ShouldBe(new DateTime(2009, 01, 10, 12, 30, 00));
             }
 
@@ -1403,7 +1397,7 @@ namespace OpenRealEstate.Tests
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBeNull();
-                AssertRuralSoldListing(result.Listings.First().Listing as RuralListing);
+                AssertRuralSoldListing(result.Listings.First().Listing as RuralListing, "$85,000");
             }
 
             [Fact]
@@ -1420,7 +1414,7 @@ namespace OpenRealEstate.Tests
                 // Assert.
                 result.Listings.Count.ShouldBe(1);
                 result.UnhandledData.ShouldBeNull();
-                AssertRuralSoldListing(result.Listings.First().Listing as RuralListing, false);
+                AssertRuralSoldListing(result.Listings.First().Listing as RuralListing, "Contact Agent");
             }
 
             [Fact]
@@ -1490,7 +1484,7 @@ namespace OpenRealEstate.Tests
 
                 listing.Pricing.IsUnderOffer.ShouldBe(false);
                 listing.Pricing.SalePrice.ShouldBe(400000);
-                listing.Pricing.SalePriceText.ShouldBeNull();
+                listing.Pricing.SalePriceText.ShouldBe("Contact Agent");
 
                 listing.LandDetails.Area.Value.ShouldBe(50);
                 listing.LandDetails.Area.Type.ShouldBe("acre");
@@ -1520,17 +1514,14 @@ namespace OpenRealEstate.Tests
                     2);
             }
 
-            private static void AssertRuralSoldListing(RuralListing listing, bool isSoldPriceVisibile = true)
+            private static void AssertRuralSoldListing(RuralListing listing, string soldPriceText)
             {
                 listing.AgencyId.ShouldBe("XNWXNW");
                 listing.Id.ShouldBe("Rural-Sold-ABCD1234");
                 listing.StatusType.ShouldBe(StatusType.Sold);
 
-                decimal? soldPrice = 85000m;
-                listing.Pricing.SoldPrice.ShouldBe(soldPrice);
-                listing.Pricing.SoldPriceText.ShouldBe(isSoldPriceVisibile
-                    ? soldPrice.Value.ToString("C0")
-                    : null);
+                listing.Pricing.SoldPrice.ShouldBe(85000m);
+                listing.Pricing.SoldPriceText.ShouldBe(soldPriceText);
                 listing.Pricing.SoldOn.ShouldBe(new DateTime(2009, 01, 10, 12, 30, 00));
             }
 
@@ -1703,7 +1694,7 @@ namespace OpenRealEstate.Tests
                 }
             }
 
-            private static void AssertInspections(IList<Inspection> inspections)
+            private static void AssertInspections(ICollection<Inspection> inspections)
             {
                 inspections.Count.ShouldBe(2);
                 inspections.First().OpensOn.ShouldBe(new DateTime(2009, 1, 21, 11, 00, 0));

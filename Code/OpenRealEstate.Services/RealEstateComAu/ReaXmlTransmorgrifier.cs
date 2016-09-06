@@ -21,11 +21,6 @@ namespace OpenRealEstate.Services.RealEstateComAu
         private static readonly IList<string> ValidRootNodes = new List<string> { "propertyList", "residential", "rental", "rural", "land" };
         private CultureInfo _defaultCultureInfo;
 
-        public ReaXmlTransmorgrifier()
-        {
-            AddressDelimeter = "/";
-        }
-
         /// <summary>
         /// Converts some given data into a listing instance.
         /// </summary>
@@ -95,7 +90,11 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 {
                     successfullyParsedListings.Add(new ListingResult
                     {
-                        Listing = ConvertFromReaXml(element, DefaultCultureInfo, AddressDelimeter, isClearAllIsModified),
+                        Listing = ConvertFromReaXml(element, DefaultCultureInfo,
+                            AddressDelimeter,
+                            DefaultSalePriceTextIfMissing,
+                            DefaultSoldPriceTextIfMissing,
+                            isClearAllIsModified),
                         SourceData = element.ToString()
                     });
                 }
@@ -130,7 +129,9 @@ namespace OpenRealEstate.Services.RealEstateComAu
             }
         }
 
-        public string AddressDelimeter { get; set; }
+        public string AddressDelimeter { get; set; } = "/";
+        public string DefaultSalePriceTextIfMissing { get; set; } = "Contact Agent";
+        public string DefaultSoldPriceTextIfMissing { get; set; } = "Contact Agent";
 
         private static string RemoveByteOrderMark(string text)
         {
@@ -249,6 +250,8 @@ namespace OpenRealEstate.Services.RealEstateComAu
         private static Listing ConvertFromReaXml(XElement document, 
             CultureInfo cultureInfo,
             string addressDelimeter,
+            string defaultSalePriceTextIfMissing,
+            string defaultSoldPriceTextIfMissing,
             bool isClearAllIsModified)
         {
             Guard.AgainstNull(document);
@@ -270,7 +273,11 @@ namespace OpenRealEstate.Services.RealEstateComAu
             // Extract specific data.
             if (listing is ResidentialListing)
             {
-                ExtractResidentialData(listing as ResidentialListing, document, cultureInfo);
+                ExtractResidentialData(listing as ResidentialListing, 
+                    document,
+                    defaultSalePriceTextIfMissing,
+                    defaultSoldPriceTextIfMissing,
+                    cultureInfo);
             }
 
             if (listing is RentalListing)
@@ -280,12 +287,20 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
             if (listing is LandListing)
             {
-                ExtractLandData(listing as LandListing, document, cultureInfo);
+                ExtractLandData(listing as LandListing, 
+                    document,
+                    defaultSalePriceTextIfMissing,
+                    defaultSoldPriceTextIfMissing,
+                    cultureInfo);
             }
 
             if (listing is RuralListing)
             {
-                ExtractRuralData(listing as RuralListing, document, cultureInfo);
+                ExtractRuralData(listing as RuralListing, 
+                    document,
+                    defaultSalePriceTextIfMissing,
+                    defaultSoldPriceTextIfMissing,
+                    cultureInfo);
             }
 
             if (isClearAllIsModified)
@@ -681,7 +696,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             return null;
         }
 
-        private static Features ExtractFeatures(XElement document)
+        private static Features ExtractFeatures(XContainer document)
         {
             Guard.AgainstNull(document);
 
@@ -1006,17 +1021,49 @@ namespace OpenRealEstate.Services.RealEstateComAu
             return propertyType;
         }
 
-        private static SalePricing ExtractSalePricing(XElement document, CultureInfo cultureInfo)
+        private static SalePricing ExtractSalePricing(XElement document, 
+            string defaultSalePriceTextIfMissing,
+            string defaultSoldPriceTextIfMissing,
+            CultureInfo cultureInfo)
         {
             Guard.AgainstNull(document);
 
             var salePricing = new SalePricing();
 
-            ExtractSalePrice(document, salePricing, cultureInfo);
+            ExtractSalePrice(document, salePricing, defaultSalePriceTextIfMissing, cultureInfo);
             
-            ExtractSoldDetails(document, salePricing);
+            ExtractSoldDetails(document, defaultSoldPriceTextIfMissing, salePricing);
 
             return salePricing;
+        }
+
+        private static string CalculatePriceText(decimal price,
+            string priceText,
+            bool isDisplay,
+            string defaultPriceTextIfNoneProvided)
+        {
+            /*
+            *** Display: yes/no determins if _any_ info should be shown.
+            *            if no, ignore price AND priceText.
+            *            Missing display field == a Yes value.
+            * display: yes, text: hi; result: hi.
+            * display: yes, text: null, SP: 100,000; result: $100000
+            * display: no, dSPT: Contact Agent; result: ContactAgent
+            * display: no, dSPT: null; result: null
+            * */
+
+            if (isDisplay)
+            {
+                return !string.IsNullOrWhiteSpace(priceText)
+                    ? priceText
+                    : price.ToString("C0");
+            }
+
+            // Display == No. So never display any price/priceText info.
+            // We only display the default text if one is provided.
+            return !string.IsNullOrWhiteSpace(defaultPriceTextIfNoneProvided)
+                ? defaultPriceTextIfNoneProvided
+                : null;
         }
 
         /* Eg xml.
@@ -1027,10 +1074,17 @@ namespace OpenRealEstate.Services.RealEstateComAu
         */
         private static void ExtractSalePrice(XElement document, 
             SalePricing salePricing,
+            string defaultPriceTextIfNoneProvided,
             CultureInfo cultureInfo)
         {
             Guard.AgainstNull(document);
             Guard.AgainstNull(salePricing);
+
+            if (document.Element("price") == null)
+            {
+                // No sale price element, so don't do anything.
+                return;
+            }
 
             salePricing.SalePrice = document.MoneyValueOrDefault(cultureInfo, "price");
 
@@ -1044,7 +1098,6 @@ namespace OpenRealEstate.Services.RealEstateComAu
             var displayAttributeValue = document.ValueOrDefault("price", "display");
             var isDisplay = string.IsNullOrWhiteSpace(displayAttributeValue) ||
                             displayAttributeValue.ParseOneYesZeroNoToBool();
-            var doesSalePriceExists = !string.IsNullOrWhiteSpace(document.ValueOrDefault("price"));
 
             // NOTE 1: If Display="no" then we do not display anything for the price, regardless
             //       of any other data provided. Otherwise, make a decision.
@@ -1053,12 +1106,11 @@ namespace OpenRealEstate.Services.RealEstateComAu
             //         So only do the sale-price-text checks if we have a value set AND
             //         it's ok to display a value.
             // NOTE 3: display='no' means NO price is displayed, even if there's a priceText.
-            salePricing.SalePriceText = isDisplay &&
-                                        doesSalePriceExists
-                ? string.IsNullOrWhiteSpace(salePriceText)
-                    ? salePricing.SalePrice.ToString("C0")
-                    : salePriceText
-                : null;
+
+            salePricing.SalePriceText = CalculatePriceText(salePricing.SalePrice,
+                salePriceText,
+                isDisplay,
+                defaultPriceTextIfNoneProvided);
 
             var isUnderOffer = document.ValueOrDefault("underOffer", "value");
             salePricing.IsUnderOffer = !string.IsNullOrWhiteSpace(isUnderOffer) &&
@@ -1073,7 +1125,9 @@ namespace OpenRealEstate.Services.RealEstateComAu
              </soldDetails>
            />
         */
-        private static void ExtractSoldDetails(XElement document, SalePricing salePricing)
+        private static void ExtractSoldDetails(XContainer document,
+            string defaultSoldPriceTextIfMissing,
+            SalePricing salePricing)
         {
             Guard.AgainstNull(document);
             Guard.AgainstNull(salePricing);
@@ -1086,7 +1140,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                                 soldDetails.Element("soldPrice");
                 if (soldPrice != null)
                 {
-                    ExtractSoldPrice(soldPrice, salePricing);
+                    ExtractSoldPrice(soldPrice, defaultSoldPriceTextIfMissing, salePricing);
                 }
 
                 var soldDate = soldDetails.Element("date") ??
@@ -1099,7 +1153,9 @@ namespace OpenRealEstate.Services.RealEstateComAu
         }
 
         // Eg xml: <price display="yes">580000</price>
-        private static void ExtractSoldPrice(XElement document, SalePricing salePricing)
+        private static void ExtractSoldPrice(XElement document, 
+            string defaultSoldPriceTextIfMissing,
+            SalePricing salePricing)
         {
             Guard.AgainstNull(document);
             Guard.AgainstNull(salePricing);
@@ -1110,23 +1166,22 @@ namespace OpenRealEstate.Services.RealEstateComAu
             // the sale price, then setting null over null means the property is not changed, so that null value will
             // never be used/set _outside_ of this instance. 
             // ie. a consumer will not think this value has changed and ignore it. BAD.
-            salePricing.SoldPriceText = string.Empty; 
-                                                      
+            salePricing.SoldPriceText = string.Empty;
+
             // NOTE 1: no/missing display price assumes a 'YES' and that the price -is- to be displayed.
             // NOTE 2: A _display attribute_ value of 'range' can only valid for commerical properties ...
             //         and .. we don't handle commerical. So it will end up throwing an exception
             //         which is legit in this case.
             // NOTE 3: display='no' means NO price is displayed, even if there's a priceText.
+            var soldPriceText = document.ValueOrDefault("priceView");
             var soldDisplayAttribute = document.ValueOrDefault(null, "display");
             var isDisplay = string.IsNullOrWhiteSpace(soldDisplayAttribute) ||
                             soldDisplayAttribute.ParseOneYesZeroNoToBool();
 
-            salePricing.SoldPriceText = isDisplay &&
-                                        salePricing.SoldPrice > 0
-                ? string.IsNullOrWhiteSpace(salePricing.SoldPriceText)
-                    ? salePricing.SoldPrice.Value.ToString("C0")
-                    : salePricing.SoldPriceText
-                : null;
+            salePricing.SoldPriceText = CalculatePriceText(salePricing.SoldPrice.Value,
+                soldPriceText,
+                isDisplay,
+                defaultSoldPriceTextIfMissing);
         }
 
         // Eg xml: <date>2009-01-10-12:30:00</date>
@@ -1328,14 +1383,16 @@ namespace OpenRealEstate.Services.RealEstateComAu
         #region Residential Listing methods
 
         private static void ExtractResidentialData(ResidentialListing residentialListing, 
-            XElement document, 
+            XElement document,
+            string defaultSalePriceTextIfMissing,
+            string defaultSoldPriceTextIfMissing,
             CultureInfo cultureInfo)
         {
             Guard.AgainstNull(residentialListing);
             Guard.AgainstNull(document);
 
             residentialListing.PropertyType = ExtractResidentialAndRentalPropertyType(document);
-            residentialListing.Pricing = ExtractSalePricing(document, cultureInfo);
+            residentialListing.Pricing = ExtractSalePricing(document, defaultSalePriceTextIfMissing, defaultSoldPriceTextIfMissing, cultureInfo);
             residentialListing.AuctionOn = ExtractAuction(document);
             residentialListing.BuildingDetails = ExtractBuildingDetails(document);
             residentialListing.CouncilRates = document.ValueOrDefault("councilRates");
@@ -1492,13 +1549,17 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         #region Land Listing Methods
 
-        private static void ExtractLandData(LandListing landListing, XElement document, CultureInfo cultureInfo)
+        private static void ExtractLandData(LandListing landListing, 
+            XElement document,
+            string defaultSalePriceTextIfMissing,
+            string defaultSoldPriceTextIfMissing,
+            CultureInfo cultureInfo)
         {
             Guard.AgainstNull(landListing);
             Guard.AgainstNull(document);
 
             landListing.CategoryType = ExtractLandCategoryType(document);
-            landListing.Pricing = ExtractSalePricing(document, cultureInfo);
+            landListing.Pricing = ExtractSalePricing(document, defaultSalePriceTextIfMissing, defaultSoldPriceTextIfMissing, cultureInfo);
             landListing.AuctionOn = ExtractAuction(document);
             landListing.Estate = ExtractLandEstate(document);
             landListing.AuctionOn = ExtractAuction(document);
@@ -1534,12 +1595,16 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         #region Rural Listing Methods
 
-        private static void ExtractRuralData(RuralListing ruralListing, XElement document, CultureInfo cultureInfo)
+        private static void ExtractRuralData(RuralListing ruralListing, 
+            XElement document,
+            string defaultSalePriceTextIfMissing,
+            string defaultSoldPriceTextIfMissing,
+            CultureInfo cultureInfo)
         {
             Guard.AgainstNull(document);
 
             ruralListing.CategoryType = ExtractRuralCategoryType(document);
-            ruralListing.Pricing = ExtractSalePricing(document, cultureInfo);
+            ruralListing.Pricing = ExtractSalePricing(document, defaultSalePriceTextIfMissing, defaultSoldPriceTextIfMissing, cultureInfo);
             ruralListing.AuctionOn = ExtractAuction(document);
             ruralListing.RuralFeatures = ExtractRuralFeatures(document);
             ruralListing.CouncilRates = ExtractRuralCouncilRates(document);
