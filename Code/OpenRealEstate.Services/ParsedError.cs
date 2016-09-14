@@ -22,5 +22,17 @@ namespace OpenRealEstate.Services
         /// The invalid data.
         /// </summary>
         public string InvalidData { get; private set; }
+
+        /// <summary>
+        /// Agency/Office Identifier where the listing originated from.
+        /// </summary>
+        /// <remarks>Optional: If this key/element wasn't parsed, then this will be <code>null</code>.</remarks>
+        public string AgencyId { get; set; }
+
+        /// <summary>
+        /// Unqiue (to the Agency) Listing Identifier.
+        /// </summary>
+        /// <remarks>Optional: If this key/element wasn't parsed, then this will be <code>null</code>.</remarks>
+        public string ListingId { get; set; }
     }
 }
