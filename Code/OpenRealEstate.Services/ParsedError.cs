@@ -22,5 +22,8 @@ namespace OpenRealEstate.Services
         /// The invalid data.
         /// </summary>
         public string InvalidData { get; private set; }
+
+        public string AgencyId { get; set; }
+        public string ListingId { get; set; }
     }
 }

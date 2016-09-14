@@ -54,6 +54,7 @@
     <Compile Include="ListingResult.cs" />
     <Compile Include="ListingHelpers.cs" />
     <Compile Include="ParsedError.cs" />
+    <Compile Include="ParsingException.cs" />
     <Compile Include="RealEstateComAu\CategoryType.cs" />
     <Compile Include="RealEstateComAu\XmlFeature.cs" />
     <Compile Include="RealEstateComAu\ReaXmlTransmorgrifier.cs" />

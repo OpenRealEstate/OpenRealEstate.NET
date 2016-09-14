@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using Newtonsoft.Json;
 using OpenRealEstate.Core.Filters;
 using OpenRealEstate.Core.Models;
@@ -879,6 +881,62 @@ namespace OpenRealEstate.Tests
                 result.Listings.First().Listing.UpdatedOn.ShouldBe(expectedDateTime);
             }
 
+            [Theory]
+            [InlineData("2016-10-05-0:00:00 ", "5/10/2016 12:00:00 AM")]// Notice the space at the end.
+            [InlineData("2016-10-01-9:30:00", "1/10/2016 9:30:00 AM")]
+            public void GivenTheFileREAResidentialCurrentWithPoorlyFormattedDateTime_Convert_ReturnsAResidentialListing(string bustedDateTime,
+                string expectedResult)
+            {
+                // Arrange.
+                var reaXml =
+                    File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current-WithPoorlyFormattedDateTime.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                var updatedXml = reaXml.Replace("REPLACE-THIS-VALUE", bustedDateTime);
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(updatedXml);
+
+                // Assert.
+                result.ShouldNotBeNull();
+                result.Listings.ShouldNotBeNull();
+                result.UnhandledData.ShouldBeNull();
+                result.Errors.ShouldBeNull();
+
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-AU");
+                ((ResidentialListing)result.Listings.First().Listing).AuctionOn.ToString().ShouldBe(expectedResult);
+            }
+
+            [Theory]
+            [InlineData("T:18:30")]// '2016-10-01-9:30:00
+            [InlineData("-0001-11-30 00:00:00")]
+            [InlineData("2016-00-00")]
+            [InlineData("0000-00-00-00:00")]
+            [InlineData("0000-00-00")]
+            [InlineData("0000-00-00T00:00")]
+            [InlineData("T:")]
+            [InlineData("- - -0:00:00 ")]
+            public void GivenTheFileREAResidentialCurrentWithBadAuctionDateTime_Convert_RetrunsSomeInvalidData(string bustedDateTime)
+            {
+                // Arrange.
+                var reaXml =
+                    File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current-WithBadAuctionDateTime.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                var updatedXml = reaXml.Replace("REPLACE-THIS-VALUE", bustedDateTime);
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(updatedXml);
+
+                // Assert.
+                result.ShouldNotBeNull();
+                result.Listings.ShouldBeNull();
+                result.UnhandledData.ShouldBeNull();
+                result.Errors.Count.ShouldBe(1);
+                result.Errors.First().AgencyId.ShouldBe("XNWXNW");
+                result.Errors.First().ListingId.ShouldBe("Residential-Current-ABCD1234");
+            }
+
             private static void AssertResidentialCurrentListing(ResidentialListing listing,
                 PropertyType expectedPropertyType = PropertyType.House,
                 byte expectedBedroomsCount = 4,
@@ -1741,7 +1799,6 @@ namespace OpenRealEstate.Tests
                     AssertCarParking(features.CarParking, carParking);
                 }
             }
-
 
             private static void AssertCarParking(CarParking carParking, 
                 CarParking optionalCarParkingData)
