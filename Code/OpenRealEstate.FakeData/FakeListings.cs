@@ -13,17 +13,75 @@ namespace OpenRealEstate.FakeData
 {
     public class FakeListings
     {
+        private static readonly string[] Streets =
+        {
+            "Smith Street",
+            "Park Street",
+            "Holiday Lane",
+            "Collins Street",
+            "Sydney Road",
+            "Stinky Place",
+            "Albert Road",
+            "Dead-Man's Alley",
+            "Sunshine Court",
+            "Little Bobby Tables Lane",
+            ";DROP TABLE dbo.USERS;"
+        };
+
+        private static readonly string[] Suburbs =
+        {
+            "Richmond",
+            "Ivanhoe",
+            "Collingwood",
+            "Hawthorn",
+            "Kew",
+            "Abbotsford",
+            "Fairfield",
+            "Ivanhoe East",
+            "South Yarra",
+            "Brighton",
+            "Eaglemont"
+        };
+
+        private static readonly string[] Municipalities =
+        {
+            "City of Melbourne",
+            "City of Port Phillip",
+            "City of Stonnington",
+            "City of Yarra",
+            "City of Banyule",
+            "City of Bayside",
+            "City of Boroondara",
+            "City of Brimbank",
+            "City of Darebin",
+            "City of Glen Eira",
+            "City of Hobsons Bay"
+        };
+
         public static T CreateAFakeListing<T>() where T : Listing, new()
         {
-            var fixture = new Fixture()
-                .Customize(new ListingCompositeCustomization());
-
             var random = new Random();
 
-            return fixture.Build<T>()
+            var fixture = new Fixture();
+            
+            fixture.Customize<Address>(c => c
+                .With(a => a.IsStreetDisplayed, true)
+                .With(a => a.StreetNumber, random.Next(1, 200).ToString())
+                .With(a => a.Street, Streets[random.Next(0, Streets.Length)])
+                .With(a => a.Suburb, Suburbs[random.Next(0, Suburbs.Length)])
+                .With(a => a.Municipality, Municipalities[random.Next(0, Municipalities.Length)])
+                .With(a => a.CountryIsoCode, "AU")
+                .With(a => a.State, "VIC")
+                .With(a => a.Latitude, 10)
+                .With(a => a.Longitude, 10)
+                .With(a => a.Postcode, random.Next(3000, 3999).ToString()));
+            var address = fixture.Create<Address>();
+
+            fixture.Customize<T>(c => c
                 .With(x => x.Id, $"listing-{fixture.Create<int>()}")
                 .With(x => x.AgencyId, $"Agency-{fixture.Create<string>().Substring(0, 6)}")
                 .With(x => x.StatusType, StatusType.Available)
+                .With(x => x.Address, address)
                 //.Do(x =>
                 //{
                 //    ResidentialListing residentialListing;
@@ -48,8 +106,9 @@ namespace OpenRealEstate.FakeData
                 //    }
                 //})
                 .With(x => x.CreatedOn, new DateTime((DateTime.Now - new TimeSpan(0, random.Next(24, 24 * 7), 0, 0)).Ticks, DateTimeKind.Unspecified))
-                .With(x => x.UpdatedOn, new DateTime((DateTime.Now - new TimeSpan(0, random.Next(1, 23), 0, 0)).Ticks, DateTimeKind.Unspecified))
-                .Create();
+                .With(x => x.UpdatedOn, new DateTime((DateTime.Now - new TimeSpan(0, random.Next(1, 23), 0, 0)).Ticks, DateTimeKind.Unspecified)));
+
+            return fixture.Create<T>();
         }
 
         public static IList<T> CreateFakeListings<T>(int numberOfFakeListings = 20) where T : Listing, new()
@@ -163,7 +222,6 @@ namespace OpenRealEstate.FakeData
             listing.AuctionOn = new DateTime(2009, 1, 24, 14, 30, 00);
             listing.CategoryType = Core.Rural.CategoryType.Cropping;
             listing.CouncilRates = "$2,200 per annum";
-
 
             return listing;
         }
