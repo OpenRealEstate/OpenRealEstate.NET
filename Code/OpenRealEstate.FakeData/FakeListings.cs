@@ -47,8 +47,8 @@ namespace OpenRealEstate.FakeData
                 //        ruralListing.
                 //    }
                 //})
-                .With(x => x.CreatedOn, DateTime.Now - new TimeSpan(0, random.Next(1, 24 * 7), 0, 0))
-                .With(x => x.UpdatedOn, DateTime.Now - new TimeSpan(0, random.Next(1, 24 * 7), 0, 0))
+                .With(x => x.CreatedOn, new DateTime((DateTime.Now - new TimeSpan(0, random.Next(24, 24 * 7), 0, 0)).Ticks, DateTimeKind.Unspecified))
+                .With(x => x.UpdatedOn, new DateTime((DateTime.Now - new TimeSpan(0, random.Next(1, 23), 0, 0)).Ticks, DateTimeKind.Unspecified))
                 .Create();
         }
 

@@ -6,7 +6,9 @@ namespace OpenRealEstate.FakeData.Customizations
 {
     public class AddressCustomization : ICustomization
     {
-        private readonly string[] _streetNames = new[]
+        private static readonly Random Randomizer = new Random();
+
+        private static readonly string[] Streets =
         {
             "Smith Street",
             "Park Street",
@@ -21,7 +23,7 @@ namespace OpenRealEstate.FakeData.Customizations
             ";DROP TABLE dbo.USERS;"
         };
 
-        private readonly string[] _suburbNames = new[]
+        private static readonly string[] Suburbs =
         {
             "Richmond",
             "Ivanhoe",
@@ -36,21 +38,35 @@ namespace OpenRealEstate.FakeData.Customizations
             "Eaglemont"
         };
 
+        private static readonly string[] Municipalities =
+        {
+            "City of Melbourne",
+            "City of Port Phillip",
+            "City of Stonnington",
+            "City of Yarra",
+            "City of Banyule",
+            "City of Bayside",
+            "City of Boroondara",
+            "City of Brimbank",
+            "City of Darebin",
+            "City of Glen Eira",
+            "City of Hobsons Bay"
+        };
+
         public void Customize(IFixture fixture)
         {
             fixture.Customize<Address>(c =>
-                c.With(address => address.IsStreetDisplayed, true)
-                    .With(address => address.CountryIsoCode, "AU")
-                    .With(address => address.State, "VIC")
-                    .With(address => address.Latitude, 10)
-                    .With(address => address.Longitude, 10)
-                    .With(address => address.Postcode, "12312323213123")
-                    .Do(address =>
-                    {
-                        var random = new Random();
-                        address.Postcode = "123123123";
-                        //address.Postcode = random.Next(3000, 3999).ToString();
-                    }));
+                    c.With(address => address.IsStreetDisplayed, true)
+                        .With(address => address.StreetNumber, Randomizer.Next(1, 200).ToString())
+                        .With(address => address.Street, Streets[Randomizer.Next(0, Streets.Length)])
+                        .With(address => address.Suburb, Suburbs[Randomizer.Next(0, Suburbs.Length)])
+                        .With(address => address.Municipality, Municipalities[Randomizer.Next(0, Municipalities.Length)])
+                        .With(address => address.CountryIsoCode, "AU")
+                        .With(address => address.State, "VIC")
+                        .With(address => address.Latitude, 10)
+                        .With(address => address.Longitude, 10)
+                        .With(address => address.Postcode, Randomizer.Next(3000, 3999).ToString())
+            );
         }
     }
 }

@@ -9,15 +9,15 @@ namespace OpenRealEstate.FakeData.Customizations
         public void Customize(IFixture fixture)
         {
             fixture.Customize<Communication>(c =>
-            {
-                var random = new Random();
-                var randomCommunicationType = random.Next(0, Enum.GetValues(typeof(CommunicationType)).Length - 1);
+                {
+                    var random = new Random();
+                    var randomCommunicationType = random.Next(1, Enum.GetValues(typeof(CommunicationType)).Length - 1);
 
-                c.With(x => x.CommunicationType,
-                    (CommunicationType) Enum.GetValues(typeof(CommunicationType)).GetValue(randomCommunicationType));
-                //c.With(x => x.Details)
-                return c;
-            }    
+                    c.With(x => x.CommunicationType,
+                        (CommunicationType) Enum.GetValues(typeof(CommunicationType)).GetValue(randomCommunicationType));
+
+                    return c;
+                }
             );
         }
     }
