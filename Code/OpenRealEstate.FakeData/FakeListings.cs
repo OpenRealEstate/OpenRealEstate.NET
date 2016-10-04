@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using OpenRealEstate.Core;
 using OpenRealEstate.Core.Land;
 using OpenRealEstate.Core.Rental;
@@ -23,8 +24,31 @@ namespace OpenRealEstate.FakeData
                 .With(x => x.Id, $"listing-{fixture.Create<int>()}")
                 .With(x => x.AgencyId, $"Agency-{fixture.Create<string>().Substring(0, 6)}")
                 .With(x => x.StatusType, StatusType.Available)
-                .With(x => x.CreatedOn, DateTime.Now - new TimeSpan(0, random.Next(1, 24 * 7), 0, 0))
-                .With(x => x.UpdatedOn, DateTime.Now - new TimeSpan(0, random.Next(1, 24 * 7), 0, 0))
+                //.Do(x =>
+                //{
+                //    ResidentialListing residentialListing;
+                //    RentalListing rentalListing;
+                //    RuralListing ruralListing;
+                //    LandListing landListing;
+                //    if ((residentialListing = x as ResidentialListing) != null)
+                //    {
+                //        var index = random.Next(1, Enum.GetValues(typeof(PropertyType)).Length);
+                //        residentialListing.PropertyType =
+                //            (PropertyType) Enum.GetValues(typeof(PropertyType)).GetValue(index);
+                //    }
+                //    else if ((rentalListing = x as RentalListing) != null)
+                //    {
+                //        var index = random.Next(1, Enum.GetValues(typeof(PropertyType)).Length);
+                //        rentalListing.PropertyType = (PropertyType) Enum.GetValues(typeof(PropertyType)).GetValue(index);
+                //    }
+                //    else if ((ruralListing = x as RuralListing) != null)
+                //    {
+                //        var index = random.Next(1, Enum.GetValues(typeof(PropertyType)).Length);
+                //        ruralListing.
+                //    }
+                //})
+                .With(x => x.CreatedOn, new DateTime((DateTime.Now - new TimeSpan(0, random.Next(24, 24 * 7), 0, 0)).Ticks, DateTimeKind.Unspecified))
+                .With(x => x.UpdatedOn, new DateTime((DateTime.Now - new TimeSpan(0, random.Next(1, 23), 0, 0)).Ticks, DateTimeKind.Unspecified))
                 .Create();
         }
 
@@ -168,6 +192,33 @@ namespace OpenRealEstate.FakeData
 
             throw new Exception($"The type '{typeof(T)}' was not handled.");
         }
+
+        //private static ResidentialListing CreateFakeResidentialListing()
+        //{
+        //    var fixture = new Fixture()
+        //        .Customize(new ListingCompositeCustomization());
+
+        //    var random = new Random();
+
+        //    var randomPropertyTypeindex = random.Next(1, Enum.GetValues(typeof(PropertyType)).Length);
+
+        //    return fixture.Build<ResidentialListing>()
+        //        .With(x => x.Id, $"listing-{fixture.Create<int>()}")
+        //        .With(x => x.AgencyId, $"Agency-{fixture.Create<string>().Substring(0, 6)}")
+        //        .With(x => x.StatusType, StatusType.Available)
+        //        .With(x => x.PropertyType,
+        //        (PropertyType)Enum.GetValues(typeof(PropertyType)).GetValue(randomPropertyTypeindex))
+        //        .With(x => x.)
+        //        .Create();
+        //}
+
+        //private static IList<Communication> CreateFakeCommunications(int numberOfCommunications)
+        //{
+        //    var results = new List<Communication>();
+
+        //    var random = new Random();
+        //    var fixture = new Fixture();
+        //}
 
         private static void SetRentalPricing(RentalListing listing)
         {

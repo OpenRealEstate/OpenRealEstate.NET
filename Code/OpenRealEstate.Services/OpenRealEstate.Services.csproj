@@ -52,6 +52,7 @@
     <Compile Include="Json\ListingConverter.cs" />
     <Compile Include="ListingResult.cs" />
     <Compile Include="ParsedError.cs" />
+    <Compile Include="ParsingException.cs" />
     <Compile Include="RealEstateComAu\CategoryType.cs" />
     <Compile Include="RealEstateComAu\StatusTypeHelpers.cs" />
     <Compile Include="RealEstateComAu\XmlFeature.cs" />

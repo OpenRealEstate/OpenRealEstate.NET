@@ -194,6 +194,15 @@ namespace OpenRealEstate.Services.RealEstateComAu
                     SourceData = element.ToString()
                 });
             }
+            catch (ParsingException exception)
+            {
+                var error = new ParsedError(exception.Message, element.ToString())
+                {
+                    AgencyId = exception.AgencyId,
+                    ListingId = exception.ListingId
+                };
+                invalidData.Add(error);
+            }
             catch (Exception exception)
             {
                 invalidData.Add(new ParsedError(exception.Message, element.ToString()));
@@ -346,28 +355,35 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 return null;
             }
 
-            // Extract common data.
-            ExtractCommonData(listing, document, addressDelimeter);
-
-            // Extract specific data.
-            if (listing is ResidentialListing)
+            try
             {
-                ExtractResidentialData(listing as ResidentialListing, document, cultureInfo);
+                // Extract common data.
+                ExtractCommonData(listing, document, addressDelimeter);
+
+                // Extract specific data.
+                if (listing is ResidentialListing)
+                {
+                    ExtractResidentialData(listing as ResidentialListing, document, cultureInfo);
+                }
+
+                if (listing is RentalListing)
+                {
+                    ExtractRentalData(listing as RentalListing, document, cultureInfo);
+                }
+
+                if (listing is LandListing)
+                {
+                    ExtractLandData(listing as LandListing, document, cultureInfo);
+                }
+
+                if (listing is RuralListing)
+                {
+                    ExtractRuralData(listing as RuralListing, document, cultureInfo);
+                }
             }
-
-            if (listing is RentalListing)
+            catch (Exception exception)
             {
-                ExtractRentalData(listing as RentalListing, document, cultureInfo);
-            }
-
-            if (listing is LandListing)
-            {
-                ExtractLandData(listing as LandListing, document, cultureInfo);
-            }
-
-            if (listing is RuralListing)
-            {
-                ExtractRuralData(listing as RuralListing, document, cultureInfo);
+                throw new ParsingException(exception.Message, listing.AgencyId, listing.Id, exception);
             }
 
             return listing;
@@ -402,6 +418,8 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         private static DateTime ToDateTime(string reaDateTime, string elementName = null)
         {
+            Guard.AgainstNullOrWhiteSpace(reaDateTime);
+
             // REFERENCE: http://reaxml.realestate.com.au/docs/reaxml1-xml-format.html#datetime
             /*
                 YYYY-MM-DD
@@ -429,7 +447,10 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 "yyyy-MM-dd-HH:mm:ss",
                 "yyyy-MM-ddTHH:mm:ss",
                 "yyyy-MM-ddTH:mm:ss", // 2016-05-21T9:33:49 (Notice the single 'hour' that is not 24 hour format?)
-                "yyyy-MM-dd-hh:mm:sstt", // 2015-12-15-01:18:52PM
+                "yyyy-MM-dd-H:mm:ss", // 2016-05-26-9:41:29 (Another back hack from people. Single hour. GRR!)
+                "yyyy-MM-dd-HH:mm:ss", // 2016-05-26-16:41:29 (Another back hack from people. 24 hour. GRR!)
+                "yyyy-MM-dd-HH:mm:sstt", // 2015-12-15-01:18:52PM
+                "yyyy-MM-dd-h:mm:ss", // Urgh :( 2016-10-05-0:00:00 (Notice the single 'hour' that is not 24 hour format?)
                 "yyyyMMdd-HHmmss",
                 "yyyyMMDD-HHmmss",
                 "yyyyMMddTHHmmss",
@@ -441,8 +462,10 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 "s"
             };
 
+            var trimmedValue = reaDateTime.Trim();
+
             DateTime result;
-            if (DateTime.TryParseExact(reaDateTime,
+            if (DateTime.TryParseExact(trimmedValue,
                 formats,
                 CultureInfo.InvariantCulture,
                 DateTimeStyles.None,
@@ -451,15 +474,15 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 return result;
             }
 
-            if (DateTime.TryParse(reaDateTime, out result))
+            if (DateTime.TryParse(trimmedValue, out result))
             {
                 return result;
             }
 
             var errorMessage =
-                AppendElementOrAttributeToErrorMessage(
-                    $"Invalid date/time trying to be parsed. Attempted the value: '{reaDateTime}' but that format is invalid.",
-                    elementName);
+                            AppendElementOrAttributeToErrorMessage(
+                                $"Invalid date/time trying to be parsed. Attempted the value: '{reaDateTime}' but that format is invalid.",
+                                elementName);
             throw new Exception(errorMessage);
         }
 

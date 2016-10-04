@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using OpenRealEstate.Core;
 using OpenRealEstate.Core.Land;
 using OpenRealEstate.Core.Rental;
@@ -48,7 +46,7 @@ namespace OpenRealEstate.Tests
             public void GivenThatWeNeedASomeListings_CreateFakeListings_ReturnsASomeListings(Type type)
             {
                 // Arrange.
-                const int numberOfListings = 100;
+                const int numberOfListings = 30;
 
                 // Act.
                 var listings = CreateListings(type, numberOfListings);

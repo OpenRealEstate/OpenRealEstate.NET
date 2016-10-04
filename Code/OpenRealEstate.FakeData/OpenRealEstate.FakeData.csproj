@@ -44,6 +44,8 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Customizations\ResidentialListingCustomization.cs" />
+    <Compile Include="Customizations\CommunicationCustomization.cs" />
     <Compile Include="Customizations\AddressCustomization.cs" />
     <Compile Include="Customizations\ListingCompositeCustomization.cs" />
     <Compile Include="FakeCommonListingHelpers.cs" />
