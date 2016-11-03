@@ -43,7 +43,7 @@ deploy:
     website: openrealestate
     username: $openrealestate
     password:
-      secure: dDSrZ7EKMDsUZfcWehsTJRYRTq4Txg1BfI01FSesmHUYqE3X+ylNVfQrZE51c9hukliPhTa0MyolrkcQB3btsw==
+      secure: wVVud+C98NP5E4YJKA2vPEJcOFGEVxmdy7K1dbW2K2RLzkhHJaQj9WR388CZBhosGXXC6tmro7axNrlWRIFnxQ==
     remove_files: true
 
 cache:
