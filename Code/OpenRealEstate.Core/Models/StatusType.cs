@@ -18,7 +18,8 @@ namespace OpenRealEstate.Core.Models
         Withdrawn,
         Sold,
         Leased,
-        OffMarket
+        OffMarket,
+        Deleted
     }
 
     public static class StatusTypeExtensions
