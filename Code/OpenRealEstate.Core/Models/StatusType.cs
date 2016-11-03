@@ -18,7 +18,8 @@ namespace OpenRealEstate.Core.Models
         Withdrawn,
         Sold,
         Leased,
-        OffMarket
+        OffMarket,
+        Deleted
     }
 
     public static class StatusTypeExtensions
@@ -35,8 +36,10 @@ namespace OpenRealEstate.Core.Models
                     return "Sold";
                 case StatusType.Leased:
                     return "Leased";
-                case StatusType.OffMarket:
+                case StatusType.OffMarket: 
                     return "Off Market";
+                case StatusType.Deleted:
+                    return "Deleted";
                 default:
                     return "Unknown";
             }
@@ -49,7 +52,7 @@ namespace OpenRealEstate.Core.Models
         {
             if (string.IsNullOrEmpty(value))
             {
-                throw new ArgumentNullException("value");
+                throw new ArgumentNullException(nameof(value));
             }
 
             switch (value.ToLowerInvariant())
@@ -69,6 +72,9 @@ namespace OpenRealEstate.Core.Models
                 case "off":
                 case "offmarket":
                     return StatusType.OffMarket;
+                case "del":
+                case "deleted":
+                    return StatusType.Deleted;
                 default:
                     return StatusType.Unknown;
             }
