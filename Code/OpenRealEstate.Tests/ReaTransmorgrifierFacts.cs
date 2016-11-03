@@ -149,6 +149,27 @@ namespace OpenRealEstate.Tests
             }
 
             [Fact]
+            public void GivenTheFileREAResidentialDeleted_Convert_ReturnsAResidentialDeletedListing()
+            {
+                // Arrange.
+                var reaXml =
+                    File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Deleted.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBeNull();
+
+                var listing = result.Listings.First().Listing;
+                listing.AgencyId.ShouldBe("XNWXNW");
+                listing.Id.ShouldBe("Residential-Deleted-ABCD1234");
+                listing.StatusType.ShouldBe(StatusType.Deleted);
+            }
+
+            [Fact]
             public void GivenTheFileREASegmentResidentialCurrent_Convert_ReturnsAResidentialCurrentListing()
             {
                 // Arrange.
