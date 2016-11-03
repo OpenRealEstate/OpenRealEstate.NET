@@ -36,7 +36,7 @@ namespace OpenRealEstate.Core.Models
                     return "Sold";
                 case StatusType.Leased:
                     return "Leased";
-                case StatusType.OffMarket:
+                case StatusType.OffMarket: 
                     return "Off Market";
                 default:
                     return "Unknown";
