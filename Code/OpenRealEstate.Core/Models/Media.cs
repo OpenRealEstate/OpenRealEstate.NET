@@ -4,7 +4,7 @@ using OpenRealEstate.Core.Primitives;
 
 namespace OpenRealEstate.Core.Models
 {
-    public class Media : BaseModifiedData
+    public class Media : BaseModifiedData, IComparable<Media>, IComparable
     {
         private const string CreatedOnName = "CreatedOn";
         private const string OrderName = "Order";
@@ -73,6 +73,32 @@ namespace OpenRealEstate.Core.Models
         public void Copy(Media newMedia, CopyDataOptions copyDataOptions = CopyDataOptions.OnlyCopyModifiedProperties)
         {
             ModifiedData.Copy(newMedia, this, copyDataOptions);
+        }
+
+        public int CompareTo(Media other)
+        {
+            if (other == null)
+            {
+                return 1;
+            }
+            return Order.CompareTo(other.Order);
+            
+        }
+
+        public int CompareTo(object obj)
+        {
+            if (obj == null)
+            {
+                return 1;
+            }
+
+            var other = obj as Media;
+            if (other != null)
+            {
+                return Order.CompareTo(other.Order);
+            }
+            throw new ArgumentException("Object is not of type Media", nameof(obj));
+
         }
     }
 }
