@@ -18,10 +18,12 @@ namespace OpenRealEstate.Tests
     public static class TestHelperUtilities
     {
         public static ResidentialListing ResidentialListingFromFile(bool isClearAllIsModified = true,
-            bool includeDataForCustomDataFields = true)
+            bool includeDataForCustomDataFields = true,
+            string fileName = "Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current.xml")
         {
-            var reaXml =
-                File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current.xml");
+            fileName.ShouldNotBeNullOrWhiteSpace();
+
+            var reaXml = File.ReadAllText(fileName);
             var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
 
             var listing = (ResidentialListing)reaXmlTransmorgrifier

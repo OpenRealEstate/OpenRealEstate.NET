@@ -41,8 +41,13 @@ namespace OpenRealEstate.Tests
             public void GivenTwoResidentialListings_Copy_CopiesTheData()
             {
                 // Arrange.
-                var destinationListing = TestHelperUtilities.ResidentialListingFromFile();
-                var sourceListing = TestHelperUtilities.ResidentialListingFromFile(false);
+                const string fileName =
+                    "Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-CurrentWith-AddressDisplayNo.xml";
+                var destinationListing = TestHelperUtilities.ResidentialListingFromFile(fileName: fileName);
+                destinationListing.Address.IsStreetDisplayed = true;
+                destinationListing.ClearAllIsModified();
+
+                var sourceListing = TestHelperUtilities.ResidentialListingFromFile(false, fileName: fileName);
                 sourceListing.StatusType = StatusType.Sold;
                 sourceListing.Pricing.SalePrice = 100;
 
@@ -52,6 +57,7 @@ namespace OpenRealEstate.Tests
                 // Assert.
                 destinationListing.StatusType.ShouldBe(sourceListing.StatusType);
                 destinationListing.Pricing.SalePrice.ShouldBe(sourceListing.Pricing.SalePrice);
+                destinationListing.Address.IsStreetDisplayed.ShouldBe(sourceListing.Address.IsStreetDisplayed);
             }
 
             [Fact]
