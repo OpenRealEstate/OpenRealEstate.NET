@@ -580,9 +580,21 @@ namespace OpenRealEstate.Services.RealEstateComAu
             address.Postcode = addressElement.ValueOrDefault("postcode");
 
             var isStreetDisplayedText = addressElement.AttributeValueOrDefault("display");
-            address.IsStreetDisplayed = string.IsNullOrWhiteSpace(isStreetDisplayedText) ||
-                                        addressElement.AttributeBoolValueOrDefault("display");
+            if (!string.IsNullOrWhiteSpace(isStreetDisplayedText))
+            {
+                // We have a value - so lets try and set it.
+                // Because this is a bool we might not set this field to MODIFIED because default value
+                // might equal the text-value, which doesn't set the bool field :/ (i.e. nothing changes :( )
 
+                // So lets force the field to be 'updated'.
+                address.IsStreetDisplayed = true;
+
+                // Now lets set the real value.
+                // NOTE: The default bool value is FALSE. If the text-value is false, then the field
+                //       is false = false, which does nothing and doesn't suggest that this value should be changed.
+                address.IsStreetDisplayed = string.IsNullOrWhiteSpace(isStreetDisplayedText) ||
+                                            addressElement.AttributeBoolValueOrDefault("display");
+            }
 
             // Technically, the <municipality/> element is not a child of the <address/> element.
             // But I feel that it's sensible to still parse for it, in here.
