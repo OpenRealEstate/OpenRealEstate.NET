@@ -1159,6 +1159,23 @@ namespace OpenRealEstate.Tests
                     null);
             }
 
+            [Fact]
+            public void GivenTheFileREARentalWithBadStatus_Convert_ReturnsAConvertToResultWithAnError()
+            {
+                // Arrange.
+                var reaXml = File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Rental\\REA-Rental-WithBadStatusType.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.Listings.ShouldBeNull();
+                result.UnhandledData.ShouldBeNull();
+                result.Errors.Count.ShouldBe(1);
+                result.Errors[0].ExceptionMessage.ShouldBe("An invalid StatusType 'listed' was provided.");
+            }
+
             private static void AssertRentalCurrentListing(RentalListing listing,
                 IList<string> tags = null,
                 byte bedroomsCount = 0,
