@@ -506,7 +506,12 @@ namespace OpenRealEstate.Services.RealEstateComAu
             var status = document.AttributeValueOrDefault("status");
             if (!string.IsNullOrWhiteSpace(status))
             {
-                listing.StatusType = StatusTypeHelpers.ToStatusType(status);
+                var statusType = StatusTypeHelpers.ToStatusType(status);
+                if (statusType == StatusType.Unknown)
+                {
+                    throw new Exception($"An invalid StatusType '{status}' was provided.");
+                }
+                listing.StatusType = statusType;
             }
 
             document.ValueOrDefaultIfExists(title => listing.Title = title, "headline");
