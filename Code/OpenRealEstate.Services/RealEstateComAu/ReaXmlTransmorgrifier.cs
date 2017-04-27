@@ -1018,6 +1018,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 let file = x.AttributeValueOrDefault("file")
                 let order = x.AttributeValueOrDefault("id")
                 let createdOn = x.AttributeValueOrDefault("modTime")
+                let contentType = x.AttributeValueOrDefault("format")
                 where (!string.IsNullOrWhiteSpace(url) ||
                        !string.IsNullOrWhiteSpace(file)) &&
                       !string.IsNullOrWhiteSpace(order)
@@ -1031,7 +1032,8 @@ namespace OpenRealEstate.Services.RealEstateComAu
                             ? null
                             : file
                         : url,
-                    Order = orderConverstionFunction(order)
+                    Order = orderConverstionFunction(order),
+                    ContentType = contentType
                 }).ToList();
 
             return media.Any()
@@ -1069,12 +1071,12 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 }
                 
                 var attachmentElements = mediaElement.Elements("attachment")
-                                                     .Where(e => (string)e.Attribute("usage") == "statementOfInformation")
                                                      .Select((e, order) => new Media
                                                      {
                                                          CreatedOn = DateTime.UtcNow,
-                                                         Tag = "statementOfInformation",
-                                                         Url = e.Attribute("url").Value,
+                                                         Tag = e.AttributeValueOrDefault("usage"),
+                                                         Url = e.AttributeValueOrDefault("url"),
+                                                         ContentType = e.AttributeValueOrDefault("contentType"),
                                                          Order = ++order
                                                      });
 
