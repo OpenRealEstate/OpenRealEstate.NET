@@ -23,6 +23,7 @@ namespace OpenRealEstate.Core.Models
         private const string StatusTypeNane = "StatusType";
         private const string TitleName = "Title";
         private const string VideosName = "Videos";
+        private const string DocumentsName = "Documents";
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly InstanceObjectNotified<Address> _address;
@@ -65,6 +66,9 @@ namespace OpenRealEstate.Core.Models
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly ObservableCollection<Media> _videos;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly ObservableCollection<Media> _documents;
 
         protected Listing()
         {
@@ -109,6 +113,9 @@ namespace OpenRealEstate.Core.Models
 
             _videos = new ObservableCollection<Media>();
             _videos.CollectionChanged += (sender, args) => { ModifiedData.OnCollectionChanged(VideosName); };
+
+            _documents = new ObservableCollection<Media>();
+            _documents.CollectionChanged += (sender, args) => { ModifiedData.OnCollectionChanged(DocumentsName); };
         }
 
         public abstract string ListingType { get; }
@@ -171,6 +178,12 @@ namespace OpenRealEstate.Core.Models
         {
             get { return _videos.ToList().AsReadOnly(); }
             set { HelperUtilities.SetCollection(_videos, value, AddVideos); }
+        }
+
+        public ReadOnlyCollection<Media> Documents
+        {
+            get { return _documents.ToList().AsReadOnly(); }
+            set { HelperUtilities.SetCollection(_documents, value, AddDocuments); }
         }
 
         public ReadOnlyCollection<Inspection> Inspections
@@ -383,6 +396,37 @@ namespace OpenRealEstate.Core.Models
             }
         }
 
+        public void AddDocuments(ICollection<Media> documents)
+        {
+            if (documents == null)
+            {
+                throw new ArgumentNullException("documents");
+            }
+
+            if (!documents.Any())
+            {
+                throw new ArgumentOutOfRangeException("documents");
+            }
+
+            foreach (var document in documents)
+            {
+                _documents.Add(document);
+            }
+        }
+
+        public void RemoveDocuments(Media documents)
+        {
+            if (documents == null)
+            {
+                throw new ArgumentNullException("documents");
+            }
+
+            if (documents != null)
+            {
+                _documents.Remove(documents);
+            }
+        }
+
         public override string ToString()
         {
             return string.Format("Agency: {0}; Id: {1}",
@@ -501,6 +545,23 @@ namespace OpenRealEstate.Core.Models
                 }
             }
 
+            if (newListing.ModifiedData.ModifiedCollections.Contains(DocumentsName))
+            {
+                _documents.Clear();
+
+                if (newListing.Documents.Any())
+                {
+                    var documents = new List<Media>();
+                    foreach (var document in newListing.Documents)
+                    {
+                        var newDocument = new Media();
+                        newDocument.Copy(document, CopyDataOptions.CopyAllData);
+                        documents.Add(newDocument);
+                    }
+                    AddDocuments(documents);
+                }
+            }
+
             if (newListing.ModifiedData.ModifiedCollections.Contains(LinksName))
             {
                 _links.Clear();
@@ -539,6 +600,7 @@ namespace OpenRealEstate.Core.Models
             HelperUtilities.ClearAllObservableCollectionItems(_floorPlans);
             HelperUtilities.ClearAllObservableCollectionItems(_inspections);
             HelperUtilities.ClearAllObservableCollectionItems(_videos);
+            HelperUtilities.ClearAllObservableCollectionItems(_documents);
         }
     }
 }

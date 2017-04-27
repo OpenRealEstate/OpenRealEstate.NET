@@ -118,6 +118,7 @@
         ],
         "FloorPlans": [ ],
         "Videos": [ ],
+        "Documents": [ ],
         "Inspections": [ ],
         "LandDetails": {
             "Area": null,
@@ -211,6 +212,7 @@
         "Images": [ ],
         "FloorPlans": [ ],
         "Videos": [ ],
+        "Documents": [ ],
         "Inspections": [ ],
         "LandDetails": null,
         "Features": {
@@ -394,6 +396,7 @@
         ],
         "FloorPlans": [ ],
         "Videos": [ ],
+        "Documents": [ ],
         "Inspections": [ ],
         "LandDetails": {
             "Area": null,
@@ -522,6 +525,7 @@
         ],
         "FloorPlans": [ ],
         "Videos": [ ],
+        "Documents": [ ],
         "Inspections": [ ],
         "LandDetails": {
             "Area": null,
@@ -665,6 +669,7 @@
         ],
         "FloorPlans": [ ],
         "Videos": [ ],
+        "Documents": [ ],
         "Inspections": [
             {
                 "OpensOn": "2015-11-11T15:45:00",

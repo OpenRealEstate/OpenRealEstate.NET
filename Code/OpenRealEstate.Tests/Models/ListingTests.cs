@@ -90,6 +90,7 @@ namespace OpenRealEstate.Tests.Models
                 }
 
                 TestHelperUtilities.AssertMedias(destinationListing.Videos, sourceListing.Videos);
+                TestHelperUtilities.AssertMedias(destinationListing.Documents, sourceListing.Documents);
             }
 
             [Fact]
@@ -132,6 +133,11 @@ namespace OpenRealEstate.Tests.Models
                     sourceListing.RemoveVideo(video);
                 }
 
+                foreach (var document in sourceListing.Documents)
+                {
+                    sourceListing.RemoveDocuments(document);
+                }
+
                 var destinationListing = TestHelperUtilities.ResidentialListingFromFile();
 
                 // Act.
@@ -147,6 +153,7 @@ namespace OpenRealEstate.Tests.Models
                 destinationListing.LandDetails.ShouldBeNull();
                 destinationListing.Links.Count.ShouldBe(0);
                 destinationListing.Videos.Count.ShouldBe(0);
+                destinationListing.Documents.Count.ShouldBe(0);
             }
 
             [Fact]

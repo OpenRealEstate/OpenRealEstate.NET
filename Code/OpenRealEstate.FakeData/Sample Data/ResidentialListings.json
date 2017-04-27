@@ -87,6 +87,7 @@
             }
         ],
         "Videos": [ ],
+        "Documents": [ ],
         "Inspections": [
             {
                 "OpensOn": "2015-10-10T12:30:00",
@@ -222,6 +223,7 @@
             }
         ],
         "Videos": [ ],
+        "Documents": [ ],
         "Inspections": [ ],
         "LandDetails": {
             "Area": {
@@ -370,6 +372,7 @@
             }
         ],
         "Videos": [ ],
+        "Documents": [ ],
         "Inspections": [ ],
         "LandDetails": {
             "Area": {
@@ -509,6 +512,7 @@
             }
         ],
         "Videos": [ ],
+        "Documents": [ ],
         "Inspections": [
             {
                 "OpensOn": "2015-10-10T09:00:00",
@@ -650,6 +654,7 @@
             }
         ],
         "Videos": [ ],
+        "Documents": [ ],
         "Inspections": [
             {
                 "OpensOn": "2015-10-10T10:30:00",
