@@ -10,6 +10,7 @@ namespace OpenRealEstate.Core.Models
         private const string OrderName = "Order";
         private const string TagName = "Tag";
         private const string UrlName = "Url";
+        private const string ContentTypeName = "ContentType";
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly DateTimeNullableNotified _createdOn;
@@ -22,6 +23,9 @@ namespace OpenRealEstate.Core.Models
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly StringNotified _url;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly StringNotified _contentType;
 
         public Media()
         {
@@ -36,6 +40,9 @@ namespace OpenRealEstate.Core.Models
 
             _url = new StringNotified(UrlName);
             _url.PropertyChanged += ModifiedData.OnPropertyChanged;
+
+            _contentType = new StringNotified(ContentTypeName);
+            _contentType.PropertyChanged += ModifiedData.OnPropertyChanged;
         }
 
         public DateTime? CreatedOn {
@@ -48,17 +55,23 @@ namespace OpenRealEstate.Core.Models
             get { return _order.Value; }
             set { _order.Value = value; }
         }
+        
+        public string Tag
+        {
+            get { return _tag.Value; }
+            set { _tag.Value = value; }
+        }
 
         public string Url
         {
             get { return _url.Value; }
             set { _url.Value = value; }
         }
-
-        public string Tag
+        
+        public string ContentType
         {
-            get { return _tag.Value; }
-            set { _tag.Value = value; }
+            get { return _contentType.Value; }
+            set { _contentType.Value = value; }
         }
 
         public override string ToString()
@@ -70,7 +83,8 @@ namespace OpenRealEstate.Core.Models
                     : Url);
         }
 
-        public void Copy(Media newMedia, CopyDataOptions copyDataOptions = CopyDataOptions.OnlyCopyModifiedProperties)
+        public void Copy(Media newMedia, 
+                         CopyDataOptions copyDataOptions = CopyDataOptions.OnlyCopyModifiedProperties)
         {
             ModifiedData.Copy(newMedia, this, copyDataOptions);
         }
