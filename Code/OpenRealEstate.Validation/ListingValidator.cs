@@ -37,6 +37,7 @@ namespace OpenRealEstate.Validation
                 RuleFor(listing => listing.Images).SetCollectionValidator(new MediaValidator());
                 RuleFor(listing => listing.FloorPlans).SetCollectionValidator(new MediaValidator());
                 RuleFor(listing => listing.Videos).SetCollectionValidator(new MediaValidator());
+                RuleFor(listing => listing.Documents).SetCollectionValidator(new MediaValidator());
                 RuleFor(listing => listing.Inspections).SetCollectionValidator(new InspectionValidator());
                 RuleFor(listing => listing.LandDetails).SetValidator(new LandDetailsValidator());
                 RuleFor(listing => listing.Features).SetValidator(new FeaturesValidator());

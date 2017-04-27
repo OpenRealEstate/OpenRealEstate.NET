@@ -424,8 +424,8 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
         #region Common listing methods
 
-        private static void ExtractCommonData(Listing listing, 
-            XElement document, 
+        private static void ExtractCommonData(Listing listing,
+            XElement document,
             string addressDelimeter)
         {
             Guard.AgainstNull(listing);
@@ -449,7 +449,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             listing.Description = document.ValueOrDefault("description");
 
             listing.Address = ExtractAddress(document, addressDelimeter);
-            
+
             var agents = ExtractAgent(document);
             if (agents != null &&
                 agents.Any())
@@ -470,20 +470,28 @@ namespace OpenRealEstate.Services.RealEstateComAu
             {
                 listing.AddImages(images);
             }
-            
+
             var floorPlans = ExtractFloorPlans(document);
             if (floorPlans != null &&
                 floorPlans.Any())
             {
                 listing.AddFloorPlans(floorPlans);
             }
-            
+
             var videos = ExtractVideos(document);
-            if (videos != null 
-                && videos.Any())
+            if (videos != null &&
+                videos.Any())
             {
                 listing.AddVideos(videos);
             }
+
+            var documents = ExtractDocuments(document);
+            if (documents != null &&
+                documents.Any())
+            {
+                listing.AddDocuments(documents);
+            }
+
             listing.Features = ExtractFeatures(document);
             listing.LandDetails = ExtractLandDetails(document);
 
@@ -1042,6 +1050,31 @@ namespace OpenRealEstate.Services.RealEstateComAu
                         Url = videoUrl
                     }
                 };
+        }
+
+        private static IList<Media> ExtractDocuments(XElement document)
+        {
+            {
+                Guard.AgainstNull(document);
+
+                var mediaElement = document.Element("media");
+                if (mediaElement == null)
+                {
+                    return null;
+                }
+                
+                var attachmentElements = mediaElement.Elements("attachment")
+                                                     .Where(e => (string)e.Attribute("usage") == "statementOfInformation")
+                                                     .Select((e, order) => new Media
+                                                     {
+                                                         CreatedOn = DateTime.UtcNow,
+                                                         Tag = "statementOfInformation",
+                                                         Url = e.Attribute("url").Value,
+                                                         Order = ++order
+                                                     });
+
+                return attachmentElements.ToArray();
+            }
         }
 
         private static PropertyType ExtractResidentialAndRentalPropertyType(XElement document)

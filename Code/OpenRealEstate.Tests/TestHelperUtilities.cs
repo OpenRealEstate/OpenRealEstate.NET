@@ -38,17 +38,34 @@ namespace OpenRealEstate.Tests
                 listing.Address.Longitude = 2.4m;
                 for (var i = 0; i < listing.FloorPlans.Count; i++)
                 {
-                    listing.FloorPlans[i].Tag = "Tag_" + i + 1;
+                    if (string.IsNullOrWhiteSpace(listing.FloorPlans[i].Tag))
+                    {
+                        listing.FloorPlans[i].Tag = "Tag_" + i + 1;
+                    }
                 }
 
                 for (var i = 0; i < listing.Images.Count; i++)
                 {
-                    listing.Images[i].Tag = "Tag_" + i + 1;
+                    if (string.IsNullOrWhiteSpace(listing.Images[i].Tag))
+                    {
+                        listing.Images[i].Tag = "Tag_" + i + 1;
+                    }
                 }
 
                 for (var i = 0; i < listing.Videos.Count; i++)
                 {
-                    listing.Videos[i].Tag = "Tag_" + i + 1;
+                    if (string.IsNullOrWhiteSpace(listing.Videos[i].Tag))
+                    {
+                        listing.Videos[i].Tag = "Tag_" + i + 1;
+                    }
+                }
+
+                for (var i = 0; i < listing.Documents.Count; i++)
+                {
+                    if (string.IsNullOrWhiteSpace(listing.Documents[i].Tag))
+                    {
+                        listing.Documents[i].Tag = "Tag_" + i + 1;
+                    }
                 }
             }
 
@@ -148,7 +165,7 @@ namespace OpenRealEstate.Tests
                     BuildingDetails = CreateBuildingDetails()
                 };
 
-            UpdateCommonListingData(listing, isClearAllIsModified);
+            UpdateCommonListingData(listing, isClearAllIsModified, false);
 
             return listing;
         }
@@ -189,7 +206,9 @@ namespace OpenRealEstate.Tests
 
         #region Fake data for listing parts
 
-        private static void UpdateCommonListingData(Listing listing, bool isClearAllIsModified)
+        private static void UpdateCommonListingData(Listing listing,
+                                                    bool isClearAllIsModified,
+                                                    bool includeDocuments = true)
         {
             listing.ShouldNotBeNull();
             
@@ -210,6 +229,10 @@ namespace OpenRealEstate.Tests
             listing.AddInspections(CreateInspections());
             listing.AddLinks(CreateLinks());
             listing.AddVideos(CreateVideos());
+            if (includeDocuments)
+            {
+                listing.AddDocuments(CreateDocuments());
+            }
 
             if (isClearAllIsModified)
             {
@@ -384,16 +407,26 @@ namespace OpenRealEstate.Tests
                 CreateMedia("http://www.foo.tv/abcd.html", 1),
                 CreateMedia("http://www.foo.tv/qqqq.html", 2)
             };
-        } 
+        }
 
-        private static Media CreateMedia(string url, int order)
+        private static IList<Media> CreateDocuments()
+        {
+            return new List<Media>
+            {
+                CreateMedia("http://www.example.com/statementofinformation1.pdf", 1, "statementOfInformation"),
+                CreateMedia("http://www.example.com/statementofinformation2.pdf", 2, "statementOfInformation"),
+                CreateMedia("http://www.example.com/statementofinformation3.pdf", 3, "statementOfInformation")
+            };
+        }
+
+        private static Media CreateMedia(string url, int order, string tag = "aaa bbb")
         {
             return new Media
             {
                 CreatedOn = DateTime.Parse("2009-01-01T12:30:00"),
                 Url = url,
                 Order = order,
-                Tag = "aaa bbb"
+                Tag = tag
             };
         }
 
@@ -808,6 +841,7 @@ namespace OpenRealEstate.Tests
             AssertInspections(destination.Inspections, source.Inspections);
             AssertStringCollection(destination.Links, source.Links);
             AssertMedias(destination.Videos, source.Videos);
+            AssertMedias(destination.Documents, source.Documents);
             destination.ModifiedData.IsModified.ShouldBe(true);
         }
 
@@ -1004,6 +1038,7 @@ namespace OpenRealEstate.Tests
             AssertInspectionsAreModified(listing.Inspections, isModified); 
             AssertLandDetailsIsModified(listing.LandDetails, isModified);
             AssertMediasAreModified(listing.Videos, isModified);
+            AssertMediasAreModified(listing.Documents, isModified);
             listing.ModifiedData.IsModified.ShouldBe(isModified);
         }
 

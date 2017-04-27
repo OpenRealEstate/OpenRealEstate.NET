@@ -115,6 +115,26 @@
             "Tag": "aaa bbb"
         }
     ],
+    "Documents": [
+        {
+            "CreatedOn": "2016-01-29T01:55:57.3395659Z",
+            "Order": 1,
+            "Url": "http://www.example.com/statementofinformation1.pdf",
+            "Tag": "statementOfInformation"
+        },
+        {
+            "CreatedOn": "2016-01-29T01:55:57.3395659Z",
+            "Order": 2,
+            "Url": "http://www.example.com/statementofinformation2.pdf",
+            "Tag": "statementOfInformation"
+        },
+        {
+            "CreatedOn": "2016-01-29T01:55:57.3395659Z",
+            "Order": 3,
+            "Url": "http://www.example.com/statementofinformation3.pdf",
+            "Tag": "statementOfInformation"
+        }
+    ],
     "Inspections": [
         {
             "OpensOn": "2009-01-21T11:00:00",

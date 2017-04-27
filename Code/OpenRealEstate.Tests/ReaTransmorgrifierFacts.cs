@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using FluentValidation;
 using Newtonsoft.Json;
 using OpenRealEstate.Core.Filters;
 using OpenRealEstate.Core.Models;
@@ -17,6 +18,7 @@ using Shouldly;
 using Xunit;
 using CategoryType = OpenRealEstate.Core.Models.Rural.CategoryType;
 using LandCategoryType = OpenRealEstate.Core.Models.Land.CategoryType;
+using OpenRealEstate.Validation.Residential;
 
 namespace OpenRealEstate.Tests
 {
@@ -49,7 +51,13 @@ namespace OpenRealEstate.Tests
                             "houseAndLandPackage", "solarPanels", "waterTank", "hotWaterService-gas", "heating-other",
                             "balcony", "shed", "courtyard", "isANewConstruction"
                         },
-                    videoUrls: new[] {"http://www.foo.tv/abcd.html"});
+                    videoUrls: new[] {"http://www.foo.tv/abcd.html"},
+                    documentUrls: new[] 
+                    {
+                        "http://www.example.com/statementofinformation1.pdf",
+                        "http://www.example.com/statementofinformation2.pdf",
+                        "http://www.example.com/statementofinformation3.pdf"
+                    });
             }
 
             [Fact]
@@ -665,6 +673,7 @@ namespace OpenRealEstate.Tests
                 result.Images.Count.ShouldBe(source.Images.Count);
                 result.FloorPlans.Count.ShouldBe(source.FloorPlans.Count);
                 result.Videos.Count.ShouldBe(source.Videos.Count);
+                result.Documents.Count.ShouldBe(source.Documents.Count);
                 result.Inspections.Count.ShouldBe(source.Inspections.Count);
                 result.Links.Count.ShouldBe(source.Links.Count);
                 if (result.Features != null)
@@ -966,6 +975,7 @@ namespace OpenRealEstate.Tests
                 IList<string> imageUrls = null,
                 IList<string> floorplanUrls = null,
                 IList<string> videoUrls = null,
+                IList<string> documentUrls = null,
                 string streetNumber = "2/39",
                 bool isModified = true,
                 Action<IList<ListingAgent>, bool> assertAgents = null,
@@ -1014,7 +1024,12 @@ namespace OpenRealEstate.Tests
                 {
                     AssertVideos(listing.Videos, videoUrls);
                 }
-                
+
+                if (documentUrls != null)
+                {
+                    AssertDocuments(listing.Documents, documentUrls);
+                }
+
                 listing.AuctionOn.ShouldBe(new DateTime(2009, 02, 04, 18, 30, 00));
 
                 AssertBuildingDetails(listing.BuildingDetails);
@@ -1157,6 +1172,32 @@ namespace OpenRealEstate.Tests
                     },
                     4,
                     null);
+            }
+
+            [Fact]
+            public void GivenTheFileREAResidentialCurrentWithMissingDocumentUrl_Convert_ReturnsSomeInvalidData()
+            {
+                // Arrange.
+                var reaXml =
+                    File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current-WithMissingDocumentUrl.xml");
+                var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+                // Act.
+                var result = reaXmlTransmorgrifier.ConvertTo(reaXml);
+
+                // Assert.
+                result.ShouldNotBeNull();
+                result.Listings.Count.ShouldBe(1);
+                result.UnhandledData.ShouldBeNull();
+                result.Errors.ShouldBeNull();
+                var residentialListing = result.Listings.First().Listing as ResidentialListing;
+                var validator = new ResidentialListingValidator();
+                var validationResult = validator.Validate(residentialListing, ruleSet: ResidentialListingValidator.MinimumRuleSet);
+
+                // Assert.
+                validationResult.Errors.ShouldNotBeEmpty();
+                validationResult.Errors.Count.ShouldBe(1);
+                validationResult.Errors.First().ErrorMessage.ShouldBe("'Url' should not be empty.");
             }
 
             private static void AssertRentalCurrentListing(RentalListing listing,
@@ -1901,6 +1942,15 @@ namespace OpenRealEstate.Tests
                 for (var i = 0; i < videos.Count; i++)
                 {
                     videos[i].Url.ShouldBe(videoUrls[i]);
+                }
+            }
+
+            private static void AssertDocuments(IList<Media> document,
+                IList<string> documentUrls)
+            {
+                for (var i = 0; i < document.Count; i++)
+                {
+                    document[i].Url.ShouldBe(documentUrls[i]);
                 }
             }
 
