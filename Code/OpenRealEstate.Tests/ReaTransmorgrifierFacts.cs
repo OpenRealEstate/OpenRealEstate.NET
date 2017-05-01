@@ -1968,6 +1968,7 @@ namespace OpenRealEstate.Tests
                 for (var i = 0; i < document.Count; i++)
                 {
                     document[i].Url.ShouldBe(documentUrls[i]);
+                    document[i].Id.ShouldNotBeNullOrWhiteSpace();
                 }
             }
 

@@ -1073,6 +1073,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 var attachmentElements = mediaElement.Elements("attachment")
                                                      .Select((e, order) => new Media
                                                      {
+                                                         Id = e.AttributeValueOrDefault("id"),
                                                          CreatedOn = DateTime.UtcNow,
                                                          Tag = e.AttributeValueOrDefault("usage"),
                                                          Url = e.AttributeValueOrDefault("url"),
