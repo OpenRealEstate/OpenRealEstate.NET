@@ -6,11 +6,15 @@ namespace OpenRealEstate.Core.Models
 {
     public class Media : BaseModifiedData
     {
+        private const string IdName = "Id";
         private const string CreatedOnName = "CreatedOn";
         private const string OrderName = "Order";
         private const string TagName = "Tag";
         private const string UrlName = "Url";
         private const string ContentTypeName = "ContentType";
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private readonly StringNotified _id;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly DateTimeNullableNotified _createdOn;
@@ -29,6 +33,9 @@ namespace OpenRealEstate.Core.Models
 
         public Media()
         {
+            _id = new StringNotified(IdName);
+            _id.PropertyChanged += ModifiedData.OnPropertyChanged;
+
             _createdOn = new DateTimeNullableNotified(CreatedOnName);
             _createdOn.PropertyChanged += ModifiedData.OnPropertyChanged;
 
@@ -43,6 +50,12 @@ namespace OpenRealEstate.Core.Models
 
             _contentType = new StringNotified(ContentTypeName);
             _contentType.PropertyChanged += ModifiedData.OnPropertyChanged;
+        }
+
+        public string Id
+        {
+            get { return _id.Value; }
+            set { _id.Value = value; }
         }
 
         public DateTime? CreatedOn {
