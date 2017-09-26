@@ -36,6 +36,8 @@ namespace OpenRealEstate.Core
 
         public IList<Media> Videos { get; set; }
 
+        public IList<Media> Documents { get; set; }
+
         public IList<Inspection> Inspections { get; set; }
 
         public LandDetails LandDetails { get; set; }

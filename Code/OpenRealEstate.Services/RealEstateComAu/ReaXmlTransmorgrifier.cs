@@ -35,14 +35,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             AddressDelimeter = "/";
         }
 
-        /// <summary>
-        /// Parses and converts some given data into a listing instance.
-        /// </summary>
-        /// <param name="data">some data source, like Xml data or json data.</param>
-        /// <param name="existingListing">An optional destination listing which will extract any data, into.</param>
-        /// <param name="areBadCharactersRemoved">Help clean up the data.</param>
-        /// <returns>List of listings, unhandled data and/or errors.</returns>
-        /// <remarks>Why does <code>isClearAllIsModified</code> default to <code>false</code>? Because when you generally load some data into a new listing instance, you want to see which properties </remarks>
+        /// <inheritdoc />
         public ParsedResult Parse(string data,
             Listing existingListing = null,
             bool areBadCharactersRemoved = false)
@@ -523,6 +516,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             ExtractImages(document, listing);
             ExtractFloorPlans(document, listing);
             ExtractVideos(document, listing);
+            ExtractDocuments(document, listing);
             ExtractFeatures(document, listing);
             ExtractLandDetails(document, listing);
             ExtractExternalLinks(document, listing);
@@ -1079,6 +1073,30 @@ namespace OpenRealEstate.Services.RealEstateComAu
             });
 
             document.ValueOrDefaultIfExists(action, "videoLink", "href");
+        }
+
+        // NOTE: This is a extracting a collection. As such, we hard-copy the resultant collection
+        //       over to the listing. No guessing or matching.
+        private static void ExtractDocuments(XContainer document, Listing listing)
+        {
+            Guard.AgainstNull(document);
+            Guard.AgainstNull(listing);
+
+            var mediaElement = document.Element("media");
+            if (mediaElement == null)
+            {
+                return;
+            }
+
+            var attachmentElements = mediaElement.Elements("attachment")
+                .Select((e, order) => new Media
+                {
+                    CreatedOn = DateTime.UtcNow,
+                    Tag = (string)e.Attribute("usage"),
+                    Url = e.Attribute("url")?.Value,
+                    Order = ++order
+                });
+            listing.Documents = attachmentElements.ToArray();
         }
 
         private static void ExtractResidentialAndRentalPropertyType(XElement document, IPropertyType listing)
