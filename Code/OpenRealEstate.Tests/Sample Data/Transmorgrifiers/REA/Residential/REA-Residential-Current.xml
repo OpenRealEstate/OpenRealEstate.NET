@@ -97,6 +97,9 @@
             <floorplan id="2" modTime="2009-01-01-12:30:00" url="http://www.realestate.com.au/tmp/floorplan2.gif"
                        format="gif" />
         </objects>
+        <media>
+          <attachment usage="statementOfInformation" contentType="application/pdf" id="aaaa1111" url=""></attachment>
+        </media>
         <videoLink href="http://www.foo.tv/abcd.html"/>
         <ecoFriendly>
             <solarPanels>1</solarPanels>

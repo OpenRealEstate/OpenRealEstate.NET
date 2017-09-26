@@ -108,5 +108,20 @@ namespace OpenRealEstate.Tests.Transmorgrifiers.REA
             // Assert.
             AssertRentalListing(result, expectedListing);
         }
+
+        [Fact]
+        public void GivenTheFileREARentalWithBadStatus_Parse_ReturnsAParsedResultWithAnError()
+        {
+            // Arrange.
+            var reaXml = File.ReadAllText(FakeDataFolder + "REA-Rental-WithBadStatus.xml");
+            var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+            // Act.
+            var result = reaXmlTransmorgrifier.Parse(reaXml);
+
+            // Assert.
+            result.Listings.Count.ShouldBe(0);
+            result.Errors.Count.ShouldBe(1);
+        }
     }
 }

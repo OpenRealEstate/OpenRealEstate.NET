@@ -12,6 +12,7 @@ namespace OpenRealEstate.Core
             FloorPlans = new List<Media>();
             Videos = new List<Media>();
             Inspections = new List<Inspection>();
+            Documents = new List<Media>();
         }
 
         public abstract string ListingType { get; }
@@ -35,6 +36,8 @@ namespace OpenRealEstate.Core
         public IList<Media> FloorPlans { get; set; }
 
         public IList<Media> Videos { get; set; }
+
+        public IList<Media> Documents { get; set; }
 
         public IList<Inspection> Inspections { get; set; }
 
