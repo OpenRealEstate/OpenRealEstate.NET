@@ -1,13 +1,13 @@
 
 version: '0.{build}.0-dev'
 configuration: Release
+os: Visual Studio 2017
+pull_requests:
+  do_not_increment_build_number: true
 
 branches:
   except:
     - master
-
-pull_requests:
-  do_not_increment_build_number: true
 
 environment:
   apiKey:
@@ -29,6 +29,10 @@ assembly_info:
 build:
   parallel: true
   verbosity: minimal
+
+test:
+  assemblies:
+    - '**\*.tests.dll'
 
 on_success:
   - ps: $destinationPath = $env:appveyor_build_folder + ".\file1.ps1"; (new-object net.webclient).DownloadFile('https://raw.githubusercontent.com/PureKrome/PushIt/master/NuGet%20Package%20and%20Publish.ps1', $destinationPath); & $destinationPath  -Version $env:appveyor_build_version -NuGet "C:\Tools\NuGet\nuget.exe" -feedSource https://www.myget.org/F/openrealestate/api/v2 -apiKey $env:apiKey -source '.\NuGet\' -destination '.\NuGet\'

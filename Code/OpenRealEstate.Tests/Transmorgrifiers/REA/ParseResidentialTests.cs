@@ -631,6 +631,7 @@ namespace OpenRealEstate.Tests.Transmorgrifiers.REA
             var documents = listingData.Listing.Documents;
             documents.Count.ShouldBe(1);
             var document = documents.First();
+            document.Id.ShouldBe("aaaa1111");
             document.CreatedOn.ShouldNotBeNull();
             document.Order.ShouldBe(1);
             document.Tag.ShouldBe("statementOfInformation");

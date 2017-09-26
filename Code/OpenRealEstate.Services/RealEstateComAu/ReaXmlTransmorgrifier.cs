@@ -1029,7 +1029,8 @@ namespace OpenRealEstate.Services.RealEstateComAu
             return (from x in mediaElements
                 let url = x.AttributeValueOrDefault("url")
                 let file = x.AttributeValueOrDefault("file")
-                let order = x.AttributeValueOrDefault("id")
+                let id = x.AttributeValueOrDefault("id")
+                let order = id // Yep, the Id is not a number in this case, but the order. Lame REA rules.
                 let createdOn = x.AttributeValueOrDefault("modTime")
                 let contentType = x.AttributeValueOrDefault("format")
                 where (!string.IsNullOrWhiteSpace(url) ||
@@ -1037,6 +1038,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                       !string.IsNullOrWhiteSpace(order)
                 select new Media
                 {
+                    Id = id,
                     CreatedOn = string.IsNullOrWhiteSpace(createdOn)
                         ? (DateTime?) null
                         : ToDateTime(createdOn, $"<{elementName} modTime='..'/>"),
@@ -1094,6 +1096,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 .Select((e, order) => new Media
                 {
                     CreatedOn = DateTime.UtcNow,
+                    Id = e.AttributeValueOrDefault("id"),
                     Tag = e.AttributeValueOrDefault("usage"),
                     Url = e.AttributeValueOrDefault("url"),
                     ContentType = e.AttributeValueOrDefault("contentType"),
