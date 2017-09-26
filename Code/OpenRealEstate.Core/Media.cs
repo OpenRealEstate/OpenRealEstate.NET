@@ -12,6 +12,8 @@ namespace OpenRealEstate.Core
 
         public string Tag { get; set; }
 
+        public string ContentType { get; set; }
+
         public override string ToString()
         {
             return $"{Order} : {(string.IsNullOrWhiteSpace(Url) ? "-no url-" : Url)}";

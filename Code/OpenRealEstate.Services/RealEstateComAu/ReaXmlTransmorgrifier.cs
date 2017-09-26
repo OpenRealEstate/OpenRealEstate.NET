@@ -1031,6 +1031,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 let file = x.AttributeValueOrDefault("file")
                 let order = x.AttributeValueOrDefault("id")
                 let createdOn = x.AttributeValueOrDefault("modTime")
+                let contentType = x.AttributeValueOrDefault("format")
                 where (!string.IsNullOrWhiteSpace(url) ||
                        !string.IsNullOrWhiteSpace(file)) &&
                       !string.IsNullOrWhiteSpace(order)
@@ -1044,7 +1045,8 @@ namespace OpenRealEstate.Services.RealEstateComAu
                             ? null
                             : file
                         : url,
-                    Order = orderConverstionFunction(order)
+                    Order = orderConverstionFunction(order),
+                    ContentType = contentType
                 }).ToList();
         }
 
@@ -1092,8 +1094,9 @@ namespace OpenRealEstate.Services.RealEstateComAu
                 .Select((e, order) => new Media
                 {
                     CreatedOn = DateTime.UtcNow,
-                    Tag = (string)e.Attribute("usage"),
-                    Url = e.Attribute("url")?.Value,
+                    Tag = e.AttributeValueOrDefault("usage"),
+                    Url = e.AttributeValueOrDefault("url"),
+                    ContentType = e.AttributeValueOrDefault("contentType"),
                     Order = ++order
                 });
             listing.Documents = attachmentElements.ToArray();
