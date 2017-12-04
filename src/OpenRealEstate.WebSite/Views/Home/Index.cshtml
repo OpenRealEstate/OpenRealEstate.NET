@@ -1,0 +1,56 @@
+﻿
+@{
+    Layout = "~/views/shared/_layout.cshtml";
+}
+
+@section scripts {
+    <script src="/js/parse.js"></script>
+}
+
+    <div>
+        <textarea id="reaxmltext" name="reaxmltext" placeholder="Paste some REA XML here" rows="12" cols="80"></textarea>
+    </div>
+
+    <div>
+        <textarea id="openREJson" name="openREJson" placeholder="Paste some OpenRealEstate Json here" rows="12" cols="80"></textarea>
+    </div>
+
+    <button class="btn" type="button" onclick="processText(true);"><i class="icon-arrow-right"></i> REA XML to Json</button>
+    <button class="btn" type="button" onclick="processText(false);"><i class="icon-arrow-right"></i> Json to REA XML</button>
+    <select id="fileNameOptions">
+        <option value="Residential/REA-Residential-Current.xml" selected="selected">Residential - Current</option>
+        <option value="Residential/REA-Residential-Current-WithBadInspectionTime.xml">Residential - Current with Bad Inspection Time</option>
+        <option value="Residential/REA-Residential-OffMarket.xml">Residential - Off Market</option>
+        <option value="Residential/REA-Residential-Sold.xml">Residential - Sold</option>
+        <option value="Residential/REA-Residential-Sold-DisplayPriceIsNo.xml">Residential - Sold with Display Price is No</option>
+        <option value="Residential/REA-Residential-Sold-MissingDisplayPrice.xml">Residential - Sold with Missing Display Price</option>
+        <option value="Residential/REA-Residential-Withdrawn.xml">Residential - Withdrawn</option>
+        <option value="Residential/REA-Segment-Residential-Current.xml">Residential - Current Segment</option>
+        <option value="Land/REA-Land-Current.xml">Land - Current</option>
+        <option value="Land/REA-Land-Current-IncompleteLandDetails.xml">Land - Current with incomplete land details</option>
+        <option value="Land/REA-Land-OffMarket.xml">Land - OffMarket</option>
+        <option value="Land/REA-Land-Sold.xml">Land - Sold</option>
+        <option value="Land/REA-Land-Sold-DisplayPriceIsNo.xml">Land - Sold with Display Price is No</option>
+        <option value="Land/REA-Land-Withdrawn.xml">Land - Withdrawn</option>
+    </select>
+    <button class="btn" type="button" onclick="getSampleReaXml($('#fileNameOptions').val());"><i class="icon-arrow-right"></i> Sample REA XML</button>
+    
+    <p>
+        Or browse for some files...<br/>
+        <form action="/parse/files" method="POST" enctype="multipart/form-data">
+            <input name="files" id="upload" type="file" size="40" multiple /><br/>
+            <button type="button" onclick="uploadFiles();">Process File(s)</button>
+        </form>    
+    </p>
+    
+    <hr/>
+
+    <br/>
+    
+    <div id="errorMessage"></div>
+    <br/><br/>
+    <div id="message"></div>
+    
+    <div>
+        <pre id="jsonCode"></pre>
+    </div>

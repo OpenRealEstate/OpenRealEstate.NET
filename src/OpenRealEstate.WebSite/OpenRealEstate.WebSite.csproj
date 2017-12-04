@@ -1,0 +1,146 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <Version>0.0.0</Version>
+    <Authors>Justin Adler</Authors>
+    <Company>Homely</Company>
+    <Product>OpenRealEstate - Web App</Product>
+    <PackageId>OpenRealEstate.WebApp</PackageId>
+    <Description />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\xml\ReaXmlSample.xml" />
+    <Content Remove="wwwroot\xml\REA\Land\REA-Land-Current-IncompleteLandDetails.xml" />
+    <Content Remove="wwwroot\xml\REA\Land\REA-Land-Current.xml" />
+    <Content Remove="wwwroot\xml\REA\Land\REA-Land-OffMarket.xml" />
+    <Content Remove="wwwroot\xml\REA\Land\REA-Land-Sold-DisplayPriceIsNo.xml" />
+    <Content Remove="wwwroot\xml\REA\Land\REA-Land-Sold.xml" />
+    <Content Remove="wwwroot\xml\REA\Land\REA-Land-Withdrawn.xml" />
+    <Content Remove="wwwroot\xml\REA\REA-AllTypes.xml" />
+    <Content Remove="wwwroot\xml\REA\REA-BadContent.xml" />
+    <Content Remove="wwwroot\xml\REA\REA-InvalidCharacter.xml" />
+    <Content Remove="wwwroot\xml\REA\REA-MixedContent.xml" />
+    <Content Remove="wwwroot\xml\REA\Rental\REA-Rental-Current.xml" />
+    <Content Remove="wwwroot\xml\REA\Rental\REA-Rental-Leased.xml" />
+    <Content Remove="wwwroot\xml\REA\Rental\REA-Rental-OffMarket.xml" />
+    <Content Remove="wwwroot\xml\REA\Rental\REA-Rental-Withdrawn.xml" />
+    <Content Remove="wwwroot\xml\REA\Rental\REA-Segment-Rental-Current.xml" />
+    <Content Remove="wwwroot\xml\REA\Residential\REA-Residential-Current-WithBadInspectionTime.xml" />
+    <Content Remove="wwwroot\xml\REA\Residential\REA-Residential-Current.xml" />
+    <Content Remove="wwwroot\xml\REA\Residential\REA-Residential-CurrentBadInspectionTime.xml" />
+    <Content Remove="wwwroot\xml\REA\Residential\REA-Residential-OffMarket.xml" />
+    <Content Remove="wwwroot\xml\REA\Residential\REA-Residential-Sold-DisplayPriceIsNo.xml" />
+    <Content Remove="wwwroot\xml\REA\Residential\REA-Residential-Sold-MissingDisplayPrice.xml" />
+    <Content Remove="wwwroot\xml\REA\Residential\REA-Residential-Sold.xml" />
+    <Content Remove="wwwroot\xml\REA\Residential\REA-Residential-Withdrawn.xml" />
+    <Content Remove="wwwroot\xml\REA\Residential\REA-Segment-Residential-Current.xml" />
+    <Content Remove="wwwroot\xml\REA\Rural\REA-Rural-Current.xml" />
+    <Content Remove="wwwroot\xml\REA\Rural\REA-Rural-OffMarket.xml" />
+    <Content Remove="wwwroot\xml\REA\Rural\REA-Rural-Sold-DisplayPriceIsNo.xml" />
+    <Content Remove="wwwroot\xml\REA\Rural\REA-Rural-Sold.xml" />
+    <Content Remove="wwwroot\xml\REA\Rural\REA-Rural-Withdrawn.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\xml\ReaXmlSample.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\xml\REA\Land\REA-Land-Current-IncompleteLandDetails.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\xml\REA\Land\REA-Land-Current.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\xml\REA\Land\REA-Land-OffMarket.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\xml\REA\Land\REA-Land-Sold-DisplayPriceIsNo.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\xml\REA\Land\REA-Land-Sold.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\xml\REA\Land\REA-Land-Withdrawn.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\xml\REA\REA-AllTypes.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\xml\REA\REA-BadContent.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\xml\REA\REA-InvalidCharacter.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\xml\REA\REA-MixedContent.xml" />
+    <None Include="wwwroot\xml\REA\Rental\REA-Rental-Current.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\xml\REA\Rental\REA-Rental-Leased.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\xml\REA\Rental\REA-Rental-OffMarket.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\xml\REA\Rental\REA-Rental-Withdrawn.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\xml\REA\Rental\REA-Segment-Rental-Current.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\xml\REA\Residential\REA-Residential-Current-WithBadInspectionTime.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\xml\REA\Residential\REA-Residential-Current.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\xml\REA\Residential\REA-Residential-CurrentBadInspectionTime.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\xml\REA\Residential\REA-Residential-OffMarket.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\xml\REA\Residential\REA-Residential-Sold-DisplayPriceIsNo.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\xml\REA\Residential\REA-Residential-Sold-MissingDisplayPrice.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\xml\REA\Residential\REA-Residential-Sold.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\xml\REA\Residential\REA-Residential-Withdrawn.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\xml\REA\Residential\REA-Segment-Residential-Current.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\xml\REA\Rural\REA-Rural-Current.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\xml\REA\Rural\REA-Rural-OffMarket.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\xml\REA\Rural\REA-Rural-Sold-DisplayPriceIsNo.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\xml\REA\Rural\REA-Rural-Sold.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\xml\REA\Rural\REA-Rural-Withdrawn.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OpenRealEstate.Services\OpenRealEstate.Services.csproj" />
+    <ProjectReference Include="..\OpenRealEstate.Validation\OpenRealEstate.Validation.csproj" />
+  </ItemGroup>
+
+</Project>

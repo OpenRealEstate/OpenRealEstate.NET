@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.0</TargetFramework>
+    <Version>0.0.0</Version>
+    <Product>OpenRealEstate - Core library</Product>
+    <Authors>Justin Adler</Authors>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/OpenRealEstate/OpenRealEstate/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/OpenRealEstate/OpenRealEstate</PackageProjectUrl>
+    <Description>These are the core base class libraries that form the foundation for the OpenRealEstate library.</Description>
+    <PackageTags>ore ore.net realestate openrealestate</PackageTags>
+    <PackageIconUrl>http://i.imgur.com/bR4Yf.jpg</PackageIconUrl>
+    <RepositoryUrl>https://github.com/OpenRealEstate/OpenRealEstate</RepositoryUrl>
+    <RepositoryType>c#</RepositoryType>
+    <Copyright>2014</Copyright>
+    <Company>Homely</Company>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Linq.Queryable" Version="4.3.0" />
+  </ItemGroup>
+
+</Project>

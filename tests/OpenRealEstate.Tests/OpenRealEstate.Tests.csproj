@@ -1,0 +1,254 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <RuntimeFrameworkVersion>2.0.3</RuntimeFrameworkVersion>
+    <ApplicationIcon />
+    <OutputType>Library</OutputType>
+    <StartupObject />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
+    <PackageReference Include="Shouldly" Version="2.8.3" />
+    <PackageReference Include="xunit.core" Version="2.3.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
+    <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\OpenRealEstate.Core\OpenRealEstate.Core.csproj" />
+    <ProjectReference Include="..\..\src\OpenRealEstate.FakeData\OpenRealEstate.FakeData.csproj" />
+    <ProjectReference Include="..\..\src\OpenRealEstate.Services\OpenRealEstate.Services.csproj" />
+    <ProjectReference Include="..\..\src\OpenRealEstate.Validation\OpenRealEstate.Validation.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Sample Data\Agencies\Active-Sample.Agency.1-BadData.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Agencies\Active-Sample.Agency.1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Agents\Active-Jane.Smith-BadData.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Agents\Active-Jane.Smith.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Franchises\Active-Sample.Franchise.1-BadData.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Franchises\Active-Sample.Franchise.1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\Json\Land\Land-Current.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\Json\Rental\Rental-Current.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\Json\Residential\Residential-Current.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\Json\Residential\Residential-Current.MultipleListings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\Json\Rural\Rural-Current.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Land\REA-Land-Current-IncompleteLandDetails.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Land\REA-Land-Current-MissingLandCategory.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Land\REA-Land-Current-WithASubNumberButNoStreetNumber.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Land\REA-Land-Current.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Land\REA-Land-Deleted.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Land\REA-Land-OffMarket.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Land\REA-Land-Sold-DisplayPriceIsNo.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Land\REA-Land-Sold.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Land\REA-Land-Withdrawn.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Land\REA-Segment-Land-Current.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\REA-AllTypes.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\REA-BadContent.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\REA-InvalidCharacter.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\REA-MixedContent.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Rental\REA-Rental-Current-WithNoBond.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Rental\REA-Rental-Current.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Rental\REA-Rental-Deleted.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Rental\REA-Rental-Leased.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Rental\REA-Rental-OffMarket.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Rental\REA-Rental-WithBadStatus.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Rental\REA-Rental-Withdrawn.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Rental\REA-Segment-Rental-Current.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current-BadSalePrice.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current-BedroomIsStudio.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current-Minimum.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current-PriceZeroDisplayNoPriceViewEmpty.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current-WithA4PointZeroZeroBedroomNumber.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current-WithABadBedroomNumber.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current-WithAllFeatures.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current-WithASingleAgentName.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current-WithAStreetNumberAndASingleSubNumber.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current-WithAStreetNumberAndASubNumber.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current-WithBadInspectionTime.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current-WithBadModTimeInImagesAndFloorPlans.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current-WithDuplicateAgents.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current-WithEmptyImagesAndFloorplans.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current-WithEmptyLatitudeLongitude.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current-WithEnsuiteIsFalse.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current-WithEnsuiteIsTrue.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current-WithFloorPlansMissing.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current-WithLocalFilesForImages.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current-WithNoModTimeInImagesAndFloorPlans.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current-WithNoStreetNumberButASubNumber.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current-WithPriceAndDisplayNoAndAPriceView.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current-WithPriceAndDisplayNoAndNoPriceView.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current-WithPriceAndDisplayYesButNoPriceView.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current-WithTooManyBedrooms.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current.WithAuctionDateTimePlaceholder.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Deleted.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-OffMarket.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Sold-DisplayAttributeIsRange.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Sold-DisplayPriceIsNo.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Sold-MissingDisplayPrice.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Sold.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Withdrawn.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Segment-Residential-Current.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Rural\REA-Rural-Current.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Rural\REA-Rural-Deleted.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Rural\REA-Rural-OffMarket.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Rural\REA-Rural-Sold-DisplayPriceIsNo.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Rural\REA-Rural-Sold.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Rural\REA-Rural-Withdrawn.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Rural\REA-Segment-Rural-Current.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
