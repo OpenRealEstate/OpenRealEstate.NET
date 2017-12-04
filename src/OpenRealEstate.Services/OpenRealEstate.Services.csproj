@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>0.0.0</Version>
+    <Authors>Justin Adler</Authors>
+    <Company>Homely</Company>
+    <Product>OpenRealEstate - Services</Product>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/OpenRealEstate/OpenRealEstate/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/OpenRealEstate/OpenRealEstate</PackageProjectUrl>
+    <PackageIconUrl>http://i.imgur.com/bR4Yf.jpg</PackageIconUrl>
+    <RepositoryUrl>https://github.com/OpenRealEstate/OpenRealEstate</RepositoryUrl>
+    <RepositoryType>c#</RepositoryType>
+    <PackageTags>ore ore.net realestate openrealestate</PackageTags>
+    <Description>These are the services which encapsulate the main business logic of the OpenRealEstate library.
+
+This library is where all the magic happens :)</Description>
+    <Copyright>2014</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OpenRealEstate.Core\OpenRealEstate.Core.csproj" />
+  </ItemGroup>
+
+</Project>
