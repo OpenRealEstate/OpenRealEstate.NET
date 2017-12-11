@@ -14,6 +14,50 @@ namespace OpenRealEstate.Tests.Validators
 
         private readonly AddressValidator _addressValidator;
 
+        [Theory]
+        [InlineData("AU")]
+        [InlineData("au")]
+        public void GivenAValidCountryCode_Validate_ShouldNotHaveAValidationError(string countryCode)
+        {
+            _addressValidator.ShouldNotHaveValidationErrorFor(address => address.CountryIsoCode, countryCode);
+        }
+
+        [Theory]
+        [InlineData("1234", "aa")]
+        [InlineData("3000", "au")]
+        [InlineData("3000", "AU")]
+        public void GivenAValidPostcode_Validate_ShouldNotHaveAValidationError(string postcode,
+                                                                               string countryCode)
+        {
+            var address = new Address
+            {
+                CountryIsoCode = countryCode,
+                Postcode = postcode
+            };
+            _addressValidator.ShouldNotHaveValidationErrorFor(a => a.Postcode, address);
+        }
+
+        [Theory]
+        [InlineData("0", "au")]
+        [InlineData("100", "au")]
+        [InlineData("10000", "AU")]
+        [InlineData("", "AU")]
+        [InlineData(null, "AU")]
+        [InlineData("aaa", "AU")]
+        public void GivenAnInvalidPostcode_Validate_ShouldHaveAValidationError(string postcode,
+                                                                               string countryCode)
+        {
+            // Arrange.
+            var address = new Address
+            {
+                CountryIsoCode = countryCode,
+                Postcode = postcode
+            };
+
+            // Act & Assert.
+            _addressValidator.ShouldHaveValidationErrorFor(a => a.Postcode, address);
+        }
+
         [Fact]
         public void GivenALatitude_Validate_ShouldNotHaveAValidationError()
         {
@@ -26,16 +70,31 @@ namespace OpenRealEstate.Tests.Validators
             _addressValidator.ShouldNotHaveValidationErrorFor(address => address.Longitude, 170M);
         }
 
-        [Fact]
-        public void GivenAnInvalidLatitude_Validate_ShouldHaveAValidationError()
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData("abc")]
+        [InlineData("1234")]
+        [InlineData("AbC")]
+        public void GivenAnInvalidCountryCode_Validate_ShouldHaveAValidationError(string countryCode)
         {
-            _addressValidator.ShouldHaveValidationErrorFor(address => address.Latitude, -123M);
+            _addressValidator.ShouldHaveValidationErrorFor(address => address.CountryIsoCode, countryCode);
         }
 
-        [Fact]
-        public void GivenAnInvalidLongitude_Validate_ShouldHaveAValidationError()
+        [Theory]
+        [InlineData(123)]
+        [InlineData(-123)]
+        public void GivenAnInvalidLatitude_Validate_ShouldHaveAValidationError(decimal latitude)
         {
-            _addressValidator.ShouldHaveValidationErrorFor(address => address.Longitude, 200M);
+            _addressValidator.ShouldHaveValidationErrorFor(address => address.Latitude, latitude);
+        }
+
+        [Theory]
+        [InlineData(181)]
+        [InlineData(-181)]
+        public void GivenAnInvalidLongitude_Validate_ShouldHaveAValidationError(decimal longitude)
+        {
+            _addressValidator.ShouldHaveValidationErrorFor(address => address.Longitude, longitude);
         }
 
         [Fact]
