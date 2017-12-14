@@ -184,7 +184,6 @@ namespace OpenRealEstate.Tests.Transmorgrifiers.REA
             AssertResidentialListing(parsedResult, expectedListing);
         }
 
-
         [Theory]
         [InlineData("REA-Residential-Current-WithEnsuiteIsTrue.xml", 1)]
         [InlineData("REA-Residential-Current-WithEnsuiteIsFalse.xml", 0)]
@@ -213,7 +212,7 @@ namespace OpenRealEstate.Tests.Transmorgrifiers.REA
         {
             // Arrange.
             var reaXml =
-                File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current.WithAuctionDateTimePlaceholder.xml");
+                File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current-WithAuctionDateTimePlaceholder.xml");
             var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
 
             var updatedXml = reaXml.Replace("REPLACE-THIS-VALUE", bustedDateTime);
@@ -244,7 +243,7 @@ namespace OpenRealEstate.Tests.Transmorgrifiers.REA
         {
             // Arrange.
             var reaXml =
-                File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current.WithAuctionDateTimePlaceholder.xml");
+                File.ReadAllText("Sample Data\\Transmorgrifiers\\REA\\Residential\\REA-Residential-Current-WithAuctionDateTimePlaceholder.xml");
             var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
 
             var updatedXml = reaXml.Replace("REPLACE-THIS-VALUE", bustedDateTime);
@@ -308,7 +307,6 @@ namespace OpenRealEstate.Tests.Transmorgrifiers.REA
             expectedListing.StatusType = StatusType.Available;
             expectedListing.Address = new Address
             {
-                IsStreetDisplayed = true,
                 StreetNumber = "2/39",
                 Street = "Main Road",
                 Suburb = "RICHMOND",
@@ -637,6 +635,22 @@ namespace OpenRealEstate.Tests.Transmorgrifiers.REA
             };
 
             var reaXml = File.ReadAllText(FakeDataFolder + "REA-Residential-Sold-MissingDisplayPrice.xml");
+            var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
+
+            // Act.
+            var result = reaXmlTransmorgrifier.Parse(reaXml);
+
+            // Assert.
+            AssertResidentialListing(result, expectedListing);
+        }
+
+        [Fact]
+        public void GivenTheFileREAResidentialAddressDisplayIsNo_Parse_ReturnsAResidentialSoldListing()
+        {
+            // Arrange.
+            var expectedListing = FakeListings.CreateAFakeResidentialListing();
+            expectedListing.Address.DisplayAddress = $"{expectedListing.Address.Suburb}, {expectedListing.Address.State}";
+            var reaXml = File.ReadAllText(FakeDataFolder + "REA-Residential-Current-AddressDisplayIsNo.xml");
             var reaXmlTransmorgrifier = new ReaXmlTransmorgrifier();
 
             // Act.

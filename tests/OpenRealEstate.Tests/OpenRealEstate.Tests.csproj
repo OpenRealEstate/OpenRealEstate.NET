@@ -123,6 +123,9 @@
     <None Update="Sample Data\Transmorgrifiers\REA\Rental\REA-Segment-Rental-Current.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current-AddressDisplayIsNo.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current-BadSalePrice.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -198,7 +201,7 @@
     <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current-WithTooManyBedrooms.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current.WithAuctionDateTimePlaceholder.xml">
+    <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current-WithAuctionDateTimePlaceholder.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Sample Data\Transmorgrifiers\REA\Residential\REA-Residential-Current.xml">

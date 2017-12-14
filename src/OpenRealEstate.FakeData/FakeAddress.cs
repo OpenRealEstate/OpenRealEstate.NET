@@ -98,7 +98,6 @@ namespace OpenRealEstate.FakeData
             }
 
             return Builder<Address>.CreateNew()
-                                   .With(a => a.IsStreetDisplayed, true)
                                    .With(a => a.StreetNumber, streetNumber)
                                    .With(a => a.Street, street)
                                    .With(a => a.Suburb, suburb)
@@ -108,6 +107,7 @@ namespace OpenRealEstate.FakeData
                                    .With(a => a.Latitude, latitude)
                                    .With(a => a.Longitude, longitude)
                                    .With(a => a.Postcode, postcode)
+                                   .With(a => a.DisplayAddress, null)
                                    .Build();
         }
     }
