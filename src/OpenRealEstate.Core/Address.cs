@@ -24,7 +24,10 @@ namespace OpenRealEstate.Core
 
         public decimal? Longitude { get; set; }
 
-        public bool IsStreetDisplayed { get; set; }
+        /// <summary>
+        /// This is the address the agent wants to display to the public. It might not have the street number or appartment numbers or even the suburb!
+        /// </summary>
+        public string DisplayAddress { get; set; }
 
         public override string ToString()
         {
@@ -34,19 +37,12 @@ namespace OpenRealEstate.Core
         public string ToString(bool isLatLongIncluded)
         {
             var address = new StringBuilder();
-            if (!IsStreetDisplayed)
-            {
-                address.Append("(*Hidden*)");
-            }
+            
             address.Append(StreetNumber);
-            AppendDelimeter(address, " ");
-            address.Append(Street);
-            AppendDelimeter(address);
-            address.Append(Suburb);
-            AppendDelimeter(address);
-            address.Append(State);
-            AppendDelimeter(address);
-            address.Append(CountryIsoCode);
+            address.PrependWithDelimeter(Street, " ");
+            address.PrependWithDelimeter(Suburb);
+            address.PrependWithDelimeter(State);
+            address.PrependWithDelimeter(CountryIsoCode);
 
             if (isLatLongIncluded)
             {
@@ -62,17 +58,6 @@ namespace OpenRealEstate.Core
             return address.ToString();
         }
 
-        private static void AppendDelimeter(StringBuilder stringBuilder, string delimeter = ", ")
-        {
-            if (stringBuilder == null)
-            {
-                throw new ArgumentNullException(nameof(stringBuilder));
-            }
-
-            if (stringBuilder.Length > 0)
-            {
-                stringBuilder.Append(delimeter);
-            }
-        }
+        
     }
 }

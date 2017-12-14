@@ -12,6 +12,7 @@ using OpenRealEstate.Core.Land;
 using OpenRealEstate.Core.Rental;
 using OpenRealEstate.Core.Residential;
 using OpenRealEstate.Core.Rural;
+using OpenRealEstate.Services.Extensions;
 using CategoryTypeHelpers = OpenRealEstate.Core.Land.CategoryTypeHelpers;
 
 namespace OpenRealEstate.Services.RealEstateComAu
@@ -630,10 +631,29 @@ namespace OpenRealEstate.Services.RealEstateComAu
 
             listing.Address.Postcode = addressElement.ValueOrDefault("postcode");
 
+            // If we are not suppose to show the street, then we just show the 
+            // suburb and state instead - a convention I've decided to do. ¯\_(ツ)_/¯
             var isStreetDisplayedText = addressElement.AttributeValueOrDefault("display");
-            listing.Address.IsStreetDisplayed = string.IsNullOrWhiteSpace(isStreetDisplayedText) ||
+            var isStreetDisplayed = string.IsNullOrWhiteSpace(isStreetDisplayedText) ||
                                                 addressElement.AttributeBoolValueOrDefault("display");
+            if (!isStreetDisplayed)
+            {
+                var displayAddress = new StringBuilder();
+                if (!string.IsNullOrWhiteSpace(listing.Address.Suburb))
+                {
+                    displayAddress.Append(listing.Address.Suburb);
+                }
 
+                if (!string.IsNullOrWhiteSpace(listing.Address.State))
+                {
+                    displayAddress.PrependWithDelimeter(listing.Address.State);
+                }
+
+                if (displayAddress.Length > 0)
+                {
+                    listing.Address.DisplayAddress = displayAddress.ToString();
+                }
+            }
 
             // Technically, the <municipality/> element is not a child of the <address/> element.
             // But I feel that it's sensible to still parse for it, in here.

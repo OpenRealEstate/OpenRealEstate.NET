@@ -4,14 +4,14 @@ using System.Linq;
 using System.Xml.Linq;
 using OpenRealEstate.Core;
 
-namespace OpenRealEstate.Services
+namespace OpenRealEstate.Services.Extensions
 {
-    public static class XElementExtensions
+    internal static class XElementExtensions
     {
-        public static string Value(this XElement xElement,
-                                   string elementName = null,
-                                   string attributeName = null,
-                                   string attributeValue = null)
+        internal static string Value(this XElement xElement,
+                                     string elementName = null,
+                                     string attributeName = null,
+                                     string attributeValue = null)
         {
             var value = ValueOrDefault(xElement, elementName, attributeName, attributeValue);
 
@@ -35,10 +35,10 @@ namespace OpenRealEstate.Services
             throw new Exception(errorMessage);
         }
 
-        public static string ValueOrDefault(this XElement xElement,
-                                            string elementName = null,
-                                            string attributeName = null,
-                                            string attributeValue = null)
+        internal static string ValueOrDefault(this XElement xElement,
+                                              string elementName = null,
+                                              string attributeName = null,
+                                              string attributeValue = null)
         {
             if (xElement == null)
             {
@@ -92,11 +92,11 @@ namespace OpenRealEstate.Services
                        : value;
         }
 
-        public static void ValueOrDefaultIfExists(this XElement xElement,
-                                                  Action<string> setValue,
-                                                  string elementName = null,
-                                                  string attributeName = null,
-                                                  string attributeValue = null)
+        internal static void ValueOrDefaultIfExists(this XElement xElement,
+                                                    Action<string> setValue,
+                                                    string elementName = null,
+                                                    string attributeName = null,
+                                                    string attributeValue = null)
         {
             if (xElement == null)
             {
@@ -154,8 +154,8 @@ namespace OpenRealEstate.Services
                          : value);
         }
 
-        public static string AttributeValue(this XElement xElement,
-                                            string attributeName)
+        internal static string AttributeValue(this XElement xElement,
+                                              string attributeName)
         {
             var value = AttributeValueOrDefault(xElement, attributeName);
 
@@ -170,8 +170,8 @@ namespace OpenRealEstate.Services
             throw new Exception(errorMessage);
         }
 
-        public static string AttributeValueOrDefault(this XElement xElement,
-                                                     string attributeName)
+        internal static string AttributeValueOrDefault(this XElement xElement,
+                                                       string attributeName)
         {
             if (xElement == null)
             {
@@ -187,8 +187,8 @@ namespace OpenRealEstate.Services
             return attribute?.Value;
         }
 
-        public static bool AttributeBoolValueOrDefault(this XElement xElement,
-                                                       string attributeName)
+        internal static bool AttributeBoolValueOrDefault(this XElement xElement,
+                                                         string attributeName)
         {
             if (xElement == null)
             {
@@ -212,8 +212,8 @@ namespace OpenRealEstate.Services
                        : attribute.Value.ParseOneYesZeroNoToBool();
         }
 
-        public static int IntValueOrDefault(this XElement xElement,
-                                            string elementName = null)
+        internal static int IntValueOrDefault(this XElement xElement,
+                                              string elementName = null)
         {
             var value = xElement.ValueOrDefault(elementName);
             if (string.IsNullOrEmpty(value))
@@ -230,8 +230,8 @@ namespace OpenRealEstate.Services
             throw new Exception(errorMessage);
         }
 
-        public static decimal DecimalValueOrDefault(this XElement xElement,
-                                                    string elementName = null)
+        internal static decimal DecimalValueOrDefault(this XElement xElement,
+                                                      string elementName = null)
         {
             var value = xElement.ValueOrDefault(elementName);
             if (string.IsNullOrEmpty(value))
@@ -249,9 +249,9 @@ namespace OpenRealEstate.Services
             throw new Exception(errorMessage);
         }
 
-        public static decimal MoneyValueOrDefault(this XElement xElement,
-                                                  CultureInfo cultureInfo,
-                                                  string elementName = null)
+        internal static decimal MoneyValueOrDefault(this XElement xElement,
+                                                    CultureInfo cultureInfo,
+                                                    string elementName = null)
         {
             var value = xElement.ValueOrDefault(elementName);
             if (string.IsNullOrEmpty(value))
@@ -273,10 +273,10 @@ namespace OpenRealEstate.Services
             throw new Exception(errorMessage);
         }
 
-        public static void MoneyValueOrDefaultIfExists(this XElement xElement,
-                                                       Action<decimal> setValue,
-                                                       CultureInfo cultureInfo,
-                                                       string elementName = null)
+        internal static void MoneyValueOrDefaultIfExists(this XElement xElement,
+                                                         Action<decimal> setValue,
+                                                         CultureInfo cultureInfo,
+                                                         string elementName = null)
         {
             var value = xElement.ValueOrDefault(elementName);
             if (string.IsNullOrEmpty(value))
@@ -301,9 +301,9 @@ namespace OpenRealEstate.Services
             throw new Exception(errorMessage);
         }
 
-        public static decimal? NullableMoneyValueOrDefault(this XElement xElement,
-                                                           CultureInfo cultureInfo,
-                                                           string elementName = null)
+        internal static decimal? NullableMoneyValueOrDefault(this XElement xElement,
+                                                             CultureInfo cultureInfo,
+                                                             string elementName = null)
         {
             var value = xElement.ValueOrDefault(elementName);
             if (string.IsNullOrEmpty(value))
@@ -314,16 +314,16 @@ namespace OpenRealEstate.Services
             return xElement.MoneyValueOrDefault(cultureInfo, elementName);
         }
 
-        public static byte ByteValueOrDefault(this XElement xElement,
-                                              string elementName = null)
+        internal static byte ByteValueOrDefault(this XElement xElement,
+                                                string elementName = null)
         {
             var value = xElement.ValueOrDefault(elementName);
             return value.ParseByteValueOrDefault();
         }
 
-        public static void ByteValueOrDefaultIfExists(this XElement xElement,
-                                                      Action<byte> setValue,
-                                                      string elementName = null)
+        internal static void ByteValueOrDefaultIfExists(this XElement xElement,
+                                                        Action<byte> setValue,
+                                                        string elementName = null)
         {
             var action = new Action<string>(value =>
             {
@@ -334,8 +334,8 @@ namespace OpenRealEstate.Services
             xElement.ValueOrDefaultIfExists(action, elementName);
         }
 
-        public static bool BoolValueOrDefault(this XElement xElement,
-                                              string elementName = null)
+        internal static bool BoolValueOrDefault(this XElement xElement,
+                                                string elementName = null)
         {
             var value = xElement.ValueOrDefault(elementName);
             if (string.IsNullOrWhiteSpace(value))
@@ -349,8 +349,8 @@ namespace OpenRealEstate.Services
                        : value.ParseOneYesZeroNoToBool();
         }
 
-        public static byte BoolOrByteValueOrDefault(this XElement xElement,
-                                                    string elementName = null)
+        internal static byte BoolOrByteValueOrDefault(this XElement xElement,
+                                                      string elementName = null)
         {
             var value = xElement.ValueOrDefault(elementName);
             if (string.IsNullOrWhiteSpace(value))
@@ -365,9 +365,9 @@ namespace OpenRealEstate.Services
                        : value.ParseByteValueOrDefault();
         }
 
-        public static UnitOfMeasure UnitOfMeasureOrDefault(this XElement xElement,
-                                                           string elementName,
-                                                           string attributeName)
+        internal static UnitOfMeasure UnitOfMeasureOrDefault(this XElement xElement,
+                                                             string elementName,
+                                                             string attributeName)
         {
             var value = xElement.DecimalValueOrDefault(elementName);
 
@@ -388,7 +388,7 @@ namespace OpenRealEstate.Services
             return unitOfMeasure;
         }
 
-        public static XElement StripNameSpaces(this XElement root)
+        internal static XElement StripNameSpaces(this XElement root)
         {
             var xElement = new XElement(
                 root.Name.LocalName,

@@ -13,11 +13,11 @@ namespace OpenRealEstate.Services
             }
         }
 
-        internal static void AgainstNullOrWhiteSpace(string stringObj)
+        internal static void AgainstNullOrWhiteSpace(string value)
         {
-            if (string.IsNullOrWhiteSpace(stringObj))
+            if (string.IsNullOrWhiteSpace(value))
             {
-                throw new ArgumentNullException(nameof(stringObj));
+                throw new ArgumentNullException(nameof(value));
             }
         }
     }

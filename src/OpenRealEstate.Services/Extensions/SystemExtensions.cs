@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace OpenRealEstate.Services
+namespace OpenRealEstate.Services.Extensions
 {
-    public static class SystemExtensions
+    internal static class SystemExtensions
     {
         private static readonly ISet<string> YesTrueSet = new HashSet<string>(new[]
                                                                               {
@@ -21,7 +21,7 @@ namespace OpenRealEstate.Services
                                                                               },
                                                                               StringComparer.InvariantCultureIgnoreCase);
 
-        public static bool ParseYesTrueOrNoFalseToBool(this string value)
+        internal static bool ParseYesTrueOrNoFalseToBool(this string value)
         {
             Guard.AgainstNullOrWhiteSpace(value);
 
@@ -38,8 +38,8 @@ namespace OpenRealEstate.Services
             throw new ArgumentOutOfRangeException("value");
         }
 
-        public static bool TryParseYesOrNoToBool(this string value,
-                                                 out bool result)
+        internal static bool TryParseYesOrNoToBool(this string value,
+                                                   out bool result)
         {
             Guard.AgainstNullOrWhiteSpace(value);
 
@@ -53,7 +53,7 @@ namespace OpenRealEstate.Services
             return NoFalseSet.Contains(value);
         }
 
-        public static bool ParseOneYesZeroNoToBool(this string value)
+        internal static bool ParseOneYesZeroNoToBool(this string value)
         {
             Guard.AgainstNullOrWhiteSpace(value);
 
@@ -76,7 +76,7 @@ namespace OpenRealEstate.Services
                                                                     : value));
         }
 
-        public static byte ParseByteValueOrDefault(this string value)
+        internal static byte ParseByteValueOrDefault(this string value)
         {
             byte number = 0;
             if (string.IsNullOrWhiteSpace(value))

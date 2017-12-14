@@ -44,7 +44,6 @@ namespace OpenRealEstate.Tests.Transmorgrifiers.REA
             source.ShouldNotBeNull();
             destination.ShouldNotBeNull();
 
-            source.IsStreetDisplayed.ShouldBe(destination.IsStreetDisplayed);
             source.StreetNumber.ShouldBe(destination.StreetNumber);
             source.Street.ShouldBe(destination.Street);
             source.Suburb.ShouldBe(destination.Suburb);
@@ -54,6 +53,7 @@ namespace OpenRealEstate.Tests.Transmorgrifiers.REA
             source.Postcode.ShouldBe(destination.Postcode);
             source.Latitude.ShouldBe(destination.Latitude);
             source.Longitude.ShouldBe(destination.Longitude);
+            source.DisplayAddress.ShouldBe(destination.DisplayAddress);
         }
 
         public static void AssertAgents(IList<ListingAgent> source,
