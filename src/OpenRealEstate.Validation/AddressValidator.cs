@@ -34,32 +34,71 @@ namespace OpenRealEstate.Validation
             RuleFor(address => address.Postcode)
                 .NotEmpty()
                 .WithMessage("A Postcode is required. Eg. 3000 or 4566.")
-                .Custom((postcode,
-                         context) =>
+                .Must((anAddress,
+                       postcode,
+                       context) =>
                 {
                     if (!(context.ParentContext.InstanceToValidate is Address address))
                     {
-                        return;
+                        // No idea what instance we have .. so just step out :/
+                        return true;
                     }
 
                     if (string.IsNullOrWhiteSpace(address.CountryIsoCode) ||
-                        !string.Equals(address.CountryIsoCode, "au", StringComparison.OrdinalIgnoreCase))
+                            !string.Equals(address.CountryIsoCode, "au", StringComparison.OrdinalIgnoreCase))
                     {
-                        return;
+                        // Not Australia - so don't check for any specifics postcode values.
+                        return true;
                     }
+
 
                     // We have an Australian postcode.
                     if (!int.TryParse(address.Postcode, out var numberPostcode))
                     {
-                        context.AddFailure("Postcode", "Postcode's in Australia need to be numbers only. Eg. 3000, 4566, etc.");
+                        // But it is not a number :(
+                        return false;
                     }
-                    else if (numberPostcode < 200 ||
+
+                    if (numberPostcode < 200 ||
                              numberPostcode > 9999)
                     {
-                        context.AddFailure("Postcode",
-                                           "The (Australian) Postcode's is not in the valid range of postcodes. It should be between 200 and 9999. Eg. 3000, 4566, etc. Reference: https://en.wikipedia.org/wiki/Postcodes_in_Australia");
+                        // .. but it is a number, just not in the valid range :(
+                        return false;
                     }
+
+                    return true;
                 });
+
+                // NOTE: Custom is used in FV 7.x +
+                //       We had to downgrade to 6.fuckyou cause 7.fuckyou was strong-fucked which means
+                //       we cannot do binding redirects from 6 -> 7.
+
+                //.Custom((postcode,
+                //         context) =>
+                //{
+                //    if (!(context.ParentContext.InstanceToValidate is Address address))
+                //    {
+                //        return;
+                //    }
+
+                //    if (string.IsNullOrWhiteSpace(address.CountryIsoCode) ||
+                //        !string.Equals(address.CountryIsoCode, "au", StringComparison.OrdinalIgnoreCase))
+                //    {
+                //        return;
+                //    }
+
+                //    // We have an Australian postcode.
+                //    if (!int.TryParse(address.Postcode, out var numberPostcode))
+                //    {
+                //        context.AddFailure("Postcode", "Postcode's in Australia need to be numbers only. Eg. 3000, 4566, etc.");
+                //    }
+                //    else if (numberPostcode < 200 ||
+                //             numberPostcode > 9999)
+                //    {
+                //        context.AddFailure("Postcode",
+                //                           "The (Australian) Postcode's is not in the valid range of postcodes. It should be between 200 and 9999. Eg. 3000, 4566, etc. Reference: https://en.wikipedia.org/wiki/Postcodes_in_Australia");
+                //    }
+                //});
 
             RuleFor(address => address.Latitude)
                 .GreaterThanOrEqualTo(-90M)
