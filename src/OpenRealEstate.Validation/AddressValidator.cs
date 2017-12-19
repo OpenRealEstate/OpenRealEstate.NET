@@ -40,25 +40,29 @@ namespace OpenRealEstate.Validation
                 {
                     if (!(context.ParentContext.InstanceToValidate is Address address))
                     {
-                        return false;
+                        // No idea what instance we have .. so just step out :/
+                        return true;
                     }
 
                     if (string.IsNullOrWhiteSpace(address.CountryIsoCode) ||
                             !string.Equals(address.CountryIsoCode, "au", StringComparison.OrdinalIgnoreCase))
                     {
-                        return false;
+                        // Not Australia - so don't check for any specifics postcode values.
+                        return true;
                     }
 
 
                     // We have an Australian postcode.
                     if (!int.TryParse(address.Postcode, out var numberPostcode))
                     {
+                        // But it is not a number :(
                         return false;
                     }
 
                     if (numberPostcode < 200 ||
                              numberPostcode > 9999)
                     {
+                        // .. but it is a number, just not in the valid range :(
                         return false;
                     }
 
