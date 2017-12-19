@@ -34,32 +34,67 @@ namespace OpenRealEstate.Validation
             RuleFor(address => address.Postcode)
                 .NotEmpty()
                 .WithMessage("A Postcode is required. Eg. 3000 or 4566.")
-                .Custom((postcode,
-                         context) =>
+                .Must((anAddress,
+                       postcode,
+                       context) =>
                 {
                     if (!(context.ParentContext.InstanceToValidate is Address address))
                     {
-                        return;
+                        return false;
                     }
 
                     if (string.IsNullOrWhiteSpace(address.CountryIsoCode) ||
-                        !string.Equals(address.CountryIsoCode, "au", StringComparison.OrdinalIgnoreCase))
+                            !string.Equals(address.CountryIsoCode, "au", StringComparison.OrdinalIgnoreCase))
                     {
-                        return;
+                        return false;
                     }
+
 
                     // We have an Australian postcode.
                     if (!int.TryParse(address.Postcode, out var numberPostcode))
                     {
-                        context.AddFailure("Postcode", "Postcode's in Australia need to be numbers only. Eg. 3000, 4566, etc.");
+                        return false;
                     }
-                    else if (numberPostcode < 200 ||
+
+                    if (numberPostcode < 200 ||
                              numberPostcode > 9999)
                     {
-                        context.AddFailure("Postcode",
-                                           "The (Australian) Postcode's is not in the valid range of postcodes. It should be between 200 and 9999. Eg. 3000, 4566, etc. Reference: https://en.wikipedia.org/wiki/Postcodes_in_Australia");
+                        return false;
                     }
+
+                    return true;
                 });
+
+                // NOTE: Custom is used in FV 7.x +
+                //       We had to downgrade to 6.fuckyou cause 7.fuckyou was strong-fucked which means
+                //       we cannot do binding redirects from 6 -> 7.
+
+                //.Custom((postcode,
+                //         context) =>
+                //{
+                //    if (!(context.ParentContext.InstanceToValidate is Address address))
+                //    {
+                //        return;
+                //    }
+
+                //    if (string.IsNullOrWhiteSpace(address.CountryIsoCode) ||
+                //        !string.Equals(address.CountryIsoCode, "au", StringComparison.OrdinalIgnoreCase))
+                //    {
+                //        return;
+                //    }
+
+                //    // We have an Australian postcode.
+                //    if (!int.TryParse(address.Postcode, out var numberPostcode))
+                //    {
+                //        context.AddFailure("Postcode", "Postcode's in Australia need to be numbers only. Eg. 3000, 4566, etc.");
+                //    }
+                //    else if (numberPostcode < 200 ||
+                //             numberPostcode > 9999)
+                //    {
+                //        context.AddFailure("Postcode",
+                //                           "The (Australian) Postcode's is not in the valid range of postcodes. It should be between 200 and 9999. Eg. 3000, 4566, etc. Reference: https://en.wikipedia.org/wiki/Postcodes_in_Australia");
+                //    }
+                //});
 
             RuleFor(address => address.Latitude)
                 .GreaterThanOrEqualTo(-90M)
