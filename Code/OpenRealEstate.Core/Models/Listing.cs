@@ -10,7 +10,7 @@ namespace OpenRealEstate.Core.Models
     public abstract class Listing : AggregateRoot
     {
         private const string AddressName = "Address";
-        private const string AgencyIdName = "AgencyId";
+        private const string OfficeIdName = "OfficeId";
         private const string AgentsName = "Agents";
         private const string CreatedOnName = "CreatedOn";
         private const string DescriptionName = "Description";
@@ -29,7 +29,7 @@ namespace OpenRealEstate.Core.Models
         private readonly InstanceObjectNotified<Address> _address;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly StringNotified _agencyId;
+        private readonly StringNotified _OfficeId;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly ObservableCollection<ListingAgent> _agents;
@@ -75,8 +75,8 @@ namespace OpenRealEstate.Core.Models
             _address = new InstanceObjectNotified<Address>(AddressName);
             _address.PropertyChanged += ModifiedData.OnPropertyChanged;
 
-            _agencyId = new StringNotified(AgencyIdName);
-            _agencyId.PropertyChanged += ModifiedData.OnPropertyChanged;
+            _OfficeId = new StringNotified(OfficeIdName);
+            _OfficeId.PropertyChanged += ModifiedData.OnPropertyChanged;
 
             _agents = new ObservableCollection<ListingAgent>();
             _agents.CollectionChanged += (sender, args) => { ModifiedData.OnCollectionChanged(AgentsName); };
@@ -120,10 +120,10 @@ namespace OpenRealEstate.Core.Models
 
         public abstract string ListingType { get; }
 
-        public string AgencyId
+        public string OfficeId
         {
-            get { return _agencyId.Value; }
-            set { _agencyId.Value = value; }
+            get { return _OfficeId.Value; }
+            set { _OfficeId.Value = value; }
         }
 
         public StatusType StatusType
@@ -429,10 +429,10 @@ namespace OpenRealEstate.Core.Models
 
         public override string ToString()
         {
-            return string.Format("Agency: {0}; Id: {1}",
-                string.IsNullOrWhiteSpace(AgencyId)
-                    ? "--no Agency Id--"
-                    : AgencyId,
+            return string.Format("Office: {0}; Id: {1}",
+                string.IsNullOrWhiteSpace(OfficeId)
+                    ? "--no Office Id--"
+                    : OfficeId,
                 string.IsNullOrWhiteSpace(Id)
                     ? "--No Id--"
                     : Id);

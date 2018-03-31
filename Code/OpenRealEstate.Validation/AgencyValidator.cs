@@ -3,15 +3,15 @@ using OpenRealEstate.Core.Models;
 
 namespace OpenRealEstate.Validation
 {
-    public class AgencyValidator : AggregateRootValidator<Agency>
+    public class OfficeValidator : AggregateRootValidator<Offices>
     {
-        public AgencyValidator()
+        public OfficeValidator()
         {
-            RuleFor(agency => agency.FranchiseId).NotEmpty()
+            RuleFor(Office => Office.FranchiseId).NotEmpty()
                 .WithMessage(
-                    "A FranchiseId is required. An Agency has to be part of a franchise (including sole agencies).");
+                    "A FranchiseId is required. An Office has to be part of a franchise (including sole Offices).");
 
-            RuleFor(agency => agency.Name).NotEmpty();
+            RuleFor(Office => Office.Name).NotEmpty();
         }
     }
 }
