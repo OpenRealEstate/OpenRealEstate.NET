@@ -20,7 +20,7 @@ namespace OpenRealEstate.Tests
                 var json = File.ReadAllText(path);
 
                 // Act.
-                var Office = JsonConvert.DeserializeObject<Offices>(json);
+                var Office = JsonConvert.DeserializeObject<Office>(json);
 
                 // Assert.
                 Office.ShouldNotBeNull();
