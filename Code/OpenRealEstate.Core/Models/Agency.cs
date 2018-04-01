@@ -2,7 +2,7 @@
 
 namespace OpenRealEstate.Core.Models
 {
-    public class Agency : AggregateRoot
+    public class Office : AggregateRoot
     {
         public string FranchiseId { get; set; }
         public string Name { get; set; }

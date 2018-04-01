@@ -17,7 +17,7 @@ namespace OpenRealEstate.Validation
             ValidatorOptions.CascadeMode = CascadeMode.StopOnFirstFailure;
 
             // Required.
-            RuleFor(listing => listing.AgencyId).NotEmpty()
+            RuleFor(listing => listing.OfficeId).NotEmpty()
                 .WithMessage("Every listing needs at least one 'AgencyId'. eg. FancyPants-1234a or 456123, etc.");
             RuleFor(listing => listing.StatusType).NotEqual(StatusType.Unknown)
                 .WithMessage("Invalid 'StatusType'. Please choose any status except Unknown.");

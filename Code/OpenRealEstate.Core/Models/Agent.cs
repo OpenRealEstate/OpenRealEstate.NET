@@ -8,7 +8,7 @@ namespace OpenRealEstate.Core.Models
     {
         public string Name { get; set; }
         public bool IsActive { get; set; }
-        public IList<string> AgencyIds { get; set; }
+        public IList<string> OfficeIds { get; set; }
         public string Description { get; set; }
         public IList<Communication> Communications { get; set; }
         public Dictionary<string, string> WebSites { get; set; }
@@ -16,9 +16,9 @@ namespace OpenRealEstate.Core.Models
         public string Department { get; set; }
 
         /// <summary>
-        /// The ability to order profiles by the importance within the Agency. 
+        /// The ability to order profiles by the importance within the Office. 
         /// </summary>
-        /// <remarks>eg. Principals may wish to be first in the list of agents for an agency.
+        /// <remarks>eg. Principals may wish to be first in the list of agents for an Office.
         /// </remarks>
         public string Order { get; set; }
 
@@ -37,10 +37,10 @@ namespace OpenRealEstate.Core.Models
                 errors.Add("Name", "A name is required. eg. Jane Smith.");
             }
 
-            if (AgencyIds == null ||
-                !AgencyIds.Any())
+            if (OfficeIds == null ||
+                !OfficeIds.Any())
             {
-                errors.Add("AgencyIds", "At least one AgencyId is requires where this Agent works at.");
+                errors.Add("OfficeIds", "At least one OfficeId is requires where this Agent works at.");
             }
         }
     }

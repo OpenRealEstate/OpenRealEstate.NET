@@ -10,7 +10,7 @@ namespace OpenRealEstate.Validation
             RuleFor(agent => agent.Name).NotEmpty()
                 .WithMessage("A name is required. eg. Jane Smith.");
 
-            RuleFor(agent => agent.AgencyIds).NotEmpty()
+            RuleFor(agent => agent.OfficeIds).NotEmpty()
                 .WithMessage("At least one AgencyId is requires where this Agent works at.");
         }
     }

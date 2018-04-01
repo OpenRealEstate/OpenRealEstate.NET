@@ -319,7 +319,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             }
             catch (Exception exception)
             {
-                throw new ParsingException(exception.Message, listing.AgencyId, listing.Id, exception);
+                throw new ParsingException(exception.Message, listing.OfficeId, listing.Id, exception);
             }
 
             if (isClearAllIsModified)
@@ -437,7 +437,7 @@ namespace OpenRealEstate.Services.RealEstateComAu
             // so we'll default it to this.
             listing.CreatedOn = listing.UpdatedOn;
 
-            listing.AgencyId = document.ValueOrDefault("agentID");
+            listing.OfficeId = document.ValueOrDefault("agentID");
             listing.Id = document.ValueOrDefault("uniqueID");
             var status = document.AttributeValueOrDefault("status");
             if (!string.IsNullOrWhiteSpace(status))

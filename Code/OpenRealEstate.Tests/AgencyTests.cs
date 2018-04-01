@@ -20,11 +20,11 @@ namespace OpenRealEstate.Tests
                 var json = File.ReadAllText(path);
 
                 // Act.
-                var agency = JsonConvert.DeserializeObject<Agency>(json);
+                var Office = JsonConvert.DeserializeObject<Office>(json);
 
                 // Assert.
-                agency.ShouldNotBeNull();
-                agency.Id.ShouldBe(id);
+                Office.ShouldNotBeNull();
+                Office.Id.ShouldBe(id);
             }
         }
     }
