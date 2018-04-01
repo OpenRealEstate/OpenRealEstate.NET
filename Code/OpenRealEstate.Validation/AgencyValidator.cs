@@ -3,7 +3,7 @@ using OpenRealEstate.Core.Models;
 
 namespace OpenRealEstate.Validation
 {
-    public class OfficeValidator : AggregateRootValidator<Offices>
+    public class OfficeValidator : AggregateRootValidator<Office>
     {
         public OfficeValidator()
         {
