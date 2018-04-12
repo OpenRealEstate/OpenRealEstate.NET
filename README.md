@@ -1,4 +1,10 @@
-#OpenRealEstate.NET 
+# THIS REPO IS NOW OBSOLETE AND REPLACED BY A NEWER REPO: https://github.com/OpenRealEstate
+### Please refer to that main repo for all the latest code and sub-repo's for this project.
+### This repo will be nuked in sometime in the future as all this code has already been migrated and to avoid confusion.
+
+---
+
+# OpenRealEstate.NET 
 
 |            | Production | Dev |
 | ----------:| ---------- | --- |
