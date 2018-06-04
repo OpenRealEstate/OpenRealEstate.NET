@@ -71,6 +71,7 @@
     <Compile Include="ListingContractResolverTests.cs" />
     <Compile Include="ListingHelpersTests.cs" />
     <Compile Include="Models\AggregateRootTests.cs" />
+    <Compile Include="Models\MediaTests.cs" />
     <Compile Include="SingleOrArrayConverterTests.cs" />
     <Compile Include="TestHelperUtilities.cs" />
     <Compile Include="Models\LandListingTests.cs" />
